@@ -108,6 +108,10 @@ Hola soy Agustin Recabarren, estoy cursando la tecnicatura en programación, ten
 
 - [`Eleven Store`](https://elevenstore.cl/)
 
+## Trello 
+
+- [`Trello`](https://trello.com/b/UqVmN0gz/backlog)
+
 ## Maquetado
 
-- [`Figma`](https://www.figma.com/file/sCZBadmGiq8doHwlJwLsqB/Untitled?node-id=0%3A3)
+- [Figma](https://www.figma.com/file/sCZBadmGiq8doHwlJwLsqB/Untitled?node-id=0%3A3)
