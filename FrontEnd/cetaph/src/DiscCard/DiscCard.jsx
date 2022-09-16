@@ -9,14 +9,14 @@ const DiscCard = () => {
         alt=""
       />
       <div className="TextInfo">
-        <h1>Titulo Cancion</h1>
-        <h1>Artista</h1>
+        <h1 className="cancionName">Sharks</h1>
+        <h1 className="cancionArtist">Imagine Dragons</h1>
         <div className="FechaPrecio">
-          <h1>FECHA</h1>
-          <h1>PRECIO</h1>
+          <h1>12/2/2</h1>
+          <h1>$500</h1>
         </div>{" "}
-        <button> Añadir al Carrito</button>
       </div>
+        <button> Añadir al Carrito</button>
     </div>
   );
 };
