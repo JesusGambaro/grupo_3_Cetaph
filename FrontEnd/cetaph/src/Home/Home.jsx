@@ -4,6 +4,7 @@ import NavBar from "../Navbar/NavBar";
 import DiscCard from "../DiscCard/DiscCard";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import "./home.scss";
+import Footer from "../Footer/Footer";
 const Home = () => {
   const navigate = useNavigate();
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <DiscCard />
         <CategoryCard />
       </div>
+      <Footer />
     </>
   );
 };
