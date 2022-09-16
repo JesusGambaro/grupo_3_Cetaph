@@ -1,49 +1,50 @@
-.DiscCard{
-    padding: 10px;
-    background-color: transparent;
-    width: 250px;
-    border: 2px solid white;
+.DiscCard {
+  padding: 1rem;
+  background-color: transparent;
+  width: 250px;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+    gap: 1rem;
+  img {
+    width: 200px;
+  }
+  .TextInfo {
+    //border: 1px solid red;
+    width: 100%;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    img{
-        width: 200px;
+    h1 {
+      font-size: 30px;
     }
-    .TextInfo{
-        //border: 1px solid red;
-        width: 100%;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        h1{
-            font-size: 30px;
-        }
-        .FechaPrecio{
-            //border: 1px solid;
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            justify-content:space-between;
-            h1{
-                font-size: 20px;
-            }
-        }
-        .cancionName{
-
-        }
-        .cancionArtist{
-            font-size: 15px;
-            color: rgb(197, 197, 197);
-        }
+    .FechaPrecio {
+      //border: 1px solid;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      h1 {
+        font-size: 20px;
+      }
     }
-    button{
-        padding: 2%;
-        border: 2px solid white;
-        background-color: transparent;
-        color: white;
-        
+    .cancionName {
     }
+    .cancionArtist {
+      font-size: 15px;
+      color: rgb(197, 197, 197);
+    }
+  }
+  button {
+    border: 2px solid white;
+    border-radius: 2rem;
+    background: #fff;
+    color: black;
+    padding: 0.4rem 1.2rem;
+    font-size: .9rem;
+  }
 }

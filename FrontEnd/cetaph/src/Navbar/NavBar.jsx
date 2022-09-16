@@ -1,24 +1,52 @@
 import React from "react";
+import {useNavigate} from "react-router";
 import "./navbar.scss";
 const NavBar = () => {
+  const navigate = useNavigate();
   return (
     <nav>
       <div className="nav-wrapper">
-        <a href="#" className="brand-logo">
-          Logo
-        </a>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li>
-            <a href="sass.html">
+        <span className="logo" onClick={() => navigate("/Home")}>
+          <h1 className="logo-title">CETAPH</h1>
+          <h2 className="logo-subtitle">MUSIC RECORDS</h2>
+        </span>
+        <ul className="nav-menu">
+          <li className="nav-item">
+            <p className="nav-link" onClick={() => navigate("/Home")}>
+              Home
+            </p>
+          </li>
+          <li className="nav-item">
+            <p className="nav-link" onClick={() => navigate("/Catalogue")}>
+              Catalogue
+            </p>
+          </li>
+          <li className="nav-item">
+            <p className="nav-link" onClick={() => navigate("/AboutUs")}>
+              About
+            </p>
+          </li>
+          <li className="nav-item">
+            <p className="nav-link" onClick={() => navigate("/Contact")}>
+              Contact
+            </p>
+          </li>
+        </ul>
+        <ul className="nav-icons">
+          <li className="nav-icon">
+            <p className="icon-link">
               <i class="bi bi-heart"></i>
-
-            </a>
+            </p>
           </li>
-          <li>
-            <a href="badges.html"><i class="bi bi-person-circle"></i></a>
+          <li className="nav-icon">
+            <p className="icon-link">
+              <i class="bi bi-person-circle"></i>
+            </p>
           </li>
-          <li>
-            <a href="collapsible.html"><i class="bi bi-basket3"></i></a>
+          <li className="nav-icon">
+            <p className="icon-link">
+              <i class="bi bi-basket3"></i>
+            </p>
           </li>
         </ul>
       </div>

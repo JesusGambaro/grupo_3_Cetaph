@@ -3,14 +3,17 @@ import {useNavigate} from "react-router";
 import NavBar from "../Navbar/NavBar";
 import DiscCard from "../DiscCard/DiscCard";
 import CategoryCard from "../CategoryCard/CategoryCard";
+import "./home.scss";
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <>
       <NavBar />
-      <DiscCard />
-      <CategoryCard />
-    </div>
+      <div className="home-container">
+        <DiscCard />
+        <CategoryCard />
+      </div>
+    </>
   );
 };
 
