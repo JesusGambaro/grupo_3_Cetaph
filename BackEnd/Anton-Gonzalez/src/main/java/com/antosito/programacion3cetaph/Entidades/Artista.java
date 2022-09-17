@@ -19,6 +19,8 @@ import javax.persistence.Table;
 @Audited
 public class Artista extends Base {
 
+
+    //Crear una relacion con singles
     @Column(name = "nombre")
     private String nombre;
 
