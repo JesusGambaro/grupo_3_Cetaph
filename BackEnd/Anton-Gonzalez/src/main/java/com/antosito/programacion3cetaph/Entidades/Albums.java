@@ -1,12 +1,10 @@
 package com.antosito.programacion3cetaph.Entidades;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Audited
 public class Albums extends Base{
 
@@ -34,10 +32,20 @@ public class Albums extends Base{
     @Column(name ="descripcion")
     private String descripcion;
 
+    @Column(name = "esVinilo")
+    private boolean esVinilo;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_artista")
     private List<Artista> artistas;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+            name = "album_single",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "single_id")
+    )
+    private List<Singles>singles;
 
 }
 
