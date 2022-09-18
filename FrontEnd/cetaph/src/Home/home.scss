@@ -1,8 +1,137 @@
 .home-container {
-  min-height: calc(100vh - 5rem);
   width: 100%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: rgba(34, 34, 34, 1);
+  font-family: "Inder", sans-serif;
+  .home-container__categories {
+    width: 100%;
+    min-height: calc(100vh - 5rem);
+    margin-top: 5rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: column;
+    .categories-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 50%;
+      gap: 1rem;
+      color: #fff;
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        input {
+          width: 100%;
+          border: 0.1rem solid #fff;
+          padding: 0.5rem;
+          border-radius: 0.5rem 0 0 0.5rem;
+          background-color: white;
+          font-size: 1.2rem;
+          outline: none;
+        }
+        button {
+          border: 0.1rem solid #fff;
+          font-size: 1.2rem;
+          border-radius: 0 0.5rem 0.5rem 0;
+          padding: 0.5rem 1rem;
+          color: #000;
+          background-color: transparent;
+          outline: none;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+          background: #ffdbd8;
+          &:hover {
+            background: #eac0bc;
+          }
+        }
+      }
+      p {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+      margin-bottom: 2rem;
+    }
+    .categories-card-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+  }
+  .home-container__discs{
+    width: 100%;
+    min-height: calc(100vh - 5rem);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: column;
+    .discs-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 50%;
+      gap: 1rem;
+      color: #fff;
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        input {
+          width: 100%;
+          border: 0.1rem solid #fff;
+          padding: 0.5rem;
+          border-radius: 0.5rem 0 0 0.5rem;
+          background-color: white;
+          font-size: 1.2rem;
+          outline: none;
+        }
+        button {
+          border: 0.1rem solid #fff;
+          font-size: 1.2rem;
+          border-radius: 0 0.5rem 0.5rem 0;
+          padding: 0.5rem 1rem;
+          color: #000;
+          background-color: transparent;
+          outline: none;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+          background: #ffdbd8;
+          &:hover {
+            background: #eac0bc;
+          }
+        }
+      }
+      p {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+      margin-bottom: 2rem;
+    }
+    .discs-card-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+  }
 }
