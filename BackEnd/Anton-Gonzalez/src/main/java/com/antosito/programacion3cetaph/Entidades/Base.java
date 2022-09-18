@@ -1,12 +1,10 @@
 package com.antosito.programacion3cetaph.Entidades;
 
 import lombok.*;
-import org.hibernate.annotations.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 @MappedSuperclass

@@ -7,8 +7,8 @@ import lombok.Setter;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "albums")
@@ -33,6 +33,11 @@ public class Albums extends Base{
 
     @Column(name ="descripcion")
     private String descripcion;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_artista")
+    private List<Artista> artistas;
+
 
 }
 

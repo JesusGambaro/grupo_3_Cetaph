@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "artista")
@@ -26,5 +25,9 @@ public class Artista extends Base {
 
     @Column(name = "apellido")
     private String nacionalidad;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_album")
+    private List<Albums> albums;
 
 }

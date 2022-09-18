@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "singles")
@@ -27,5 +26,21 @@ public class Singles extends Base {
 
     @Column(name = "lanzamiento")
     private String fechaLanzamiento;
+
+    @Column(name = "genero")
+    private String genero;
+
+    @Column(name = "esVinilo?")
+    private boolean esVinilo;
+
+    @Column(name = "precio")
+    private float precio;
+
+    @Column(name = "stock")
+    private int stock;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "artistas_involucrados")
+    private List<Artista> artistas;
 
 }
