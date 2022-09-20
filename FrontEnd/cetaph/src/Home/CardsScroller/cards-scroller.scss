@@ -16,6 +16,12 @@
   gap: 2rem;
   display: flex;
   scrollbar-color: transparent transparent;
+  cursor: move;
+  cursor: grab;
+  overflow: auto;
+  &:active {
+    cursor: grabbing;
+  }
   &::-webkit-scrollbar {
     height: 0.5rem;
   }

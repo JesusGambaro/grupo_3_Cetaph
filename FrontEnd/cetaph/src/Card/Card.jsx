@@ -8,6 +8,7 @@ const DiscCard = () => {
         <img
           src="https://lh3.googleusercontent.com/oWyLklmIlgBVjLy63kmFrXfgmzK8EIwpzyXneeLu3Ly6eqB_Usf7zZhZzo-LlwbxMx4WugYNW1Lp-ec=w544-h544-l90-rj"
           alt=""
+          draggable="false"
         />
       </div>
       <div className="card-body">

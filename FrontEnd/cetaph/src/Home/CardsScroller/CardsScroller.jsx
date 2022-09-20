@@ -33,20 +33,48 @@ const CardsScroller = ({props}) => {
       },
       false
     );*/
-    const scrollContainer = document.querySelector("#slider");
+    //Scroll with mouse wheel
+    /*  const scrollContainer = document.querySelector("#slider");
 
     scrollContainer.addEventListener("wheel", (evt) => {
       evt.preventDefault();
       scrollContainer.scrollLeft += evt.deltaY;
-    });
+    }); */
   }, []);
+
+  let pos = {top: 0, left: 0, x: 0, y: 0};
+  const mouseDownHandler = (e) => {
+    const ele = document.getElementById("slider");
+    pos = {
+      left: ele.scrollLeft,
+      top: ele.scrollTop,
+      x: e.clientX,
+      y: e.clientY,
+    };
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
+  };
+  const mouseMoveHandler = (e) => {
+    const ele = document.getElementById("slider");
+    ele.scrollTop = pos.top - (e.clientY - pos.y);
+    ele.scrollLeft = pos.left - (e.clientX - pos.x);
+  };
+  const mouseUpHandler = () => {
+    document.removeEventListener("mousemove", mouseMoveHandler);
+    document.removeEventListener("mouseup", mouseUpHandler);
+  };
+
   return (
-    <div id="main-slider-container">
+    <div
+      id="main-slider-container"
+      onMouseDown={mouseDownHandler}
+      onMouseUp={mouseUpHandler}
+    >
       <i className="bi bi-arrow-left slider-icon left" onClick={slideRight}></i>
       <div id="slider">
         {props.map((slide, index) => {
           return (
-            <div className="slider-card" key={index}>
+            <div className="slider-card noselect" key={index}>
               <Card />
             </div>
           );
