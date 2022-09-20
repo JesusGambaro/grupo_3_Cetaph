@@ -1,10 +1,12 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import NavBar from "../Navbar/NavBar";
+import usePagination from "../hooks/usePagination";
+import Loading from "../Loading/Loading";
 const Catalogue = () => {
   return (
-    <div>
+    <>
       <NavBar />
-    </div>
+    </>
   );
 };
 

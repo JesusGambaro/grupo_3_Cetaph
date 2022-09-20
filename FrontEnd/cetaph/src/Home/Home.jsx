@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router";
 import NavBar from "../Navbar/NavBar";
-import DiscCard from "../DiscCard/DiscCard";
+import Card from "../Card/Card";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import "./home.scss";
 import CardsScroller from "./CardsScroller/CardsScroller";
@@ -13,14 +13,14 @@ const Home = () => {
   return (
     <>
       <NavBar />
-      <div className="home-container">
+      <div className="home-container-own">
         <div className="home-container__categories">
           <div className="categories-header">
             <h1>Categories</h1>
             <form>
               <input type="text" placeholder="Search" />
               <button type="submit">
-                <i class="bi bi-search"></i>
+                <i className="bi bi-search"></i>
               </button>
             </form>
             <p>

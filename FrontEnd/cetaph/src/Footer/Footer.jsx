@@ -14,13 +14,13 @@ const Footer = () => {
             <h1 className="title">Contactanos</h1>
             <div className="text">
               <h1>
-                <i class="bi bi-geo-alt"></i>Mendoza Argentina
+                <i className="bi bi-geo-alt"></i>Mendoza Argentina
               </h1>
               <h1>
-                <i class="bi bi-telephone"></i>+5492616172242
+                <i className="bi bi-telephone"></i>+5492616172242
               </h1>
               <h1>
-                <i class="bi bi-envelope-open"></i>cetaphMR@gmail.com
+                <i className="bi bi-envelope-open"></i>cetaphMR@gmail.com
               </h1>
             </div>
           </div>
@@ -29,15 +29,15 @@ const Footer = () => {
           <span className="details">
             <h1 className="title">Redes</h1>
             <div className="redes">
-              <i class="fa-brands fa-instagram"></i>
-              <i class="fa-brands fa-facebook"></i>
+              <i className="fa-brands fa-instagram"></i>
+              <i className="fa-brands fa-facebook"></i>
             </div>
           </span>
           <span className="details">
             <h1 className="title">Metodos De Pago</h1>
             <div className="tarjetas">
-              <i class="fa-brands fa-cc-visa"></i>
-              <i class="fa-brands fa-cc-mastercard"></i>
+              <i className="fa-brands fa-cc-visa"></i>
+              <i className="fa-brands fa-cc-mastercard"></i>
             </div>
           </span>
         </span>

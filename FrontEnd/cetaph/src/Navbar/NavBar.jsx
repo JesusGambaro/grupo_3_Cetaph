@@ -36,17 +36,17 @@ const NavBar = () => {
         <ul className="nav-icons">
           <li className="nav-icon">
             <p className="icon-link">
-              <i class="bi bi-heart"></i>
+              <i className="bi bi-heart"></i>
             </p>
           </li>
           <li className="nav-icon">
             <p className="icon-link">
-              <i class="bi bi-person-circle"></i>
+              <i className="bi bi-person-circle"></i>
             </p>
           </li>
           <li className="nav-icon">
             <p className="icon-link">
-              <i class="bi bi-basket3"></i>
+              <i className="bi bi-basket3"></i>
             </p>
           </li>
         </ul>
