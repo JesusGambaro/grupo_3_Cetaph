@@ -33,18 +33,21 @@ const Home = () => {
           <div className="categories-card-wrapper">
             <CategoryCard
               img={
-                "https://lh3.googleusercontent.com/NzpxsXd1zYI-wjKRtdOlS3XCJK7mslbm2UFiU83vg4Vq_S-gQAF5otMl94-HzVmLuovwXdGzBeB29Uw=w544-h544-l90-rj"
+                "https://hotpotmedia.s3.us-east-2.amazonaws.com/8-2nrTeBEkbdoRZPs.png"
               }
+              data_category={"Jazz"}
             />
             <CategoryCard
               img={
-                "https://lh3.googleusercontent.com/wVwe0_TyzTUL8y4ihcVtPWS8-lVVV7WfzmNzir_Qy9jiccgvXJSGCI0_GKDlvxBPSHvyOGX_rHEm5g7Pfg=w544-h544-l90-rj"
+                "https://mj-gallery.com/0e6da7ba-8d90-4ba2-8706-5db9b4177d7a/grid_0.png"
               }
+              data_category={"Summer Hits"}
             />
             <CategoryCard
               img={
-                "https://lh3.googleusercontent.com/weYQWfEwWNPOuAm34geXN1LkSYPlsJay78NnQgHC3PKsyZcdvBHIsMtqoFh3rioA4XgMdHMQd3h6vH6mbA=w544-h544-l90-rj"
+                "https://hotpotmedia.s3.us-east-2.amazonaws.com/8-sj4CVUBWisqrnZJ.png"
               }
+              data_category={"Classical"}
             />
           </div>
         </div>

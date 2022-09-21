@@ -9,11 +9,11 @@ const NavBar = () => {
         <span className="logo" onClick={() => navigate("/Home")}>
           {/*   <h1 className="logo-title">CETAPH</h1>
           <h2 className="logo-subtitle">MUSIC RECORDS</h2> */}
-          <img src="./Images/cetaphIcono.png" alt="logo" />
+          <img src="/Images/cetaphIcono.png" alt="logo" />
         </span>
         <ul className="nav-menu">
           <li className="nav-item">
-            <p className="nav-link" onClick={() => navigate("/Home")}>
+            <p className="nav-link" onClick={() => navigate("/Details/1")}>
               Home
             </p>
           </li>
