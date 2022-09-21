@@ -1,0 +1,144 @@
+.Detail {
+  //border: 1px solid red;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(34, 34, 34, 1);
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  .ImagenDisco {
+    //border: 1px solid white;
+    padding: 7rem;
+    padding-left: 5rem;
+    //margin: 10rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 10px;
+    .DiskImg {
+      border: 20px solid white;
+      box-shadow: 5px 0px 5px black;
+      z-index: 1;
+      width: 25rem;
+      height: 25rem;
+      min-height: 25rem;
+    }
+    .ExtraImagenesContainer {
+      display: flex;
+      flex-direction: row;
+      //border: 1px solid red;
+      gap: 1rem;
+      .ExtraImagenes {
+        img {
+          cursor: pointer;
+          
+          width: 6rem;
+          box-shadow: 5px 0px 5px black;
+          border: 10px solid white;
+          height: 6rem;
+          min-height: 6rem;
+          transition: .2s ease;
+          &:hover {
+            transform: scale(110%);
+          }
+        }
+      }
+    }
+
+    .Vynil_disk {
+      img {
+        width: 25rem;
+      }
+      position: absolute;
+      transform: translateX(8rem);
+    }
+  }
+  .DiscoInfo {
+    color: white;
+    //border: 1px solid white;
+    //padding: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    font-size: 0.7rem;
+    font-weight: 300;
+    width: 35vw;
+    gap: 0.5rem;
+    span {
+      //border: 1px solid red;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      gap: 1rem;
+      label {
+        font-size: 1rem;
+      }
+    }
+    .ArtistName {
+      //border: 1px solid rgb(255, 0, 0);
+      margin-bottom: 100px;
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    .Buttons {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      button {
+        height: 3rem;
+        color: white;
+        font-weight: bold;
+        border: 2px solid white;
+        background-color: transparent;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        transition: 0.5s ease;
+        :nth-child(1) {
+          width: 3rem;
+        }
+        &:hover {
+          background-color: white;
+          color: black;
+          transform: scale(110%);
+        }
+      }
+    }
+  }
+  .ExtraInfo {
+    width: 15vw;
+    //border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    color: white;
+    .StockText {
+      display: flex;
+      flex-direction: row;
+      font-size: 2rem;
+    }
+    .Delivery {
+      i {
+        font-size: 3rem;
+      }
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      font-size: 1rem;
+    }
+    .Protected {
+      i {
+        font-size: 3rem;
+      }
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      font-size: 1rem;
+    }
+  }
+}
