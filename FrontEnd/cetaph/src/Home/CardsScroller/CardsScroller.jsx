@@ -1,16 +1,18 @@
 import React from "react";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import Card from "../../Card/Card";
 import "./cards-scroller.scss";
-const CardsScroller = ({props}) => {
+import ScrollContainer from "react-indiana-drag-scroll";
+
+const CardsScroller = ({ props }) => {
   const slideLeft = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft + 250;
+    /* var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft + 250; */
   };
 
   const slideRight = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft * -250;
+    /*   var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft * -250; */
   };
 
   //Scroll with mouse wheel
@@ -42,21 +44,18 @@ const CardsScroller = ({props}) => {
     }); */
   }, []);
 
-  let pos = {top: 0, left: 0, x: 0, y: 0};
+  let pos = { top: 0, x: 0 };
   const mouseDownHandler = (e) => {
     const ele = document.getElementById("slider");
     pos = {
       left: ele.scrollLeft,
-      top: ele.scrollTop,
       x: e.clientX,
-      y: e.clientY,
     };
     document.addEventListener("mousemove", mouseMoveHandler);
     document.addEventListener("mouseup", mouseUpHandler);
   };
   const mouseMoveHandler = (e) => {
     const ele = document.getElementById("slider");
-    ele.scrollTop = pos.top - (e.clientY - pos.y);
     ele.scrollLeft = pos.left - (e.clientX - pos.x);
   };
   const mouseUpHandler = () => {
@@ -72,13 +71,15 @@ const CardsScroller = ({props}) => {
     >
       <i className="bi bi-arrow-left slider-icon left" onClick={slideRight}></i>
       <div id="slider">
-        {props.map((slide, index) => {
-          return (
-            <div className="slider-card noselect" key={index}>
-              <Card />
-            </div>
-          );
-        })}
+        <ScrollContainer className="scroll-container">
+          {props.map((slide, index) => {
+            return (
+              <div className="slider-card noselect" key={index}>
+                <Card />
+              </div>
+            );
+          })}
+        </ScrollContainer>
       </div>
       <i
         className="bi bi-arrow-right slider-icon right"
