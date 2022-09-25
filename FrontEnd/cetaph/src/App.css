@@ -53,7 +53,11 @@ code {
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
+  
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+html {
+  scroll-behavior: smooth;
 }
 body::-webkit-scrollbar {
   width: 0.75rem;
@@ -62,6 +66,6 @@ body::-webkit-scrollbar {
   background-color: #575a5c;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #ffdbd8;
+  background-color: #feecea;
   border-radius: 9999px;
 }

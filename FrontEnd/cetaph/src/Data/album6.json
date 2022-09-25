@@ -1,0 +1,336 @@
+{
+    "albums": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+            },
+            "id": "6zFYqv1mOsgBRQbae3JJ9e",
+            "name": "Billy Joel",
+            "type": "artist",
+            "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+          }
+        ],
+        "copyrights": [
+          {
+            "text": "(P) 1989 Columbia Records, a division of Sony Music Entertainment",
+            "type": "P"
+          }
+        ],
+        "external_ids": {
+          "upc": "074646939420"
+        },
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1Vw2uoVkLAJFVViJ1QyK1D"
+        },
+        "genres": [],
+        "id": "1Vw2uoVkLAJFVViJ1QyK1D",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b2731946747b8692919f98918ec4",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e021946747b8692919f98918ec4",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d000048511946747b8692919f98918ec4",
+            "width": 64
+          }
+        ],
+        "label": "Columbia",
+        "name": "Storm Front",
+        "popularity": 63,
+        "release_date": "1989-10-17",
+        "release_date_precision": "day",
+        "total_tracks": 10,
+        "tracks": {
+          "items": [
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 308000,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/7EXagPENSPw79YAz500A6A"
+              },
+              "id": "7EXagPENSPw79YAz500A6A",
+              "is_local": false,
+              "is_playable": true,
+              "name": "That's Not Her Style",
+              "preview_url": "https://p.scdn.co/mp3-preview/85f2f08c6441967de1db45d5988b2563bcfeb400?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 1,
+              "type": "track",
+              "uri": "spotify:track:7EXagPENSPw79YAz500A6A"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 287733,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/3Cx4yrFaX8CeHwBMReOWXI"
+              },
+              "id": "3Cx4yrFaX8CeHwBMReOWXI",
+              "is_local": false,
+              "is_playable": true,
+              "name": "We Didn't Start the Fire",
+              "preview_url": "https://p.scdn.co/mp3-preview/6fac32766cf931651488f8972477dfb3df3cec23?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 2,
+              "type": "track",
+              "uri": "spotify:track:3Cx4yrFaX8CeHwBMReOWXI"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 223266,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/39cFQHfY6tsdMRmSbFse3X"
+              },
+              "id": "39cFQHfY6tsdMRmSbFse3X",
+              "is_local": false,
+              "is_playable": true,
+              "name": "The Downeaster 'Alexa'",
+              "preview_url": "https://p.scdn.co/mp3-preview/b3483b47373829cc3e7c88e8beb97c016bd394d0?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 3,
+              "type": "track",
+              "uri": "spotify:track:39cFQHfY6tsdMRmSbFse3X"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 263200,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/16LYB0chkPiblx33djiNTt"
+              },
+              "id": "16LYB0chkPiblx33djiNTt",
+              "is_local": false,
+              "is_playable": true,
+              "name": "I Go to Extremes",
+              "preview_url": "https://p.scdn.co/mp3-preview/dded6606538e22f2fe66350171e1f6e482a248bc?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 4,
+              "type": "track",
+              "uri": "spotify:track:16LYB0chkPiblx33djiNTt"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 266573,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/5otDACaytrZod3KjWKMUPY"
+              },
+              "id": "5otDACaytrZod3KjWKMUPY",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Shameless",
+              "preview_url": "https://p.scdn.co/mp3-preview/a100d60140db58feeb5ff247e402bc17b7e8e9ce?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 5,
+              "type": "track",
+              "uri": "spotify:track:5otDACaytrZod3KjWKMUPY"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 316866,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2A1KO4Ws3chY35sUFJGSlD"
+              },
+              "id": "2A1KO4Ws3chY35sUFJGSlD",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Storm Front",
+              "preview_url": "https://p.scdn.co/mp3-preview/e64ba589e69f573fa1884ac6ffc784dd43713084?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 6,
+              "type": "track",
+              "uri": "spotify:track:2A1KO4Ws3chY35sUFJGSlD"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 242706,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/5P9EZpsQy7pBrxosDozOgZ"
+              },
+              "id": "5P9EZpsQy7pBrxosDozOgZ",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Leningrad",
+              "preview_url": "https://p.scdn.co/mp3-preview/f933634611f892e9bae33c64bacff2696bcb315a?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 7,
+              "type": "track",
+              "uri": "spotify:track:5P9EZpsQy7pBrxosDozOgZ"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 268400,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6LEyiwp82Pea63MaOq356L"
+              },
+              "id": "6LEyiwp82Pea63MaOq356L",
+              "is_local": false,
+              "is_playable": true,
+              "name": "State of Grace",
+              "preview_url": "https://p.scdn.co/mp3-preview/75d4865fc0eb6a1d71583acc7f591ef71f8ee2a7?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 8,
+              "type": "track",
+              "uri": "spotify:track:6LEyiwp82Pea63MaOq356L"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 284640,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2iBoAuJ5WDzrbgwPaFHJqV"
+              },
+              "id": "2iBoAuJ5WDzrbgwPaFHJqV",
+              "is_local": false,
+              "is_playable": true,
+              "name": "When In Rome",
+              "preview_url": "https://p.scdn.co/mp3-preview/0ba8b3de6c5c8fd4bc420e032148c4c1dd09c47b?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 9,
+              "type": "track",
+              "uri": "spotify:track:2iBoAuJ5WDzrbgwPaFHJqV"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+                  },
+                  "id": "6zFYqv1mOsgBRQbae3JJ9e",
+                  "name": "Billy Joel",
+                  "type": "artist",
+                  "uri": "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 217573,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1u7kQUb3lQcpHaYRfia13A"
+              },
+              "id": "1u7kQUb3lQcpHaYRfia13A",
+              "is_local": false,
+              "is_playable": true,
+              "name": "And So It Goes",
+              "preview_url": "https://p.scdn.co/mp3-preview/edd4f12157bf44cb296e7d6887afc9bbe418196a?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 10,
+              "type": "track",
+              "uri": "spotify:track:1u7kQUb3lQcpHaYRfia13A"
+            }
+          ],
+          "limit": 50,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total": 10
+        },
+        "type": "album",
+        "uri": "spotify:album:1Vw2uoVkLAJFVViJ1QyK1D"
+      }
+    ]
+  }

@@ -1,24 +1,30 @@
 #main-slider-container {
   width: 90%;
-  height: 30rem;
   position: relative;
   display: flex;
   align-items: flex-end;
 }
 
-#slider {
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: scroll;
+.scroll-container {
   scrollbar-width: none;
   scroll-behavior: smooth;
   direction: ltr;
-  gap: 2rem;
-  display: flex;
   scrollbar-color: transparent transparent;
-  cursor: move;
+  margin-bottom: 1rem;
+  position: relative;
   cursor: grab;
-  overflow: auto;
+  width: 100%;
+  height: 100%;
+  .wrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    width: 100%;
+    margin: 2rem;
+    height: 100%;
+    display: flex;
+    margin-right: 95rem;
+  }
   &:active {
     cursor: grabbing;
   }
@@ -30,14 +36,13 @@
     background-color: rgba(180, 179, 179, 0.215);
   }
   &::-webkit-scrollbar-button {
-    width: 100px;
+    width: 200px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #fff;
   }
 }
-
 .slider-icon.left,
 .slider-icon.right {
   position: absolute;
@@ -45,23 +50,20 @@
   z-index: 1;
   color: #fff;
   font-size: 2rem;
-  bottom: -1rem;
+  bottom: 0;
   &.slider-icon.left {
-    left: 8%;
+    left: 10%;
   }
   &.slider-icon.right {
-    right: 8%;
+    right: 10%;
   }
 }
 .slider-card {
-  margin: 2rem;
   width: 16rem;
   display: inline-block;
   cursor: pointer;
   &:nth-child(1) {
-    margin-left: 1rem;
   }
   &:last-child {
-    margin-right: 1rem;
   }
 }

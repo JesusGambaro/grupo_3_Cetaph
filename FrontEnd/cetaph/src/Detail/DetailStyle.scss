@@ -1,144 +1,263 @@
+@mixin grab {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+}
 .Detail {
-  //border: 1px solid red;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(34, 34, 34, 1);
   display: flex;
-  flex-direction: row;
-  gap: 3rem;
-  .ImagenDisco {
-    //border: 1px solid white;
-    padding: 7rem;
-    padding-left: 5rem;
-    //margin: 10rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  .album-info {
+    //border: 1px solid red;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(34, 34, 34, 1);
     display: flex;
-    flex-direction: column;
-    position: relative;
-    gap: 10px;
-    .DiskImg {
-      border: 20px solid white;
-      box-shadow: 5px 0px 5px black;
-      z-index: 1;
-      width: 25rem;
-      height: 25rem;
-      min-height: 25rem;
-    }
-    .ExtraImagenesContainer {
+    gap: 3rem;
+    .ImagenDisco {
+      //border: 1px solid white;
+      padding: 7rem;
+      padding-left: 5rem;
+      //margin: 10rem;
       display: flex;
-      flex-direction: row;
-      //border: 1px solid red;
-      gap: 1rem;
-      .ExtraImagenes {
+      flex-direction: column;
+      position: relative;
+      gap: 10px;
+      .DiskImg {
+        border: 20px solid white;
+        box-shadow: 5px 0px 5px black;
+        z-index: 1;
+        width: 25rem;
+        height: 25rem;
+        min-height: 25rem;
+      }
+      .ExtraImagenesContainer {
+        display: flex;
+        flex-direction: row;
+        //border: 1px solid red;
+        gap: 1rem;
+        .ExtraImagenes {
+          img {
+            cursor: pointer;
+
+            width: 6rem;
+            box-shadow: 5px 0px 5px black;
+            border: 10px solid white;
+            height: 6rem;
+            min-height: 6rem;
+            transition: 0.2s ease;
+            &:hover {
+              transform: scale(110%);
+            }
+          }
+        }
+      }
+
+      .Vynil_disk {
         img {
-          cursor: pointer;
-          
-          width: 6rem;
-          box-shadow: 5px 0px 5px black;
-          border: 10px solid white;
-          height: 6rem;
-          min-height: 6rem;
-          transition: .2s ease;
+          width: 25rem;
+        }
+        position: absolute;
+        transform: translateX(8rem);
+      }
+    }
+    .DiscoInfo {
+      color: white;
+      //border: 1px solid white;
+      //padding: 10rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: left;
+      font-size: 0.7rem;
+      font-weight: 300;
+      width: 35vw;
+      gap: 0.5rem;
+      span {
+        //border: 1px solid red;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 1rem;
+        label {
+          font-size: 1rem;
+        }
+      }
+      .ArtistName {
+        //border: 1px solid rgb(255, 0, 0);
+        margin-bottom: 100px;
+        font-size: 3rem;
+        font-weight: 700;
+      }
+      .Buttons {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        button {
+          height: 3rem;
+          color: white;
+          font-weight: bold;
+          border: 2px solid white;
+          background-color: transparent;
+          font-size: 1.5rem;
+          padding: 0.5rem;
+          transition: 0.5s ease;
+          :nth-child(1) {
+            width: 3rem;
+          }
           &:hover {
+            background-color: white;
+            color: black;
             transform: scale(110%);
           }
         }
       }
     }
-
-    .Vynil_disk {
-      img {
-        width: 25rem;
-      }
-      position: absolute;
-      transform: translateX(8rem);
-    }
-  }
-  .DiscoInfo {
-    color: white;
-    //border: 1px solid white;
-    //padding: 10rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
-    font-size: 0.7rem;
-    font-weight: 300;
-    width: 35vw;
-    gap: 0.5rem;
-    span {
-      //border: 1px solid red;
+    .ExtraInfo {
+      width: 15vw;
+      //border: 1px solid white;
       display: flex;
-      justify-content: left;
+      flex-direction: column;
       align-items: center;
-      gap: 1rem;
-      label {
+      justify-content: center;
+      gap: 5rem;
+      color: white;
+      .StockText {
+        display: flex;
+        flex-direction: row;
+        font-size: 2rem;
+      }
+      .Delivery {
+        i {
+          font-size: 3rem;
+        }
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        font-size: 1rem;
+      }
+      .Protected {
+        i {
+          font-size: 3rem;
+        }
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
         font-size: 1rem;
       }
     }
-    .ArtistName {
-      //border: 1px solid rgb(255, 0, 0);
-      margin-bottom: 100px;
-      font-size: 3rem;
-      font-weight: 700;
-    }
-    .Buttons {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: row;
-      gap: 1rem;
-      button {
-        height: 3rem;
-        color: white;
-        font-weight: bold;
-        border: 2px solid white;
-        background-color: transparent;
-        font-size: 1.5rem;
-        padding: 0.5rem;
-        transition: 0.5s ease;
-        :nth-child(1) {
-          width: 3rem;
-        }
-        &:hover {
-          background-color: white;
-          color: black;
-          transform: scale(110%);
-        }
-      }
-    }
   }
-  .ExtraInfo {
-    width: 15vw;
-    //border: 1px solid white;
+  .tracks-list {
+    width: 100%;
+    background-color: rgb(234, 227, 227);
+    background: #feecea;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem;
-    color: white;
-    .StockText {
-      display: flex;
-      flex-direction: row;
-      font-size: 2rem;
+    min-width: 30rem;
+    justify-content: space-between;
+    h1 {
+      padding: 1rem;
+      padding-left: 10%;
     }
-    .Delivery {
-      i {
-        font-size: 3rem;
-      }
+    .tracks {
+      padding: 0 2rem 2rem;
       display: flex;
-      flex-direction: column;
-
       align-items: center;
-      font-size: 1rem;
-    }
-    .Protected {
-      i {
-        font-size: 3rem;
+      width: 100%;
+      height: 100%;
+      justify-content: space-evenly;
+
+      .tracks-container {
+        @include grab;
+        display: flex;
+        flex-direction: column;
+        min-width: 40rem;
+        height: 20rem;
+        padding-right: 0.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: #000000 rgba(180, 179, 179, 0.215);
+
+        &::-webkit-scrollbar {
+          width: 0.5rem;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: rgba(180, 179, 179, 0.215);
+        }
+        &::-webkit-scrollbar-button {
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #212121;
+        }
+        .track {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 3rem;
+          padding: 1.5rem 1rem;
+          gap: 1rem;
+          border-bottom: 1px solid black;
+
+          &.playing {
+            background-color: #212121;
+            color: white;
+          }
+          .track-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .track-name {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+          }
+          .track-time {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+          }
+          i {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s ease;
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
       }
-      display: flex;
-      flex-direction: column;
-
-      align-items: center;
-      font-size: 1rem;
+      .player-container {
+        width: 30rem;
+        height: 20rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 25px solid #000;
+        border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cg fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M1 1h73v73H1z'/%3E%3Cpath d='M8 8h59v59H8z'/%3E%3Cpath d='M8 8h16v16H8zM51 8h16v16H51zM51 51h16v16H51zM8 51h16v16H8z'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Ccircle cx='16' cy='16' r='2'/%3E%3Ccircle cx='59' cy='16' r='2'/%3E%3Ccircle cx='59' cy='59' r='2'/%3E%3Ccircle cx='16' cy='59' r='2'/%3E%3C/g%3E%3C/svg%3E")
+          25;
+      }
     }
   }
 }

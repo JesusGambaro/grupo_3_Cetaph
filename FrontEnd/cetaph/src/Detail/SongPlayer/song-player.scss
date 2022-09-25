@@ -1,0 +1,187 @@
+.audio-player {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+  z-index: 1;
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .artist {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .audio-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    .prev,
+    .next,
+    .play-pause {
+      &:focus {
+        outline: none;
+      }
+      width: 2rem;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      transition: 0.5s ease;
+      &:hover {
+        transform: scale(110%);
+      }
+      font-size: 1.5rem;
+      &.play-pause {
+        font-size: 3rem;
+        width: 3rem;
+        height: 3rem;
+        padding: 1.5rem;
+        border-radius: 50%;
+        text-align: center;
+      }
+    }
+    .time {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  }
+  .progress-wrapper {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 0.5rem;
+    p {
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .progress {
+      -webkit-appearance: none;
+      height: 0.5rem;
+      width: 100%;
+      height: 0.3rem;
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 0.3rem;
+        width: 0rem;
+        background: #000;
+        cursor: ew-resize;
+      }
+
+      &::-moz-range-thumb,
+      &::-ms-thumb {
+        -webkit-appearance: none;
+        height: 0.3rem;
+        width: 0rem;
+        background: #000;
+        cursor: ew-resize;
+      }
+
+      &::-webkit-slider-thumb:hover,
+      &::-moz-range-thumb:hover,
+      &::-ms-thumb:hover {
+        background: #fff;
+      }
+      /* Input Track */
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+      }
+    }
+  }
+  .volume-wrapper {
+    display: flex;
+    width: 50%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    i {
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .volume {
+      -webkit-appearance: none;
+      height: 0.3rem;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 0.5rem;
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        background: #000;
+        cursor: ew-resize;
+        transition: background 0.3s ease-in-out;
+      }
+
+      &::-moz-range-thumb {
+        -webkit-appearance: none;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        background: #212121;
+        cursor: ew-resize;
+
+        transition: background 0.3s ease-in-out;
+      }
+
+      &::-ms-thumb {
+        -webkit-appearance: none;
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        background: #212121;
+        cursor: ew-resize;
+        box-shadow: 0 0 2px 0 #555;
+        transition: background 0.3s ease-in-out;
+      }
+
+      &::-webkit-slider-thumb:hover {
+        background: #212121;
+      }
+
+      &::-moz-range-thumb:hover {
+        background: #212121;
+      }
+
+      &::-ms-thumb:hover {
+        background: #212121;
+      }
+
+      /* Input Track */
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+
+      &::-moz-range-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+
+      &::-ms-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+    }
+  }
+}

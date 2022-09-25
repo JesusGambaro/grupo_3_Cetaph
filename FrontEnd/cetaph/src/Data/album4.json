@@ -1,0 +1,525 @@
+{
+    "albums": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+            },
+            "id": "1dfeR4HaWDbWqFHLkxsg1d",
+            "name": "Queen",
+            "type": "artist",
+            "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+          }
+        ],
+        "copyrights": [
+          {
+            "text": "© 2011 Raincloud Productions Ltd. under exclusive licence to Universal International Music BV",
+            "type": "C"
+          },
+          {
+            "text": "℗ 2011 Raincloud Productions Ltd. under exclusive licence to Universal International Music BV",
+            "type": "P"
+          }
+        ],
+        "external_ids": {
+          "upc": "00602527717678"
+        },
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2yuTRGIackbcReLUXOYBqU"
+        },
+        "genres": [],
+        "id": "2yuTRGIackbcReLUXOYBqU",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b2737c39dd133836c2c1c87e34d6",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e027c39dd133836c2c1c87e34d6",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d000048517c39dd133836c2c1c87e34d6",
+            "width": 64
+          }
+        ],
+        "label": "EMI",
+        "name": "Jazz (2011 Remaster)",
+        "popularity": 69,
+        "release_date": "1978-11-10",
+        "release_date_precision": "day",
+        "total_tracks": 13,
+        "tracks": {
+          "items": [
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 181026,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1AiIUvuAH3m1Hugunwaqrd"
+              },
+              "id": "1AiIUvuAH3m1Hugunwaqrd",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/3uaVLkgDqlYy153yFBUVtl"
+                },
+                "id": "3uaVLkgDqlYy153yFBUVtl",
+                "type": "track",
+                "uri": "spotify:track:3uaVLkgDqlYy153yFBUVtl"
+              },
+              "name": "Mustapha - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/c4e83a9ae2c64341907d7ff1b20ed34bbf216909?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 1,
+              "type": "track",
+              "uri": "spotify:track:1AiIUvuAH3m1Hugunwaqrd"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 255600,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4igIYHF3B5VBxEafHauVo3"
+              },
+              "id": "4igIYHF3B5VBxEafHauVo3",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/6IAVxNFi1W88UhDeyvOsdo"
+                },
+                "id": "6IAVxNFi1W88UhDeyvOsdo",
+                "type": "track",
+                "uri": "spotify:track:6IAVxNFi1W88UhDeyvOsdo"
+              },
+              "name": "Fat Bottomed Girls - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/5e1ed993e2b15c3545b9de9f0a9152df2c31f6d5?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 2,
+              "type": "track",
+              "uri": "spotify:track:4igIYHF3B5VBxEafHauVo3"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 193146,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1tEol8qQbvDo1MqKtx8iPw"
+              },
+              "id": "1tEol8qQbvDo1MqKtx8iPw",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/6VH7sh6fC6YPi297UC2Fkg"
+                },
+                "id": "6VH7sh6fC6YPi297UC2Fkg",
+                "type": "track",
+                "uri": "spotify:track:6VH7sh6fC6YPi297UC2Fkg"
+              },
+              "name": "Jealousy - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/4ce0fbf92b88802207ec4d5833a7a76d1f99ffea?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 3,
+              "type": "track",
+              "uri": "spotify:track:1tEol8qQbvDo1MqKtx8iPw"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 180813,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/3lUx27TOwV2nAiKwnYYXxe"
+              },
+              "id": "3lUx27TOwV2nAiKwnYYXxe",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/5CTAcf8aS0a0sIsDwQRF9C"
+                },
+                "id": "5CTAcf8aS0a0sIsDwQRF9C",
+                "type": "track",
+                "uri": "spotify:track:5CTAcf8aS0a0sIsDwQRF9C"
+              },
+              "name": "Bicycle Race - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/db1ed59d0016130853ba6dd790a7a05bcaa9c57b?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 4,
+              "type": "track",
+              "uri": "spotify:track:3lUx27TOwV2nAiKwnYYXxe"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 255186,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/5YACf4E2knTAgow6d9yUXd"
+              },
+              "id": "5YACf4E2knTAgow6d9yUXd",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/5HJiNvg6s7ovq5kPrztHKp"
+                },
+                "id": "5HJiNvg6s7ovq5kPrztHKp",
+                "type": "track",
+                "uri": "spotify:track:5HJiNvg6s7ovq5kPrztHKp"
+              },
+              "name": "If You Can't Beat Them - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/01b68b1b87d0c72ee6b7204d2851a0f535d1cdb6?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 5,
+              "type": "track",
+              "uri": "spotify:track:5YACf4E2knTAgow6d9yUXd"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 181693,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2h8PxLi7fPVs7tLwviWqHF"
+              },
+              "id": "2h8PxLi7fPVs7tLwviWqHF",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/00ITtxUozN0vifE2uYvtqn"
+                },
+                "id": "00ITtxUozN0vifE2uYvtqn",
+                "type": "track",
+                "uri": "spotify:track:00ITtxUozN0vifE2uYvtqn"
+              },
+              "name": "Let Me Entertain You - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/296011556f2878ea7d38e28dce5be437609a376d?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 6,
+              "type": "track",
+              "uri": "spotify:track:2h8PxLi7fPVs7tLwviWqHF"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 203346,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1mW0eYPzc4Gj2I0eMpdrLx"
+              },
+              "id": "1mW0eYPzc4Gj2I0eMpdrLx",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/3OCQ5ybKASY4EIb4i9hsd7"
+                },
+                "id": "3OCQ5ybKASY4EIb4i9hsd7",
+                "type": "track",
+                "uri": "spotify:track:3OCQ5ybKASY4EIb4i9hsd7"
+              },
+              "name": "Dead On Time - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/b7d5cd15efcbc9a3d2567167058a6186f9366a88?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 7,
+              "type": "track",
+              "uri": "spotify:track:1mW0eYPzc4Gj2I0eMpdrLx"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 149253,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2Nvhz3iyJUDJxPq13ronnA"
+              },
+              "id": "2Nvhz3iyJUDJxPq13ronnA",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/06UXtRLTF6kdMSM3uaVCCU"
+                },
+                "id": "06UXtRLTF6kdMSM3uaVCCU",
+                "type": "track",
+                "uri": "spotify:track:06UXtRLTF6kdMSM3uaVCCU"
+              },
+              "name": "In Only Seven Days - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/9431b20e21d831f77c16c53b408bf20e9795cbcf?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 8,
+              "type": "track",
+              "uri": "spotify:track:2Nvhz3iyJUDJxPq13ronnA"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 210146,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6NgDB8wjd2HhpGbiWEt1pz"
+              },
+              "id": "6NgDB8wjd2HhpGbiWEt1pz",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/0TpWjIOuNMnpuRjriPbGiF"
+                },
+                "id": "0TpWjIOuNMnpuRjriPbGiF",
+                "type": "track",
+                "uri": "spotify:track:0TpWjIOuNMnpuRjriPbGiF"
+              },
+              "name": "Dreamer's Ball - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/628de7a94f6f43edc541c708bcc4bfb5d60bbde1?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 9,
+              "type": "track",
+              "uri": "spotify:track:6NgDB8wjd2HhpGbiWEt1pz"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 208826,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/5OwtHpyNpt5bo9OvTuIvZt"
+              },
+              "id": "5OwtHpyNpt5bo9OvTuIvZt",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/6jtctBYvybxCAmlg7nT6CS"
+                },
+                "id": "6jtctBYvybxCAmlg7nT6CS",
+                "type": "track",
+                "uri": "spotify:track:6jtctBYvybxCAmlg7nT6CS"
+              },
+              "name": "Fun It - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/03c242f5cd32bcb50945152209cbf81af50242c6?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 10,
+              "type": "track",
+              "uri": "spotify:track:5OwtHpyNpt5bo9OvTuIvZt"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 195040,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6dEdILy6BDCqfO5DJwfJp3"
+              },
+              "id": "6dEdILy6BDCqfO5DJwfJp3",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/16aW2zHbbpDDoSy0HCA8xc"
+                },
+                "id": "16aW2zHbbpDDoSy0HCA8xc",
+                "type": "track",
+                "uri": "spotify:track:16aW2zHbbpDDoSy0HCA8xc"
+              },
+              "name": "Leaving Home Ain't Easy - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/da20e2c0899f077c3be81f7337a2c55de8c5d56b?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 11,
+              "type": "track",
+              "uri": "spotify:track:6dEdILy6BDCqfO5DJwfJp3"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 209413,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/7hQJA50XrCWABAu5v6QZ4i"
+              },
+              "id": "7hQJA50XrCWABAu5v6QZ4i",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/5T8EDUDqKcs6OSOwEsfqG7"
+                },
+                "id": "5T8EDUDqKcs6OSOwEsfqG7",
+                "type": "track",
+                "uri": "spotify:track:5T8EDUDqKcs6OSOwEsfqG7"
+              },
+              "name": "Don't Stop Me Now - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/4ee1d9a98ea72ef0ebb56db045fc17f2bc7bb9d9?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 12,
+              "type": "track",
+              "uri": "spotify:track:7hQJA50XrCWABAu5v6QZ4i"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d"
+                  },
+                  "id": "1dfeR4HaWDbWqFHLkxsg1d",
+                  "name": "Queen",
+                  "type": "artist",
+                  "uri": "spotify:artist:1dfeR4HaWDbWqFHLkxsg1d"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 256653,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/68MzQKYvOLKDqAWIchJSUh"
+              },
+              "id": "68MzQKYvOLKDqAWIchJSUh",
+              "is_local": false,
+              "is_playable": true,
+              "linked_from": {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/track/2YrfSHux2BaTXQs1535EHC"
+                },
+                "id": "2YrfSHux2BaTXQs1535EHC",
+                "type": "track",
+                "uri": "spotify:track:2YrfSHux2BaTXQs1535EHC"
+              },
+              "name": "More Of That Jazz - Remastered 2011",
+              "preview_url": "https://p.scdn.co/mp3-preview/0f75a0225766cfa79eb2ef1d19c1e764ef365b52?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 13,
+              "type": "track",
+              "uri": "spotify:track:68MzQKYvOLKDqAWIchJSUh"
+            }
+          ],
+          "limit": 50,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total": 13
+        },
+        "type": "album",
+        "uri": "spotify:album:2yuTRGIackbcReLUXOYBqU"
+      }
+    ]
+  }

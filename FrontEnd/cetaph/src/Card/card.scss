@@ -2,20 +2,45 @@
   --d: 700ms;
   --e: cubic-bezier(0.19, 1, 0.22, 1);
 }
+
 .card {
-  background-color: transparent;
   width: 16rem;
   display: flex;
+  height: 28rem;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   transition: all var(--d) var(--e);
+  background: #fff;
   padding: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  &.home {
+    height: 100%;
+
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    .card-body {
+      color: #fff;
+    }
+    .card-footer {
+      .c-price-date {
+        color: #fff;
+      }
+      .add-to-cart {
+        color: #fff;
+        border-color: #fff;
+      }
+    }
+    &:hover {
+      transform: scale(1.1) perspective(1rem) rotate3d(0, 0, 0, 0.1deg);
+      background: #fff;
+    }
+  }
   &:hover {
-    background: #fff;
     transition: all var(--d) var(--e);
-    transform: scale(1.1) perspective(1rem) rotate3d(0, 0, 0, 0.1deg);
+    transform: scale(1.05);
     perspective: 5px;
     .card-body {
       color: #000;
@@ -42,19 +67,24 @@
       object-fit: cover;
     }
   }
-
   .card-body {
+    white-space: normal;
     width: 100%;
-    color: white;
+    color: #000;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     .c-name {
+      height: 100%;
+      width: 100%;
       font-size: 1.4rem;
+      text-align: center;
+      width: 100%;
     }
     .c-title {
       font-size: 1rem;
+
       color: rgb(197, 197, 197);
     }
   }
@@ -62,7 +92,7 @@
     width: 100%;
     .c-price-date {
       display: flex;
-      color: #fff;
+      color: #000;
       flex-direction: row;
       width: 100%;
       justify-content: space-between;
@@ -74,10 +104,12 @@
     .add-to-cart {
       width: 100%;
       background: transparent;
-      color: white;
-      border: 1px solid white;
+      color: #000;
+      border: 1px solid #000;
       padding: 0.5rem 1.2rem;
       font-size: 0.9rem;
+      cursor: pointer;
     }
   }
+  cursor: pointer;
 }

@@ -1,29 +1,32 @@
 import React from "react";
+import {useNavigate} from "react-router";
+import {Link} from "react-router-dom";
 import "./card.scss";
 
-const DiscCard = () => {
+const Card = ({color, data}) => {
+  const navigate = useNavigate();
   return (
-    <div className="card">
+    <div
+      className={"card" + (color === "white" ? " home" : "")}
+      style={{"--main-color": color}}
+    >
       <div className="card-header">
-        <img
-          src="https://lh3.googleusercontent.com/oWyLklmIlgBVjLy63kmFrXfgmzK8EIwpzyXneeLu3Ly6eqB_Usf7zZhZzo-LlwbxMx4WugYNW1Lp-ec=w544-h544-l90-rj"
-          alt=""
-          draggable="false"
-        />
+        <Link to={"/Detail/" + data.id} className="noselect">
+          <img src={data?.image} alt="" draggable="false" />
+        </Link>
       </div>
       <div className="card-body">
-        <h1 className="c-name">Mockingbird</h1>
-        <h2 className="c-title">Eminem
- </h2>
+        <h1 className="c-name">{data?.name}</h1>
+        <h2 className="c-title">{data?.artists[0].name}</h2>
       </div>
       <div className="card-footer">
         <div className="c-price-date">
-          <p>12/2/2</p>
-          <p>$500</p>
+          <p>{data?.release_date}</p>
+          <p>{data?.price || "$500"}</p>
         </div>
         <button className="add-to-cart">Añadir al Carrito</button>
       </div>
     </div>
   );
 };
-export default DiscCard;
+export default Card;

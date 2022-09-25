@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="Footer">
         <span className="info">
           <span className="logo">
-            <img src="./Images/cetaphIcono.png" alt="logo" />
+            <img src="/Images/cetaphIcono.png" alt="logo" />
           </span>
 
           <div className="details">
@@ -41,7 +41,7 @@ const Footer = () => {
             </div>
           </span>
         </span>
-        <img src="./Images/ViniloFooter.png" alt="" />
+        <img src="/Images/ViniloFooter.png" alt="" />
       </div>
     </div>
   );

@@ -1,0 +1,448 @@
+{
+    "albums": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+            },
+            "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+            "name": "My Chemical Romance",
+            "type": "artist",
+            "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+          }
+        ],
+        "copyrights": [
+          {
+            "text": "© 2006 Reprise Records for the U.S. and WEA International Inc. for the world outside the U.S.",
+            "type": "C"
+          },
+          {
+            "text": "℗ 2006 Reprise Records for the U.S. and WEA International Inc. for the world outside the U.S.",
+            "type": "P"
+          }
+        ],
+        "external_ids": {
+          "upc": "093624442769"
+        },
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0FZK97MXMm5mUQ8mtudjuK"
+        },
+        "genres": [],
+        "id": "0FZK97MXMm5mUQ8mtudjuK",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b27317f77fab7e8f18d5f9fee4a1",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e0217f77fab7e8f18d5f9fee4a1",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d0000485117f77fab7e8f18d5f9fee4a1",
+            "width": 64
+          }
+        ],
+        "label": "Reprise",
+        "name": "The Black Parade",
+        "popularity": 76,
+        "release_date": "2006-10-23",
+        "release_date_precision": "day",
+        "total_tracks": 14,
+        "tracks": {
+          "items": [
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 112920,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6s2yqZbiPNPL1B2IeCMsUA"
+              },
+              "id": "6s2yqZbiPNPL1B2IeCMsUA",
+              "is_local": false,
+              "is_playable": true,
+              "name": "The End.",
+              "preview_url": "https://p.scdn.co/mp3-preview/a5a37f8ceb9fed86d55fa6e751c928dd1a291ef7?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 1,
+              "type": "track",
+              "uri": "spotify:track:6s2yqZbiPNPL1B2IeCMsUA"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 195520,
+              "explicit": true,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0uukw2CgEIApv4IWAjXrBC"
+              },
+              "id": "0uukw2CgEIApv4IWAjXrBC",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Dead!",
+              "preview_url": "https://p.scdn.co/mp3-preview/9a0d3afc93554e0c66ba01bc611b9a46395cbe43?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 2,
+              "type": "track",
+              "uri": "spotify:track:0uukw2CgEIApv4IWAjXrBC"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 239053,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0rUNZQuYQvOz6A6zwyT6tM"
+              },
+              "id": "0rUNZQuYQvOz6A6zwyT6tM",
+              "is_local": false,
+              "is_playable": true,
+              "name": "This Is How I Disappear",
+              "preview_url": "https://p.scdn.co/mp3-preview/9ee28d3383d0b17554af5d51510bd533a5f4753b?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 3,
+              "type": "track",
+              "uri": "spotify:track:0rUNZQuYQvOz6A6zwyT6tM"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 200880,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2kMjk14RmYyYhhSbipoa9U"
+              },
+              "id": "2kMjk14RmYyYhhSbipoa9U",
+              "is_local": false,
+              "is_playable": true,
+              "name": "The Sharpest Lives",
+              "preview_url": "https://p.scdn.co/mp3-preview/290c335e832723691de6bbbefcc65f84f7a08155?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 4,
+              "type": "track",
+              "uri": "spotify:track:2kMjk14RmYyYhhSbipoa9U"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 311106,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/5wQnmLuC1W7ATsArWACrgW"
+              },
+              "id": "5wQnmLuC1W7ATsArWACrgW",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Welcome to the Black Parade",
+              "preview_url": "https://p.scdn.co/mp3-preview/826f3461c8b7b6207e81bb15f2ebf90f01538582?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 5,
+              "type": "track",
+              "uri": "spotify:track:5wQnmLuC1W7ATsArWACrgW"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 238680,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/4RAOI1etsgbh5NP3T5R8rN"
+              },
+              "id": "4RAOI1etsgbh5NP3T5R8rN",
+              "is_local": false,
+              "is_playable": true,
+              "name": "I Don't Love You",
+              "preview_url": "https://p.scdn.co/mp3-preview/68b9ae7c567f2aff3895b12935d1f2c4568ef83f?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 6,
+              "type": "track",
+              "uri": "spotify:track:4RAOI1etsgbh5NP3T5R8rN"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 184000,
+              "explicit": true,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/7j2Bmzpnf6RwEWEQ2sv8Ho"
+              },
+              "id": "7j2Bmzpnf6RwEWEQ2sv8Ho",
+              "is_local": false,
+              "is_playable": true,
+              "name": "House of Wolves",
+              "preview_url": "https://p.scdn.co/mp3-preview/32162bbf24a19b90af71d006a6c6c14cb59b94f1?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 7,
+              "type": "track",
+              "uri": "spotify:track:7j2Bmzpnf6RwEWEQ2sv8Ho"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 142973,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0GgN4MhR5GKn5IcKN0e0rG"
+              },
+              "id": "0GgN4MhR5GKn5IcKN0e0rG",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Cancer",
+              "preview_url": "https://p.scdn.co/mp3-preview/686cbdbd0d13bc6e51bdf781959c945570d45233?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 8,
+              "type": "track",
+              "uri": "spotify:track:0GgN4MhR5GKn5IcKN0e0rG"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 279026,
+              "explicit": true,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/0Zh3tKIphLOvQux4dA6PFZ"
+              },
+              "id": "0Zh3tKIphLOvQux4dA6PFZ",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Mama",
+              "preview_url": "https://p.scdn.co/mp3-preview/f3120571e42f0973603f59f327785b6a716bbf24?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 9,
+              "type": "track",
+              "uri": "spotify:track:0Zh3tKIphLOvQux4dA6PFZ"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 283466,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2pONuBYwWrNm9jcJH6hmPc"
+              },
+              "id": "2pONuBYwWrNm9jcJH6hmPc",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Sleep",
+              "preview_url": "https://p.scdn.co/mp3-preview/069cdc3aaeed49f5af1e83bdf700b38a8ce80c75?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 10,
+              "type": "track",
+              "uri": "spotify:track:2pONuBYwWrNm9jcJH6hmPc"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 161920,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/7j31rVgGX9Q2blT92VBEA0"
+              },
+              "id": "7j31rVgGX9Q2blT92VBEA0",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Teenagers",
+              "preview_url": "https://p.scdn.co/mp3-preview/77e62efcf40f66054508f4599700ace018a13355?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 11,
+              "type": "track",
+              "uri": "spotify:track:7j31rVgGX9Q2blT92VBEA0"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 295000,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/6T7MAQCekVb3UnCykjX3BP"
+              },
+              "id": "6T7MAQCekVb3UnCykjX3BP",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Disenchanted",
+              "preview_url": "https://p.scdn.co/mp3-preview/e44c1a29d8857a32bb8667805475dd5386f65693?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 12,
+              "type": "track",
+              "uri": "spotify:track:6T7MAQCekVb3UnCykjX3BP"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 299226,
+              "explicit": false,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/2d6m2F4I7wCuAKtSsdhh83"
+              },
+              "id": "2d6m2F4I7wCuAKtSsdhh83",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Famous Last Words",
+              "preview_url": "https://p.scdn.co/mp3-preview/62099ca5f106d545f444bcebfa4ea91c571ffb99?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 13,
+              "type": "track",
+              "uri": "spotify:track:2d6m2F4I7wCuAKtSsdhh83"
+            },
+            {
+              "artists": [
+                {
+                  "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/7FBcuc1gsnv6Y1nwFtNRCb"
+                  },
+                  "id": "7FBcuc1gsnv6Y1nwFtNRCb",
+                  "name": "My Chemical Romance",
+                  "type": "artist",
+                  "uri": "spotify:artist:7FBcuc1gsnv6Y1nwFtNRCb"
+                }
+              ],
+              "disc_number": 1,
+              "duration_ms": 173533,
+              "explicit": true,
+              "external_urls": {
+                "spotify": "https://open.spotify.com/track/1rNSLiEFpAF4amVhkzfTUG"
+              },
+              "id": "1rNSLiEFpAF4amVhkzfTUG",
+              "is_local": false,
+              "is_playable": true,
+              "name": "Blood - Hidden Track",
+              "preview_url": "https://p.scdn.co/mp3-preview/804d9b29b1c84ba9b4353b8967ffc9a91fca5765?cid=f6a40776580943a7bc5173125a1e8832",
+              "track_number": 14,
+              "type": "track",
+              "uri": "spotify:track:1rNSLiEFpAF4amVhkzfTUG"
+            }
+          ],
+          "limit": 50,
+          "next": null,
+          "offset": 0,
+          "previous": null,
+          "total": 14
+        },
+        "type": "album",
+        "uri": "spotify:album:0FZK97MXMm5mUQ8mtudjuK"
+      }
+    ]
+  }

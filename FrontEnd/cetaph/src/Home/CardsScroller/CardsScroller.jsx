@@ -1,89 +1,91 @@
-import React from "react";
-import { useEffect } from "react";
+import {useRef, useState} from "react";
+import {useEffect} from "react";
 import Card from "../../Card/Card";
 import "./cards-scroller.scss";
 import ScrollContainer from "react-indiana-drag-scroll";
+import {motion, useMotionValue} from "framer-motion";
+import axios from "axios";
 
-const CardsScroller = ({ props }) => {
+const CardsScroller = ({props}) => {
+  const slider = useRef(null);
+
+  const handleWheel = (e) => {
+    let [x, y] = [e.deltaX, e.deltaY];
+    let magnitude;
+
+    if (x === 0) {
+      magnitude = y > 0 ? -30 : 30;
+    } else {
+      magnitude = x;
+    }
+    slider.current.scrollBy({
+      left: magnitude,
+    });
+  };
+  const [disks, setDisks] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/albums")
+      .then((res) => {
+        setDisks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    const el = slider.current;
+    if (el) {
+      const onWheel = (e) => {
+        if (e.deltaY === 0) return;
+        e.preventDefault();
+        el.scrollTo({
+          left: el.scrollLeft + e.deltaY,
+          behavior: "smooth",
+        });
+      };
+      el.addEventListener("wheel", onWheel);
+      return () => el.removeEventListener("wheel", onWheel);
+    }
+  }, []);
+  //Scroll with mouse wheel
+  useEffect(() => {}, []);
   const slideLeft = () => {
-    /* var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft + 250; */
+    slider.current.scrollTo({
+      left: slider.current.scrollLeft - 300,
+      behavior: "smooth",
+    });
+
+    // slider.current.scrollLeft = slider.current.scrollLeft + 250;
   };
 
   const slideRight = () => {
-    /*   var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft * -250; */
+    slider.current.scrollTo({
+      left: slider.current.scrollLeft + 300,
+      behavior: "smooth",
+    });
   };
-
-  //Scroll with mouse wheel
-  useEffect(() => {
-    /*    let slider = document.getElementById("slider");
-    slider.addEventListener(
-      "mousewheel",
-      (e) => {
-        if (!e.deltaY) return;
-        let scrollDirection = e.deltaY > 0 ? 1 : -1;
-        slider.scrollLeft += 30 * scrollDirection;
-        let scrollLeft = Math.round(slider.scrollLeft);
-        let maxScrollLeft = Math.round(slider.scrollWidth - slider.clientWidth);
-        if (
-          (scrollDirection === -1 && scrollLeft > 0) ||
-          (scrollDirection === 1 && scrollLeft < maxScrollLeft)
-        )
-          e.preventDefault();
-        return true;
-      },
-      false
-    );*/
-    //Scroll with mouse wheel
-    /*  const scrollContainer = document.querySelector("#slider");
-
-    scrollContainer.addEventListener("wheel", (evt) => {
-      evt.preventDefault();
-      scrollContainer.scrollLeft += evt.deltaY;
-    }); */
-  }, []);
-
-  let pos = { top: 0, x: 0 };
-  const mouseDownHandler = (e) => {
-    const ele = document.getElementById("slider");
-    pos = {
-      left: ele.scrollLeft,
-      x: e.clientX,
-    };
-    document.addEventListener("mousemove", mouseMoveHandler);
-    document.addEventListener("mouseup", mouseUpHandler);
-  };
-  const mouseMoveHandler = (e) => {
-    const ele = document.getElementById("slider");
-    ele.scrollLeft = pos.left - (e.clientX - pos.x);
-  };
-  const mouseUpHandler = () => {
-    document.removeEventListener("mousemove", mouseMoveHandler);
-    document.removeEventListener("mouseup", mouseUpHandler);
-  };
-
   return (
-    <div
-      id="main-slider-container"
-      onMouseDown={mouseDownHandler}
-      onMouseUp={mouseUpHandler}
-    >
-      <i className="bi bi-arrow-left slider-icon left" onClick={slideRight}></i>
-      <div id="slider">
-        <ScrollContainer className="scroll-container">
-          {props.map((slide, index) => {
+    <div id="main-slider-container">
+      <i className="bi bi-arrow-left slider-icon left" onClick={slideLeft}></i>
+      <ScrollContainer
+        className="scroll-container"
+        hideScrollbars={false}
+        vertical={false}
+        innerRef={slider}
+        onWheel={handleWheel}
+      >
+        <div className="wrapper">
+          {disks.map((disk, index) => {
             return (
-              <div className="slider-card noselect" key={index}>
-                <Card />
+              <div className="slider-card" key={index}>
+                <Card key={"card" + index} color={"white"} data={disk} />
               </div>
             );
           })}
-        </ScrollContainer>
-      </div>
+        </div>
+      </ScrollContainer>
       <i
         className="bi bi-arrow-right slider-icon right"
-        onClick={slideLeft}
+        onClick={slideRight}
       ></i>
     </div>
   );
