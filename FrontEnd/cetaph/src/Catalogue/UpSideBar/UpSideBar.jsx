@@ -2,13 +2,32 @@ import React from "react";
 import "./upsidebar.scss";
 import Select from "react-select";
 import {useState} from "react";
-
-const UpSideBar = () => {
+import axios from "axios";
+const UpSideBar = ({setData}) => {
+  const [search, setSearch] = useState("");
+  const [order, setOrder] = useState("asc");
+  const [basicFilter, setBasicFilter] = useState("");
+  const handleSearch = (e) => {
+    console.log(order);
+    e.preventDefault();
+    axios
+      .get(
+        `http://localhost:3001/albums?_sort=${order}&name_like=${search}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      });
+  };
   return (
     <div className="upside-bar-container">
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={handleSearch}>
         <div className="search-disks">
-          <input type="text" placeholder="Search" />
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+          />
           <button type="submit">
             <i className="fas fa-search"></i>
           </button>
@@ -18,6 +37,7 @@ const UpSideBar = () => {
             id="order"
             name="order"
             isSearchable={false}
+            onChange={(e) => setOrder(e.value)}
             defaultValue={{value: "order", label: "Order By"}}
             options={[
               {value: "order", label: "Order", isDisabled: true},

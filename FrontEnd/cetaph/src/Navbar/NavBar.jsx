@@ -13,7 +13,7 @@ const NavBar = () => {
         </span>
         <ul className="nav-menu">
           <li className="nav-item">
-            <p className="nav-link" onClick={() => navigate("/Details/1")}>
+            <p className="nav-link" onClick={() => navigate("/Home")}>
               Home
             </p>
           </li>

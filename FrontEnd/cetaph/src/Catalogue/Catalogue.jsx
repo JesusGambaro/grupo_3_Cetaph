@@ -25,17 +25,27 @@ const Catalogue = () => {
         setLoading(false);
       });
   }, []);
-
+  const setData = (data) => {
+    setDisks(data);
+  };
   return (
     <div className="catalogue-container">
       <LeftFilters />
       <main>
-        <UpSideBar />
-        <div className="disks-container">
-          {disks.map((disk, index) => (
-            <Card key={index} color={"black"} data={disk} />
-          ))}
-        </div>
+        <UpSideBar setData={(e) => setData(e)} />
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="disks-container">
+            {disks.length > 0 ? (
+              disks.map((disk, index) => (
+                <Card key={index} color={"black"} data={disk} />
+              ))
+            ) : (
+              <h1>No results</h1>
+            )}
+          </div>
+        )}
       </main>
     </div>
   );
