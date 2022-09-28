@@ -36,7 +36,7 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.save(entity));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
     }
     @PutMapping("/{id}")

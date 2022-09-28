@@ -34,9 +34,5 @@ public class Singles extends Base {
     @Column(name = "stock")
     private int stock;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "artistas_involucrados")
-    private List<Artista> artistas;
-
 
 }

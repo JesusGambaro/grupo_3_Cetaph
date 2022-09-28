@@ -35,17 +35,17 @@ public class Albums extends Base{
     @Column(name = "esVinilo")
     private boolean esVinilo;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_artista")
+    @Column(name = "imgUrl")
+    private String url;
+
+    @Column(name = "esExplicito")
+    private boolean explicit;
+
+    @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(
-            name = "album_single",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "single_id")
-    )
-    private List<Singles>singles;
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    private List<Singles> singles;
 
 }
 
