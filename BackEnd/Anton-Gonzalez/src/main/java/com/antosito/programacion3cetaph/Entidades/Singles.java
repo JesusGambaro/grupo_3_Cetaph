@@ -25,14 +25,18 @@ public class Singles extends Base {
     @Column(name = "lanzamiento")
     private String fechaLanzamiento;
 
-    @Column(name = "genero")
-    private String genero;
-
     @Column(name = "precio")
     private float precio;
 
     @Column(name = "stock")
     private int stock;
+
+    @Column(name = "esExplicito")
+    private boolean explicit;
+
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "genero_FK")
+    private Generos genero;
 
 
 }

@@ -26,9 +26,6 @@ public class Albums extends Base{
     @Column(name = "duracion")
     private String duracion;
 
-    @Column(name = "genero")
-    private String genero;
-
     @Column(name ="descripcion")
     private String descripcion;
 
@@ -46,6 +43,10 @@ public class Albums extends Base{
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Singles> singles;
+
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "genero_FK")
+    private Generos genero;
 
 }
 
