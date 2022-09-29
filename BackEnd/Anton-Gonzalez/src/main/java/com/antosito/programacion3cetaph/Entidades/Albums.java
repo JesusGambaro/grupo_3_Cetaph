@@ -33,7 +33,7 @@ public class Albums extends Base{
     private boolean esVinilo;
 
     @Column(name = "imgUrl")
-    private String url;
+    private String urlImg;
 
     @Column(name = "esExplicito")
     private boolean explicit;

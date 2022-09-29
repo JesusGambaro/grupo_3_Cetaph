@@ -34,6 +34,9 @@ public class Singles extends Base {
     @Column(name = "esExplicito")
     private boolean explicit;
 
+    @Column(name = "MusicUrl")
+    private String urlMusic;
+
     @OneToOne(cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "genero_FK")
     private Generos genero;
