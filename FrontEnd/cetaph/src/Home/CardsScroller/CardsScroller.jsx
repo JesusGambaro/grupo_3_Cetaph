@@ -25,7 +25,7 @@ const CardsScroller = ({props}) => {
   const [disks, setDisks] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3001/albums")
+      .get("http://192.168.47.14:3001/albums")
       .then((res) => {
         setDisks(res.data);
       })

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "api/v1/singles")
 public class SinglesControler extends BaseControladorImplementacion<Singles, SinglesServiceImpl>{
     @GetMapping("/filter")
-    public ResponseEntity<?> searchFilter(@RequestParam String filtroName, @RequestParam(required = false) Float filtroPrecio, @RequestParam(required = false) Long filtroID){
+    public ResponseEntity<?> searchFilter(@RequestParam(required = false) String filtroName, @RequestParam(required = false) Float filtroPrecio, @RequestParam(required = false) Long filtroID){
         System.out.println("Llego esto "+filtroName+ " y "+filtroPrecio+ " tambien " +filtroID);
         try{
             return ResponseEntity.status(HttpStatus.OK).body(servicio.searchFilter(filtroName,filtroPrecio,filtroID));

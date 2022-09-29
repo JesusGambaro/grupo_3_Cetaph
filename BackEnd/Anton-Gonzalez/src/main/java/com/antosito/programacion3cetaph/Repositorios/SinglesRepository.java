@@ -9,11 +9,10 @@ import java.util.List;
 
 
 @Repository
-public interface SinglesRepository extends BaseRepository<Singles,Long>{
-    @Query(value = "SELECT * Singles s WHERE " +
-            "s.nombre LIKE %:filtroName% AND " +
-            "s.precio >= :filtroPrecio AND " +
-            "s.genero_fk = :filtroID",
+public interface SinglesRepository extends BaseRepository<Singles, Long> {
+    @Query(value = "SELECT * FROM Singles WHERE (:filtroName IS NULL OR nombre LIKE %:filtroName%) " +
+            "AND (:filtroPrecio IS NULL OR precio = :filtroPrecio) " +
+            "AND (:filtroID IS NULL OR genero_FK = :filtroID)",
             nativeQuery = true)
-    List<Singles> searchFilter(@Param("filtroName") String filtroName, @Param("filtroPrecio")Float filtroPrecio, @Param("filtroID") Long filtroID);
+    List<Singles> searchFilter(@Param("filtroName") String filtroName, @Param("filtroPrecio") float filtroPrecio, @Param("filtroID") long filtroID);
 }

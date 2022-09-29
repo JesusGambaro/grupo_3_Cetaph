@@ -5,9 +5,11 @@ import com.antosito.programacion3cetaph.Repositorios.BaseRepository;
 import com.antosito.programacion3cetaph.Repositorios.SinglesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
 @Service
-public class SinglesServiceImpl extends BaseServiceImplentation<Singles,Long> implements SinglesService {
+public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> implements SinglesService {
 
     @Autowired
     private SinglesRepository singlesRepository;
@@ -19,10 +21,10 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles,Long> im
 
     @Override
     public List<Singles> searchFilter(String filtroName, Float filtroPrecio, Long filtroID) throws Exception {
-        try{
-        List<Singles> singles = singlesRepository.searchFilter(filtroName,filtroPrecio,filtroID);
+        try {
+            List<Singles> singles = singlesRepository.searchFilter(filtroName, filtroPrecio, filtroID);
             return singles;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }

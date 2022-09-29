@@ -12,7 +12,7 @@ const UpSideBar = ({setData}) => {
     e.preventDefault();
     axios
       .get(
-        `http://localhost:3001/albums?_sort=${order}&name_like=${search}`
+        `http://192.168.47.14:3001/albums?_sort=${order}&name_like=${search}`
       )
       .then((res) => {
         console.log(res.data);
