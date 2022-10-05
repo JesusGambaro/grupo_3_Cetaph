@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
+
 public class Artista extends Base {
 
     //Crear una relacion con singles

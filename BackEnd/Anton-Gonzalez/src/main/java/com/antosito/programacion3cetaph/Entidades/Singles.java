@@ -13,11 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-@Audited
 public class Singles extends Base {
 
     @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "genero")
+    private String genero;
 
     @Column(name = "duracion")
     private int duracion;
@@ -25,21 +27,12 @@ public class Singles extends Base {
     @Column(name = "lanzamiento")
     private String fechaLanzamiento;
 
-    @Column(name = "precio")
-    private float precio;
-
-    @Column(name = "stock")
-    private int stock;
-
     @Column(name = "esExplicito")
     private boolean explicit;
 
     @Column(name = "MusicUrl")
     private String urlMusic;
 
-    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "genero_FK")
-    private Generos genero;
 
 
 }

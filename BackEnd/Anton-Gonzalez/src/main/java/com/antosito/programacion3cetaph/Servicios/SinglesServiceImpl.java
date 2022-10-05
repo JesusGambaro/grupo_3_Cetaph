@@ -20,9 +20,9 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
     }
 
     @Override
-    public List<Singles> searchFilter(String filtroName, Float filtroPrecio, Long filtroID) throws Exception {
+    public List<Singles> searchFilter(String filtroName) throws Exception {
         try {
-            List<Singles> singles = singlesRepository.searchFilter(filtroName, filtroPrecio, filtroID);
+            List<Singles> singles = singlesRepository.searchFilter(filtroName);
             return singles;
         } catch (Exception e) {
             throw new Exception(e.getMessage());

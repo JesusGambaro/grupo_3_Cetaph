@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Audited
 public class Albums extends Base{
 
     @Column(name = "nombre")
@@ -38,15 +37,15 @@ public class Albums extends Base{
     @Column(name = "esExplicito")
     private boolean explicit;
 
+    @Column(name = "genero")
+    private String genero;
+
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Singles> singles;
 
-    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "genero_FK")
-    private Generos genero;
 
 }
 

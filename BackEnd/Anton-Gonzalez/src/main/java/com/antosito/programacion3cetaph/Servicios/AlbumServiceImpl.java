@@ -6,6 +6,8 @@ import com.antosito.programacion3cetaph.Repositorios.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> implements AlbumService {
     @Autowired
@@ -13,5 +15,15 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
 
     public AlbumServiceImpl(BaseRepository<Albums, Long> baseRepository) {
         super(baseRepository);
+    }
+
+    @Override
+    public List<Albums> SearchAlbums(Boolean filtroVil, String filtroName, Float filtroPriceMax,Float filtroPriceMin, Boolean fitroExp) throws Exception {
+        try {
+            List<Albums> albumsList = albumRepository.SearchAlbum(filtroVil,filtroName,filtroPriceMax,filtroPriceMin,fitroExp);
+            return albumsList;
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 }

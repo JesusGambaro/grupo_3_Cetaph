@@ -8,5 +8,5 @@ import java.util.List;
 
 
 public interface SinglesService extends BaseServices<Singles, Long> {
-    List<Singles> searchFilter(String filtroName, Float filtroPrecio, Long filtroID) throws Exception;
+    List<Singles> searchFilter(String filtroName) throws Exception;
 }

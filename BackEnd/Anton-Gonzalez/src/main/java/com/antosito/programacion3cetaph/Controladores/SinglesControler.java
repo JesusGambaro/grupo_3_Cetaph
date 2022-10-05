@@ -24,10 +24,9 @@ import java.util.Map;
 @RequestMapping(path = "api/v1/singles")
 public class SinglesControler extends BaseControladorImplementacion<Singles, SinglesServiceImpl>{
     @GetMapping("/filter")
-    public ResponseEntity<?> searchFilter(@RequestParam(required = false) String filtroName, @RequestParam(required = false) Float filtroPrecio, @RequestParam(required = false) Long filtroID){
-        System.out.println("Llego esto "+filtroName+ " y "+filtroPrecio+ " tambien " +filtroID);
+    public ResponseEntity<?> searchFilter(@RequestParam(required = false) String filtroName){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchFilter(filtroName,filtroPrecio,filtroID));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchFilter(filtroName));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
