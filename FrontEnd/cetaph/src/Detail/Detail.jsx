@@ -17,7 +17,7 @@ const Detail = () => {
       setLoading(true);
       try {
         const {data} = await axios.get(
-          `http://192.168.47.14:3001/data?id=${id}`
+          `http://localhost:3001/data?id=${id}`
         );
         setDisk(data[0]);
       } catch (e) {

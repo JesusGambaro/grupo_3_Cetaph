@@ -58,7 +58,6 @@ const Home = () => {
           <CardsScroller props={discos} />
         </div>
       </div>
-      <Footer />
     </>
   );
 };
