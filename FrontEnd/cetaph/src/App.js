@@ -6,6 +6,7 @@ import Catalogue from "./Catalogue/Catalogue";
 import Contact from "./Contact/Contact";
 import NavBar from "./Navbar/NavBar";
 import Detail from "./Detail/Detail";
+import Footer from "./Footer/Footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
         <Route path="Detail/:id" element={<Detail />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

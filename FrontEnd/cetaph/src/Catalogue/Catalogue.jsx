@@ -14,7 +14,7 @@ const Catalogue = () => {
   const [search, setSearch] = useState("");
   useEffect(() => {
     axios
-      .get("http://192.168.47.14:3001/albums")
+      .get("http://localhost:3001/albums")
       .then((res) => {
         setDisks(res.data);
         console.log(res.data);
