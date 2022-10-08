@@ -32,9 +32,9 @@ public class ArtistaServiceImpl extends BaseServiceImplentation<Artista,Long> im
     }
 
     @Override
-    public List<Singles> searchSinglebyArtista(Long filtro) throws Exception {
+    public List<Artista> searchSinglebyArtista(Long filtro) throws Exception {
         try {
-            List<Singles> singlesList = artistaRepository.searchSinglebyArtista(filtro);
+            List<Artista> singlesList = artistaRepository.searchSinglebyArtista(filtro);
             return singlesList;
         }catch (Exception e){
             throw new Exception(e.getMessage());

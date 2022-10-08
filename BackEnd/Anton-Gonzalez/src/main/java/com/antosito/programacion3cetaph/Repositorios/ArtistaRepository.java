@@ -18,9 +18,9 @@ public interface ArtistaRepository extends BaseRepository<Artista,Long>{
     nativeQuery = true)
     List<Albums> searchAlbumbyArtista (@Param("filtro")Long filtro);
 
-    @Query(value = "select 'as'* from Artista a join" +
-            "artista_single 'as' on a.artista_id = 'as'.artista_id" +
-            "where(:filtro is null or 'as'.artista_id like :filtro)",
+    @Query(value = "select s.single_id from artista a join " +
+            "artista_single s on a.id = s.artista_id " +
+            "where (:filtro is null or a.id like :filtro)",
     nativeQuery = true)
-    List<Singles> searchSinglebyArtista (@Param("filtro")Long filtro);
+    List<Artista> searchSinglebyArtista (@Param("filtro")Long filtro);
 }

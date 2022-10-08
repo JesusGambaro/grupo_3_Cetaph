@@ -42,5 +42,12 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
     }
-
+    @GetMapping("/searchAlbums")
+    public ResponseEntity<?> searchAlbums(@RequestParam Boolean V,@RequestParam String Name,@RequestParam Float Max,@RequestParam Float Min,@RequestParam Boolean Exp){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.SearchAlbums(V,Name,Max,Min,Exp));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+        }
+    }
 }

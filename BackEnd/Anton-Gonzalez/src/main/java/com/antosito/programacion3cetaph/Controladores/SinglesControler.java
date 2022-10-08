@@ -23,10 +23,10 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/v1/singles")
 public class SinglesControler extends BaseControladorImplementacion<Singles, SinglesServiceImpl>{
-    @GetMapping("/filter")
-    public ResponseEntity<?> searchFilter(@RequestParam(required = false) String filtroName){
+    @GetMapping("/search")
+    public ResponseEntity<?> searchFilter(@RequestParam String Name){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchFilter(filtroName));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchFilter(Name));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }

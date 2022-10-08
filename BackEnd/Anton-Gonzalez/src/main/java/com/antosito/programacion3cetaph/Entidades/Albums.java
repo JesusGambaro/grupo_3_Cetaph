@@ -19,6 +19,12 @@ public class Albums extends Base{
     @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "precio")
+    private float precio;
+
+    @Column(name = "stock")
+    private int stock;
+
     @Column(name = "lanzamiento")
     private String fechaLanzamiento;
 

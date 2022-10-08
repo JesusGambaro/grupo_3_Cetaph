@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface SinglesRepository extends BaseRepository<Singles, Long> {
-    @Query(value = "SELECT * FROM Singles WHERE (:filtroName IS NULL OR nombre LIKE %:filtroName%)",
+    @Query(value = "SELECT * FROM singles s WHERE (:filtroName IS NULL OR s.nombre LIKE :filtroName)",
             nativeQuery = true)
     List<Singles> searchFilter(@Param("filtroName") String filtroName);
 }
