@@ -43,9 +43,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         }
     }
     @GetMapping("/searchAlbums")
-    public ResponseEntity<?> searchAlbums(@RequestParam Boolean V,@RequestParam String Name,@RequestParam Float Max,@RequestParam Float Min,@RequestParam Boolean Exp){
+    public ResponseEntity<?> searchAlbums(@RequestParam(required = false) Boolean V,@RequestParam(required = false) String Name,@RequestParam(required = false) Float Max,@RequestParam(required = false) Float Min,@RequestParam(required = false) Boolean Exp){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.SearchAlbums(V,Name,Max,Min,Exp));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.SearchAlbums(V,Name,Min,Max,Exp));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }

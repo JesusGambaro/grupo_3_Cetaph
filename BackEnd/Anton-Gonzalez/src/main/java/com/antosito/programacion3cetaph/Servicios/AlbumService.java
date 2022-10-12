@@ -8,8 +8,8 @@ public interface AlbumService extends BaseServices<Albums,Long>{
 
     List<Albums>SearchAlbums(Boolean filtroVil,
                              String filtroName,
-                             Float filtroPriceMax,
                              Float filtroPriceMin,
+                             Float filtroPriceMax,
                              Boolean fitroExp) throws Exception;
 
 }
