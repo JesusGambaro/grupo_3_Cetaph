@@ -39,4 +39,15 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<Singles> LandingCarrusel() throws Exception {
+        try {
+            List<Singles> singlesList = singlesRepository.landingCarrusel();
+            return singlesList;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }

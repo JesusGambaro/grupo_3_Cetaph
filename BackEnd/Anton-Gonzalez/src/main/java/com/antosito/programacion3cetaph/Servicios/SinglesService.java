@@ -13,4 +13,7 @@ public interface SinglesService extends BaseServices<Singles, Long> {
 
     //Creamos las listas en el metodo con las queries que determinamos en la repository
     List<Singles> searchSinglesByArtist(String Name) throws Exception;
+
+    //Creamos las listas en el metodo con las queries que determinamos en la repository
+    List<Singles> LandingCarrusel() throws Exception;
 }

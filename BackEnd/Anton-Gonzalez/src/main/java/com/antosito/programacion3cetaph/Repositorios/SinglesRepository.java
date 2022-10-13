@@ -24,4 +24,8 @@ public interface SinglesRepository extends BaseRepository<Singles, Long> {
             "WHERE (:Name IS NULL OR a.nombre LIKE %:Name%)",
             nativeQuery = true)
     List<Singles> searchSinglebyArtista (@Param("Name")String Name);
+
+    @Query(value = "SELECT * FROM singles s ORDER BY s.nombre LIMIT 10",
+    nativeQuery = true)
+    List<Singles> landingCarrusel();
 }

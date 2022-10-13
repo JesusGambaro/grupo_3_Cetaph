@@ -60,5 +60,14 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
     }
+//Get datos hasta un limite de 10 para el landing bar
+    @GetMapping("/data")
+    public ResponseEntity<?> carruselLanding(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.LandingCarrusel());
+        }catch (Exception e){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+        }
+    }
 
 }
