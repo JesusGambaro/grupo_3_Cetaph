@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface ArtistaService extends BaseServices<Artista,Long>{
     List<Albums> searchAlbumbyArtista (Long filtro) throws Exception;
-    List<Artista> searchSinglebyArtista (Long filtro) throws Exception;
+
 }

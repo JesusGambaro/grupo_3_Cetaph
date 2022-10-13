@@ -31,6 +31,14 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+    @GetMapping("/searchSinglesByArtist")
+    public ResponseEntity<?> searchSinglesBy(@RequestParam(required = false) String Name){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchSinglesByArtist(Name));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+        }
+    }
     @Autowired
     CloudinaryService cloudinaryService;
 

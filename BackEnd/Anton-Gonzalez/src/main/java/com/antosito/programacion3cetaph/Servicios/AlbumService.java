@@ -12,4 +12,7 @@ public interface AlbumService extends BaseServices<Albums,Long>{
                              Float filtroPriceMax,
                              Boolean fitroExp) throws Exception;
 
+
+    List<Albums>searchAlbumsbyArtist(String Name) throws Exception;
+
 }

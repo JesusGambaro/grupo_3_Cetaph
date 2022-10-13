@@ -28,4 +28,14 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<Singles> searchSinglesByArtist(String Name) throws Exception {
+        try{
+            List<Singles> singlesList = singlesRepository.searchSinglebyArtista(Name);
+            return singlesList;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }

@@ -1,28 +1,15 @@
 package com.antosito.programacion3cetaph.Repositorios;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
+import com.antosito.programacion3cetaph.Entidades.Artista;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/*@Repository
-public interface AlbumRepository extends BaseRepository<Albums, Long> {
 
-    @Query(value = "select * from albums a where" +
-            "(a.es_vinilo = :filtroVil)" +
-            "and (a.nombre LIKE %:filtroName%)" +
-            "and ( a.precio <= :filtroPriceMax and a.precio >= :filtroPriceMin)" +
-            "and ( a.es_explicito = :filtroExp)",
-            nativeQuery = true)
-    List<Albums> SearchAlbum(@Param("filtroVil") Boolean filtroVil,
-                             @Param("filtroName") String filtroName,
-                             @Param("filtroPriceMin") Float filtroPriceMin,
-                             @Param("filtroPriceMax") Float filtroPriceMax,
-                             @Param("filtroExp") Boolean fitroExp);
-
-}*/
 @Repository
 public interface AlbumRepository extends BaseRepository<Albums, Long> {
 
@@ -39,4 +26,16 @@ public interface AlbumRepository extends BaseRepository<Albums, Long> {
                              @Param("filtroPriceMin") Float filtroPriceMin,
                              @Param("filtroPriceMax") Float filtroPriceMax,
                              @Param("filtroExp") Boolean fitroExp);
+
+
+
+    @Query(value = "SELECT a2.* FROM artista a " +
+            "INNER JOIN albums_artistas aa on a.id = aa.artistas_id " +
+            "INNER JOIN albums a2 on aa.albums_id = a2.id " +
+            "WHERE (:Name IS NULL OR a.nombre LIKE %:Name%)",
+            nativeQuery = true)
+    List<Albums> searchAlbumsByArtistas(@Param("Name")String Name);
+
+
+
 }

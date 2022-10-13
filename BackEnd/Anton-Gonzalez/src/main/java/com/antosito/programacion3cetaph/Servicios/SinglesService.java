@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface SinglesService extends BaseServices<Singles, Long> {
     List<Singles> searchFilter(String filtroName) throws Exception;
+
+    List<Singles> searchSinglesByArtist(String Name) throws Exception;
 }

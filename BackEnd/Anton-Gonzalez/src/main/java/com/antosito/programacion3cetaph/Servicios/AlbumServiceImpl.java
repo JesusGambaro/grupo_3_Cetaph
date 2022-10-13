@@ -18,13 +18,24 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
     }
 
     @Override
-    public List<Albums> SearchAlbums(Boolean filtroVil, String filtroName, Float filtroPriceMax,Float filtroPriceMin, Boolean fitroExp) throws Exception {
+    public List<Albums> SearchAlbums(Boolean filtroVil, String filtroName, Float filtroPriceMax, Float filtroPriceMin, Boolean fitroExp) throws Exception {
         try {
-            System.out.println("Me llego "+filtroName+" ,"+filtroVil+" ,"+filtroPriceMax+" ,"+filtroPriceMin+" ,"+fitroExp);
-            List<Albums> albumsList = albumRepository.SearchAlbum(filtroVil,filtroName,filtroPriceMax,filtroPriceMin,fitroExp);
+            List<Albums> albumsList = albumRepository.SearchAlbum(filtroVil, filtroName, filtroPriceMax, filtroPriceMin, fitroExp);
+            return albumsList;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Albums> searchAlbumsbyArtist(String Name) throws Exception {
+        try {
+            List<Albums> albumsList = albumRepository.searchAlbumsByArtistas(Name);
             return albumsList;
         }catch(Exception e){
             throw new Exception(e.getMessage());
         }
     }
+
+
 }

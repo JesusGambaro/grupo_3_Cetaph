@@ -50,4 +50,12 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+    @GetMapping("/searchAlbumsbyArtist")
+    public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)String Name){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchAlbumsbyArtist(Name));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+        }
+    }
 }
