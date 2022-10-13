@@ -11,4 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "api/v1/artista")
 public class ArtistaControler extends BaseControladorImplementacion<Artista, ArtistaServiceImpl>{
 
+    //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
+    @GetMapping("/searchArtist")
+    public ResponseEntity<?> searchArtista (@RequestParam(required = false) String name){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchArtista(name));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+        }
+    }
 }

@@ -19,6 +19,7 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
         super(baseRepository);
     }
 
+    //Creamos las listas en el metodo con las queries que determinamos en la repository
     @Override
     public List<Singles> searchFilter(String filtroName) throws Exception {
         try {

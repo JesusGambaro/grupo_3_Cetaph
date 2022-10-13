@@ -12,11 +12,9 @@ import java.util.List;
 @Repository
 public interface ArtistaRepository extends BaseRepository<Artista,Long>{
 
-    @Query(value = "select aa* from Artista a join " +
-            "albums_artistas aa on a.artista_id = aa.artistas_id " +
-            "where (:filtro is null or aa.artista_id like :filtro)",
+    //Query que busca el Artista por su nombre
+    @Query(value = "SELECT * FROM artista a WHERE :filtro IS NULL OR a.nombre LIKE %:filtro%",
     nativeQuery = true)
-    List<Albums> searchAlbumbyArtista (@Param("filtro")Long filtro);
-
+    List<Artista> searchArtista (@Param("filtro")String filtro);
 
 }

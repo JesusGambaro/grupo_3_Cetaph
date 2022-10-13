@@ -42,6 +42,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
     }
+
+    //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
+    /* http://localhost:9000/api/v1/album/searchAlbums?V=true&Name=Plague&Max=120&Min=120&Exp=true */
     @GetMapping("/searchAlbums")
     public ResponseEntity<?> searchAlbums(@RequestParam(required = false) Boolean V,@RequestParam(required = false) String Name,@RequestParam(required = false) Float Max,@RequestParam(required = false) Float Min,@RequestParam(required = false) Boolean Exp){
         try{
@@ -50,6 +53,8 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+    //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
+    /* http://localhost:9000/api/v1/album/searchAlbumsbyArtist?Name=Plague */
     @GetMapping("/searchAlbumsbyArtist")
     public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)String Name){
         try {

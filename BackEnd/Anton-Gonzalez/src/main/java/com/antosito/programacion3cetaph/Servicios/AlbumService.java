@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface AlbumService extends BaseServices<Albums,Long>{
 
+    //Declaramos las listas y los parametros que necesita
     List<Albums>SearchAlbums(Boolean filtroVil,
                              String filtroName,
                              Float filtroPriceMin,

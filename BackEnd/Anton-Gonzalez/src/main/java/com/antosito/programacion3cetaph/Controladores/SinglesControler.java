@@ -23,6 +23,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/v1/singles")
 public class SinglesControler extends BaseControladorImplementacion<Singles, SinglesServiceImpl>{
+    //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
+    /* http://localhost:9000/api/v1/singles/search?Name=All */
     @GetMapping("/search")
     public ResponseEntity<?> searchFilter(@RequestParam String Name){
         try{
@@ -31,6 +33,8 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+    //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
+    /* http://localhost:9000/api/v1/singles/searchSinglesByArtist?Name=Plague  */
     @GetMapping("/searchSinglesByArtist")
     public ResponseEntity<?> searchSinglesBy(@RequestParam(required = false) String Name){
         try{

@@ -17,6 +17,7 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
         super(baseRepository);
     }
 
+    //Creamos las listas en el metodo con las queries que determinamos en la repository
     @Override
     public List<Albums> SearchAlbums(Boolean filtroVil, String filtroName, Float filtroPriceMax, Float filtroPriceMin, Boolean fitroExp) throws Exception {
         try {
@@ -26,7 +27,7 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
             throw new Exception(e.getMessage());
         }
     }
-
+    //Creamos las listas en el metodo con las queries que determinamos en la repository
     @Override
     public List<Albums> searchAlbumsbyArtist(String Name) throws Exception {
         try {

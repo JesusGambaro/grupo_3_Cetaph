@@ -12,8 +12,9 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
 
     @Autowired
     protected S servicio;
-
-    @GetMapping("")
+    //Creamos los mapeos que llamen a los metodos de los servicios
+    //Estos metodos contienen el CRUD base de nuestro producto
+    @GetMapping("") //Get All
     public ResponseEntity<?> getAll() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.findAll());
@@ -23,7 +24,7 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") //Get One
     public ResponseEntity<?> getOne(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.findById(id));
@@ -32,7 +33,7 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
         }
     }
 
-    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE}) //Post
     public ResponseEntity<?> save(@RequestBody E entity) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.save(entity));
@@ -41,7 +42,7 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") //Put
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody E entity) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.update(id, entity));
@@ -51,7 +52,7 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") //Delete
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(servicio.delete(id));

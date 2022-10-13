@@ -21,13 +21,14 @@ public class ArtistaServiceImpl extends BaseServiceImplentation<Artista,Long> im
         super(baseRepository);
     }
 
+
     @Override
-    public List<Albums> searchAlbumbyArtista(Long filtro) throws Exception {
-        try {
-            List<Albums> albumsList = artistaRepository.searchAlbumbyArtista(filtro);
-            return albumsList;
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+    public List<Artista> searchArtista(String filtro) throws Exception {
+       try {
+           List <Artista> artistaList = artistaRepository.searchArtista(filtro);
+           return artistaList;
+       }catch (Exception e){
+           throw new Exception(e.getMessage());
+       }
     }
 }

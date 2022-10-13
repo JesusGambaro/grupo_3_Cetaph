@@ -11,10 +11,13 @@ import java.util.List;
 
 @Repository
 public interface SinglesRepository extends BaseRepository<Singles, Long> {
+
+    //Query que busca una single por su nombre
     @Query(value = "SELECT * FROM singles s WHERE (:filtroName IS NULL OR s.nombre LIKE %:filtroName%)",
             nativeQuery = true)
     List<Singles> searchFilter(@Param("filtroName") String filtroName);
 
+    //Query que busca todas las single por el nombre de Artista
     @Query(value = "SELECT s2.* FROM artista a " +
             "INNER JOIN artista_single aa on a.id = aa.artista_id " +
             "INNER JOIN singles s2 on aa.single_id = s2.id " +

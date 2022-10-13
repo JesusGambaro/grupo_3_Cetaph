@@ -14,6 +14,8 @@ public abstract class BaseServiceImplentation<E extends Base, ID extends Seriali
         this.BaseRepository = baseRepository;
     }
 
+
+    //Aqui le poneemos su funcionamiento respectivo, Sacamos sus metodos desde BaseServices
     @Override
     @Transactional
     public List<E> findAll() throws Exception {

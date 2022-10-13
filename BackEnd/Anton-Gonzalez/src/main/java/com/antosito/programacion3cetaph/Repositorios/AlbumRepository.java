@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface AlbumRepository extends BaseRepository<Albums, Long> {
 
+    //Una query que filtra por varios parametros para encontrar un producto especifico en la base de datos
     @Query(value = "select * from albums a" +
             " inner join albums_singles sa on a.id = sa.albums_id" +
             " inner join singles s on sa.singles_id = s.id" +
@@ -28,7 +29,7 @@ public interface AlbumRepository extends BaseRepository<Albums, Long> {
                              @Param("filtroExp") Boolean fitroExp);
 
 
-
+   //Creamos una query que busca todos los singles de un artista
     @Query(value = "SELECT a2.* FROM artista a " +
             "INNER JOIN albums_artistas aa on a.id = aa.artistas_id " +
             "INNER JOIN albums a2 on aa.albums_id = a2.id " +
