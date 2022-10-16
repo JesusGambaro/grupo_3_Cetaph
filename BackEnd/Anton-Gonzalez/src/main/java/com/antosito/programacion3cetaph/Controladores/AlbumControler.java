@@ -25,6 +25,8 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     @Autowired
     AlbumService albumService;
 
+    /*Metodo para postear las imagenes para el album especifico*/
+    /*Insertar url de posteo*/
     @PostMapping(value = "/uploadImg",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> upload(@RequestPart("album") Albums albums, @RequestPart("file") MultipartFile multipartFile)throws IOException {
         try{

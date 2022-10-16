@@ -15,14 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 
 public class Artista extends Base {
-
-    //Crear una relacion con singles
+    /*Declaramos todas la variables que van en nuestra base de datos
+    extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "nombre")
     private String nombre;
 
     @Column(name = "apellido")
     private String nacionalidad;
-
+/*Una relacion de uno a muchos, un artista puede tener muchas singles*/
     @OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = true)
     @JoinTable(
             name = "artista_single",

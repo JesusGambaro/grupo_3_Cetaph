@@ -25,6 +25,7 @@ public interface SinglesRepository extends BaseRepository<Singles, Long> {
             nativeQuery = true)
     List<Singles> searchSinglebyArtista (@Param("Name")String Name);
 
+    //Query para seleccionar 10 elementos para el landing bar
     @Query(value = "SELECT * FROM singles s ORDER BY s.nombre LIMIT 10",
     nativeQuery = true)
     List<Singles> landingCarrusel();

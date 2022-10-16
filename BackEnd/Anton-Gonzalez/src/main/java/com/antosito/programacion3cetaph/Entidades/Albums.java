@@ -15,7 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Albums extends Base{
-
+    /*Declaramos todas la variables que van en nuestra base de datos
+    extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "nombre")
     private String nombre;
 
@@ -45,10 +46,10 @@ public class Albums extends Base{
 
     @Column(name = "genero")
     private String genero;
-
+    /*Una relacion de muchos a muchos, albumnes pueden tener multiples artistas y viceversa*/
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;
-
+    /*Una relacion de muchos a muchos, singles(Cancion individual) puede tener muchos artistas y viceversa */
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Singles> singles;
 

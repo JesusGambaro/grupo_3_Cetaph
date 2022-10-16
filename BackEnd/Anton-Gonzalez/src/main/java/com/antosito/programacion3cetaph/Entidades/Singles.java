@@ -14,7 +14,8 @@ import java.util.List;
 @Setter
 @Getter
 public class Singles extends Base {
-
+/*Declaramos todas la variables que van en nuestra base de datos
+extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "nombre")
     private String nombre;
 
@@ -32,7 +33,5 @@ public class Singles extends Base {
 
     @Column(name = "MusicUrl")
     private String urlMusic;
-
-
 
 }
