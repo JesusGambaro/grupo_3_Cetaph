@@ -38,8 +38,8 @@ public class Albums extends Base{
     @Column(name = "esVinilo")
     private boolean esVinilo;
 
-    @Column(name = "imgUrl")
-    private String urlImg;
+    @OneToOne(optional = false)
+    private Imagenes imgs_fk;
 
     @Column(name = "esExplicito")
     private boolean explicit;

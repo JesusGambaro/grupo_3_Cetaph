@@ -34,4 +34,7 @@ extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "MusicUrl")
     private String urlMusic;
 
+    @OneToOne(optional = false)
+    private Genero genero_fk;
+
 }

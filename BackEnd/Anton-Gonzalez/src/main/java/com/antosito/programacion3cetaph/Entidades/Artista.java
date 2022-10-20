@@ -1,8 +1,6 @@
 package com.antosito.programacion3cetaph.Entidades;
 
 import lombok.*;
-import org.hibernate.envers.Audited;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ public class Artista extends Base {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "apellido")
+    @Column(name = "nacionalidad")
     private String nacionalidad;
 /*Una relacion de uno a muchos, un artista puede tener muchas singles*/
     @OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = true)
