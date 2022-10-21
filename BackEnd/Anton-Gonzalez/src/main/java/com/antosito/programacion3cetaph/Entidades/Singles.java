@@ -19,9 +19,6 @@ extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "genero")
-    private String genero;
-
     @Column(name = "duracion")
     private int duracion;
 

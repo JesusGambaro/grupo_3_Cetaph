@@ -29,18 +29,15 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
     CloudinaryService cloudinaryService;
 
     @PostMapping(value = "/uploadImg",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("imagenes") Imagenes imagenes, @RequestPart("file") MultipartFile multipartFile)throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("file") MultipartFile multipartFile)throws IOException {
         try{
             BufferedImage bi = ImageIO.read(multipartFile.getInputStream());
             if(bi == null){
                 return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
             }
             Map result = cloudinaryService.upload(multipartFile);
-
-            imagenes.setUrlImg((String)result.get("url"));
-
-            return ResponseEntity.status(HttpStatus.OK).body(imagenesService.save(imagenes));
-
+            Imagenes imagenes = new Imagenes((String)result.get("url"));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.save(imagenes));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }

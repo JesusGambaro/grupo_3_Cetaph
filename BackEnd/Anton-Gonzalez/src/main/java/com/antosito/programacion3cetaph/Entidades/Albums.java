@@ -38,14 +38,14 @@ public class Albums extends Base{
     @Column(name = "esVinilo")
     private boolean esVinilo;
 
-    @OneToOne(optional = false)
-    private Imagenes imgs_fk;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Imagenes> imagenes;
 
     @Column(name = "esExplicito")
     private boolean explicit;
 
-    @Column(name = "genero")
-    private String genero;
+    @OneToOne()
+    private Genero genero;
     /*Una relacion de muchos a muchos, albumnes pueden tener multiples artistas y viceversa*/
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;

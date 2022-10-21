@@ -12,7 +12,7 @@ const Catalogue = () => {
   const [search, setSearch] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:3001/albums")
+      .get("http://localhost:9000/api/v1/album")
       .then((res) => {
         setDisks(res.data);
         console.log(res.data);

@@ -7,7 +7,7 @@ import Contact from "./Components/Contact/Contact";
 import NavBar from "./Components/Navbar/NavBar";
 import Detail from "./Components/Detail/Detail";
 import Footer from "./Components/Footer/Footer";
-
+import { CreateAlbumForm } from "./Components/AdminDashboard/CreateAlbumForm";
 function App() {
   return (
     <div className="App">
@@ -17,6 +17,7 @@ function App() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Catalogue" element={<Catalogue />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/AdminDashboard/CreateAlbum" element={<CreateAlbumForm />} />
         <Route path="Detail/:id" element={<Detail />} />
       </Routes>
       <Footer />
