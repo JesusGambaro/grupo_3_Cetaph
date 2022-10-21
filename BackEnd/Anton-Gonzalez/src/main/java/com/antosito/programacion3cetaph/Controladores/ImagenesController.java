@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,24 +25,25 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
 
     @Autowired
     ImagenesService imagenesService;
-
     @Autowired
     CloudinaryService cloudinaryService;
 
     @PostMapping(value = "/uploadImg",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("file") MultipartFile multipartFile)throws IOException {
-        try{
-            BufferedImage bi = ImageIO.read(multipartFile.getInputStream());
-            if(bi == null){
-                return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
-            }
-            Map result = cloudinaryService.upload(multipartFile);
-            Imagenes imagenes = new Imagenes((String)result.get("url"));
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.save(imagenes));
+    public ResponseEntity<?> upload(@RequestPart("file") MultipartFile[] multipartFile)throws IOException {
+        try {
+            for (MultipartFile file : multipartFile){
+                BufferedImage bi = ImageIO.read(file.getInputStream());
+                if (bi == null) {
+                    return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
+                }
+                Map result = cloudinaryService.upload(file);
+            Imagenes imagenes = new Imagenes((String) result.get("url"));
+           ResponseEntity.status(HttpStatus.OK).body(servicio.save(imagenes));
+        }
+            return ResponseEntity.status(HttpStatus.OK).body("{\"Ey\":\"Pudo guardar el dato.\"}");
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
     }
-
 
 }
