@@ -18,5 +18,7 @@ public class Imagenes extends Base{
     @Column(name = "imgUrl")
     private String urlImg;
 
+    @Column(name = "CloudinaryId")
+    private String CloudinaryId;
 
 }

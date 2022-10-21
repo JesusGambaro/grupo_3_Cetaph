@@ -1,9 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./CreateAlbumForm.scss";
 import Select from "react-select";
 import Creatable, { useCreatable } from "react-select/creatable";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 export const CreateAlbumForm = () => {
   const options = [
@@ -12,21 +10,55 @@ export const CreateAlbumForm = () => {
     { value: "vanilla", label: "Vanilla" },
   ];
   const [generos, setGeneros] = useState([]);
+  const handleGenero = (value) => {
+    axios({
+      url: "http://localhost:9000/api/v1/genero",
+      method: "POST",
+      data: {
+        generoName: value,
+      },
+    })
+      .then(() => {
+        axios({
+          url: "http://localhost:9000/api/v1/genero",
+          method: "GET",
+        })
+          .then(({ data }) => {
+            //console.log(data);
+            let generosData = data.map((genero) => {
+              return {
+                value: genero.generoName,
+                label:
+                  genero.generoName.substring(0, 1).toUpperCase() +
+                  genero.generoName.substring(1),
+                id: genero.id,
+              };
+            });
+            setGeneros(generosData);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch(() => {});
+  };
   useEffect(() => {
     console.log("Inicio");
     axios({
       url: "http://localhost:9000/api/v1/genero",
       method: "GET",
     })
-      .then(({data}) => {
-        console.log(data);
+      .then(({ data }) => {
+        //console.log(data);
         let generosData = data.map((genero) => {
-          return ({
+          return {
             value: genero.generoName,
-            label: genero.generoName.substring(0,1).toUpperCase() + genero.generoName.substring(1),
-            id: genero.id
-          })
-        })
+            label:
+              genero.generoName.substring(0, 1).toUpperCase() +
+              genero.generoName.substring(1),
+            id: genero.id,
+          };
+        });
         setGeneros(generosData);
       })
       .catch((err) => {
@@ -70,7 +102,7 @@ export const CreateAlbumForm = () => {
     });
   };
   const handleFileInput = async (e) => {
-    console.log("Cambiando Imagen");
+    //console.log("Cambiando Imagen");
     setData({
       ...data,
       images: {
@@ -79,33 +111,51 @@ export const CreateAlbumForm = () => {
       },
     });
   };
-  const onInputChange = (inputValue, { action, prevInputValue }) => {
-    if (action === "set-value") {
-      console.log("entre");
-      console.log(inputValue.value);
-      return inputValue;
-    }
-  };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("file", data.images.image);
-    formData.append("album", data.album);
-
     axios({
-      url: "http://localhost:9000/api/v1/album",
+      url: "http://localhost:9000/api/v1/img/uploadImg",
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
-      data: data.album,
+      data: formData,
     })
-      .then((res) => {
-        console.log(res.status);
+      .then(({img}) => {
+        console.log(data.album);
+        handleData("imagenes",[img]);
+        axios({
+          url: "http://localhost:9000/api/v1/album",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data.album,
+        })
+          .then((res) => {
+            console.log(res.status);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
       });
+    /*
+     */
+  };
+  const onInputChange = (inputValue, param) => {
+    console.log(inputValue);
+    /* console.log("value " + prevInputValue);
+    console.log("action " + action);
+    if (action === "input-change") return inputValue;
+    if (action === "menu-close") {
+      console.log("menu cerrado");
+    }
+    return prevInputValue; */
   };
   return (
     <section className="CreateAlbumForm">
@@ -185,7 +235,15 @@ export const CreateAlbumForm = () => {
             options={generos}
             placeholder={"Genero..."}
             isClearable
-            onChange={(param) => handleData("genero", {id:param.id,generoName:param.value})}
+            onSelectResetsInput={false}
+            onBlurResetsInput={false}
+            onChange={(param) =>
+              handleData("genero", { id: param?.id, generoName: param?.value })
+            }
+            onCreateOption={(param) => {
+              console.log(param);
+              handleGenero(param);
+            }}
           />
 
           <textarea

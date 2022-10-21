@@ -5,7 +5,7 @@ import "./card.scss";
 
 const Card = ({color, data}) => {
     const navigate = useNavigate();
-    console.log(data);
+    //console.log(data);
     return (
         <div
             className={"card" + (color === "white" ? " home" : "")}
@@ -14,7 +14,7 @@ const Card = ({color, data}) => {
             <div className="card-header">
                 <Link to={"/Detail/" + data.id} className="noselect">
                     <img
-                        src={data?.imagenes[0] ? data?.imagenes[0] : "https://www.biografiasyvidas.com/biografia/q/fotos/queen.jpg"}
+                        src={data?.imagenes[0] ? data?.imagenes[0].urlImg : "https://www.biografiasyvidas.com/biografia/q/fotos/queen.jpg"}
                         alt="" draggable="false"/>
 
                 </Link>

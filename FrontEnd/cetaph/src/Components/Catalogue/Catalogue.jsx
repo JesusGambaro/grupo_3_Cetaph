@@ -15,7 +15,7 @@ const Catalogue = () => {
       .get("http://localhost:9000/api/v1/album")
       .then((res) => {
         setDisks(res.data);
-        console.log(res.data);
+        //console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -28,7 +28,7 @@ const Catalogue = () => {
   };
   return (
     <div className="catalogue-container">
-      <LeftFilters />
+       <LeftFilters />
       <main>
         <UpSideBar setData={(e) => setData(e)} />
         {loading ? (

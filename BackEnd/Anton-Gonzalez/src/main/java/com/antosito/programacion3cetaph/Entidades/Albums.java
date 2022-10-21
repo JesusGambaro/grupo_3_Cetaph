@@ -38,7 +38,7 @@ public class Albums extends Base{
     @Column(name = "esVinilo")
     private boolean esVinilo;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     private List<Imagenes> imagenes;
 
     @Column(name = "esExplicito")

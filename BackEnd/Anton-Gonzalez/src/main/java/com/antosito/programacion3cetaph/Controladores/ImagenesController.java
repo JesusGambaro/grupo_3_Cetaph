@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,20 +29,31 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
     ImagenesService imagenesService;
     @Autowired
     CloudinaryService cloudinaryService;
-
+    @DeleteMapping("/deleteImg/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") long id) throws Exception {
+        if(!imagenesService.exists(id))
+            return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+        Imagenes imagen = imagenesService.findById(id);
+        Map result = cloudinaryService.delete(imagen.getCloudinaryId());
+        imagenesService.delete(id);
+        return new ResponseEntity("imagen eliminada", HttpStatus.OK);
+    }
     @PostMapping(value = "/uploadImg",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> upload(@RequestPart("file") MultipartFile[] multipartFile)throws IOException {
         try {
+            ArrayList<Imagenes> returnImgs =  new ArrayList<>();
             for (MultipartFile file : multipartFile){
                 BufferedImage bi = ImageIO.read(file.getInputStream());
                 if (bi == null) {
                     return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
                 }
                 Map result = cloudinaryService.upload(file);
-            Imagenes imagenes = new Imagenes((String) result.get("url"));
-           ResponseEntity.status(HttpStatus.OK).body(servicio.save(imagenes));
-        }
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Ey\":\"Pudo guardar el dato.\"}");
+                Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
+                ResponseEntity.status(HttpStatus.OK).body(servicio.save(imagenes));
+                returnImgs.add(imagenes);
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(returnImgs);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }

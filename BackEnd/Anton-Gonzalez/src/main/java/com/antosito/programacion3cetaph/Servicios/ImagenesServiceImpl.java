@@ -11,6 +11,8 @@ public class ImagenesServiceImpl extends BaseServiceImplentation<Imagenes,Long> 
 
     @Autowired
     private ImagenesRepository imagenesRepository;
-
+    public boolean exists(long id){
+        return imagenesRepository.existsById(id);
+    }
     public ImagenesServiceImpl(BaseRepository<Imagenes, Long> baseRepository) {super(baseRepository);}
 }
