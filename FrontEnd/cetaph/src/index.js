@@ -4,8 +4,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { Provider } from "react-redux";
-import NavBar from "./Navbar/NavBar";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

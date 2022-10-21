@@ -69,5 +69,4 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
-
 }

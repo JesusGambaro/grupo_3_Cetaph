@@ -1,6 +1,4 @@
 import {useState, useEffect} from "react";
-import NavBar from "../Navbar/NavBar";
-import usePagination from "../hooks/usePagination";
 import Loading from "../Loading/Loading";
 import Card from "../Card/Card";
 import LeftFilters from "./LeftFilters/LeftFilters";
