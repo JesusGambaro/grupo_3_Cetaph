@@ -38,5 +38,9 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
         }
     }
 
+    public boolean exists(long id){
+        return albumRepository.existsById(id);
+    }
+
 
 }

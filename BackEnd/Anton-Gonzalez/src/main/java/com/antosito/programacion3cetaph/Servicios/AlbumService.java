@@ -16,4 +16,5 @@ public interface AlbumService extends BaseServices<Albums,Long>{
 
     List<Albums>searchAlbumsbyArtist(String Name) throws Exception;
 
+    boolean exists(long id);
 }
