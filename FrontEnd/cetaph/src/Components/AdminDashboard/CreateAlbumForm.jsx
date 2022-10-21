@@ -67,7 +67,7 @@ export const CreateAlbumForm = () => {
   }, []);
 
   const [data, setData] = useState({
-    images: { url: "", image: "" },
+    images: [{ url: "", image: "" }],
     album: {
       nombre: "",
       precio: 0,
@@ -81,6 +81,7 @@ export const CreateAlbumForm = () => {
         id: 0,
         generoName: "",
       },
+      imagenes: [{ id: 0, urlImg: "" }],
     },
   });
   //(property, value )
@@ -105,10 +106,13 @@ export const CreateAlbumForm = () => {
     //console.log("Cambiando Imagen");
     setData({
       ...data,
-      images: {
-        url: URL.createObjectURL(e.target.files[0]),
-        image: e.target.files[0],
-      },
+      images: [
+        ...data.images,
+        {
+          url: URL.createObjectURL(e.target.files[0]),
+          image: e.target.files[0],
+        },
+      ],
     });
   };
   const handleSubmit = async (e) => {
@@ -123,16 +127,16 @@ export const CreateAlbumForm = () => {
       },
       data: formData,
     })
-      .then(({img}) => {
+      .then(({ img }) => {
         console.log(data.album);
-        handleData("imagenes",[img]);
+        handleData("imagenes", [img]);
         axios({
           url: "http://localhost:9000/api/v1/album",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          data: data.album,
+          data: { ...data.album, imagenes: [img] },
         })
           .then((res) => {
             console.log(res.status);
@@ -223,14 +227,19 @@ export const CreateAlbumForm = () => {
             accept="image/*"
             placeholder="Choose Iamge"
           />
-          <div
-            className={"album-img " + (data.images.url ? "on" : "off")}
-            style={
-              data.images.url
-                ? { backgroundImage: `url(${data.images.url})` }
-                : {}
-            }
-          />
+          {data.images.map((img) => {
+            return (
+              <div
+                className={"album-img " + (img.url ? "on" : "off")}
+                style={
+                  img.url
+                    ? { backgroundImage: `url(${img.url})` }
+                    : {}
+                }
+              />
+            );
+          })}
+
           <Creatable
             options={generos}
             placeholder={"Genero..."}
