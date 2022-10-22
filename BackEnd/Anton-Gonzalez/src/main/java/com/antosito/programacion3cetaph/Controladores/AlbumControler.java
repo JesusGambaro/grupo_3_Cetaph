@@ -49,7 +49,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         }
     }
     @DeleteMapping("/deleteComple/{id}") //Delete
-    public ResponseEntity<?> delete(@PathVariable long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             if(!albumService.exists(id))
                 return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
