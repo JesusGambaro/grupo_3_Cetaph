@@ -1,6 +1,7 @@
 package com.antosito.programacion3cetaph.Controladores;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
+import com.antosito.programacion3cetaph.Entidades.Imagenes;
 import com.antosito.programacion3cetaph.Entidades.Singles;
 import com.antosito.programacion3cetaph.Servicios.AlbumService;
 import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
@@ -54,12 +55,30 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
         try{
             Map result = cloudinaryService.uploadMusic(multipartFile);
             singles.setUrlMusic((String)result.get("url"));
+            singles.setCloudinaryId((String) result.get("public_id"));
             return ResponseEntity.status(HttpStatus.OK).body(singleService.save(singles));
 
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
     }
+
+    @DeleteMapping("/deleteMusic/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") long id) throws Exception {
+        if(!singleService.exists(id))
+            return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+        Singles singleunic = singleService.findById(id);
+        System.out.println(singleunic.getCloudinaryId());
+        Map result = cloudinaryService.deleteMusic(singleunic.getCloudinaryId());
+        singleService.delete(id);
+        return new ResponseEntity("musica eliminada", HttpStatus.OK);
+    }
+
+
+
+
+
+
 //Get datos hasta un limite de 10 para el landing bar
     @GetMapping("/data")
     public ResponseEntity<?> carruselLanding(){

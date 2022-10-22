@@ -3,6 +3,7 @@ package com.antosito.programacion3cetaph.Controladores;
 import com.antosito.programacion3cetaph.Entidades.Base;
 import com.antosito.programacion3cetaph.Servicios.BaseServiceImplentation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,21 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
 
         }
     }
+    @GetMapping("/paged")
+    public ResponseEntity<?>getAllPaged(Pageable pageable){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.findAllPaged(pageable));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.OK).body("{\"error\":\"Error, por favor intente mas tarde.\"}"+e);
+        }
+    }
 
     @GetMapping("/{id}") //Get One
     public ResponseEntity<?> getOne(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.findById(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, no se encontro la entre aca.\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente mas tarde.\"}");
         }
     }
 

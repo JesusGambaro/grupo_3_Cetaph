@@ -6,6 +6,10 @@ import com.antosito.programacion3cetaph.Repositorios.ImagenesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ImagenesServiceImpl extends BaseServiceImplentation<Imagenes,Long> implements ImagenesService {
 
@@ -15,4 +19,7 @@ public class ImagenesServiceImpl extends BaseServiceImplentation<Imagenes,Long> 
         return imagenesRepository.existsById(id);
     }
     public ImagenesServiceImpl(BaseRepository<Imagenes, Long> baseRepository) {super(baseRepository);}
+    public ArrayList<Imagenes> saveAllImg(ArrayList<Imagenes> imgs){
+        return (ArrayList<Imagenes>) imagenesRepository.saveAll(imgs);
+    }
 }

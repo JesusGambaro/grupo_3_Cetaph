@@ -1,7 +1,8 @@
 .CreateAlbumForm {
   margin-top: 4rem;
   width: 100%;
-  height: 100vh;
+  min-width: none;
+  min-height: 100vh;
   .input-wrapper {
     display: flex;
     align-items: center;
@@ -9,8 +10,15 @@
     flex-direction: column;
     border: 1px solid red;
     flex-wrap: wrap;
-    input {
-      width: 20rem;
+    .input {
+      width: 30rem;
+      border: 1px solid red;
+      &.generos-select{
+        .css-1s2u09g-control{
+          width: 50px;
+
+        }
+      }
     }
   }
   .album-img {
@@ -23,11 +31,11 @@
     background-size: contain;
     background-repeat: no-repeat;
     margin: 2rem;
-    box-shadow: 0rem 0rem .5rem;
+    box-shadow: 0rem 0rem 0.5rem;
     &.on {
     }
     &.off {
-        background-image: url("https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg");
+      background-image: url("https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg");
     }
   }
   textarea {

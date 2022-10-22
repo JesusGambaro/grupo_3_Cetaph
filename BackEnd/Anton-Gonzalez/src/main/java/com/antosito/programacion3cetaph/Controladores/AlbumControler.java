@@ -5,6 +5,7 @@ import com.antosito.programacion3cetaph.Servicios.AlbumService;
 import com.antosito.programacion3cetaph.Servicios.AlbumServiceImpl;
 import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,20 +41,20 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     /* http://localhost:9000/api/v1/album/searchAlbumsbyArtist?Name=Plague */
     @GetMapping("/searchAlbumsbyArtist")
-    public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)String Name){
+    public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)String Name, Pageable pageable){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchAlbumsbyArtist(Name));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchAlbumsbyArtist(Name, pageable));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
-    @DeleteMapping("/{id}") //Delete
+    @DeleteMapping("/deleteComple/{id}") //Delete
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             if(!albumService.exists(id))
                 return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
             List<Imagenes> imagenes = (albumService.findById(id).getImagenes());
-            for (Imagenes img:imagenes) {
+            for (Imagenes img:imagenes){
                 Map result = cloudinaryService.delete(img.getCloudinaryId());
             }
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(albumService.delete(id));

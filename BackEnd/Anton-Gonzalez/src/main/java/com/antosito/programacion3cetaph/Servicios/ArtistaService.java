@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ArtistaService extends BaseServices<Artista,Long>{
     List<Artista> searchArtista (String filtro) throws Exception;
-
+    boolean exists(long id);
 }

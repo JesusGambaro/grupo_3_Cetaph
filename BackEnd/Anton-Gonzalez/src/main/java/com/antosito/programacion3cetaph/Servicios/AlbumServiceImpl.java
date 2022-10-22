@@ -4,6 +4,8 @@ import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Repositorios.AlbumRepository;
 import com.antosito.programacion3cetaph.Repositorios.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,9 +31,9 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
     }
     //Creamos las listas en el metodo con las queries que determinamos en la repository
     @Override
-    public List<Albums> searchAlbumsbyArtist(String Name) throws Exception {
+    public Page<Albums> searchAlbumsbyArtist(String Name, Pageable pageable) throws Exception {
         try {
-            List<Albums> albumsList = albumRepository.searchAlbumsByArtistas(Name);
+            Page<Albums> albumsList = albumRepository.searchAlbumsByArtistas(Name,pageable);
             return albumsList;
         }catch(Exception e){
             throw new Exception(e.getMessage());

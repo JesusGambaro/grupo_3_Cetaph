@@ -5,7 +5,7 @@ import "./card.scss";
 
 const Card = ({color, data}) => {
     const navigate = useNavigate();
-    //console.log(data);
+    console.log(data);
     return (
         <div
             className={"card" + (color === "white" ? " home" : "")}

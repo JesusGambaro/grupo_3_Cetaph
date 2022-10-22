@@ -2,8 +2,11 @@ package com.antosito.programacion3cetaph.Servicios;
 
 import com.antosito.programacion3cetaph.Entidades.Base;
 import com.antosito.programacion3cetaph.Repositorios.BaseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,16 @@ public abstract class BaseServiceImplentation<E extends Base, ID extends Seriali
     public List<E> findAll() throws Exception {
         try {
             List<E> entity = BaseRepository.findAll();
+            return entity;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+    @Override
+    @Transactional
+    public Page<E> findAllPaged(Pageable pageable) throws Exception {
+        try {
+            Page<E> entity = BaseRepository.findAll(pageable);
             return entity;
         } catch (Exception e) {
             throw new Exception(e.getMessage());

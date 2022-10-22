@@ -8,11 +8,11 @@ const UpSideBar = ({setData}) => {
   const [order, setOrder] = useState("asc");
   const [basicFilter, setBasicFilter] = useState("");
   const handleSearch = (e) => {
-    console.log(order);
+    console.log(order + search);
     e.preventDefault();
     axios
       .get(
-        `http://localhost:3001/albums?_sort=${order}&name_like=${search}`
+        `http://localhost:9000/api/v1/album/searchAlbums?V&Name=${search}&Max&Min&Exp`
       )
       .then((res) => {
         console.log(res.data);

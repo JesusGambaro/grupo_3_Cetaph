@@ -47,6 +47,11 @@ public class CloudinaryService {
         Map result = cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());
         return result;
     }
+
+    public Map deleteMusic(String id) throws IOException {
+        Map result = cloudinary.uploader().destroy(id, ObjectUtils.asMap("resource_type", "video"));
+        return result;
+    }
     /*Conversion de los archivos en cloudnary a un archivo local*/
     private File convert(MultipartFile multipartFile) throws IOException {
         File file = new File(multipartFile.getOriginalFilename());

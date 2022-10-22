@@ -17,6 +17,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,8 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
         imagenesService.delete(id);
         return new ResponseEntity("imagen eliminada", HttpStatus.OK);
     }
+
+
     @PostMapping(value = "/uploadImg",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> upload(@RequestPart("file") MultipartFile[] multipartFile)throws IOException {
         try {
@@ -49,11 +52,10 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
                 }
                 Map result = cloudinaryService.upload(file);
                 Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
-                ResponseEntity.status(HttpStatus.OK).body(servicio.save(imagenes));
                 returnImgs.add(imagenes);
             }
 
-            return ResponseEntity.status(HttpStatus.OK).body(returnImgs);
+            return ResponseEntity.status(HttpStatus.OK).body(imagenesService.saveAllImg(returnImgs));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }

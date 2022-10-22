@@ -21,4 +21,6 @@ public class Genero extends Base {
     @Column(name = "genero")
     private String generoName;
 
+
+
 }

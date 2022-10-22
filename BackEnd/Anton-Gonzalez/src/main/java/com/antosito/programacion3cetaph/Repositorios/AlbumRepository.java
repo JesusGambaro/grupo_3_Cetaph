@@ -3,6 +3,8 @@ package com.antosito.programacion3cetaph.Repositorios;
 import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Artista;
 import org.aspectj.weaver.ast.Var;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -34,8 +36,9 @@ public interface AlbumRepository extends BaseRepository<Albums, Long> {
             "INNER JOIN albums_artistas aa on a.id = aa.artistas_id " +
             "INNER JOIN albums a2 on aa.albums_id = a2.id " +
             "WHERE (:Name IS NULL OR a.nombre LIKE %:Name%)",
+            countQuery = "SELECT count(*) from artista",
             nativeQuery = true)
-    List<Albums> searchAlbumsByArtistas(@Param("Name")String Name);
+    Page<Albums> searchAlbumsByArtistas(@Param("Name")String Name,Pageable pageable);
 
 
 

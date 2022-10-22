@@ -44,8 +44,8 @@ public class Albums extends Base{
     @Column(name = "esExplicito")
     private boolean explicit;
 
-    @OneToOne()
-    private Genero genero;
+    @OneToMany(cascade = CascadeType.REFRESH)
+    private List<Genero> generos;
     /*Una relacion de muchos a muchos, albumnes pueden tener multiples artistas y viceversa*/
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;

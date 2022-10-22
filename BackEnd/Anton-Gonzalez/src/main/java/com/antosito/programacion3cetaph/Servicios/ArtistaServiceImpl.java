@@ -21,7 +21,9 @@ public class ArtistaServiceImpl extends BaseServiceImplentation<Artista,Long> im
         super(baseRepository);
     }
 
-
+    public boolean exists(long id){
+        return artistaRepository.existsById(id);
+    }
     @Override
     public List<Artista> searchArtista(String filtro) throws Exception {
        try {
