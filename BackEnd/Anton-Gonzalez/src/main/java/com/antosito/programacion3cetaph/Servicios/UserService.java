@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     User saveUser(User user);
+
     Rol saveRol(Rol rol);
     void addRolToUser(String username, String rolName);
     User getUser(String username);

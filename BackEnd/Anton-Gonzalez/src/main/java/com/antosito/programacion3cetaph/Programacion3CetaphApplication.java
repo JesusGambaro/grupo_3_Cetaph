@@ -34,10 +34,10 @@ public class Programacion3CetaphApplication {
            userService.saveRol(new Rol("Usuario"));
            userService.saveRol(new Rol("Aquaman"));
 
-           userService.saveUser(new User("Marcos Anton", "DayLiveXD", "ojoseco6971", new ArrayList<>()));
-           userService.saveUser(new User("Jesus Gambaro", "Nicole Kidman", "Epico", new ArrayList<>()));
-           userService.saveUser(new User("Agustin Recabarren", "JZ3R0", "anashe", new ArrayList<>()));
-           userService.saveUser(new User("Franco Gonzalez", "Frankling", "aquaman", new ArrayList<>()));
+           userService.saveUser(new User("Marcos Anton", "marquitosloko@gmail.com", "DayLiveXD","ojoseco6971", new ArrayList<>()));
+           userService.saveUser(new User("Jesus Gambaro", "jesusGambaro6@gmail.com", "Nicole Kidman","epico", new ArrayList<>()));
+           userService.saveUser(new User("Agustin Recabarren", "messicrack69@gmail.com", "JZ3R0","cuack", new ArrayList<>()));
+           userService.saveUser(new User("Franco Gonzalez", "franco123312@gmail.com", "Frankling","aquaman420 ", new ArrayList<>()));
 
            userService.addRolToUser("DayLiveXD", "Admin");
            userService.addRolToUser("Nicole Kidman", "Admin");

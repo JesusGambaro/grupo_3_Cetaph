@@ -47,8 +47,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
     @Override
     public User saveUser(User user) {
-        log.info("Guardando nuevo usuario {}",user.getName());
+        Rol rol = rolRepository.findByName("Usuario");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(rol);
         return userRepository.save(user);
     }
 
