@@ -6,6 +6,8 @@ import com.antosito.programacion3cetaph.Repositorios.RolRepository;
 import com.antosito.programacion3cetaph.Repositorios.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpMessage;
+import org.apache.http.HttpResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,10 +49,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
     @Override
     public User saveUser(User user) {
-        Rol rol = rolRepository.findByName("Usuario");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(rol);
-        return userRepository.save(user);
+        try {
+            if (!validate(user)) {
+                Rol rol = rolRepository.findByName("Usuario");
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                user.getRoles().add(rol);
+                return userRepository.save(user);
+            } else {
+                return null;
+            }
+        }catch (Exception e){
+            throw new IllegalStateException("Ya existe ");
+        }
     }
 
     @Override
@@ -79,5 +89,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAll(pageable);
     }
 
+    public boolean validate(User user) {
+        try {
+            if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
+                    ||
+            user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            throw new IllegalStateException("El usuario ya existe");
+        }
+    }
 
 }
