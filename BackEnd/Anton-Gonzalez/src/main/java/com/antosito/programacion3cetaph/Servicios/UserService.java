@@ -14,4 +14,5 @@ public interface UserService {
     void addRolToUser(String username, String rolName);
     User getUser(String username);
     Page<User> getAllUser(Pageable pageable);
+    boolean validate(User user);
 }

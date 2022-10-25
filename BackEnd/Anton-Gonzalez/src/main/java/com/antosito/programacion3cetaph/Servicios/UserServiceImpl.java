@@ -36,28 +36,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if (user == null){
+        if (user == null) {
             log.error("Usuario no encontrado");
             throw new UsernameNotFoundException("Usuario no encontrado");
-        }else{
-            log.info("Usuario encontrado {} "+username);
+        } else {
+            log.info("Usuario encontrado {} " + username);
         }
         Collection<SimpleGrantedAuthority> autorizacion = new ArrayList<>();
         user.getRoles().forEach(rol ->
-        {autorizacion.add(new SimpleGrantedAuthority(rol.getName()));
+        {
+            autorizacion.add(new SimpleGrantedAuthority(rol.getName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),autorizacion);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), autorizacion);
     }
+
     @Override
-    public User saveUser(User user) throws Exception {
-            if (!validate(user)) {
-                Rol rol = rolRepository.findByName("Usuario");
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-                user.getRoles().add(rol);
-                return userRepository.save(user);
-            } else {
-                return null;
-            }
+    public User saveUser(User user){
+            Rol rol = rolRepository.findByName("Usuario");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.getRoles().add(rol);
+            return userRepository.save(user);
     }
 
     @Override
@@ -68,7 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void addRolToUser(String username, String rolName) {
-        log.info("Asignando nuevo rol {} al usuario {} "+username, rolName);
+        log.info("Asignando nuevo rol {} al usuario {} " + username, rolName);
         User user = userRepository.findByUsername(username);
         Rol rol = rolRepository.findByName(rolName);
         user.getRoles().add(rol);
@@ -76,7 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getUser(String username) {
-        log.info("Encontrando usuario {} en la base de datos",username);
+        log.info("Encontrando usuario {} en la base de datos", username);
         return userRepository.findByUsername(username);
     }
 
@@ -86,20 +84,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAll(pageable);
     }
 
+    @Override
     public boolean validate(User user) {
-        try {
+
             if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
                     ||
-            user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
+                    user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
                 System.out.println("Pase");
                 return true;
             } else {
                 System.out.println("No pase");
                 return false;
             }
-        }catch (Exception e){
-            throw new IllegalStateException("El usuario/email ya existe");
-        }
-    }
 
+    }
 }
+
+

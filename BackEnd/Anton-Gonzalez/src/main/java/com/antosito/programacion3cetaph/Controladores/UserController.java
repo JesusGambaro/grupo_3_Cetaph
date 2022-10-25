@@ -43,13 +43,17 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<User> saveUser(@RequestBody User user) throws Exception {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v2/users/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+        if(!userService.validate(user)) {
+            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/register").toUriString());
+            return ResponseEntity.created(uri).body(userService.saveUser(user));
+        }else{
+            return new ResponseEntity("El usuario ya existe", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/roles/save")
     public ResponseEntity<Rol> saveRol(@RequestBody Rol rol) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v2/roles/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/roles/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRol(rol));
     }
 
