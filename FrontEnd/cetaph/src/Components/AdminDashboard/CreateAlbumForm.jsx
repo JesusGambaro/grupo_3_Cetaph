@@ -152,19 +152,7 @@ export const CreateAlbumForm = () => {
     /*
      */
   };
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      color: state.isSelected && "blue",
-    }),
-    control: (provided,state) => ({
-      ...provided,
-      // none of react-select's styles are passed to <Control />
-      width: "30rem",
-      border: state.isSelected && "1px solid red",
-      
-    }),
-  };
+
   return (
     <>
       {isLoading ? (
@@ -257,13 +245,12 @@ export const CreateAlbumForm = () => {
               <div className="input genero">
                 <label htmlFor="">Genero </label>
                 <Creatable
-                  className="generos-select"
+                className="generos-select"
                   options={generos}
                   placeholder={"Elige o Crea un genero"}
                   isClearable
                   onSelectResetsInput={false}
                   onBlurResetsInput={false}
-                  styles={customStyles}
                   onChange={(param) =>
                     handleData("genero", {
                       id: param?.id,
