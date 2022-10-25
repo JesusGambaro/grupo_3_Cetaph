@@ -4,6 +4,7 @@ import com.antosito.programacion3cetaph.Entidades.Base;
 import com.antosito.programacion3cetaph.Servicios.BaseServiceImplentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
     //Creamos los mapeos que llamen a los metodos de los servicios
     //Estos metodos contienen el CRUD base de nuestro producto
     @GetMapping("") //Get All
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.findAll());
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.findAll(pageable));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente mas tarde.\"}");
 

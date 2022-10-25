@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<User> saveUser(@RequestBody User user) throws Exception {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v2/users/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }

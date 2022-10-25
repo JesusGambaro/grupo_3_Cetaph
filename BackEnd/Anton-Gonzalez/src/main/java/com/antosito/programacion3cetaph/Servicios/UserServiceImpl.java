@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -48,8 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),autorizacion);
     }
     @Override
-    public User saveUser(User user) {
-        try {
+    public User saveUser(User user) throws Exception {
             if (!validate(user)) {
                 Rol rol = rolRepository.findByName("Usuario");
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -58,9 +58,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             } else {
                 return null;
             }
-        }catch (Exception e){
-            throw new IllegalStateException("Ya existe ");
-        }
     }
 
     @Override
@@ -94,12 +91,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
                     ||
             user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
+                System.out.println("Pase");
                 return true;
             } else {
+                System.out.println("No pase");
                 return false;
             }
         }catch (Exception e){
-            throw new IllegalStateException("El usuario ya existe");
+            throw new IllegalStateException("El usuario/email ya existe");
         }
     }
 

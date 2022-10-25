@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 
 public interface UserService {
-    User saveUser(User user);
+    User saveUser(User user) throws Exception;
 
     Rol saveRol(Rol rol);
     void addRolToUser(String username, String rolName);

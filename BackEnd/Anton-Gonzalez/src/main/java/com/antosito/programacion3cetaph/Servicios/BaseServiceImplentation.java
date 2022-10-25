@@ -21,9 +21,9 @@ public abstract class BaseServiceImplentation<E extends Base, ID extends Seriali
     //Aqui le poneemos su funcionamiento respectivo, Sacamos sus metodos desde BaseServices
     @Override
     @Transactional
-    public List<E> findAll() throws Exception {
+    public Page<E> findAll(Pageable pageable) throws Exception {
         try {
-            List<E> entity = BaseRepository.findAll();
+            Page<E> entity = BaseRepository.findAll(pageable);
             return entity;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
