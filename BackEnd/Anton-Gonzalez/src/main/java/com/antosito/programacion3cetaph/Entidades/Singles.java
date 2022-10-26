@@ -34,6 +34,7 @@ extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "CloudinaryId")
     private String CloudinaryId;
 
+    private Boolean estoyEnAlbum;
 
     @ManyToOne(optional = false)
     private Genero genero_fk;

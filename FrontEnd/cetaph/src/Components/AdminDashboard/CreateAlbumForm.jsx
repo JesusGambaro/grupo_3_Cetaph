@@ -32,22 +32,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
               generoName: "",
             },
             imagenes: [{ id: 0, urlImg: "" }],
-            singles: [
-              {
-                id: 1,
-                nombre: "Pancakes & Pi",
-                duracion: 380000,
-                fechaLanzamiento: "01/08/2002",
-                explicit: true,
-                urlMusic:
-                  "http://res.cloudinary.com/dknpio4ug/video/upload/v1666747139/gx0y1353mcq1gyz29pzj.mp3",
-                genero_fk: {
-                  id: 1,
-                  generoName: "Rock",
-                },
-                cloudinaryId: "gx0y1353mcq1gyz29pzj",
-              },
-            ],
+            singles: [],
           },
         }
   );
@@ -84,13 +69,12 @@ export const CreateAlbumForm = ({ albumObject }) => {
       .catch(() => {});
   };
   useEffect(() => {
-    console.log("Inicio");
     axios({
       url: "http://localhost:9000/api/v1/genero",
       method: "GET",
     })
       .then(({ data }) => {
-        let generosData = data.content.map((genero) => {
+        let generosData = data.map((genero) => {
           return {
             value: genero.generoName,
             label:
@@ -109,7 +93,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
       method: "GET",
     })
       .then(({ data }) => {
-        let singles = data.content.map((single) => {
+        let singles = data.map((single) => {
           return {
             value: single,
             label:
@@ -152,15 +136,20 @@ export const CreateAlbumForm = ({ albumObject }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    console.log(data.images[0]);
     for (let i = 0; i < data.images.length; i++) {
       formData.append("file", data.images[i].image);
     }
+    formData.append("Album", data.album);
     setLoading(true);
     console.log("----------Form Data----------");
-    console.log(data);
+    console.log(data.album);
+
+    /*for (const [key, value] of formData) {
+      console.log(key);
+      console.log(value);
+    }*/
     axios({
-      url: "http://localhost:9000/api/v1/img/uploadImg",
+      url: "http://localhost:9000/api/v1/album/uploadAlbumImgs",
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data",
@@ -168,21 +157,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
       data: formData,
     })
       .then((res) => {
-        handleData("imagenes", res.data);
-        axios({
-          url: "http://localhost:9000/api/v1/album",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: { ...data.album, imagenes: res.data },
-        })
-          .then((res) => {
-            console.log(res.status);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -190,8 +165,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
       .finally(() => {
         setLoading(false);
       });
-    /*
-     */
+    setLoading(false);
   };
   const deleteImage = (img) => {
     setData({
@@ -205,12 +179,38 @@ export const CreateAlbumForm = ({ albumObject }) => {
     control: (provided, state) => ({
       display: "flex",
       width: "30rem",
+      height: "2.5rem",
       border: "2px solid black",
       borderRadius: 0,
     }),
     menu: (provided) => ({
       ...provided,
       width: "30rem",
+      border: "2px solid black",
+      borderRadius: 0,
+      padding: 0,
+    }),
+    dropdownIndicator: (provided, state) => ({
+      ...provided,
+      color: "black",
+      transition: "none",
+    }),
+    clearIndicator: (provided) => ({
+      ...provided,
+      color: "black",
+    }),
+  };
+  const cancionesSelectStyle = {
+    control: (provided, state) => ({
+      display: "flex",
+      width: "15rem",
+      height: "2.5rem",
+      border: "2px solid black",
+      borderRadius: 0,
+    }),
+    menu: (provided) => ({
+      ...provided,
+      width: "15rem",
       border: "2px solid black",
       borderRadius: 0,
       padding: 0,
@@ -412,7 +412,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                   <h4 className="input-name">
                     Canciones <p>{/*errors.images*/}</p>
                   </h4>
-                  <div className="canciones-container">
+                  <div className="cancion-input">
                     <Select
                       className="singles-select"
                       options={singles}
@@ -420,7 +420,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                       isClearable
                       onSelectResetsInput={true}
                       onBlurResetsInput={true}
-                      styles={selectStyle}
+                      styles={cancionesSelectStyle}
                       onChange={(param, action) => {
                         console.log(action);
                         if (action.action === "select-option") {
@@ -448,6 +448,8 @@ export const CreateAlbumForm = ({ albumObject }) => {
                         <i className="bi bi-plus-circle-fill"></i>
                       </button>
                     </label>
+                  </div>
+                  <div className="canciones-container">
                     {data.album.singles.map((e, i) => {
                       var minutes = Math.floor(e.duracion / 60000);
                       var seconds = ((e.duracion % 60000) / 1000).toFixed(0);
@@ -456,13 +458,19 @@ export const CreateAlbumForm = ({ albumObject }) => {
                           ? minutes + 1 + ":00"
                           : minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
                       return (
-                        <div key={i}>
+                        <div key={i} className="cancion-card">
                           {" "}
                           <h1>{e.nombre}</h1>{" "}
                           <h3>
-                            {e.genero_fk.generoName}{" "}
-                            {tiempo}
+                            {e.genero_fk.generoName} {tiempo}
                           </h3>
+                          <button
+                            type="button"
+                            className="delete-image-btn"
+                            onClick={() => {}}
+                          >
+                            <i className="bi bi-x-circle-fill"></i>
+                          </button>
                         </div>
                       );
                     })}

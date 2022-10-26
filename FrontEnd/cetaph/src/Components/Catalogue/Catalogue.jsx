@@ -14,8 +14,8 @@ const Catalogue = () => {
     axios
       .get('http://localhost:9000/api/v1/album')
       .then((res) => {
-        setDisks(res.data.content)
-        //console.log(res.data);
+        setDisks(res.data)
+        console.log(res.data);
         setLoading(false)
       })
       .catch((err) => {
@@ -35,7 +35,7 @@ const Catalogue = () => {
           <Loading />
         ) : (
           <div className="disks-container">
-            {disks.length > 0 ? (
+            {disks?.length > 0 ? (
               disks.map((disk, index) => (
                 <Card key={index} color={'black'} data={disk} />
               ))

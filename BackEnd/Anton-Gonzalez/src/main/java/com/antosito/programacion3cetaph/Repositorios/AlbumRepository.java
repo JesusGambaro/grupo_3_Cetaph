@@ -40,6 +40,10 @@ public interface AlbumRepository extends BaseRepository<Albums, Long> {
             nativeQuery = true)
     Page<Albums> searchAlbumsByArtistas(@Param("Name")String Name,Pageable pageable);
 
+    @Query(value = "select * from album a "+
+            "INNER JOIN albums:",
+     nativeQuery = true)
+    Boolean estoyEnUnAlbum();
 
 
 }
