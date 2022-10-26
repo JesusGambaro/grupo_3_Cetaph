@@ -66,7 +66,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 }
                 Map result = cloudinaryService.upload(file);
                 Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
-                ResponseEntity.status(HttpStatus.OK).body(imagenesService.save(imagenes));
+                imagenesService.save(imagenes);
                 returnImgs.add(imagenes);
             }
             albums.setImagenes(returnImgs);
