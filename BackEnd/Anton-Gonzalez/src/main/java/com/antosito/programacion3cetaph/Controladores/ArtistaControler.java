@@ -1,13 +1,13 @@
 package com.antosito.programacion3cetaph.Controladores;
 
 import com.antosito.programacion3cetaph.Entidades.Artista;
-import com.antosito.programacion3cetaph.Entidades.Imagenes;
 import com.antosito.programacion3cetaph.Entidades.Singles;
-import com.antosito.programacion3cetaph.Servicios.AlbumService;
 import com.antosito.programacion3cetaph.Servicios.ArtistaService;
 import com.antosito.programacion3cetaph.Servicios.ArtistaServiceImpl;
 import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,4 +50,15 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+
+   /* @GetMapping("") //Get All
+    public ResponseEntity<?> getAllArtista(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(artistaService.getAllArtista(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente mas tarde.\"}");
+
+        }
+    }*/
 }
+

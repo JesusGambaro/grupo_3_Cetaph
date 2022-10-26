@@ -6,9 +6,12 @@ import com.antosito.programacion3cetaph.Entidades.Singles;
 import com.antosito.programacion3cetaph.Repositorios.ArtistaRepository;
 import com.antosito.programacion3cetaph.Repositorios.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -33,4 +36,14 @@ public class ArtistaServiceImpl extends BaseServiceImplentation<Artista,Long> im
            throw new Exception(e.getMessage());
        }
     }
+ /*   @Override
+    @Transactional
+    public Page<Artista> getAllArtista(Pageable pageable) throws Exception {
+        try {
+            Page<Artista> artistaPage = BaseRepository.findAll(pageable);
+            return artistaPage;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }*/
 }

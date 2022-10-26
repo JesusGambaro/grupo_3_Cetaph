@@ -1,42 +1,46 @@
 import axios from 'axios'
 import { useState } from 'react'
 import './login.scss'
-import qs from 'qs'
-
+import { useNavigate } from 'react-router'
 const Login = () => {
+  const navigate = useNavigate()
   const [login, setLogin] = useState(true)
   const [showPass, setShowPass] = useState(false)
   const [log, setLog] = useState({
     username: '',
     password: '',
   })
-  const config = {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  }
 
   const handelSubmit = (e) => {
     e.preventDefault()
 
     if (login) {
-      const params = new URLSearchParams()
-      params.append('username', log.username)
-      params.append('password', log.password)
-      params.forEach((e) => console.log(e))
-      //Log the params to see if it is correct
-      console.log(qs.stringify(log))
-      axios({
-        method: 'post',
-        url: 'http://localhost:9000/api/login',
-        data: qs.stringify(log),
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
-      })
-        .then((res) => console.log(res))
-        .catch((e) => console.error(e))
+      axios
+        .post('http://localhost:9000/api/login', log)
+        .then(({ data }) => {
+          console.log(data)
+          //save token in local storage
+          localStorage.setItem('token', data.access_token)
+          //redirect to home page
+          navigate('/home')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     } else {
+      console.log('register', log)
+      axios
+        .post('http://localhost:9000/api/v1/register', log)
+        .then(({ data }) => {
+          console.log(data)
+          //save token in local storage
+          localStorage.setItem('token', data.access_token)
+          //redirect to home page
+          navigate('/home')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
   return (
@@ -71,6 +75,8 @@ const Login = () => {
                     id="Name"
                     className="input"
                     type="text"
+                    value={log.name}
+                    onChange={(e) => setLog({ ...log, name: e.target.value })}
                   />
                 </div>
                 <div className="input-group">
@@ -83,6 +89,8 @@ const Login = () => {
                     id="Email"
                     className="input"
                     type="email"
+                    value={log.email}
+                    onChange={(e) => setLog({ ...log, email: e.target.value })}
                   />
                 </div>
               </>

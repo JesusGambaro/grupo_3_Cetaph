@@ -33,6 +33,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
 
@@ -102,6 +103,7 @@ public class UserController {
 
 }
 @Data
+@CrossOrigin(origins = "*")
 class roleToUserForm {
     private String username;
     private String rolName;

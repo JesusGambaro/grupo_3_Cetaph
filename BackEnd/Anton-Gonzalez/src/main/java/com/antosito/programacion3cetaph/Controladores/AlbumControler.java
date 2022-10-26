@@ -6,6 +6,7 @@ import com.antosito.programacion3cetaph.Servicios.AlbumServiceImpl;
 import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -62,4 +63,13 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+    /*@GetMapping("") //Get All
+    public ResponseEntity<?> getAllAlbums(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.findAllAlbums(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente mas tarde.\"}");
+
+        }
+    }*/
 }

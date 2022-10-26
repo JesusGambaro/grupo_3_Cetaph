@@ -14,7 +14,7 @@ public interface BaseServices <E extends Base, ID extends Serializable>{
 
 
     //Get All
-    public Page<E> findAll(Pageable pageable) throws Exception;
+    public List<E> findAll() throws Exception;
     //Get all Paged
     public Page<E> findAllPaged(Pageable pageable) throws Exception;
     //Get One

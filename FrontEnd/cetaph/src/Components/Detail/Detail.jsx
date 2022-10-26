@@ -107,7 +107,7 @@ const Detail = () => {
             </div>
             <div className="DiscoInfo">
               <h1 className="ArtistName">
-                {disk?.artistas.length > 0 ? disk?.artista[0].nombre : ""}
+                {disk?.artistas.length > 0 ? disk?.artistas[0].nombre : ""}
               </h1>
               <span>
                 <label>Nombre:</label>

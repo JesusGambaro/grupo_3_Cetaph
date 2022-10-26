@@ -17,9 +17,9 @@ public abstract class BaseControladorImplementacion<E extends Base, S extends Ba
     //Creamos los mapeos que llamen a los metodos de los servicios
     //Estos metodos contienen el CRUD base de nuestro producto
     @GetMapping("") //Get All
-    public ResponseEntity<?> getAll(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+    public ResponseEntity<?> getAll() {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.findAll(pageable));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.findAll());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente mas tarde.\"}");
 
