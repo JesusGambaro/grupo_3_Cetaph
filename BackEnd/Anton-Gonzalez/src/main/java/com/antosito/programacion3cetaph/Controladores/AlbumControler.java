@@ -4,6 +4,7 @@ import com.antosito.programacion3cetaph.Entidades.Imagenes;
 import com.antosito.programacion3cetaph.Servicios.AlbumService;
 import com.antosito.programacion3cetaph.Servicios.AlbumServiceImpl;
 import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
+import com.antosito.programacion3cetaph.Servicios.ImagenesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
 
     @Autowired
     AlbumService albumService;
+
+    @Autowired
+    ImagenesService imagenesService;
 
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     /* http://localhost:9000/api/v1/album/searchAlbums?V=true&Name=Plague&Max=120&Min=120&Exp=true */
@@ -49,6 +54,29 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+
+    @PostMapping(value = "/uploadAlbumImgs",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("file") MultipartFile[] multipartFile)throws IOException {
+        try{
+            List<Imagenes> returnImgs =  new ArrayList<>();
+            for (MultipartFile file : multipartFile){
+                BufferedImage bi = ImageIO.read(file.getInputStream());
+                if (bi == null) {
+                    return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
+                }
+                Map result = cloudinaryService.upload(file);
+                Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
+                ResponseEntity.status(HttpStatus.OK).body(imagenesService.save(imagenes));
+                returnImgs.add(imagenes);
+            }
+            albums.setImagenes(returnImgs);
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.save(albums));
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
+        }
+    }
+
     @DeleteMapping("/deleteComple/{id}") //Delete
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
@@ -63,6 +91,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
+
     /*@GetMapping("") //Get All
     public ResponseEntity<?> getAllAlbums(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         try {
