@@ -21,12 +21,12 @@ const Card = ({color, data}) => {
             </div>
             <div className="card-body">
                 <h1 className="c-name">{data?.nombre}</h1>
-                <h2 className="c-title">{data?.artistas[0]?.name}</h2>
+                <h2 className="c-title">{data?.artistas[0]?.nombre}</h2>
             </div>
             <div className="card-footer">
                 <div className="c-price-date">
                     <p>{data?.fechaLanzamiento}</p>
-                    <p>{data?.precio || "$500"}</p>
+                    <p>${data?.precio || "$500"}</p>
                 </div>
                 <button className="add-to-cart">Añadir al Carrito</button>
             </div>

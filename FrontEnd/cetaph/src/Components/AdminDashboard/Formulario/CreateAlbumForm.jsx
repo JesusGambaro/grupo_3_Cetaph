@@ -3,39 +3,44 @@ import "./CreateAlbumForm.scss";
 import Select from "react-select";
 import Creatable, { useCreatable } from "react-select/creatable";
 import axios from "axios";
-import Loading from "../Loading/Loading";
-export const CreateAlbumForm = ({ albumObject }) => {
+import Loading from "../../Loading/Loading";
+export const CreateAlbumForm = ({ albumObject, cancelFunc }) => {
   const [generos, setGeneros] = useState([]);
   const [singles, setSingles] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState(
-    albumObject
-      ? albumObject
-      : {
-          images: [
-            { url: "", image: "" },
-            { url: "", image: "" },
-            { url: "", image: "" },
-            { url: "", image: "" },
-          ],
-          album: {
-            nombre: "",
-            precio: 0,
-            stock: 0,
-            fechaLanzamiento: "",
-            duracion: 0,
-            descripcion: "",
-            esVinilo: true,
-            explicit: false,
-            genero: {
-              id: 0,
-              generoName: "",
-            },
-            imagenes: [{ id: 0, urlImg: "" }],
-            singles: [],
-          },
-        }
-  );
+  const [data, setData] = useState({
+    deletedImages: [{ cloudinaryId: "" }],
+    album: {
+      nombre: "",
+      precio: 0,
+      stock: 0,
+      fechaLanzamiento: "",
+      duracion: 0,
+      descripcion: "",
+      esVinilo: true,
+      explicit: false,
+      genero: {},
+      imagenes: [
+        {
+          urlImg: "",
+          file: "",
+        },
+        {
+          urlImg: "",
+          file: "",
+        },
+        {
+          urlImg: "",
+          file: "",
+        },
+        {
+          urlImg: "",
+          file: "",
+        },
+      ],
+      singles: [],
+    },
+  });
   const crearGenero = (value) => {
     axios({
       url: "http://localhost:9000/api/v1/genero",
@@ -69,6 +74,17 @@ export const CreateAlbumForm = ({ albumObject }) => {
       .catch(() => {});
   };
   useEffect(() => {
+    //console.log(albumObject);
+    if (albumObject) {
+      let imgs = data.album.imagenes;
+      for (let index = 0; index < albumObject.imagenes.length; index++) {
+        imgs[index] = albumObject.imagenes[0];
+      }
+      setData({
+        ...data,
+        album: { ...albumObject, imagenes: imgs },
+      });
+    }
     axios({
       url: "http://localhost:9000/api/v1/genero",
       method: "GET",
@@ -122,42 +138,66 @@ export const CreateAlbumForm = ({ albumObject }) => {
   };
   const handleFileInput = async (e, i) => {
     //console.log("Cambiando Imagen");
-    let imagesData = data.images;
-    imagesData[i] = {
-      url: URL.createObjectURL(e.target.files[0]),
-      image: e.target.files[0],
-    };
+    let newImgs = data.album.imagenes.map((img, i) => {
+      console.log("index "+index+"-"+i);
+      return imagenData.urlImg == img.urlImg ? { urlImg: URL.createObjectURL(e.target.files[0]), file: e.target.files[0] } : img;
+    });
     setData({
       ...data,
-      images: imagesData,
+      album: {
+        ...data.album,
+        imagenes: newImgs,
+      },
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
+    let formDataTest = new FormData();
     for (let i = 0; i < data.images.length; i++) {
-      formData.append("file", data.images[i].image);
+      formDataTest.append("file", data.images[i].image);
     }
-    formData.append("Album", data.album);
+    let dataAxios = JSON.stringify(data.album);
+    formData.append(
+      "Album",
+      JSON.stringify({
+        nombre: "October in November",
+        precio: 123.0,
+        stock: 123,
+        fechaLanzamiento: "12/02/2021",
+        duracion: "207000",
+        descripcion: "Presentacion de hoy",
+        esVinilo: true,
+        explicit: true,
+        genero: {
+          id: 2,
+          generoName: "Rok",
+        },
+        artistas: [],
+        singles: [],
+      })
+    );
+    formDataTest.append(
+      "Album",
+      new Blob([dataAxios], { type: "application/json" })
+    );
     setLoading(true);
     console.log("----------Form Data----------");
-    console.log(data.album);
+    //console.log(data.album);
+    //console.log(formData.getAll("Album"));
 
-    /*for (const [key, value] of formData) {
-      console.log(key);
-      console.log(value);
-    }*/
     axios({
       url: "http://localhost:9000/api/v1/album/uploadAlbumImgs",
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      data: formData,
+      data: formDataTest,
     })
       .then((res) => {
         console.log(res.data);
+        cancelFunc();
       })
       .catch((err) => {
         console.log(err);
@@ -165,27 +205,38 @@ export const CreateAlbumForm = ({ albumObject }) => {
       .finally(() => {
         setLoading(false);
       });
-    setLoading(false);
   };
-  const deleteImage = (img) => {
+  const deleteImage = (imagenData, index) => {
+    console.log("index " + index);
+    let newImgs = data.album.imagenes.map((img, i) => {
+      console.log("index "+index+"-"+i);
+      return imagenData.urlImg == img.urlImg ? { urlImg: "", file: "" } : img;
+    });
+    let newDeletedImages = [
+      ...data.deletedImages,
+      { cloudinaryId: imagenData.cloudinaryId },
+    ]
+    console.log(newImgs);
     setData({
       ...data,
-      images: data.images.map((i) =>
-        i.url === img ? { url: "", form: "" } : i
-      ),
+      deletedImages: imagenData.cloudinaryId ? newDeletedImages : data.deletedImages,
+      album: {
+        ...data.album,
+        imagenes: newImgs,
+      },
     });
   };
   const selectStyle = {
     control: (provided, state) => ({
       display: "flex",
-      width: "30rem",
+      width: "20rem",
       height: "2.5rem",
       border: "2px solid black",
       borderRadius: 0,
     }),
     menu: (provided) => ({
       ...provided,
-      width: "30rem",
+      width: "20rem",
       border: "2px solid black",
       borderRadius: 0,
       padding: 0,
@@ -234,7 +285,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
           <h1 className="title">
             Create An Album
             <span>
-              <button /*onClick={() => handleShoeDialog()}*/>
+              <button onClick={() => cancelFunc()}>
                 <i className="bi bi-x-circle-fill"></i>Cancel
               </button>
               <button className="save-btn" onClick={handleSubmit}>
@@ -257,6 +308,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     onChange={(e) => {
                       handleData("nombre", e.target.value);
                     }}
+                    value={data.album.nombre}
                   />
                 </div>
                 <div className="input number">
@@ -270,6 +322,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     onChange={(e) => {
                       handleData("duracion", e.target.value);
                     }}
+                    value={data.album.duracion}
                   />
                 </div>
                 <div className="input number">
@@ -283,6 +336,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     onChange={(e) => {
                       handleData("precio", e.target.value);
                     }}
+                    value={data.album.precio}
                   />
                 </div>
                 <div className="input number">
@@ -296,6 +350,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     onChange={(e) => {
                       handleData("stock", e.target.value);
                     }}
+                    value={data.album.stock}
                   />
                 </div>
                 <div className="input checkbox">
@@ -309,6 +364,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     onChange={(e) => {
                       handleData("explicit", !data.album.explicit);
                     }}
+                    checked={data.album.explicit}
                   />
                 </div>
                 <div className="input date">
@@ -325,6 +381,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                         e.target.value.replaceAll("-", "/")
                       );
                     }}
+                    value={data.album.fechaLanzamiento.replaceAll("/", "-")}
                   />
                 </div>
                 <div className="input genero">
@@ -341,12 +398,26 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     onSelectResetsInput={false}
                     onBlurResetsInput={false}
                     styles={selectStyle}
-                    onChange={(param) =>
-                      handleData("genero", {
-                        id: param?.id,
-                        generoName: param?.value,
-                      })
+                    defaultValue={
+                      data.album.genero.generoName && {
+                        label: data.album.genero.generoName,
+                        value: data.album.genero.generoName,
+                      }
                     }
+                    onChange={(param, { action }) => {
+                      console.log(action);
+                      if (action === "clear") {
+                        handleData("genero", {
+                          id: null,
+                          generoName: "",
+                        });
+                      } else {
+                        handleData("genero", {
+                          id: param?.id,
+                          generoName: param?.value,
+                        });
+                      }
+                    }}
                     onCreateOption={(param) => {
                       console.log(param);
                       crearGenero(param);
@@ -370,24 +441,27 @@ export const CreateAlbumForm = ({ albumObject }) => {
                   ></textarea>
                 </div>
               </div>
-              <div>
+              <div className="rigth-inputs">
+                {/*-------------------------  IMAGENES  ---------------------------*/}
                 <div className="images">
                   <h4 className="input-name">
                     Imagenes <p>{/*errors.images*/}</p>
                   </h4>
                   <div className="images-container">
-                    {data.images.map((img, i) => {
+                    {data.album.imagenes.map((img, index) => {
                       return (
                         <div
-                          className={img.url ? "imagent show" : "imagent"}
-                          key={i}
-                          style={{ backgroundImage: `url(${img.url})` }}
+                          className={img.urlImg ? "imagent show" : "imagent"}
+                          key={index}
+                          style={{ backgroundImage: `url(${img.urlImg})` }}
                         >
-                          {img.url && (
+                          {img.urlImg && (
                             <button
                               type="button"
                               className="delete-image-btn"
-                              onClick={() => deleteImage(img.url)}
+                              onClick={() => {
+                                deleteImage(img, index);
+                              }}
                             >
                               <i className="bi bi-x-circle-fill"></i>
                             </button>
@@ -396,7 +470,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                           <label>
                             <input
                               type="file"
-                              onChange={(e) => handleFileInput(e, i)}
+                              onChange={(e) => handleFileInput(e, index)}
                               accept="image/*"
                               placeholder="Choose Iamge"
                             />
@@ -408,6 +482,8 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     })}
                   </div>
                 </div>
+                {/*-------------------------  IMAGENES  ---------------------------*/}
+                {/*-------------------------  SINGLES  ---------------------------*/}
                 <div className="singles">
                   <h4 className="input-name">
                     Canciones <p>{/*errors.images*/}</p>
@@ -476,6 +552,7 @@ export const CreateAlbumForm = ({ albumObject }) => {
                     })}
                   </div>
                 </div>
+                {/*-------------------------  SINGLES  ---------------------------*/}
               </div>
             </div>
           </form>

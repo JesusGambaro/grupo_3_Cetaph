@@ -7,7 +7,8 @@ import Contact from './Components/Contact/Contact'
 import NavBar from './Components/Navbar/NavBar'
 import Detail from './Components/Detail/Detail'
 import Footer from './Components/Footer/Footer'
-import { CreateAlbumForm } from './Components/AdminDashboard/CreateAlbumForm'
+import { CreateAlbumForm } from './Components/AdminDashboard/Formulario/CreateAlbumForm'
+import { AllProducts } from './Components/AdminDashboard/Productos/AllProducts'
 import Login from './Components/Login/Login'
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
         <Route path="/Catalogue" element={<Catalogue />} />
         <Route path="/Contact" element={<Contact />} />
         <Route
-          path="/AdminDashboard/CreateAlbum"
-          element={<CreateAlbumForm />}
+          path="/AdminDashboard/"
+          element={<AllProducts />}
         />
         <Route path="Detail/:id" element={<Detail />} />
         <Route path="Login" element={<Login />} />

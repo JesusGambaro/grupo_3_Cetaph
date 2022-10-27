@@ -1,5 +1,4 @@
 .CreateAlbumForm {
-  margin-top: 4rem;
   width: 100%;
   min-width: none;
   min-height: 100vh;
@@ -42,21 +41,22 @@
     display: flex;
   }
   .form {
-    padding: 1.5rem;
+    padding: 0rem 1.5rem;
     display: flex;
     flex-direction: column;
-    
     gap: 2rem;
     .wrapper {
+      margin: 0;
       width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: left;
       flex-wrap: wrap;
       gap: 2rem;
-      
+      justify-content: center;
+      align-items: center;
       .input-wrapper {
-        flex-basis: 30rem;
+        flex-basis: 20rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -66,8 +66,8 @@
         .input {
           display: flex;
           flex-direction: column;
-          width: 30rem;
-          input{
+          width: 20rem;
+          input {
             border: 2px solid black;
           }
           &.checkbox {
@@ -76,124 +76,130 @@
           }
         }
       }
-      .images {
+      .rigth-inputs{
         display: flex;
-        justify-content: space-evenly;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-basis: 60rem;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid red;
+      }
+      .images {
+        border: 1px solid rgb(0, 0, 0);
+        display: flex;
+        justify-content: center;
         flex-direction: column;
         align-items: flex-start;
-        flex-basis: 30rem;
-        min-height: 20rem;
         position: relative;
-        .images-container {
-          width: 100%;
+        gap: 0.5rem;
+        flex-basis: 60rem;
+        .images-container{
           display: flex;
-          height: 100%;
-          align-items: center;
-          justify-content: space-evenly;
           flex-wrap: wrap;
-          justify-content: row;
           gap: 1rem;
-          .imagent {
-            
-            width: 12rem;
-            height: 12rem;
-            border: #3d3737 dashed 0.1rem;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid green;
+          flex-grow: 1;
+        }
+        .imagent {
+          width: 12rem;
+          height: 12rem;
+          border: #3d3737 dashed 0.1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          label {
+            cursor: pointer;
+            width: 40%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            label {
-              cursor: pointer;
-              width: 40%;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              font-size: x-large;
-              height: 100%;
-              width: 100%;
-              gap: 0.5rem;
-              color: #000;
-              input[type="file"] {
-                visibility: hidden;
-                height: 0;
-              }
-              p {
-                font-weight: 500;
-                margin-bottom: 0;
-                font-size: medium;
-              }
+            justify-content: center;
+            font-size: x-large;
+            height: 100%;
+            width: 100%;
+            gap: 0.5rem;
+            color: #000;
+            input[type="file"] {
+              visibility: hidden;
+              height: 0;
             }
-            button {
+            p {
               font-weight: 500;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              border: none;
-              background-color: transparent;
-              i {
-                font-size: xx-large;
-              }
+              margin-bottom: 0;
+              font-size: medium;
             }
-            position: relative;
-            .delete-image-btn {
-              position: absolute;
-              top: -0.9rem;
-              width: 1rem;
-              height: 1rem;
-              background: #fff;
-              right: -0.5rem;
-              border-radius: 50%;
-              color: #000;
-              i {
-                font-size: large;
-              }
+          }
+          button {
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: none;
+            background-color: transparent;
+            i {
+              font-size: xx-large;
             }
-            &.show {
-              border: none;
-              & label {
-                color: transparent;
-              }
+          }
+          position: relative;
+          .delete-image-btn {
+            position: absolute;
+            top: -0.9rem;
+            width: 1rem;
+            height: 1rem;
+            background: #fff;
+            right: -0.5rem;
+            border-radius: 50%;
+            color: #000;
+            i {
+              font-size: large;
+            }
+          }
+          &.show {
+            border: none;
+            & label {
+              color: transparent;
             }
           }
         }
-        
       }
-      .singles{
-        border: 1px solid;
+      .singles {
         min-height: 20rem;
-        width: 50rem;
-        .cancion-input{
+        flex-basis: 60rem;
+        .cancion-input {
           display: flex;
           flex-direction: row;
           align-items: center;
-          justify-content:space-between;
+          justify-content: space-between;
           padding-right: 1rem;
-          button{
+          button {
             width: 3rem;
             height: 2.5rem;
             border: none;
-            i{
+            i {
               color: rgb(0, 0, 0);
               font-size: 1.5rem;
             }
             border-radius: 10px;
             background: #5aa551;
-            transition: all .1s ease;
-            &:hover{
+            transition: all 0.1s ease;
+            &:hover {
               background: #63b85a;
             }
           }
         }
-        .canciones-container{
+        .canciones-container {
           display: flex;
           flex-wrap: wrap;
           flex-direction: row;
           width: 100%;
           gap: 1rem;
-          .cancion-card{
+          .cancion-card {
             display: flex;
             align-items: left;
             justify-content: center;
@@ -201,10 +207,10 @@
             width: 15rem;
             border: 1px solid black;
             position: relative;
-            button{
-              
-            } 
-            h1,h3{
+            button {
+            }
+            h1,
+            h3 {
               margin: 0;
             }
           }

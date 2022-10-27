@@ -30,14 +30,14 @@ public class CloudinaryService {
     /*Metodo para subir imagenes a cloudnary*/
     public Map upload(MultipartFile multipartFile) throws IOException {
         File file = convert(multipartFile);
-        Map result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+        Map result = cloudinary.uploader().upload(file, ObjectUtils.asMap("folder","imgs"));
         file.delete();
         return result;
     }
     /*Metodo para subir la preview de 30segs en cloudnary*/
     public Map uploadMusic(MultipartFile multipartFile) throws IOException {
         File file = convert(multipartFile);
-        Map result = cloudinary.uploader().upload(file, ObjectUtils.asMap("resource_type", "video"));
+        Map result = cloudinary.uploader().upload(file, ObjectUtils.asMap("resource_type", "video","folder","musica"));
         file.delete();
         return result;
     }

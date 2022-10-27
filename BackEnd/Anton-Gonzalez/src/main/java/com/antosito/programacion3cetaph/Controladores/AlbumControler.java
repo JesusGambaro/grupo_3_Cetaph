@@ -92,13 +92,49 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         }
     }
 
-    /*@GetMapping("") //Get All
-    public ResponseEntity<?> getAllAlbums(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(albumService.findAllAlbums(pageable));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente mas tarde.\"}");
+    @PutMapping(value = "/updateAlbumImgs/{id}",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums albums,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFile,@PathVariable Long id)throws IOException {
+        try{
+            List<Imagenes> returnImgs;
+            Albums albumsexist = albumService.findById(id);
+            returnImgs=albumsexist.getImagenes();
 
+            if (multipartFile != null) {
+                for (MultipartFile file : multipartFile){
+                    BufferedImage bi = ImageIO.read(file.getInputStream());
+                    if (bi == null) {
+                        return new ResponseEntity("imagen no vÃ¡lida", HttpStatus.BAD_REQUEST);
+                    }
+                    Map result = cloudinaryService.upload(file);
+                    Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
+                    imagenesService.save(imagenes);
+                    returnImgs.add(imagenes);
+                }
+            }
+
+            if (ImgsBorradas!=null){
+                for (int i = 0; i < returnImgs.size(); i++) {
+                    Imagenes img = returnImgs.get(i);
+                    if(ImgsBorradas.contains(img.getId())){
+                        returnImgs.remove(i);
+                    }
+                }
+                albums.setImagenes(returnImgs);
+                albumService.update(id,albums);
+
+                for (Long ids:ImgsBorradas){
+                    Imagenes imagenExist=  imagenesService.findById(ids);
+                    cloudinaryService.delete(imagenExist.getCloudinaryId());
+                    imagenesService.delete(ids);
+                }
+            }else {
+                albums.setImagenes(returnImgs);
+                albumService.update(id,albums);
+            }
+            return ResponseEntity.status(HttpStatus.OK).body("se actualizo el album");
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
         }
-    }*/
+    }
 }
