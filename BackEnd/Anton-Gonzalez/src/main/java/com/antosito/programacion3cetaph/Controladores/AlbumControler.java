@@ -92,6 +92,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         }
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping(value = "/updateAlbumImgs/{id}",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums albums,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFile,@PathVariable Long id)throws IOException {
         try{

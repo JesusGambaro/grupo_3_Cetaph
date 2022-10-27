@@ -6,6 +6,7 @@ import axios from "axios";
 export const AllProducts = () => {
   const [formActive, setFormActive] = useState(false);
   const [disks, setDisks] = useState([]);
+  const [isCreating, setCreating] = useState(false);
   const [albumObject, setAlbumObject] = useState();
   useEffect(() => {
     axios
@@ -21,8 +22,10 @@ export const AllProducts = () => {
         <CreateAlbumForm
           cancelFunc={() => {
             setFormActive(!formActive);
+            setAlbumObject(null);
           }}
           albumObject={albumObject}
+          isCreating={isCreating}
         />
       ) : (
         <>
@@ -49,6 +52,7 @@ export const AllProducts = () => {
               className="create-button"
               onClick={() => {
                 setFormActive(!formActive);
+                setCreating(true);
               }}
             >
               {" "}
@@ -56,11 +60,11 @@ export const AllProducts = () => {
             </button>
           </div>
           <div className="album-container">
-            {disks.map((param,i) => {
+            {disks.map((param, i) => {
               return (
                 <div className="album-card" key={i}>
                   <div className="img">
-                    <img src={param.imagenes[0].urlImg} alt="" />
+                    <img src={param.imagenes[0]?.urlImg} alt="" />
                   </div>
                   <span className="title">
                     <h1>{param.nombre}</h1>
@@ -75,6 +79,7 @@ export const AllProducts = () => {
                       onClick={() => {
                         setFormActive(!formActive);
                         setAlbumObject(param);
+                        setCreating(false);
                       }}
                     >
                       <i className="bi bi-pen"></i>Edit

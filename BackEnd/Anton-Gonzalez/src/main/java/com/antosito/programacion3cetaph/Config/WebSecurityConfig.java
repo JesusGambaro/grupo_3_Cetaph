@@ -34,12 +34,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilters customAuthenticationFilters = new CustomAuthenticationFilters(authenticationManagerBean());
         customAuthenticationFilters.setFilterProcessesUrl("/api/login");
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/api/login/**", "/api/v1/token/refresh/**", "/api/v1/register/**").permitAll().and().
+                .antMatchers("/api/login/**", "/api/v1/token/refresh/**", "/api/v1/register/**, /api/v1/updateAlbumImgs/**").permitAll().and().
                 authorizeRequests().antMatchers(GET, "/api/v1/**").permitAll().and()
                 .authorizeRequests().antMatchers(POST, "/api/v1/**").permitAll().and()
                 .authorizeRequests().antMatchers(PUT, "/api/v1/**").permitAll().and()
                 .authorizeRequests().antMatchers(DELETE, "/api/v1/**").permitAll().and()
-                .addFilter(customAuthenticationFilters).sessionManagement().sessionCreationPolicy(STATELESS).and()
+                .addFilter(customAuthenticationFilters).sessionManagement().sessionCreationPolicy(STATELESS).and().
                 .addFilterBefore(new CustomAuthorizationFilters(), UsernamePasswordAuthenticationFilter.class);
 
     }

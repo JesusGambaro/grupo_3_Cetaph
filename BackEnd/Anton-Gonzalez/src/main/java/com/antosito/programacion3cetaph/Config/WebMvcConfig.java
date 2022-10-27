@@ -10,7 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/login")
-                .allowedOrigins("http://localhost:9000")
+                .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("GET", "POST", "PUT");
     }
 }

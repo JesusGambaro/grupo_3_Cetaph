@@ -4,12 +4,12 @@ import Select from "react-select";
 import Creatable, { useCreatable } from "react-select/creatable";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
-export const CreateAlbumForm = ({ albumObject, cancelFunc }) => {
+export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
   const [generos, setGeneros] = useState([]);
   const [singles, setSingles] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState({
-    deletedImages: [{ cloudinaryId: "" }],
+    deletedImages: [],
     album: {
       nombre: "",
       precio: 0,
@@ -78,7 +78,7 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc }) => {
     if (albumObject) {
       let imgs = data.album.imagenes;
       for (let index = 0; index < albumObject.imagenes.length; index++) {
-        imgs[index] = albumObject.imagenes[0];
+        imgs[index] = albumObject.imagenes[index];
       }
       setData({
         ...data,
@@ -136,12 +136,14 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc }) => {
       },
     });
   };
-  const handleFileInput = async (e, i) => {
+  const handleFileInput = async (e, index) => {
     //console.log("Cambiando Imagen");
-    let newImgs = data.album.imagenes.map((img, i) => {
-      console.log("index "+index+"-"+i);
-      return imagenData.urlImg == img.urlImg ? { urlImg: URL.createObjectURL(e.target.files[0]), file: e.target.files[0] } : img;
-    });
+    let newImgs = data.album.imagenes;
+    newImgs[index] = {
+      urlImg: URL.createObjectURL(e.target.files[0]),
+      file: e.target.files[0],
+    };
+
     setData({
       ...data,
       album: {
@@ -154,46 +156,50 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    let formDataTest = new FormData();
-    for (let i = 0; i < data.images.length; i++) {
-      formDataTest.append("file", data.images[i].image);
+    for (let i = 0; i < data.album.imagenes.length; i++) {
+      if (data.album.imagenes[i].file) {
+        formData.append("file", data.album.imagenes[i].file);
+        console.log("apended");
+      }
     }
     let dataAxios = JSON.stringify(data.album);
+    let deletedImgs = JSON.stringify(data.deletedImages);
     formData.append(
-      "Album",
-      JSON.stringify({
-        nombre: "October in November",
-        precio: 123.0,
-        stock: 123,
-        fechaLanzamiento: "12/02/2021",
-        duracion: "207000",
-        descripcion: "Presentacion de hoy",
-        esVinilo: true,
-        explicit: true,
-        genero: {
-          id: 2,
-          generoName: "Rok",
-        },
-        artistas: [],
-        singles: [],
-      })
-    );
-    formDataTest.append(
       "Album",
       new Blob([dataAxios], { type: "application/json" })
     );
+
     setLoading(true);
     console.log("----------Form Data----------");
     //console.log(data.album);
     //console.log(formData.getAll("Album"));
 
+    if (isCreating) {
+      console.log("creating");
+    } else {
+      console.log("updating");
+      if (data.deletedImages.length) {
+        formData.append(
+          "ImgsBorradas",
+          new Blob([deletedImgs], { type: "application/json" })
+        );
+
+        console.log(deletedImgs);
+      }
+      console.log(dataAxios);
+    }
+
+    let url = isCreating
+      ? "http://localhost:9000/api/v1/album/uploadAlbumImgs"
+      : "http://localhost:9000/api/v1/album/updateAlbumImgs/" + data.album.id;
+
     axios({
-      url: "http://localhost:9000/api/v1/album/uploadAlbumImgs",
-      method: "POST",
+      url: url,
+      method: isCreating ? "POST" : "PUT",
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      data: formDataTest,
+      data: formData,
     })
       .then((res) => {
         console.log(res.data);
@@ -209,17 +215,16 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc }) => {
   const deleteImage = (imagenData, index) => {
     console.log("index " + index);
     let newImgs = data.album.imagenes.map((img, i) => {
-      console.log("index "+index+"-"+i);
+      console.log("index " + index + "-" + i);
       return imagenData.urlImg == img.urlImg ? { urlImg: "", file: "" } : img;
     });
-    let newDeletedImages = [
-      ...data.deletedImages,
-      { cloudinaryId: imagenData.cloudinaryId },
-    ]
+    let newDeletedImages = [...data.deletedImages, imagenData.id];
     console.log(newImgs);
     setData({
       ...data,
-      deletedImages: imagenData.cloudinaryId ? newDeletedImages : data.deletedImages,
+      deletedImages: imagenData.cloudinaryId
+        ? newDeletedImages
+        : data.deletedImages,
       album: {
         ...data.album,
         imagenes: newImgs,
