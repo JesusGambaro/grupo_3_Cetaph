@@ -1,10 +1,8 @@
 package com.antosito.programacion3cetaph.Controladores;
 import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Imagenes;
-import com.antosito.programacion3cetaph.Servicios.AlbumService;
-import com.antosito.programacion3cetaph.Servicios.AlbumServiceImpl;
-import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
-import com.antosito.programacion3cetaph.Servicios.ImagenesService;
+import com.antosito.programacion3cetaph.Entidades.Singles;
+import com.antosito.programacion3cetaph.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -22,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST})
 @RequestMapping(path = "api/v1/album")
 public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumServiceImpl>{
     @Autowired
@@ -30,6 +28,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
 
     @Autowired
     AlbumService albumService;
+
+    @Autowired
+    SinglesService singleService;
 
     @Autowired
     ImagenesService imagenesService;
@@ -56,10 +57,11 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     }
 
     @PostMapping(value = "/uploadAlbumImgs",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("file") MultipartFile[] multipartFile)throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("file") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic)throws IOException {
         try{
             List<Imagenes> returnImgs =  new ArrayList<>();
             for (MultipartFile file : multipartFile){
+
                 BufferedImage bi = ImageIO.read(file.getInputStream());
                 if (bi == null) {
                     return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
@@ -69,6 +71,14 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 imagenesService.save(imagenes);
                 returnImgs.add(imagenes);
             }
+            System.out.println(multipartFileMusic.length);
+            for (int i = 0; i < multipartFileMusic.length; i++) {
+                Map result = cloudinaryService.uploadMusic(multipartFileMusic[i]);
+                singlesList.get(i).setCloudinaryId((String)result.get("public_id"));
+                singlesList.get(i).setUrlMusic((String)result.get("url"));
+                singleService.save(singlesList.get(i));
+            }
+            albums.setSingles(singlesList);
             albums.setImagenes(returnImgs);
             return ResponseEntity.status(HttpStatus.OK).body(albumService.save(albums));
 
@@ -77,7 +87,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         }
     }
 
-    @DeleteMapping("/deleteComple/{id}") //Delete
+    @DeleteMapping("/deleteComplete/{id}") //Delete
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             if(!albumService.exists(id))

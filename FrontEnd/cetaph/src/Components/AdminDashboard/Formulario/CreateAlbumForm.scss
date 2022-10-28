@@ -83,10 +83,8 @@
         flex-basis: 60rem;
         justify-content: center;
         align-items: center;
-        border: 1px solid red;
       }
       .images {
-        border: 1px solid rgb(0, 0, 0);
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -100,7 +98,6 @@
           gap: 1rem;
           justify-content: center;
           align-items: center;
-          border: 1px solid green;
           flex-grow: 1;
         }
         .imagent {
@@ -171,13 +168,15 @@
       .singles {
         min-height: 20rem;
         flex-basis: 60rem;
+        
         .cancion-input {
+          position: relative;
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
           padding-right: 1rem;
-          button {
+          .btn {
             width: 3rem;
             height: 2.5rem;
             border: none;

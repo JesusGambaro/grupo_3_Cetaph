@@ -22,9 +22,6 @@ extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "duracion")
     private int duracion;
 
-    @Column(name = "lanzamiento")
-    private String fechaLanzamiento;
-
     @Column(name = "esExplicito")
     private boolean explicit;
 
@@ -34,9 +31,5 @@ extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "CloudinaryId")
     private String CloudinaryId;
 
-    private Boolean estoyEnAlbum;
-
-    @ManyToOne(optional = false)
-    private Genero genero_fk;
 
 }
