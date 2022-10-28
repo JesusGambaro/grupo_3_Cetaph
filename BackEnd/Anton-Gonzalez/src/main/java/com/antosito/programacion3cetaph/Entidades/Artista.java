@@ -22,13 +22,9 @@ public class Artista extends Base {
     @Column(name = "nacionalidad")
     private String nacionalidad;
 
+    @OneToOne(cascade = CascadeType.REFRESH)
+    private Imagenes imagenes;
+
     /*Una relacion de uno a muchos, un artista puede tener muchas singles*/
-    @OneToMany(cascade = CascadeType.REFRESH, orphanRemoval = true)
-    @JoinTable(
-            name = "artista_single",
-            joinColumns = @JoinColumn(name = "artista_id"),
-            inverseJoinColumns = @JoinColumn(name = "single_id")
-    )
-    private List<Singles> singles = new ArrayList<Singles>();
 
 }

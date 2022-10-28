@@ -23,7 +23,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Arrays.sort;
 import static java.util.Arrays.stream;
+import static org.apache.http.HttpHeaders.ALLOW;
 import static org.apache.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;

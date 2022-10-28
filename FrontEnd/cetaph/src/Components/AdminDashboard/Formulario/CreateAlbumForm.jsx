@@ -4,10 +4,12 @@ import Select from "react-select";
 import Creatable, { useCreatable } from "react-select/creatable";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
+import { CreateSingle } from "./CreateSingle/CreateSingle";
 export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
   const [generos, setGeneros] = useState([]);
   const [singles, setSingles] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isCreatingSingle, setCreatingSingle] = useState(false);
   const [data, setData] = useState({
     deletedImages: [],
     album: {
@@ -256,31 +258,6 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
       color: "black",
     }),
   };
-  const cancionesSelectStyle = {
-    control: (provided, state) => ({
-      display: "flex",
-      width: "15rem",
-      height: "2.5rem",
-      border: "2px solid black",
-      borderRadius: 0,
-    }),
-    menu: (provided) => ({
-      ...provided,
-      width: "15rem",
-      border: "2px solid black",
-      borderRadius: 0,
-      padding: 0,
-    }),
-    dropdownIndicator: (provided, state) => ({
-      ...provided,
-      color: "black",
-      transition: "none",
-    }),
-    clearIndicator: (provided) => ({
-      ...provided,
-      color: "black",
-    }),
-  };
   return (
     <>
       {isLoading ? (
@@ -298,7 +275,6 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
               </button>
             </span>
           </h1>
-
           <form onSubmit={handleSubmit} className="form">
             <div className="wrapper">
               <div className="input-wrapper">
@@ -494,41 +470,22 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
                     Canciones <p>{/*errors.images*/}</p>
                   </h4>
                   <div className="cancion-input">
-                    <Select
-                      className="singles-select"
-                      options={singles}
-                      placeholder={"Elige una cancion creada"}
-                      isClearable
-                      onSelectResetsInput={true}
-                      onBlurResetsInput={true}
-                      styles={cancionesSelectStyle}
-                      onChange={(param, action) => {
-                        console.log(action);
-                        if (action.action === "select-option") {
-                          let repetido = data.album.singles.find(
-                            (single) => single.id === param.value.id
-                          );
-                          if (!repetido) {
-                            setData({
-                              ...data,
-                              album: {
-                                ...data.album,
-                                singles: [...data.album.singles, param.value],
-                              },
-                            });
-                          }
-                        }
-                      }}
-                    />
                     <label>
                       <button
+                        className="btn create"
                         onClick={(e) => {
+                          setCreatingSingle(true);
                           e.preventDefault();
                         }}
                       >
                         <i className="bi bi-plus-circle-fill"></i>
                       </button>
                     </label>
+                    {isCreatingSingle && (
+                      <CreateSingle closeFunc={() => {
+                        setCreatingSingle(false);
+                      } } />
+                    )}
                   </div>
                   <div className="canciones-container">
                     {data.album.singles.map((e, i) => {
@@ -541,10 +498,7 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
                       return (
                         <div key={i} className="cancion-card">
                           {" "}
-                          <h1>{e.nombre}</h1>{" "}
-                          <h3>
-                            {e.genero_fk.generoName} {tiempo}
-                          </h3>
+                          <h1>{e.nombre}</h1> <h3>{tiempo}</h3>
                           <button
                             type="button"
                             className="delete-image-btn"
