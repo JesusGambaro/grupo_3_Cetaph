@@ -6,26 +6,25 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-public class Cart{
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Entity
+    @Table(name = "carrito")
+    public class Cart extends Base {
 
-}
-/*
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "carrito")
-public class Cart extends Base {
+        private float precioTotal;
 
-    private float precioTotal;
+        private int cantidad;
 
-    private int cantidad;
+        @ManyToOne(cascade = CascadeType.ALL)
+        private User user; //1,1
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+        @ManyToMany(cascade = CascadeType.REFRESH)
+        private List<Albums> album; //2,3
 
-    @ManyToMany(cascade = CascadeType.REFRESH)
-    private List<Albums> albumsList;
+    }
 
-}*/
+
+
 

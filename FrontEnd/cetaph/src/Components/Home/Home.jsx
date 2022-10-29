@@ -8,8 +8,6 @@ import CardsScroller from "./CardsScroller/CardsScroller";
 import Footer from "../Footer/Footer";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const discos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <>
       <NavBar />
@@ -55,7 +53,7 @@ const Home = () => {
           <div className="discs-header">
             <h1>Discs</h1>
           </div>
-          <CardsScroller props={discos} />
+          <CardsScroller />
         </div>
       </div>
     </>

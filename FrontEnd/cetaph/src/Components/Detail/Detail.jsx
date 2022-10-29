@@ -119,11 +119,17 @@ const Detail = () => {
               </span>
               <span>
                 <label>Duracion:</label>
-                <h1>{disk?.duracion}ms</h1>
+                <h1>
+                  {toMinsAndSecs(disk.duracion)}
+                </h1>
               </span>
               <span>
                 <label>Canciones:</label>
                 <h1>{disk?.signles}</h1>
+              </span>
+              <span>
+                <label>Artistas:</label>
+                <a href="">Jisu</a>
               </span>
               <h1 className="PrecioText">$500</h1>
               <div className="Buttons">
@@ -165,9 +171,9 @@ const Detail = () => {
                       key={"track" + id}
                     >
                       <p className="track-number">{id + 1}</p>
-                      <h2 className="track-name">{track.name}</h2>
+                      <h2 className="track-name">{track.nombre}</h2>
                       <p className="track-duration">
-                        {toMinsAndSecs(track.duration_ms)}
+                        {toMinsAndSecs(track.duracion)}
                       </p>
                       <i
                         className="fa-regular fa-circle-play"

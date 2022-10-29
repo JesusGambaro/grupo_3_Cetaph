@@ -22,6 +22,9 @@ public class Artista extends Base {
     @Column(name = "nacionalidad")
     private String nacionalidad;
 
+    @Column(nullable = true)
+    private String descripcion;
+
     @OneToOne(cascade = CascadeType.REFRESH)
     private Imagenes imagenes;
 

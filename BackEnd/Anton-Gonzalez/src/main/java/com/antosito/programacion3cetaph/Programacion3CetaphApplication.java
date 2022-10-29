@@ -1,6 +1,9 @@
 package com.antosito.programacion3cetaph;
 
 
+import com.antosito.programacion3cetaph.Entidades.Rol;
+import com.antosito.programacion3cetaph.Servicios.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,7 +26,6 @@ public class Programacion3CetaphApplication {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 
 
 

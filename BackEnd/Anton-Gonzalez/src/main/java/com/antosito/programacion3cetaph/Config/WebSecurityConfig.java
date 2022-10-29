@@ -39,9 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/api/login/**", "/api/v1/token/refresh/**", "/api/v1/register/**","/api/v1/updateAlbumImgs/**").permitAll().and()
                 .authorizeRequests().antMatchers(GET, "/api/v1/**").permitAll().and()
-                .authorizeRequests().antMatchers(POST, "/api/v1/**").permitAll().and()
-                .authorizeRequests().antMatchers(PUT, "/api/v1/**").permitAll().and()
-                .authorizeRequests().antMatchers(DELETE, "/api/v1/**").permitAll().and()
+                .authorizeRequests().antMatchers(POST, "/api/v1/**").hasAuthority("Admin").and()
+                .authorizeRequests().antMatchers(PUT, "/api/v1/**").hasAuthority("Admin").and()
+                .authorizeRequests().antMatchers(DELETE, "/api/v1/**").hasAuthority("Admin").and()
                 .addFilter(customAuthenticationFilters).sessionManagement().sessionCreationPolicy(STATELESS).and()
                 .addFilterBefore(new CustomAuthorizationFilters(), UsernamePasswordAuthenticationFilter.class);
 

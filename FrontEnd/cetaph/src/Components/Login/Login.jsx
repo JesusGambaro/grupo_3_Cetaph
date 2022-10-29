@@ -20,9 +20,17 @@ const Login = () => {
         .then(({ data }) => {
           console.log(data)
           //save token in local storage
-          localStorage.setItem('token', data.access_token)
+          localStorage.setItem('token', data[0])
+          localStorage.setItem('refresh-token', data[1])
+          localStorage.setItem('rol', data[2])
           //redirect to home page
-          navigate('/home')
+          if (data[2] == "Admin") {
+            navigate('/AdminDashboard')
+          }else{
+            navigate('/home')
+          }
+
+          
         })
         .catch((err) => {
           console.log(err)
@@ -34,7 +42,9 @@ const Login = () => {
         .then(({ data }) => {
           console.log(data)
           //save token in local storage
-          localStorage.setItem('token', data.access_token)
+          localStorage.setItem('token', data[0])
+          localStorage.setItem('refresh-token', data[1])
+          localStorage.setItem('rol', data[2])
           //redirect to home page
           navigate('/home')
         })

@@ -53,8 +53,6 @@
       justify-content: left;
       flex-wrap: wrap;
       gap: 2rem;
-      justify-content: center;
-      align-items: center;
       .input-wrapper {
         flex-basis: 20rem;
         display: flex;
@@ -83,6 +81,7 @@
         flex-basis: 60rem;
         justify-content: center;
         align-items: center;
+        border: 1px solid;
       }
       .images {
         display: flex;

@@ -63,6 +63,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         log.info("Guardando nuevo rol {}", rol.getName());
         return rolRepository.save(rol);
     }
+    @Override
+    public boolean comprobateROl(Rol rol){
+        if (rolRepository.findByName(rol.getName()).equals(rol.getName())){
+            return true;
+        }else {
+             return false;
+        }
+    }
 
     @Override
     public void addRolToUser(String username, String rolName) {

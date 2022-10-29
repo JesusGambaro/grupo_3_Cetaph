@@ -8,14 +8,15 @@ export const AllProducts = () => {
   const [disks, setDisks] = useState([]);
   const [isCreating, setCreating] = useState(false);
   const [albumObject, setAlbumObject] = useState();
-  useEffect(() => {
+  useEffect(() => {getAlbums()}, []);
+  const getAlbums = () => {
     axios
       .get("http://localhost:9000/api/v1/album")
       .then((res) => {
         setDisks(res.data);
       })
       .catch((err) => {});
-  }, []);
+  };
   return (
     <div className="AllProducts">
       {formActive ? (
@@ -26,6 +27,7 @@ export const AllProducts = () => {
           }}
           albumObject={albumObject}
           isCreating={isCreating}
+          getAlbums={getAlbums}
         />
       ) : (
         <>

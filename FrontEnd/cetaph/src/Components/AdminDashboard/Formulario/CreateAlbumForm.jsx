@@ -5,13 +5,19 @@ import Creatable, { useCreatable } from "react-select/creatable";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
 import { CreateSingle } from "./CreateSingle/CreateSingle";
-export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
+export const CreateAlbumForm = ({
+  albumObject,
+  cancelFunc,
+  isCreating,
+  getAlbums,
+}) => {
   const [generos, setGeneros] = useState([]);
   const [singles, setSingles] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isCreatingSingle, setCreatingSingle] = useState(false);
   const [data, setData] = useState({
     deletedImages: [],
+    deletedSingles: [],
     album: {
       nombre: "",
       precio: 0,
@@ -105,30 +111,11 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
       })
       .catch((err) => {
         console.log(err);
-      });
-    axios({
-      url: "http://localhost:9000/api/v1/singles/",
-      method: "GET",
-    })
-      .then(({ data }) => {
-        let singles = data.map((single) => {
-          return {
-            value: single,
-            label:
-              single.nombre.substring(0, 1).toUpperCase() +
-              single.nombre.substring(1),
-          };
-        });
-        setSingles(singles);
-      })
-      .catch((err) => {
-        console.log(err);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
-
   const handleData = (property, value) => {
     setData({
       ...data,
@@ -141,6 +128,11 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
   const handleFileInput = async (e, index) => {
     //console.log("Cambiando Imagen");
     let newImgs = data.album.imagenes;
+    let newDeletedImages;
+    if (newImgs[index].id) {
+      newDeletedImages = [...data.deletedImages, newImgs[index].id];
+    }
+
     newImgs[index] = {
       urlImg: URL.createObjectURL(e.target.files[0]),
       file: e.target.files[0],
@@ -148,6 +140,7 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
 
     setData({
       ...data,
+      deletedImages: newDeletedImages ? newDeletedImages : data.deletedImages,
       album: {
         ...data.album,
         imagenes: newImgs,
@@ -158,24 +151,56 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    for (let i = 0; i < data.album.imagenes.length; i++) {
-      if (data.album.imagenes[i].file) {
-        formData.append("file", data.album.imagenes[i].file);
-        console.log("apended");
+    data.album.imagenes.map((img) => {
+      if (img.file) {
+        formData.append("file", img.file);
       }
-    }
-    let dataAxios = JSON.stringify(data.album);
+    });
+    data.album.singles.map((single) => {
+      if (single.file) {
+        formData.append("musicFiles", single.file);
+      }
+    });
+    let album = data.album;
+    let milis = 0;
+    album.singles.map((single) => {
+      milis += single.duracion;
+    });
+    let singlesList = [];
+    album.singles.map((single) => {
+      if (single.file) {
+        singlesList = [
+          ...singlesList,
+          {
+            nombre: single.nombre,
+            duracion: single.duracion,
+            explicit: single.explicit,
+          },
+        ];
+      }
+    });
+    album.duracion = milis;
+    album.singles = album.singles.filter((single) => {
+      return single.cloudinaryId;
+    });
+    console.log(album.singles);
+    let albumAxios = JSON.stringify(album);
+    let singlesListAxios = JSON.stringify(singlesList);
     let deletedImgs = JSON.stringify(data.deletedImages);
+    let deletedSingles = JSON.stringify(data.deletedSingles);
     formData.append(
       "Album",
-      new Blob([dataAxios], { type: "application/json" })
+      new Blob([albumAxios], { type: "application/json" })
     );
-
+    formData.append(
+      "SinglesList",
+      new Blob([singlesListAxios], { type: "application/json" })
+    );
     setLoading(true);
     console.log("----------Form Data----------");
     //console.log(data.album);
     //console.log(formData.getAll("Album"));
-
+      
     if (isCreating) {
       console.log("creating");
     } else {
@@ -185,27 +210,35 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
           "ImgsBorradas",
           new Blob([deletedImgs], { type: "application/json" })
         );
-
-        console.log(deletedImgs);
       }
-      console.log(dataAxios);
+      if (data.deletedSingles.length) {
+        formData.append(
+          "CancionesBorradas",
+          new Blob([deletedSingles], { type: "application/json" })
+        );
+      }
+      
+      console.log("AAaaa");
     }
 
     let url = isCreating
-      ? "http://localhost:9000/api/v1/album/uploadAlbumImgs"
-      : "http://localhost:9000/api/v1/album/updateAlbumImgs/" + data.album.id;
+      ? "http://localhost:9000/api/v1/album/upload"
+      : "http://localhost:9000/api/v1/album/update/" + data.album.id;
 
+    console.log(localStorage.getItem("token"));
     axios({
       url: url,
       method: isCreating ? "POST" : "PUT",
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: formData,
     })
       .then((res) => {
         console.log(res.data);
         cancelFunc();
+        getAlbums();
       })
       .catch((err) => {
         console.log(err);
@@ -215,13 +248,11 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
       });
   };
   const deleteImage = (imagenData, index) => {
-    console.log("index " + index);
     let newImgs = data.album.imagenes.map((img, i) => {
-      console.log("index " + index + "-" + i);
       return imagenData.urlImg == img.urlImg ? { urlImg: "", file: "" } : img;
     });
     let newDeletedImages = [...data.deletedImages, imagenData.id];
-    console.log(newImgs);
+
     setData({
       ...data,
       deletedImages: imagenData.cloudinaryId
@@ -233,6 +264,23 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
       },
     });
   };
+  const deleteSingle = (singleData, index) => {
+    let newSingles = data.album.singles.filter((single) => {
+      return data.album.singles.indexOf(single) != index;
+    });
+    let newDeletedSingles = [...data.deletedSingles, singleData.id];
+
+    setData({
+      ...data,
+      deletedSingles: singleData.cloudinaryId
+        ? newDeletedSingles
+        : data.deletedSingles,
+      album: {
+        ...data.album,
+        singles: newSingles,
+      },
+    });
+  };
   const selectStyle = {
     control: (provided, state) => ({
       display: "flex",
@@ -240,13 +288,17 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
       height: "2.5rem",
       border: "2px solid black",
       borderRadius: 0,
+      backgroundColor: state.isFocused && "red",
     }),
-    menu: (provided) => ({
+    menu: (provided, state) => ({
       ...provided,
       width: "20rem",
       border: "2px solid black",
       borderRadius: 0,
       padding: 0,
+      backgroundColor: "red",
+      position: "absolute",
+      top: "2rem",
     }),
     dropdownIndicator: (provided, state) => ({
       ...provided,
@@ -290,20 +342,6 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
                       handleData("nombre", e.target.value);
                     }}
                     value={data.album.nombre}
-                  />
-                </div>
-                <div className="input number">
-                  <label htmlFor="">
-                    <h4 className="input-name">
-                      Duracion <p>{/*errors.images*/}</p>
-                    </h4>
-                  </label>
-                  <input
-                    type="number"
-                    onChange={(e) => {
-                      handleData("duracion", e.target.value);
-                    }}
-                    value={data.album.duracion}
                   />
                 </div>
                 <div className="input number">
@@ -482,9 +520,20 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
                       </button>
                     </label>
                     {isCreatingSingle && (
-                      <CreateSingle closeFunc={() => {
-                        setCreatingSingle(false);
-                      } } />
+                      <CreateSingle
+                        closeFunc={() => {
+                          setCreatingSingle(false);
+                        }}
+                        addSingleFunc={(singleData) => {
+                          setData({
+                            ...data,
+                            album: {
+                              ...data.album,
+                              singles: [...data.album.singles, singleData],
+                            },
+                          });
+                        }}
+                      />
                     )}
                   </div>
                   <div className="canciones-container">
@@ -502,7 +551,9 @@ export const CreateAlbumForm = ({ albumObject, cancelFunc, isCreating }) => {
                           <button
                             type="button"
                             className="delete-image-btn"
-                            onClick={() => {}}
+                            onClick={() => {
+                              deleteSingle(e, i);
+                            }}
                           >
                             <i className="bi bi-x-circle-fill"></i>
                           </button>

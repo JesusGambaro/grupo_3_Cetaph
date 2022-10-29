@@ -6,7 +6,7 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import { motion, useMotionValue } from 'framer-motion'
 import axios from 'axios'
 
-const CardsScroller = ({ props }) => {
+const CardsScroller = () => {
   const slider = useRef(null)
 
   const handleWheel = (e) => {

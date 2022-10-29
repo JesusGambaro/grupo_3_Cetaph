@@ -56,7 +56,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         }
     }
 
-    @PostMapping(value = "/uploadAlbumImgs",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/upload",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("file") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic)throws IOException {
         try{
             List<Imagenes> returnImgs =  new ArrayList<>();
@@ -103,15 +103,16 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping(value = "/updateAlbumImgs/{id}",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums albums,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFile,@PathVariable Long id)throws IOException {
+    @PutMapping(value = "/update/{id}",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums album,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFleImgs,@RequestPart( value ="SinglesList",required = false) List<Singles> singlesList,@RequestPart( value ="musicFiles" ,required = false) MultipartFile[] multipartFileMusic,@RequestPart(value = "CancionesBorradas",required = false) List<Long> CancionesBorradas,@PathVariable Long id)throws IOException {
         try{
             List<Imagenes> returnImgs;
-            Albums albumsexist = albumService.findById(id);
-            returnImgs=albumsexist.getImagenes();
-
-            if (multipartFile != null) {
-                for (MultipartFile file : multipartFile){
+            List<Singles> returnCanciones;
+            Albums albumUpdated = albumService.findById(id);
+            returnImgs=albumUpdated.getImagenes();
+            returnCanciones=albumUpdated.getSingles();
+            if (multipartFleImgs != null) {
+                for (MultipartFile file : multipartFleImgs){
                     BufferedImage bi = ImageIO.read(file.getInputStream());
                     if (bi == null) {
                         return new ResponseEntity("imagen no vÃ¡lida", HttpStatus.BAD_REQUEST);
@@ -123,6 +124,21 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 }
             }
 
+            if (multipartFileMusic != null) {
+                for (int i = 0; i < multipartFileMusic.length; i++) {
+                    System.out.println("-------------------------------------------");
+                    System.out.println("        Estoy creando una cancion          ");
+                    System.out.println("-------------------------------------------");
+                    Map result = cloudinaryService.uploadMusic(multipartFileMusic[i]);
+                    singlesList.get(i).setCloudinaryId((String)result.get("public_id"));
+                    singlesList.get(i).setUrlMusic((String)result.get("url"));
+                    singleService.save(singlesList.get(i));
+                    returnCanciones.add(singlesList.get(i));
+                }
+
+
+            }
+
             if (ImgsBorradas!=null){
                 for (int i = 0; i < returnImgs.size(); i++) {
                     Imagenes img = returnImgs.get(i);
@@ -130,19 +146,37 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                         returnImgs.remove(i);
                     }
                 }
-                albums.setImagenes(returnImgs);
-                albumService.update(id,albums);
+                album.setImagenes(returnImgs);
 
-                for (Long ids:ImgsBorradas){
-                    Imagenes imagenExist=  imagenesService.findById(ids);
+                for (Long ids:ImgsBorradas) {
+                    Imagenes imagenExist = imagenesService.findById(ids);
                     cloudinaryService.delete(imagenExist.getCloudinaryId());
                     imagenesService.delete(ids);
                 }
             }else {
-                albums.setImagenes(returnImgs);
-                albumService.update(id,albums);
+                album.setImagenes(returnImgs);
             }
-            return ResponseEntity.status(HttpStatus.OK).body("se actualizo el album");
+            if(CancionesBorradas!=null){
+                System.out.println("-------------------------------------------");
+                System.out.println("Borrando");
+                for(int i = 0; i < returnCanciones.size(); i++) {
+                    Singles singles = returnCanciones.get(i);
+                    if (CancionesBorradas.contains(singles.getId())) returnCanciones.remove(i);
+                    System.out.println("Borrando id" + singles.getId());
+                }
+                System.out.println("Guardando Canciones");
+                album.setSingles(returnCanciones);
+                for (Long ids:CancionesBorradas){
+                    Singles singlesExist = singleService.findById(ids);
+                    cloudinaryService.delete(singlesExist.getCloudinaryId());
+                    singleService.delete(ids);
+                }
+            }else {
+                System.out.println("Guardando Canciones");
+                album.setSingles(returnCanciones);
+            }
+            System.out.println("-------------------------------------------");
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.update(id,album));
 
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);

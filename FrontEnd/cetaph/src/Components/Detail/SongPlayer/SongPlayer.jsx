@@ -6,10 +6,10 @@ const SongPlayer = ({track, handleSongChange}) => {
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   // Destructure for conciseness
-  const {name, artists, color, preview_url} = track;
+  const {name, artists, color, urlMusic} = track;
 
   // Refs
-  const audioRef = useRef(new Audio(preview_url));
+  const audioRef = useRef(new Audio(urlMusic));
   const intervalRef = useRef();
   const isReady = useRef(false);
 
@@ -64,7 +64,7 @@ const SongPlayer = ({track, handleSongChange}) => {
   useEffect(() => {
     audioRef.current.pause();
 
-    audioRef.current = new Audio(preview_url);
+    audioRef.current = new Audio(urlMusic);
     setTrackProgress(audioRef.current.currentTime);
 
     if (isReady.current) {
@@ -75,7 +75,7 @@ const SongPlayer = ({track, handleSongChange}) => {
       // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
-  }, [preview_url]);
+  }, [urlMusic]);
 
   useEffect(() => {
     // Pause and clean up on unmount

@@ -15,4 +15,5 @@ public interface UserService {
     User getUser(String username);
     Page<User> getAllUser(Pageable pageable);
     boolean validate(User user);
+    boolean comprobateROl(Rol rol);
 }

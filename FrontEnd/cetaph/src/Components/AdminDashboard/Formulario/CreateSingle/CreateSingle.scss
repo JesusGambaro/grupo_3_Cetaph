@@ -42,11 +42,11 @@
       }
     }
   }
-  form{
+  .form-singles{
     display: flex;
     flex-direction: column;
     padding: .5rem;
-    gap: 1rem;
+    gap: .5rem;
     align-items: center;
   }
   .input {
