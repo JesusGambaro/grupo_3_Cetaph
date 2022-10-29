@@ -1,8 +1,10 @@
 import React from "react";
-import {useNavigate} from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import "./navbar.scss";
 const NavBar = () => {
   const navigate = useNavigate();
+  const [usuarioIcon, setUsuarioIcon] = useState(false);
   return (
     <nav>
       <div className="nav-wrapper">
@@ -34,15 +36,59 @@ const NavBar = () => {
           </li>
         </ul>
         <ul className="nav-icons">
-          <li className="nav-icon">
+          {/* <li className="nav-icon">
             <p className="icon-link">
               <i className="bi bi-heart"></i>
             </p>
-          </li>
-          <li className="nav-icon">
+          </li> */}
+
+          <li
+            className="nav-icon"
+            onClick={() => {
+              setUsuarioIcon(!usuarioIcon);
+            }}
+          >
             <p className="icon-link">
               <i className="bi bi-person-circle"></i>
             </p>
+
+            <ul className={"icon-options " + (usuarioIcon ? "active" : "")}>
+              {localStorage.getItem("token") ? (
+                <>
+                  <li>{localStorage.getItem("rol")}</li>
+                  <li
+                    onClick={() => {
+                      if (usuarioIcon) {
+                        localStorage.clear();
+                        navigate("/home");
+                        setUsuarioIcon(false);
+                      }
+                    }}
+                  >
+                    Log Out
+                  </li>
+                  {localStorage.getItem("rol") === "Admin" && (
+                    <li onClick={() => {
+                      if (usuarioIcon) {
+                        navigate("/AdminDashboard");
+                        setUsuarioIcon(false);
+                      }
+                    }}>
+                      Admin Dashboard
+                    </li>
+                  )}
+                </>
+              ) : (
+                <li onClick={() =>  {
+                  if (usuarioIcon) {
+                    navigate("/login");
+                    setUsuarioIcon(false);
+                  }
+                }}>
+                  Log In
+                </li>
+              )}
+            </ul>
           </li>
           <li className="nav-icon">
             <p className="icon-link">
