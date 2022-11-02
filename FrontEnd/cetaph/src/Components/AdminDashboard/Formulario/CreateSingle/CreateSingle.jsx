@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./CreateSingle.scss";
-export const CreateSingle = ({ closeFunc, addSingleFunc }) => {
+
+export const CreateSingle = ({ closeFunc, addSingleFunc}) => {
   const [cancionData, setCancionData] = useState({
     nombre: "",
     file: "",
@@ -10,7 +11,9 @@ export const CreateSingle = ({ closeFunc, addSingleFunc }) => {
   });
   const [duracion, setDuracion] = useState({ min: 0, sec: 0 });
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     addSingleFunc({
       ...cancionData,
       duracion: duracion.min * 60000 + duracion.sec * 1000,
@@ -24,6 +27,16 @@ export const CreateSingle = ({ closeFunc, addSingleFunc }) => {
       explicit: false,
       duracion: 0,
     });
+  };
+  document.onkeydown = function (e) {
+    console.log(e.key);
+    if (e.key == "Enter") {
+      console.log("submit");
+      handleSubmit();
+      closeFunc();
+    }else if (e.key == "Escape") {
+      closeFunc();
+    }
   };
   return (
     <div className="Single-form">
@@ -39,7 +52,8 @@ export const CreateSingle = ({ closeFunc, addSingleFunc }) => {
             <i className="bi bi-x-circle-fill"></i>
           </button>
           <button className="save" onClick={handleSubmit}>
-            <i className="bi bi-upload"></i>Create
+          <i class="fa-solid fa-floppy-disk"></i>
+            
           </button>
         </span>
       </h1>
@@ -84,18 +98,40 @@ export const CreateSingle = ({ closeFunc, addSingleFunc }) => {
             }}
           />
         </div>
-        <div className="input">
-          <label>Elige la Cancion</label>
-          <input
-            type="file"
-            accept="audio/*"
-            onChange={(e) => {
-              setCancionData({
-                ...cancionData,
-                file: e.target.files[0],
-              });
-            }}
-          />
+        <div className="input file">
+          <label>Cancion</label>
+          {cancionData.file ? (
+            <div className="music">
+              <p>{cancionData.file.name}</p>
+              <button
+                onClick={() => {
+                  setCancionData({
+                    ...cancionData,
+                    file: null,
+                  });
+                }}
+              >
+                <i className="bi bi-x-circle-fill"></i>
+              </button>
+            </div>
+          ) : (
+            <label className="file">
+              <input
+                type="file"
+                onChange={(e) => {
+                  if (!cancionData.file) {
+                    setCancionData({
+                      ...cancionData,
+                      file: e.target.files[0],
+                    });
+                  }
+                }}
+                accept={"mp3/*"}
+              />
+              <i className="bi bi-upload"></i>
+              <p>Select a song</p>
+            </label>
+          )}
         </div>
       </div>
     </div>

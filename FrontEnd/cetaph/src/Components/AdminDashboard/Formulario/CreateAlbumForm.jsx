@@ -5,6 +5,7 @@ import Creatable, { useCreatable } from "react-select/creatable";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
 import { CreateSingle } from "./CreateSingle/CreateSingle";
+import { useRef } from "react";
 export const CreateAlbumForm = ({
   albumObject,
   cancelFunc,
@@ -149,7 +150,10 @@ export const CreateAlbumForm = ({
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+
     let formData = new FormData();
     data.album.imagenes.map((img) => {
       if (img.file) {
@@ -200,7 +204,7 @@ export const CreateAlbumForm = ({
     console.log("----------Form Data----------");
     //console.log(data.album);
     //console.log(formData.getAll("Album"));
-      
+
     if (isCreating) {
       console.log("creating");
     } else {
@@ -217,7 +221,7 @@ export const CreateAlbumForm = ({
           new Blob([deletedSingles], { type: "application/json" })
         );
       }
-      
+
       console.log("AAaaa");
     }
 
@@ -287,8 +291,7 @@ export const CreateAlbumForm = ({
       width: "20rem",
       height: "2.5rem",
       border: "2px solid black",
-      borderRadius: 0,
-      backgroundColor: state.isFocused && "red",
+      borderRadius: "5px",
     }),
     menu: (provided, state) => ({
       ...provided,
@@ -296,7 +299,6 @@ export const CreateAlbumForm = ({
       border: "2px solid black",
       borderRadius: 0,
       padding: 0,
-      backgroundColor: "red",
       position: "absolute",
       top: "2rem",
     }),
@@ -309,6 +311,17 @@ export const CreateAlbumForm = ({
       ...provided,
       color: "black",
     }),
+  };
+  document.onkeydown = function (e) {
+    console.log(e.key);
+    if (!isCreatingSingle) {
+      if (e.key == "Enter") {
+        console.log("submit");
+        handleSubmit();
+      } else if (e.key == "Escape") {
+        cancelFunc();
+      }
+    }
   };
   return (
     <>
@@ -323,7 +336,7 @@ export const CreateAlbumForm = ({
                 <i className="bi bi-x-circle-fill"></i>Cancel
               </button>
               <button className="save-btn" onClick={handleSubmit}>
-                <i className="bi bi-upload"></i>Save
+                <i class="fa-solid fa-floppy-disk"></i>Save
               </button>
             </span>
           </h1>
@@ -510,31 +523,17 @@ export const CreateAlbumForm = ({
                   <div className="cancion-input">
                     <label>
                       <button
-                        className="btn create"
+                        className="btn"
                         onClick={(e) => {
                           setCreatingSingle(true);
                           e.preventDefault();
                         }}
                       >
+                        <p>Crear Una Cancion</p>
+
                         <i className="bi bi-plus-circle-fill"></i>
                       </button>
                     </label>
-                    {isCreatingSingle && (
-                      <CreateSingle
-                        closeFunc={() => {
-                          setCreatingSingle(false);
-                        }}
-                        addSingleFunc={(singleData) => {
-                          setData({
-                            ...data,
-                            album: {
-                              ...data.album,
-                              singles: [...data.album.singles, singleData],
-                            },
-                          });
-                        }}
-                      />
-                    )}
                   </div>
                   <div className="canciones-container">
                     {data.album.singles.map((e, i) => {
@@ -547,16 +546,11 @@ export const CreateAlbumForm = ({
                       return (
                         <div key={i} className="cancion-card">
                           {" "}
-                          <h1>{e.nombre}</h1> <h3>{tiempo}</h3>
-                          <button
-                            type="button"
-                            className="delete-image-btn"
-                            onClick={() => {
-                              deleteSingle(e, i);
-                            }}
-                          >
-                            <i className="bi bi-x-circle-fill"></i>
-                          </button>
+                          <span><label>Nombre: </label><h1>{e.nombre}</h1></span>
+                          <span><label>Duracion: </label><h3>{tiempo}</h3></span>
+                          
+                          
+                          <SongPlayer urlMusic={e.urlMusic} file={e.file} single={e} id={i} deleteSingle={deleteSingle} />
                         </div>
                       );
                     })}
@@ -564,10 +558,65 @@ export const CreateAlbumForm = ({
                 </div>
                 {/*-------------------------  SINGLES  ---------------------------*/}
               </div>
+
+              {isCreatingSingle && (
+                <CreateSingle
+                  closeFunc={() => {
+                    setCreatingSingle(false);
+                  }}
+                  addSingleFunc={(singleData) => {
+                    setData({
+                      ...data,
+                      album: {
+                        ...data.album,
+                        singles: [...data.album.singles, singleData],
+                      },
+                    });
+                  }}
+                />
+              )}
             </div>
           </form>
         </section>
       )}
     </>
+  );
+};
+
+const SongPlayer = ({ urlMusic, file, single,id,deleteSingle }) => {
+  const [isPlaying, setPlaying] = useState(false);
+  if (file) {
+    file = URL.createObjectURL(file);
+  }
+  let audioRef = useRef(new Audio(urlMusic != null ? urlMusic : file));
+  return (
+    <div>
+      <button
+        type="button"
+        className="delete-image-btn"
+        onClick={() => {
+          deleteSingle(single, id);
+          audioRef.current.pause();
+        }}
+      >
+        <i className="bi bi-x-circle-fill"></i>
+      </button>
+      <button
+        type="button"
+        className="play-btn"
+        onClick={() => {
+          if (isPlaying) {
+            setPlaying(false);
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          } else {
+            setPlaying(true);
+            audioRef.current.play();
+          }
+        }}
+      >
+        <i className={`bi bi-${isPlaying ? "pause" : "play"}-circle`} />
+      </button>
+    </div>
   );
 };

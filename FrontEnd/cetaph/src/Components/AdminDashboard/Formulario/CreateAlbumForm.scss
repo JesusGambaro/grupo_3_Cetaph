@@ -21,18 +21,24 @@
         font-weight: 500;
         color: #fff;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        justify-content: center;
         gap: 1rem;
-        padding: 0.5rem;
-        padding-top: 0.7rem;
+        padding: .5rem;
         font-size: large;
+        cursor: pointer;
+        i{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         &:first-child {
           background: #564a4a;
-          &:active {
+          &:hover {
             background: #3d3737;
           }
         }
-        &:active {
+        &:hover {
           background: #5daa55;
         }
       }
@@ -51,13 +57,12 @@
       display: flex;
       flex-direction: row;
       justify-content: left;
-      flex-wrap: wrap;
       gap: 2rem;
       .input-wrapper {
         flex-basis: 20rem;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         flex-direction: column;
         flex-wrap: wrap;
         gap: 1rem;
@@ -65,37 +70,84 @@
           display: flex;
           flex-direction: column;
           width: 20rem;
+
           input {
+            padding: 0.5rem;
             border: 2px solid black;
+            border-radius: 5px;
+            &:focus {
+              border-color: rgb(255, 0, 0);
+            }
+          }
+          textarea {
+            padding: 0.5rem;
+            border: 2px solid black;
+            border-radius: 5px;
           }
           &.checkbox {
-            gap: 1rem;
-            flex-direction: row;
+            font-family: system-ui, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.1;
+            display: grid;
+            grid-template-columns: 1em auto;
+            gap: 10em;
+            input[type="checkbox"] {
+              cursor: pointer;
+              appearance: none;
+              margin: 0;
+              font: inherit;
+              color: currentColor;
+              width: 1.15em;
+              height: 1.15em;
+              border: 0.15em solid currentColor;
+              border-radius: 0.15em;
+              transform: translateY(-0.075em);
+              display: flex;
+              transition: 120ms transform ease-in-out;
+              position: relative;
+              &::before {
+                position: absolute;
+                top: -3px;
+                left: -1px;
+                content: "";
+                width: 1.2em;
+                height: 1.2em;
+                transform: scale(0);
+                transition: 120ms transform ease-in-out;
+                background-color: rgb(0, 0, 0);
+                clip-path: polygon(75% 22%, 89% 31%, 38% 91%, 7% 59%, 20% 47%, 38% 66%);
+              }
+              &:checked {
+                &::before {
+                  transform: scale(1);
+                }
+              }
+            }
           }
         }
       }
-      .rigth-inputs{
+      .rigth-inputs {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex-basis: 60rem;
-        justify-content: center;
         align-items: center;
-        border: 1px solid;
+        justify-content: flex-start;
+        flex-direction: column;
+        flex-wrap: wrap;
+        flex-basis: 55rem;
       }
       .images {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         flex-direction: column;
-        align-items: flex-start;
         position: relative;
         gap: 0.5rem;
-        flex-basis: 60rem;
-        .images-container{
+        width: 100%;
+        flex-basis: 15rem;
+        .images-container {
           display: flex;
           flex-wrap: wrap;
           gap: 1rem;
-          justify-content: center;
+          justify-content: left;
           align-items: center;
           flex-grow: 1;
         }
@@ -165,9 +217,8 @@
         }
       }
       .singles {
-        min-height: 20rem;
-        flex-basis: 60rem;
-        
+        flex-basis: 20rem;
+        width: 100%;
         .cancion-input {
           position: relative;
           display: flex;
@@ -176,18 +227,36 @@
           justify-content: space-between;
           padding-right: 1rem;
           .btn {
-            width: 3rem;
+            margin: 1rem 0rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 15rem;
             height: 2.5rem;
             border: none;
+            p {
+              font-size: 1rem;
+              font-weight: bold;
+            }
             i {
               color: rgb(0, 0, 0);
               font-size: 1.5rem;
             }
-            border-radius: 10px;
-            background: #5aa551;
-            transition: all 0.1s ease;
+            border-radius: 5px;
+            background-color: white;
+            border: 2px solid black;
+            transition: all 0.3s ease;
+            transform: scale(1);
             &:hover {
-              background: #63b85a;
+              color: white;
+              i {
+                color: white;
+              }
+
+              transform: scale(1.05);
+              background-color: black;
+              transition: all 0.3s ease;
             }
           }
         }
@@ -199,13 +268,43 @@
           gap: 1rem;
           .cancion-card {
             display: flex;
-            align-items: left;
-            justify-content: center;
+            align-items: center;
+            justify-content: right;
             flex-direction: column;
             width: 15rem;
-            border: 1px solid black;
+            border: 2px solid black;
             position: relative;
+            gap: 1rem;
+            
             button {
+              border: none;
+              width: 2rem;
+              height: 2rem;
+              background-color: transparent;
+              i{
+                font-size:1.4rem;
+              }
+            }
+            .delete-image-btn{
+              position: absolute;
+              top: -15px;
+              right: -15px;
+              background-color: white;
+              cursor: pointer;
+            }
+            .play-btn{
+
+            }
+            span{
+              width: 100%;
+              display: flex;
+              flex-direction:row;
+              justify-content: left;
+              align-items: center;
+              gap: 1rem;
+              label{
+                font-weight: bold;
+              }
             }
             h1,
             h3 {
