@@ -2,11 +2,17 @@ package com.antosito.programacion3cetaph.Controladores;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Cart;
+import com.antosito.programacion3cetaph.Entidades.User;
 import com.antosito.programacion3cetaph.Servicios.AlbumService;
 import com.antosito.programacion3cetaph.Servicios.CartService;
 import com.antosito.programacion3cetaph.Servicios.CartServiceImpl;
 import com.antosito.programacion3cetaph.Servicios.UserService;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,5 +31,54 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
     @Autowired
     AlbumService albumService;
 
+    public String getUsername(String token){
+        Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedJWT = verifier.verify(token);
+        String tokenUser = decodedJWT.getSubject();
+        return tokenUser;
+    }
+    @PostMapping("/add")
+    public ResponseEntity<?> addToCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
 
+        User userCurrent = userService.getUser(getUsername(token));
+        System.out.println(userCurrent);
+        List<Albums> albumCart = new ArrayList<Albums>();
+        if(userCurrent == null){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
+        }
+        if(albumService.exists(id)){
+            albumCart.add(albumService.findById(id));
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
+        }
+        Cart cart = cartService.getCartbyUser(userCurrent);
+        if(cart == null) {
+            Cart newCart = new Cart(userCurrent,albumCart);
+            return ResponseEntity.status(HttpStatus.OK).body(cartService.save(newCart));
+        }else{
+
+            return ResponseEntity.status(HttpStatus.OK).body(cartService.update(cart.getId(), cart));
+        }
+    }
+
+
+  /*  @GetMapping("/getCarritoUser")
+    public ResponseEntity<?> getCartUser(@RequestParam("token") String token) throws Exception{
+        User userCurrent = userService.getUser(getUsername(token));
+        //System.out.println(userCurrent);
+       // List<Albums> albumCart = new ArrayList<Albums>();
+        if(userCurrent == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
+        }
+        List<Cart> cartList = new ArrayList<Cart>();
+        cartList = cartService.findAll();
+        servicio.
+        /*for (Cart cart : cartList){
+            if (cart.getUser() == userCurrent){
+                albumCart.add(cart.getAlbum());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Anduvo");
+    }*/
 }

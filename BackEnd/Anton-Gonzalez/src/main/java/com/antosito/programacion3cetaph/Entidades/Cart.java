@@ -13,11 +13,9 @@ import java.util.List;
     @Table(name = "carrito")
     public class Cart extends Base {
 
-        private float precioTotal;
 
-        private int cantidad;
 
-        @ManyToOne(cascade = CascadeType.ALL)
+        @OneToOne(cascade = CascadeType.ALL)
         private User user; //1,1
 
         @ManyToMany(cascade = CascadeType.REFRESH)

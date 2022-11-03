@@ -1,8 +1,6 @@
 package com.antosito.programacion3cetaph.Controladores;
 
-import com.antosito.programacion3cetaph.Entidades.Rol;
-import com.antosito.programacion3cetaph.Entidades.User;
-import com.antosito.programacion3cetaph.Servicios.UserService;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -10,12 +8,15 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import com.antosito.programacion3cetaph.Entidades.Rol;
+import com.antosito.programacion3cetaph.Entidades.User;
+import com.antosito.programacion3cetaph.Servicios.UserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -80,8 +81,6 @@ public class UserController {
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("rol",user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
                         .sign(algorithm);
-                /*response.setHeader("access_token",accessToken);
-                response.setHeader("refresh_token",refreshToken);*/
                 Map<String,String> tokens = new HashMap<>();
                 tokens.put("access_token",accessToken);
                 tokens.put("refresh_token",refreshToken);
@@ -99,6 +98,14 @@ public class UserController {
         }else{
             throw new RuntimeException("No hay tokens frescos");
         }
+    }
+    @GetMapping("/verify")
+    public String[] verificar(@RequestParam("token")String token){
+        Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedJWT = verifier.verify(token);
+        String[] tokenRol = decodedJWT.getClaim("rol").asArray(String.class);
+        return tokenRol;
     }
 
 }
