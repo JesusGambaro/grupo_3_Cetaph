@@ -38,6 +38,11 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         String tokenUser = decodedJWT.getSubject();
         return tokenUser;
     }
+    @GetMapping("/get")
+    public ResponseEntity<?> getUserCart(@RequestParam("token") String token) throws Exception {
+        User userCurrent = userService.getUser(getUsername(token));
+        return ResponseEntity.status(HttpStatus.OK).body(cartService.getCartbyUser(userCurrent));
+    }
     @PostMapping("/add")
     public ResponseEntity<?> addToCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
 
@@ -47,22 +52,36 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         if(userCurrent == null){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
         }
+
         if(albumService.exists(id)){
             albumCart.add(albumService.findById(id));
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
         }
-        Cart cart = cartService.getCartbyUser(userCurrent);
-        if(cart == null) {
-            Cart newCart = new Cart(userCurrent,albumCart);
-            return ResponseEntity.status(HttpStatus.OK).body(cartService.save(newCart));
-        }else{
-
-            return ResponseEntity.status(HttpStatus.OK).body(cartService.update(cart.getId(), cart));
-        }
+        Cart newCart = new Cart(userCurrent,albumCart);
+        return ResponseEntity.status(HttpStatus.OK).body(cartService.save(newCart));
     }
 
-
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
+        User userCurrent = userService.getUser(getUsername(token));
+        System.out.println(userCurrent);
+        List<Albums> albumCart = new ArrayList<Albums>();
+        Cart cart = cartService.getCartbyUser(userCurrent);
+        albumCart = cart.getAlbum();
+        if(albumService.exists(id)){
+            albumCart.add(albumService.findById(id));
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
+        }
+        cart.setAlbum(albumCart);
+        Long cartId = cart.getId();
+        System.out.println("--------------------------------------------");
+        System.out.println("CartId: "+ cartId);
+        System.out.println("--------------------------------------------");
+        cartService.delete(cartId);
+        return ResponseEntity.status(HttpStatus.OK).body(cartService.save(cart));
+    }
   /*  @GetMapping("/getCarritoUser")
     public ResponseEntity<?> getCartUser(@RequestParam("token") String token) throws Exception{
         User userCurrent = userService.getUser(getUsername(token));
