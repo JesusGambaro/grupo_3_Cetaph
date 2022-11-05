@@ -66,38 +66,17 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
     public ResponseEntity<?> updateCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
         User userCurrent = userService.getUser(getUsername(token));
         System.out.println(userCurrent);
-        List<Albums> albumCart = new ArrayList<Albums>();
         Cart cart = cartService.getCartbyUser(userCurrent);
-        albumCart = cart.getAlbum();
+        List<Albums> albumCart = cart.getAlbumsList();
         if(albumService.exists(id)){
             albumCart.add(albumService.findById(id));
+            for(Albums albums : albumCart){
+                cart.setAlbumsList(albumCart);
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
         }
-        cart.setAlbum(albumCart);
-        Long cartId = cart.getId();
-        System.out.println("--------------------------------------------");
-        System.out.println("CartId: "+ cartId);
-        System.out.println("--------------------------------------------");
-        cartService.delete(cartId);
         return ResponseEntity.status(HttpStatus.OK).body(cartService.save(cart));
     }
-  /*  @GetMapping("/getCarritoUser")
-    public ResponseEntity<?> getCartUser(@RequestParam("token") String token) throws Exception{
-        User userCurrent = userService.getUser(getUsername(token));
-        //System.out.println(userCurrent);
-       // List<Albums> albumCart = new ArrayList<Albums>();
-        if(userCurrent == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
-        }
-        List<Cart> cartList = new ArrayList<Cart>();
-        cartList = cartService.findAll();
-        servicio.
-        /*for (Cart cart : cartList){
-            if (cart.getUser() == userCurrent){
-                albumCart.add(cart.getAlbum());
-            }
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("Anduvo");
-    }*/
+
 }
