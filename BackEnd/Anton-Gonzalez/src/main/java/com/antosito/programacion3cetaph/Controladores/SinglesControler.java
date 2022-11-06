@@ -8,7 +8,10 @@ import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
 import com.antosito.programacion3cetaph.Servicios.SinglesService;
 import com.antosito.programacion3cetaph.Servicios.SinglesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -74,7 +77,14 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
         return new ResponseEntity("musica eliminada", HttpStatus.OK);
     }
 
-
+    @GetMapping("")
+    public ResponseEntity<Page<Singles>> getAllPaged(@PageableDefault(size = 10, page = 0) Pageable pageable){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(singleService.findAllPaged(pageable));
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 

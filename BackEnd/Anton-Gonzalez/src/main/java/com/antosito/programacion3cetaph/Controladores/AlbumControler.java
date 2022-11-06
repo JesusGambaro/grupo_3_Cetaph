@@ -4,6 +4,7 @@ import com.antosito.programacion3cetaph.Entidades.Imagenes;
 import com.antosito.programacion3cetaph.Entidades.Singles;
 import com.antosito.programacion3cetaph.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -180,6 +181,14 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
 
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}"+e);
+        }
+    }
+    @GetMapping("")
+    public ResponseEntity<Page<Albums>> getAllPaged(@PageableDefault(size = 10, page = 0) Pageable pageable){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.findAllPaged(pageable));
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }

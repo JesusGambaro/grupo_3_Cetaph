@@ -8,6 +8,7 @@ import com.antosito.programacion3cetaph.Servicios.ArtistaServiceImpl;
 import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
 import com.antosito.programacion3cetaph.Servicios.ImagenesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -71,6 +72,14 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
            return ResponseEntity.status(HttpStatus.OK).body(artistaService.save(artista));
        }catch(Exception e){
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se guardo la imagen");
+        }
+    }
+    @GetMapping("")
+    public ResponseEntity<Page<Artista>> getAllPaged(@PageableDefault(size = 10, page = 0) Pageable pageable){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(artistaService.findAllPaged(pageable));
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }
