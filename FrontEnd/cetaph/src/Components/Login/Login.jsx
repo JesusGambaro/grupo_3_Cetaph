@@ -21,8 +21,7 @@ const Login = () => {
           console.log(data)
           //save token in local storage
           localStorage.setItem('token', data[0])
-          localStorage.setItem('refresh-token', data[1])
-          localStorage.setItem('rol', data[2])
+          localStorage.setItem('rol', data[1])
           //redirect to home page
           if (data[2] == "Admin") {
             navigate('/AdminDashboard')
