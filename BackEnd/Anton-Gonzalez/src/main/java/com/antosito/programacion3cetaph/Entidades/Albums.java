@@ -38,7 +38,7 @@ public class Albums extends Base{
     @Column(name = "esVinilo")
     private boolean esVinilo;
 
-    @OneToMany(cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Imagenes> imagenes;
 
     @Column(name = "esExplicito")
@@ -50,12 +50,12 @@ public class Albums extends Base{
 
     /*Una relacion de muchos a muchos, albumnes pueden tener multiples artistas y viceversa*/
     @Column(name = "artistas")
-    @ManyToMany(cascade = CascadeType.REFRESH)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Artista> artistas;
 
     /*Una relacion de muchos a muchos, singles(Cancion individual) puede tener muchos artistas y viceversa */
     @Column(name = "singles")
-    @ManyToMany(cascade = CascadeType.REFRESH)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Singles> singles;
 
 

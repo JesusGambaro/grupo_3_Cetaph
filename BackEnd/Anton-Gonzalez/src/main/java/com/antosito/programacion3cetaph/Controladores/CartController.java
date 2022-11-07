@@ -68,11 +68,11 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         User userCurrent = userService.getUser(getUsername(token));
         System.out.println(userCurrent);
         Cart cart = cartService.getCartbyUser(userCurrent);
-        List<Albums> albumCart = cart.getAlbumsList();
+        List<Albums> albumCart = cart.getAlbum();
         if(albumService.exists(id)){
             albumCart.add(albumService.findById(id));
             for(Albums albums : albumCart){
-                cart.setAlbumsList(albumCart);
+                cart.setAlbum(albumCart);
             }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");

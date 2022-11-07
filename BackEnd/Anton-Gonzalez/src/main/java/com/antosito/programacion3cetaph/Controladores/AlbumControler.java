@@ -93,11 +93,43 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         try {
             if(!albumService.exists(id))
                 return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
-            List<Imagenes> imagenes = (albumService.findById(id).getImagenes());
+            Albums album = albumService.findById(id);
+            List<Imagenes> imagenes = (album.getImagenes());
+            List<Singles> singles = (album.getSingles());
+            //List<Cart> carts = cartService.findAll();
+            albumService.delete(id);
             for (Imagenes img:imagenes){
                 Map result = cloudinaryService.delete(img.getCloudinaryId());
+                System.out.println("---------------------------------------------------------------------------");
+                System.out.println("Borrando Imagenes");
+                System.out.println("---------------------------------------------------------------------------");
+
+                boolean seBorro = imagenesService.delete(img.getId());
+                if (seBorro){
+                    System.out.println("Se Borro Correctamente");
+                }else{
+                    System.out.println("No se Borro Correctamente");
+                }
+                try {
+
+                }catch (Exception e){
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error imgs\": \"" +e.getMessage()+"\"}");
+                }
+
             }
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(albumService.delete(id));
+            for (Singles single:singles){
+                Map result = cloudinaryService.delete(single.getCloudinaryId());
+                System.out.println("---------------------------------------------------------------------------");
+                System.out.println("Borrando Canciones");
+                System.out.println("---------------------------------------------------------------------------");
+                boolean seBorro = singleService.delete(single.getId());
+                if (seBorro){
+                    System.out.println("Se Borro Correctamente");
+                }else{
+                    System.out.println("No se Borro Correctamente");
+                }
+            }
+            return ResponseEntity.status(HttpStatus.OK).body("Se borro correctamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"" +e.getMessage()+"\"}");
         }

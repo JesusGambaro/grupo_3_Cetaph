@@ -3,8 +3,8 @@ import "./CreateAlbumForm.scss";
 import Select from "react-select";
 import Creatable, { useCreatable } from "react-select/creatable";
 import axios from "axios";
-import Loading from "../../Loading/Loading";
-import { CreateSingle } from "./CreateSingle/CreateSingle";
+import Loading from "../../../Loading/Loading";
+import { CreateSingle } from "../CreateSingle/CreateSingle";
 import { useRef } from "react";
 export const CreateAlbumForm = ({
   albumObject,
@@ -65,7 +65,7 @@ export const CreateAlbumForm = ({
         })
           .then(({ data }) => {
             //console.log(data);
-            let generosData = data.map((genero) => {
+            let generosData = data.content.map((genero) => {
               return {
                 value: genero.generoName,
                 label:
@@ -99,7 +99,7 @@ export const CreateAlbumForm = ({
       method: "GET",
     })
       .then(({ data }) => {
-        let generosData = data.map((genero) => {
+        let generosData = data.content.map((genero) => {
           return {
             value: genero.generoName,
             label:
@@ -313,7 +313,7 @@ export const CreateAlbumForm = ({
     }),
   };
   document.onkeydown = function (e) {
-    console.log(e.key);
+    //yconsole.log(e.key);
     if (!isCreatingSingle) {
       if (e.key == "Enter") {
         console.log("submit");

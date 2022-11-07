@@ -22,12 +22,17 @@ public class Artista extends Base {
     @Column(name = "nacionalidad")
     private String nacionalidad;
 
+    @Column(name = "fechanacimiento")
+    private String fechanacimiento;
+
     @Column(nullable = true)
     private String descripcion;
 
     @OneToOne(cascade = CascadeType.REFRESH)
     private Imagenes imagenes;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Albums> albums;
     /*Una relacion de uno a muchos, un artista puede tener muchas singles*/
 
 }

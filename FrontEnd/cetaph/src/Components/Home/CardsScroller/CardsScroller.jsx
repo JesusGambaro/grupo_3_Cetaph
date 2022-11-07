@@ -28,7 +28,7 @@ const CardsScroller = () => {
       .get('http://localhost:9000/api/v1/album')
       .then((res) => {
         console.log(res.data)
-        setDisks(res.data)
+        setDisks(res.data.content)
       })
       .catch((err) => {
         console.log(err)
