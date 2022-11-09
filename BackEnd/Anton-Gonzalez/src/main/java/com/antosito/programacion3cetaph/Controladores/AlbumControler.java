@@ -81,12 +81,22 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 imagenesService.save(imagenes);
                 returnImgs.add(imagenes);
             }
-            System.out.println(multipartFileMusic.length);
-            for (int i = 0; i < multipartFileMusic.length; i++) {
-                Map result = cloudinaryService.uploadMusic(multipartFileMusic[i]);
-                singlesList.get(i).setCloudinaryId((String)result.get("public_id"));
-                singlesList.get(i).setUrlMusic((String)result.get("url"));
-                singleService.save(singlesList.get(i));
+
+
+            List<Singles> singlesToAdd = new ArrayList<>();
+            if (multipartFileMusic!=null){
+                if (singlesList!=null){
+                    int iterator=0;
+                    for (MultipartFile music : multipartFileMusic){
+                        Map result = cloudinaryService.uploadMusic(music);
+                        Singles singles = singlesList.get(iterator);
+                        singles.setUrlMusic((String)result.get("url"));
+                        singles.setCloudinaryId((String) result.get("public_id"));
+                        singleService.save(singles);
+                        singlesToAdd.add(singles);
+                        iterator++;
+                    }
+                }
             }
 
             albums.setArtistas(artistaCreado);

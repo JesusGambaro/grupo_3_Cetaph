@@ -59,7 +59,7 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
     }
 
     @PostMapping("/createArtista")
-    public ResponseEntity<?> upload(@RequestPart("artista") Artista artista, @RequestPart("file") MultipartFile file) throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("artista") Artista artista, @RequestPart("Imagen") MultipartFile file) throws IOException {
        try {
            BufferedImage bi = ImageIO.read(file.getInputStream());
            if (bi == null) {

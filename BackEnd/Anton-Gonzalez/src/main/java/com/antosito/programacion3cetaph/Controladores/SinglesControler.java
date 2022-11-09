@@ -54,7 +54,7 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
     SinglesService singleService;
     /*Subimos los 30segs preview en este metodo y se lo asignamos a la single*/
     @PostMapping(value = "/uploadM",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("Single") Singles singles, @RequestPart("file") MultipartFile multipartFile)throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("Single") Singles singles, @RequestPart("Musica") MultipartFile multipartFile)throws IOException {
         try{
             Map result = cloudinaryService.uploadMusic(multipartFile);
             singles.setUrlMusic((String)result.get("url"));
