@@ -13,10 +13,9 @@ import java.util.List;
     @Table(name = "carrito")
     public class Cart extends Base {
 
-
-
         @OneToOne(cascade = CascadeType.PERSIST)
         private User user; //1,1
+
 
         @ManyToMany(cascade = CascadeType.REFRESH)
         private List<Albums> album; //2,3

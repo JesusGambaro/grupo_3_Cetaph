@@ -8,6 +8,9 @@ import com.antosito.programacion3cetaph.Repositorios.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service
 public class CartServiceImpl extends BaseServiceImplentation<Cart,Long> implements CartService{
 
@@ -23,4 +26,19 @@ public class CartServiceImpl extends BaseServiceImplentation<Cart,Long> implemen
 
     @Override
     public List<Cart> findCartbyAlbumList(Long name){return cartRepository.findCartbyAlbumList(name);}
+
+    @Transactional
+    public boolean delete(Long id) throws Exception {
+        try {
+            if (cartRepository.existsById(id)){
+                cartRepository.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

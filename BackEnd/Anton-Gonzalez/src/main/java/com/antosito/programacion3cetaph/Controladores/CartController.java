@@ -64,14 +64,14 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> updateCart(@RequestParam("idAlbum")Long id,@RequestParam("token") String token) throws Exception {
         User userCurrent = userService.getUser(getUsername(token));
         Cart cart = cartService.getCartbyUser(userCurrent);
-        List<Albums> albumCart = cart.getAlbumsList();
+        List<Albums> albumCart = cart.getAlbum();
         if(albumService.exists(id)){
             albumCart.add(albumService.findById(id));
             for(Albums albums : albumCart){
-                cart.setAlbumsList(albumCart);
+                cart.setAlbum(albumCart);
             }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
@@ -79,4 +79,12 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         return ResponseEntity.status(HttpStatus.OK).body(cartService.save(cart));
     }
 
+    @DeleteMapping("/{id}") //Delete
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cartService.delete(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se pudo guardar el dato.\"}");
+        }
+    }
 }

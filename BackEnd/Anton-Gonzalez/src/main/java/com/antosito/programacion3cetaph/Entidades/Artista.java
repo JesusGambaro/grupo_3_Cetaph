@@ -31,8 +31,6 @@ public class Artista extends Base {
     @OneToOne(cascade = CascadeType.REFRESH)
     private Imagenes imagenes;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Albums> albums;
-    /*Una relacion de uno a muchos, un artista puede tener muchas singles*/
+
 
 }

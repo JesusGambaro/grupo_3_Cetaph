@@ -62,7 +62,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     }
 
     @PostMapping(value = "/upload",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("Imagenes") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic,@RequestParam("idArtista") List<Long> idArtistas)throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("Imagenes") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic,@RequestParam("idArtista")List<Long> idArtistas)throws IOException {
         try{
             List<Artista> artistaCreado = new ArrayList<>();
             for (Long id: idArtistas) {
@@ -114,6 +114,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         try {
             if(!albumService.exists(id))
                 return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+
             Albums album = albumService.findById(id);
             List<Imagenes> imagenes = (album.getImagenes());
             List<Singles> singles = (album.getSingles());

@@ -50,7 +50,7 @@ public class Albums extends Base{
 
     /*Una relacion de muchos a muchos, albumnes pueden tener multiples artistas y viceversa*/
     @Column(name = "artistas")
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;
 
     /*Una relacion de muchos a muchos, singles(Cancion individual) puede tener muchos artistas y viceversa */
