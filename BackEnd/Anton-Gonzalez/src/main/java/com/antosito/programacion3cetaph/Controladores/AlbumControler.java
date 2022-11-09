@@ -1,7 +1,5 @@
 package com.antosito.programacion3cetaph.Controladores;
-import com.antosito.programacion3cetaph.Entidades.Albums;
-import com.antosito.programacion3cetaph.Entidades.Imagenes;
-import com.antosito.programacion3cetaph.Entidades.Singles;
+import com.antosito.programacion3cetaph.Entidades.*;
 import com.antosito.programacion3cetaph.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +34,12 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     @Autowired
     ImagenesService imagenesService;
 
+    @Autowired
+    ArtistaService artistaService;
+
+    @Autowired
+    CartService cartService;
+
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     /* http://localhost:9000/api/v1/album/searchAlbums?V=true&Name=Plague&Max=120&Min=120&Exp=true */
     @GetMapping("/searchAlbums")
@@ -58,8 +62,13 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     }
 
     @PostMapping(value = "/upload",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("file") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic)throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("Imagenes") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic,@RequestParam("idArtista") List<Long> idArtistas)throws IOException {
         try{
+            List<Artista> artistaCreado = new ArrayList<>();
+            for (Long id: idArtistas) {
+                artistaCreado.add(artistaService.findById(id));
+            }
+
             List<Imagenes> returnImgs =  new ArrayList<>();
             for (MultipartFile file : multipartFile){
 
@@ -79,7 +88,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 singlesList.get(i).setUrlMusic((String)result.get("url"));
                 singleService.save(singlesList.get(i));
             }
-            albums.setSingles(singlesList);
+
+            albums.setArtistas(artistaCreado);
+            albums.setSingles(singlesToAdd);
             albums.setImagenes(returnImgs);
             return ResponseEntity.status(HttpStatus.OK).body(albumService.save(albums));
 
@@ -96,7 +107,13 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             Albums album = albumService.findById(id);
             List<Imagenes> imagenes = (album.getImagenes());
             List<Singles> singles = (album.getSingles());
-            //List<Cart> carts = cartService.findAll();
+
+            List<Cart> CartContaining = (cartService.findCartbyAlbumList(album.getId()));
+            for (Cart cart : CartContaining){
+                System.out.println(cart.getId());
+                cartService.delete((long)cart.getId());
+            }
+
             albumService.delete(id);
             for (Imagenes img:imagenes){
                 Map result = cloudinaryService.delete(img.getCloudinaryId());
@@ -137,12 +154,13 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
 
     @CrossOrigin(origins = "*")
     @PutMapping(value = "/update/{id}",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums album,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFleImgs,@RequestPart( value ="SinglesList",required = false) List<Singles> singlesList,@RequestPart( value ="musicFiles" ,required = false) MultipartFile[] multipartFileMusic,@RequestPart(value = "CancionesBorradas",required = false) List<Long> CancionesBorradas,@PathVariable Long id)throws IOException {
+    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums album,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFleImgs,@RequestPart( value ="SinglesList",required = false) List<Singles> singlesList,@RequestPart( value ="musicFiles" ,required = false) MultipartFile[] multipartFileMusic,@RequestPart(value = "CancionesBorradas",required = false) List<Long> CancionesBorradas,@PathVariable Long id, @RequestParam("idArtista")Long idArtista)throws IOException {
         try{
             List<Imagenes> returnImgs;
             List<Singles> returnCanciones;
             Albums albumUpdated = albumService.findById(id);
             returnImgs=albumUpdated.getImagenes();
+            List<Artista> returnArtista = (albumUpdated.getArtistas());
             returnCanciones=albumUpdated.getSingles();
             if (multipartFleImgs != null) {
                 for (MultipartFile file : multipartFleImgs){
@@ -156,7 +174,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                     returnImgs.add(imagenes);
                 }
             }
-
+            for(Artista artista : returnArtista) {
+                returnArtista.add(artistaService.findById(idArtista));
+            }
             if (multipartFileMusic != null) {
                 for (int i = 0; i < multipartFileMusic.length; i++) {
                     System.out.println("-------------------------------------------");

@@ -15,7 +15,7 @@ import java.util.List;
 
 
 
-        @OneToOne(cascade = CascadeType.ALL)
+        @OneToOne(cascade = CascadeType.PERSIST)
         private User user; //1,1
 
         @ManyToMany(cascade = CascadeType.REFRESH)

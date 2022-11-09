@@ -20,4 +20,7 @@ public class CartServiceImpl extends BaseServiceImplentation<Cart,Long> implemen
     public Cart getCartbyUser(User user) {
         return cartRepository.findByUser(user);
     }
+
+    @Override
+    public List<Cart> findCartbyAlbumList(Long name){return cartRepository.findCartbyAlbumList(name);}
 }

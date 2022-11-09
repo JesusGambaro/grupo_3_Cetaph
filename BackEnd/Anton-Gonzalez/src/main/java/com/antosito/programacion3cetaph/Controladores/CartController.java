@@ -66,13 +66,12 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
     @PutMapping("/update")
     public ResponseEntity<?> updateCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
         User userCurrent = userService.getUser(getUsername(token));
-        System.out.println(userCurrent);
         Cart cart = cartService.getCartbyUser(userCurrent);
-        List<Albums> albumCart = cart.getAlbum();
+        List<Albums> albumCart = cart.getAlbumsList();
         if(albumService.exists(id)){
             albumCart.add(albumService.findById(id));
             for(Albums albums : albumCart){
-                cart.setAlbum(albumCart);
+                cart.setAlbumsList(albumCart);
             }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
