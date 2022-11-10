@@ -1,36 +1,73 @@
-.Footer {
+.footer-container {
   border-top: 1px solid white;
   background-color: rgba(34, 34, 34, 1);
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
   font-size: 10px;
-  justify-content: space-between;
   align-items: center;
   color: white;
-  font-size: 8px;
-  padding: 2rem;
+  font-size: 0.4rem;
+  padding: 1rem;
   width: 100%;
-  .title {
-    font-size: 23px;
-    border-bottom: 2px solid white;
-  }
-  img {
-    //border: 1px solid red;
-    width: 250px;
-  }
-  .info {
+  .footer-content__left {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 0.5rem;
-    .logo {
+    img {
+      width: 200px;
       filter: invert(1);
     }
+    .footer-content__left__text {
+      text-align: center;
+    }
   }
+  .footer-content__right {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-left: 1px solid white;
+    img {
+      //border: 1px solid red;
+      width: 250px;
+    }
+    .payment-methods {
+      display: grid;
+      margin-top: 1rem;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 2fr;
+      gap: 1rem;
+      width: 70%;
+      justify-content: center;
+      align-items: center;
 
+      i {
+        font-size: 2rem;
+        transition: 0.2s ease;
+      }
+      &.redes {
+        cursor: pointer;
+      }
+
+      .own-card {
+        width: 2.3rem;
+        height: 1.8rem;
+        border-radius: 0.3rem;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 100%;
+        }
+        i {
+          font-size: 1.2rem;
+          color: #000;
+        }
+      }
+    }
+  }
   .details {
-    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,34 +77,19 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      i {
-        margin-right: 10px;
+
+      p {
+        font-size: 0.9rem;
+        display: flex;
+        gap: 0.5rem;
       }
     }
   }
-  .tarjetas,
-  .redes {
-    //border: 1px solid red;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    gap: 1rem;
-    i {
-      font-size: 50px;
-      &:hover {
-        transform: scale(115%);
-      }
-      transition: 0.2s ease;
-    }
-    &.redes {
-      cursor: pointer;
-    }
-  }
-
-  .about-us {
-    display: flex;
-    gap: 10rem;
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    border-bottom: 0.1rem solid white;
   }
 }
