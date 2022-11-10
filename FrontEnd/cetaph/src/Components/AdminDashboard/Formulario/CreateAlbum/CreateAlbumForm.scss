@@ -83,14 +83,13 @@
             height: 5rem;
           }
           &.checkbox {
-            font-family: system-ui, sans-serif;
             font-size: 1rem;
             font-weight: bold;
             line-height: 1.1;
             display: grid;
             grid-template-columns: 1em auto;
             gap: 10em;
-            input[type="checkbox"] {
+            input[type='checkbox'] {
               cursor: pointer;
               appearance: none;
               margin: 0;
@@ -108,7 +107,7 @@
                 position: absolute;
                 top: -3px;
                 left: -1px;
-                content: "";
+                content: '';
                 width: 1.2em;
                 height: 1.2em;
                 transform: scale(0);
@@ -178,7 +177,7 @@
             width: 100%;
             gap: 0.5rem;
             color: #000;
-            input[type="file"] {
+            input[type='file'] {
               visibility: hidden;
               height: 0;
             }

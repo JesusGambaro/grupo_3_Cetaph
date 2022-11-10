@@ -3,9 +3,8 @@ import { useEffect } from 'react'
 import Card from '../../Card/Card'
 import './cards-scroller.scss'
 import ScrollContainer from 'react-indiana-drag-scroll'
-import { motion, useMotionValue } from 'framer-motion'
 import axios from 'axios'
-
+import Loading from '../../Loading/Loading'
 const CardsScroller = () => {
   const slider = useRef(null)
 
@@ -65,30 +64,39 @@ const CardsScroller = () => {
     })
   }
   return (
-    <div id="main-slider-container">
-      <i className="bi bi-arrow-left slider-icon left" onClick={slideLeft}></i>
-      <ScrollContainer
-        className="scroll-container"
-        hideScrollbars={false}
-        vertical={false}
-        innerRef={slider}
-        onWheel={handleWheel}
-      >
-        <div className="wrapper">
-          {disks.map((disk, index) => {
-            return (
-              <div className="slider-card" key={index}>
-                <Card key={'card' + index} color={'white'} data={disk} />
-              </div>
-            )
-          })}
+    <>
+      {disks.length > 0 ? (
+        <div id="main-slider-container">
+          <i
+            className="bi bi-arrow-left slider-icon left"
+            onClick={slideLeft}
+          ></i>
+          <ScrollContainer
+            className="scroll-container"
+            hideScrollbars={false}
+            vertical={false}
+            innerRef={slider}
+            onWheel={handleWheel}
+          >
+            <div className="wrapper">
+              {disks.map((disk, index) => {
+                return (
+                  <div className="slider-card" key={index}>
+                    <Card key={'card' + index} color={'white'} data={disk} />
+                  </div>
+                )
+              })}
+            </div>
+          </ScrollContainer>
+          <i
+            className="bi bi-arrow-right slider-icon right"
+            onClick={slideRight}
+          ></i>
         </div>
-      </ScrollContainer>
-      <i
-        className="bi bi-arrow-right slider-icon right"
-        onClick={slideRight}
-      ></i>
-    </div>
+      ) : (
+        <Loading text={'Loading...'} />
+      )}
+    </>
   )
 }
 
