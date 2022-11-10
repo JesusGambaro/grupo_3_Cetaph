@@ -44,6 +44,12 @@ export const AllProducts = () => {
         <Loading />
       ) : (
         <div className="AllProducts">
+          <span className="select-products">
+            <ul >
+              <li ><h1>Albums</h1></li>
+              <li ><h1>Artistas</h1></li>
+            </ul>
+          </span>
           <AlbumsAdmin
             setLoading={(value) => {
               setLoading(value);

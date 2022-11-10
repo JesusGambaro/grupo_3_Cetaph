@@ -80,7 +80,7 @@ export const CreateArtista = ({
     }
     let formData = new FormData();
     if (data.artist.imagenes) {
-      formData.append("file", data.artist.imagenes.file);
+      formData.append("Imagen", data.artist.imagenes.file);
     }
     let deletedImg = JSON.stringify(data.deletedImages);
     let newArtista = data.artist;
@@ -103,7 +103,7 @@ export const CreateArtista = ({
       console.log("updating");
       if (data.deletedImages.length) {
         formData.append(
-          "ImgsBorradas",
+          "ImgsBorrada",
           new Blob([deletedImg], { type: "application/json" })
         );
       }
@@ -188,7 +188,7 @@ export const CreateArtista = ({
                 <i className="bi bi-x-circle-fill"></i>Cancel
               </button>
               <button className="save-btn" onClick={handleSubmit}>
-                <i class="fa-solid fa-floppy-disk"></i>Save
+                <i className="fa-solid fa-floppy-disk"></i>Save
               </button>
             </span>
           </h1>

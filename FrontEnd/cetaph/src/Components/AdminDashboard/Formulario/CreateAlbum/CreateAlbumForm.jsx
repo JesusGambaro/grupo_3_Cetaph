@@ -13,12 +13,15 @@ export const CreateAlbumForm = ({
   getAlbums,
 }) => {
   const [generos, setGeneros] = useState([]);
+  const [artistas, setArtistas] = useState([]);
   const [singles, setSingles] = useState([]);
+
   const [isLoading, setLoading] = useState(true);
   const [isCreatingSingle, setCreatingSingle] = useState(false);
   const [data, setData] = useState({
     deletedImages: [],
     deletedSingles: [],
+    newArtists: [],
     album: {
       nombre: "",
       precio: 0,
@@ -48,6 +51,7 @@ export const CreateAlbumForm = ({
         },
       ],
       singles: [],
+      artistas: [],
     },
   });
   const crearGenero = (value) => {
@@ -89,11 +93,34 @@ export const CreateAlbumForm = ({
       for (let index = 0; index < albumObject.imagenes.length; index++) {
         imgs[index] = albumObject.imagenes[index];
       }
+      let artistas = albumObject.artistas.map((a) => {
+        return a.id;
+      })
+      console.log(artistas);
       setData({
         ...data,
         album: { ...albumObject, imagenes: imgs },
+        newArtists: artistas,
       });
     }
+    axios({
+      url: "http://localhost:9000/api/v1/artista/",
+      method: "GET",
+    })
+      .then(({ data }) => {
+        let artistasData = data.content.map((artista) => {
+          return {
+            value: artista.id,
+            label:
+              artista.nombre.substring(0, 1).toUpperCase() +
+              artista.nombre.substring(1),
+          };
+        });
+        setArtistas(artistasData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     axios({
       url: "http://localhost:9000/api/v1/genero",
       method: "GET",
@@ -157,7 +184,7 @@ export const CreateAlbumForm = ({
     let formData = new FormData();
     data.album.imagenes.map((img) => {
       if (img.file) {
-        formData.append("file", img.file);
+        formData.append("Imagenes", img.file);
       }
     });
     data.album.singles.map((single) => {
@@ -191,6 +218,7 @@ export const CreateAlbumForm = ({
     let albumAxios = JSON.stringify(album);
     let singlesListAxios = JSON.stringify(singlesList);
     let deletedImgs = JSON.stringify(data.deletedImages);
+    let newArtists = JSON.stringify(data.newArtists);
     let deletedSingles = JSON.stringify(data.deletedSingles);
     formData.append(
       "Album",
@@ -199,6 +227,10 @@ export const CreateAlbumForm = ({
     formData.append(
       "SinglesList",
       new Blob([singlesListAxios], { type: "application/json" })
+    );
+    formData.append(
+      "idArtista",
+      new Blob([newArtists], { type: "application/json" })
     );
     setLoading(true);
     console.log("----------Form Data----------");
@@ -221,7 +253,6 @@ export const CreateAlbumForm = ({
           new Blob([deletedSingles], { type: "application/json" })
         );
       }
-
       console.log("AAaaa");
     }
 
@@ -234,7 +265,6 @@ export const CreateAlbumForm = ({
       url: url,
       method: isCreating ? "POST" : "PUT",
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: formData,
@@ -289,7 +319,7 @@ export const CreateAlbumForm = ({
     control: (provided, state) => ({
       display: "flex",
       width: "20rem",
-      height: "2.5rem",
+      minheight: "2.5rem",
       border: "2px solid black",
       borderRadius: "5px",
     }),
@@ -300,7 +330,7 @@ export const CreateAlbumForm = ({
       borderRadius: 0,
       padding: 0,
       position: "absolute",
-      top: "2rem",
+      botton: "0",
     }),
     dropdownIndicator: (provided, state) => ({
       ...provided,
@@ -336,7 +366,7 @@ export const CreateAlbumForm = ({
                 <i className="bi bi-x-circle-fill"></i>Cancel
               </button>
               <button className="save-btn" onClick={handleSubmit}>
-                <i class="fa-solid fa-floppy-disk"></i>Save
+                <i className="fa-solid fa-floppy-disk"></i>Save
               </button>
             </span>
           </h1>
@@ -425,7 +455,7 @@ export const CreateAlbumForm = ({
                   <Creatable
                     className="generos-select"
                     options={generos}
-                    placeholder={"Elige o Crea un genero"}
+                    placeholder={"Elige o Escribe un genero..."}
                     isClearable
                     onSelectResetsInput={false}
                     onBlurResetsInput={false}
@@ -454,6 +484,44 @@ export const CreateAlbumForm = ({
                       console.log(param);
                       crearGenero(param);
                     }}
+                  />
+                </div>
+                <div className="input artista">
+                  <label htmlFor="">
+                    <h4 className="input-name">
+                      Artista <p>{/*errors.images*/}</p>
+                    </h4>{" "}
+                  </label>
+                  <Select
+                    className="generos-select"
+                    options={artistas}
+                    placeholder={"Elige el/los artistas..."}
+                    isClearable
+                    onSelectResetsInput={false}
+                    onBlurResetsInput={false}
+                    styles={selectStyle}
+                    defaultValue={
+                      data.album.artistas.map((artist) => {
+                        return {
+                          label: artist.nombre,
+                          value: artist.id,
+                        }
+                      }) 
+                    }
+                    onChange={(param, { action }) => {
+                      console.log(action);
+                      if (action === "clear") {
+                        setData({ ...data, newArtists: [] });
+                      } else {
+                        setData({
+                          ...data,
+                          newArtists: param.map((artist) => {
+                            return artist.value;
+                          }),
+                        });
+                      }
+                    }}
+                    isMulti
                   />
                 </div>
                 <div className="input descripcion">
@@ -507,7 +575,7 @@ export const CreateAlbumForm = ({
                               placeholder="Choose Iamge"
                             />
                             <i className="bi bi-plus-circle-fill"></i>
-                            <p>Add new image</p>
+                            <p>Añadir una imagen</p>
                           </label>
                         </div>
                       );
@@ -529,7 +597,7 @@ export const CreateAlbumForm = ({
                           e.preventDefault();
                         }}
                       >
-                        <p>Crear Una Cancion</p>
+                        <p>Crea una cancion</p>
 
                         <i className="bi bi-plus-circle-fill"></i>
                       </button>
@@ -546,11 +614,21 @@ export const CreateAlbumForm = ({
                       return (
                         <div key={i} className="cancion-card">
                           {" "}
-                          <span><label>Nombre: </label><h1>{e.nombre}</h1></span>
-                          <span><label>Duracion: </label><h3>{tiempo}</h3></span>
-                          
-                          
-                          <SongPlayer urlMusic={e.urlMusic} file={e.file} single={e} id={i} deleteSingle={deleteSingle} />
+                          <span>
+                            <label>Nombre: </label>
+                            <h1>{e.nombre}</h1>
+                          </span>
+                          <span>
+                            <label>Duracion: </label>
+                            <h3>{tiempo}</h3>
+                          </span>
+                          <SongPlayer
+                            urlMusic={e.urlMusic}
+                            file={e.file}
+                            single={e}
+                            id={i}
+                            deleteSingle={deleteSingle}
+                          />
                         </div>
                       );
                     })}
@@ -583,7 +661,7 @@ export const CreateAlbumForm = ({
   );
 };
 
-const SongPlayer = ({ urlMusic, file, single,id,deleteSingle }) => {
+const SongPlayer = ({ urlMusic, file, single, id, deleteSingle }) => {
   const [isPlaying, setPlaying] = useState(false);
   if (file) {
     file = URL.createObjectURL(file);

@@ -72,11 +72,7 @@ export const AlbumsAdmin = ({ setLoading, disks, getAlbums }) => {
                   </div>
                   <span className="title">
                     <h1>{param.nombre}</h1>
-                    <span className="subtitle">
-                      <h3>Álbum</h3>
-                      <div className="dot"></div>
-                      <h3>{param.artistas[0]?.nombre}</h3>
-                    </span>
+                    
                   </span>
                   <div className="actions">
                     <button

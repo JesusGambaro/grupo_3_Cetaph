@@ -51,7 +51,7 @@ public class CustomAuthenticationFilters extends UsernamePasswordAuthenticationF
         Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis()+10*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis()+86400000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("rol",user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);

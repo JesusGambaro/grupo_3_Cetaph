@@ -10,7 +10,7 @@ export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
   const deleteArtista = (id) => {
     setLoading(true);
     axios
-      .delete("http://localhost:9000/api/v1/album/deleteComplete/" + id)
+      .delete("http://localhost:9000/api/v1/artista/deleteArtist/" + id)
       .then((res) => {
         console.log(res);
       })

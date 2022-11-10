@@ -62,7 +62,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     }
 
     @PostMapping(value = "/upload",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("Imagenes") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic,@RequestParam("idArtista")List<Long> idArtistas)throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("Album") Albums albums, @RequestPart("Imagenes") MultipartFile[] multipartFile,@RequestPart("SinglesList") List<Singles> singlesList,@RequestPart("musicFiles") MultipartFile[] multipartFileMusic,@RequestPart("idArtista")List<Long> idArtistas)throws IOException {
         try{
             List<Artista> artistaCreado = new ArrayList<>();
             for (Long id: idArtistas) {
@@ -165,13 +165,17 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
 
     @CrossOrigin(origins = "*")
     @PutMapping(value = "/update/{id}",consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums album,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "file",required = false) MultipartFile[] multipartFleImgs,@RequestPart( value ="SinglesList",required = false) List<Singles> singlesList,@RequestPart( value ="musicFiles" ,required = false) MultipartFile[] multipartFileMusic,@RequestPart(value = "CancionesBorradas",required = false) List<Long> CancionesBorradas,@PathVariable Long id, @RequestParam("idArtista")Long idArtista)throws IOException {
+    public ResponseEntity<?> updateAlbumIMgs(@RequestPart("Album") Albums album,@RequestPart(value = "ImgsBorradas",required = false) List<Long> ImgsBorradas ,@RequestPart(value = "Imagenes",required = false) MultipartFile[] multipartFleImgs,@RequestPart( value ="SinglesList",required = false) List<Singles> singlesList,@RequestPart( value ="musicFiles" ,required = false) MultipartFile[] multipartFileMusic,@RequestPart(value = "CancionesBorradas",required = false) List<Long> CancionesBorradas,@PathVariable Long id,@RequestPart("idArtista")List<Long> idArtistas)throws IOException {
         try{
             List<Imagenes> returnImgs;
             List<Singles> returnCanciones;
             Albums albumUpdated = albumService.findById(id);
             returnImgs=albumUpdated.getImagenes();
-            List<Artista> returnArtista = (albumUpdated.getArtistas());
+            List<Artista> artistaCreado = new ArrayList<>();
+            for (Long idArt: idArtistas) {
+                artistaCreado.add(artistaService.findById(idArt));
+            }
+            album.setArtistas(artistaCreado);
             returnCanciones=albumUpdated.getSingles();
             if (multipartFleImgs != null) {
                 for (MultipartFile file : multipartFleImgs){
@@ -184,9 +188,6 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                     imagenesService.save(imagenes);
                     returnImgs.add(imagenes);
                 }
-            }
-            for(Artista artista : returnArtista) {
-                returnArtista.add(artistaService.findById(idArtista));
             }
             if (multipartFileMusic != null) {
                 for (int i = 0; i < multipartFileMusic.length; i++) {

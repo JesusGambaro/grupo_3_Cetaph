@@ -29,7 +29,7 @@ export const CreateSingle = ({ closeFunc, addSingleFunc}) => {
     });
   };
   document.onkeydown = function (e) {
-    console.log(e.key);
+    //console.log(e.key);
     if (e.key == "Enter") {
       console.log("submit");
       handleSubmit();
@@ -66,6 +66,7 @@ export const CreateSingle = ({ closeFunc, addSingleFunc}) => {
               setCancionData({ ...cancionData, nombre: e.target.value });
             }}
             type="text"
+            maxLength={35}
           />
         </div>
         <div className="input">

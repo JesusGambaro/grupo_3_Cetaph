@@ -1,12 +1,10 @@
 package com.antosito.programacion3cetaph.Controladores;
 
+import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Artista;
 import com.antosito.programacion3cetaph.Entidades.Imagenes;
 import com.antosito.programacion3cetaph.Entidades.Singles;
-import com.antosito.programacion3cetaph.Servicios.ArtistaService;
-import com.antosito.programacion3cetaph.Servicios.ArtistaServiceImpl;
-import com.antosito.programacion3cetaph.Servicios.CloudinaryService;
-import com.antosito.programacion3cetaph.Servicios.ImagenesService;
+import com.antosito.programacion3cetaph.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +33,8 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
 
     @Autowired
     ImagenesService imagenesService;
+    @Autowired
+    AlbumService albumService;
 
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     @GetMapping("/searchArtist")
@@ -51,6 +51,24 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
         try {
             if (!artistaService.exists(id))
                 return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+            Artista delArtista = artistaService.findById(id);
+            List<Albums> AlbumsList = albumService.findAll();
+            List<Artista> artistaList;
+            for (Albums alb:AlbumsList){
+                //filtrado de albums q tengan el artista
+                if (alb.getArtistas().contains(delArtista)){
+                    if (alb.getArtistas().size() > 1){
+                        artistaList = alb.getArtistas();
+                        artistaList.remove(delArtista);
+                        alb.setArtistas(artistaList);
+                        albumService.update(alb.getId(),alb);
+                    }else{
+                        albumService.delete(alb.getId());
+
+                    }
+
+                }
+            }
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(artistaService.delete(id));
         } catch (Exception e) {
@@ -80,6 +98,31 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
             return ResponseEntity.status(HttpStatus.OK).body(artistaService.findAllPaged(pageable));
         }catch (Exception e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/updateArtista/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,@RequestPart("artista") Artista artista,@RequestPart(value = "ImgBorrada",required = false) Long ImgBorrada ,@RequestPart(value = "Imagen",required = false) MultipartFile multipartFleImg) {
+        try {
+            Artista artistaRecuperado = artistaService.findById(id);
+            Imagenes imagenPresente = artistaRecuperado.getImagenes();
+            if (multipartFleImg != null){
+                BufferedImage bi = ImageIO.read(multipartFleImg.getInputStream());
+                if (bi == null) {
+                    return new ResponseEntity("Imagen no valida", HttpStatus.BAD_REQUEST);
+                }
+                Map result = cloudinaryService.upload(multipartFleImg);
+                Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
+                imagenesService.save(imagenes);
+                artista.setImagenes(imagenes);
+            }
+            if(ImgBorrada != null){
+                Imagenes imagenExiste = imagenesService.findById(imagenPresente.getId());
+                cloudinaryService.delete(imagenExiste.getCloudinaryId());
+                imagenesService.delete(imagenPresente.getId());
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(artistaService.update(id, artista));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se guardo el artista");
         }
     }
 }
