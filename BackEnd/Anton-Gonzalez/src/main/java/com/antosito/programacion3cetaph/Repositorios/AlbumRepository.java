@@ -31,19 +31,12 @@ public interface AlbumRepository extends BaseRepository<Albums, Long> {
                              @Param("filtroExp") Boolean fitroExp);
 
 
-   //Creamos una query que busca todos los singles de un artista
     @Query(value = "SELECT a2.* FROM artista a " +
             "INNER JOIN albums_artistas aa on a.id = aa.artistas_id " +
             "INNER JOIN albums a2 on aa.albums_id = a2.id " +
-            "WHERE (:Name IS NULL OR a.nombre LIKE %:Name%)",
+            "WHERE (:id IS NULL OR a.id = :id)",
             countQuery = "SELECT count(*) from artista",
             nativeQuery = true)
-    Page<Albums> searchAlbumsByArtistas(@Param("Name")String Name,Pageable pageable);
-
-    @Query(value = "select * from album a "+
-            "INNER JOIN albums:",
-     nativeQuery = true)
-    Boolean estoyEnUnAlbum();
-
+    Page<Albums> searchAlbumsByArtistas(@Param("id")Long id,Pageable pageable);
 
 }

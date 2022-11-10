@@ -45,29 +45,46 @@ export const AllProducts = () => {
       ) : (
         <div className="AllProducts">
           <span className="select-products">
-            <ul >
-              <li ><h1>Albums</h1></li>
-              <li ><h1>Artistas</h1></li>
+            <ul>
+              <li
+                className={showAlbums ? "active" : "inactive"}
+                onClick={() => {
+                  setShowAlbums(true);
+                }}
+              >
+                <h1>Albums</h1>
+              </li>
+              <li
+                className={!showAlbums ? "active" : "inactive"}
+                onClick={() => {
+                  setShowAlbums(false);
+                }}
+              >
+                <h1>Artistas</h1>
+              </li>
             </ul>
           </span>
-          <AlbumsAdmin
-            setLoading={(value) => {
-              setLoading(value);
-            }}
-            disks={disks}
-            getAlbums={() => {
-              getAlbums();
-            }}
-          ></AlbumsAdmin>
-          <ArtistasAdmin
-            artistas={artistas}
-            setLoading={(value) => {
-              setLoading(value);
-            }}
-            getArtistas={() => {
-              getArtistas();
-            }}
-          ></ArtistasAdmin>
+          {showAlbums ? (
+            <AlbumsAdmin
+              setLoading={(value) => {
+                setLoading(value);
+              }}
+              disks={disks}
+              getAlbums={() => {
+                getAlbums();
+              }}
+            ></AlbumsAdmin>
+          ) : (
+            <ArtistasAdmin
+              artistas={artistas}
+              setLoading={(value) => {
+                setLoading(value);
+              }}
+              getArtistas={() => {
+                getArtistas();
+              }}
+            ></ArtistasAdmin>
+          )}
         </div>
       )}
     </>

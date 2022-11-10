@@ -20,7 +20,7 @@ export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
       });
   };
   return (
-    <>
+    <div className="wrapper">
       {formActive ? (
         <CreateArtista
           cancelFunc={() => {
@@ -34,7 +34,6 @@ export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
       ) : (
         <>
           <div className="add-section">
-            <h1>Artistas</h1>
             <form
               className="searchOwn"
               onClick={() => {
@@ -96,9 +95,10 @@ export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
                 </div>
               );
             })}
+            <h1>{!artistas.length && "No Hay Artistas"}</h1>
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };

@@ -31,26 +31,16 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
         }
     }
     //Creamos las listas en el metodo con las queries que determinamos en la repository
+
     @Override
-    public Page<Albums> searchAlbumsbyArtist(String Name, Pageable pageable) throws Exception {
+    public Page<Albums> searchAlbumsbyArtist(Long id, Pageable pageable) throws Exception {
         try {
-            Page<Albums> albumsList = albumRepository.searchAlbumsByArtistas(Name,pageable);
+            Page<Albums> albumsList = albumRepository.searchAlbumsByArtistas(id,pageable);
             return albumsList;
         }catch(Exception e){
             throw new Exception(e.getMessage());
         }
     }
-   /* @Override
-    @Transactional
-    public Page<Albums> findAllAlbums(Pageable pageable) throws Exception {
-        try {
-            Page<Albums> albumsList = BaseRepository.findAll(pageable);
-            return albumsList;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }*/
-
     public boolean exists(long id){
         return albumRepository.existsById(id);
     }

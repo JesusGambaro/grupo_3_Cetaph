@@ -16,7 +16,7 @@ public interface AlbumService extends BaseServices<Albums,Long>{
                              Boolean fitroExp) throws Exception;
 
 
-    Page<Albums> searchAlbumsbyArtist(String Name, Pageable pageable) throws Exception;
+    Page<Albums> searchAlbumsbyArtist(Long id, Pageable pageable) throws Exception;
 
     //Page <Albums> findAllAlbums(Pageable pageable) throws Exception;
 

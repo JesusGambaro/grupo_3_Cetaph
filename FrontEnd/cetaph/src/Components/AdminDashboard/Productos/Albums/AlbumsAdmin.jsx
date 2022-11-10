@@ -20,7 +20,7 @@ export const AlbumsAdmin = ({ setLoading, disks, getAlbums }) => {
       });
   };
   return (
-    <>
+    <div className="wrapper">
       {formActive ? (
         <CreateAlbumForm
           cancelFunc={() => {
@@ -34,7 +34,6 @@ export const AlbumsAdmin = ({ setLoading, disks, getAlbums }) => {
       ) : (
         <>
           <div className="add-section">
-            <h1>Albúms</h1>
             <form
               className="searchOwn"
               onClick={() => {
@@ -95,9 +94,10 @@ export const AlbumsAdmin = ({ setLoading, disks, getAlbums }) => {
                 </div>
               );
             })}
+            <h1>{!disks.length && "No Hay Albums"}</h1>
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };

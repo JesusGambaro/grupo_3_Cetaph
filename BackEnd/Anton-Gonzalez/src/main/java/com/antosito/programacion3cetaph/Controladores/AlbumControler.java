@@ -52,12 +52,13 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     }
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     /* http://localhost:9000/api/v1/album/searchAlbumsbyArtist?Name=Plague */
+
     @GetMapping("/searchAlbumsbyArtist")
-    public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)String Name, Pageable pageable){
+    public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)Long id, Pageable pageable){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchAlbumsbyArtist(Name, pageable));
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.searchAlbumsbyArtist(id, pageable));
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se encontro el artista.\"}"+e);
         }
     }
 
