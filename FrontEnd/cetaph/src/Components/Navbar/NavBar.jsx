@@ -60,7 +60,7 @@ const NavBar = () => {
                     onClick={() => {
                       if (usuarioIcon) {
                         localStorage.clear()
-                        navigate('/home')
+                        navigate('/')
                         setUsuarioIcon(false)
                       }
                     }}

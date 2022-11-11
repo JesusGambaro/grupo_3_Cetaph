@@ -26,7 +26,7 @@ const Login = () => {
           if (data[2] == "Admin") {
             navigate('/AdminDashboard')
           }else{
-            navigate('/home')
+            navigate('/')
           }
 
           
@@ -45,7 +45,7 @@ const Login = () => {
           localStorage.setItem('refresh-token', data[1])
           localStorage.setItem('rol', data[2])
           //redirect to home page
-          navigate('/home')
+          navigate('/')
         })
         .catch((err) => {
           console.log(err)

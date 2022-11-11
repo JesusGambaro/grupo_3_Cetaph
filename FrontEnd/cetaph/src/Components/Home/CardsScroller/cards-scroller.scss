@@ -3,27 +3,16 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-}
-
-.scroll-container {
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-  direction: ltr;
-  scrollbar-color: transparent transparent;
-  margin-bottom: 1rem;
-  position: relative;
-  cursor: grab;
-  width: 100%;
-  height: 100%;
+  justify-content: center;
+  //border: 0.2rem solid olive;
   .wrapper {
-    display: flex;
     gap: 2rem;
-    justify-content: space-between;
-    width: 100%;
-    margin: 2rem;
+    //border: 0.1rem solid salmon;
     height: 100%;
-    display: flex;
-    margin-right: 95rem;
+    padding: 2rem;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(10, 1fr);
   }
   &:active {
     cursor: grabbing;
@@ -38,11 +27,11 @@
   &::-webkit-scrollbar-button {
     width: 200px;
   }
-
   &::-webkit-scrollbar-thumb {
     background-color: #fff;
   }
 }
+
 .slider-icon.left,
 .slider-icon.right {
   position: absolute;

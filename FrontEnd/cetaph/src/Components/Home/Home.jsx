@@ -52,8 +52,8 @@ const Home = () => {
         <div className="home-container__disks">
           <div className="disks-header">
             <h1>Disks</h1>
-            <CardsScroller />
           </div>
+          <CardsScroller />
         </div>
       </div>
     </>
