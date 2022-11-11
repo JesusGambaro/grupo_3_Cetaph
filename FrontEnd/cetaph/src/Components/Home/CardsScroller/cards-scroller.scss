@@ -5,6 +5,22 @@
   align-items: flex-end;
   justify-content: center;
   //border: 0.2rem solid olive;
+  .scroll-container {
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: rgba(180, 179, 179, 0.215);
+    }
+    &::-webkit-scrollbar-button {
+      width: 200px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #fff;
+    }
+  }
+  margin-bottom: 2rem;
   .wrapper {
     gap: 2rem;
     //border: 0.1rem solid salmon;
@@ -17,19 +33,6 @@
   &:active {
     cursor: grabbing;
   }
-  &::-webkit-scrollbar {
-    height: 0.5rem;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgba(180, 179, 179, 0.215);
-  }
-  &::-webkit-scrollbar-button {
-    width: 200px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #fff;
-  }
 }
 
 .slider-icon.left,
@@ -40,6 +43,7 @@
   color: #fff;
   font-size: 2rem;
   bottom: 0;
+  bottom: -1.2rem;
   &.slider-icon.left {
     left: 10%;
   }
@@ -51,8 +55,4 @@
   width: 16rem;
   display: inline-block;
   cursor: pointer;
-  &:nth-child(1) {
-  }
-  &:last-child {
-  }
 }
