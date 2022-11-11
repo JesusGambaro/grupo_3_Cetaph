@@ -9,6 +9,7 @@ import Detail from './Components/Detail/Detail'
 import Footer from './Components/Footer/Footer'
 import { AllProducts } from './Components/AdminDashboard/Productos/AllProducts'
 import Login from './Components/Login/Login'
+import ArtistDetail from './Components/Detail/ArtistDetail/ArtistDetail'
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/AdminDashboard/" element={<AllProducts />} />
         <Route path="Detail/:id" element={<Detail />} />
+        <Route path="/Artista/:id" element={<ArtistDetail />} />
         <Route path="Login" element={<Login />} />
       </Routes>
       <Footer />

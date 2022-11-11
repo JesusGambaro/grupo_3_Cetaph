@@ -23,6 +23,18 @@
     background-color: rgba(34, 34, 34, 1);
     display: flex;
     gap: 3rem;
+    a{
+      text-decoration: underline;
+      color: white;
+      font-size: 1rem;
+    }
+    .dot{
+      content: "";
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      border-radius: 50%;
+    }
     .ImagenDisco {
       //border: 1px solid white;
       padding: 7rem;

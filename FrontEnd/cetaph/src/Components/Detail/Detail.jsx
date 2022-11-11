@@ -7,6 +7,8 @@ import axios from "axios";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "react-h5-audio-player/lib/styles.css";
 import SongPlayer from "./SongPlayer/SongPlayer";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
+import { Link } from "react-router-dom";
 
 const Detail = () => {
   const { id } = useParams();
@@ -106,9 +108,6 @@ const Detail = () => {
               </div>
             </div>
             <div className="DiscoInfo">
-              <h1 className="ArtistName">
-                {disk?.artistas.length > 0 ? disk?.artistas[0].nombre : ""}
-              </h1>
               <span>
                 <label>Nombre:</label>
                 <h1>{disk?.nombre}</h1>
@@ -119,9 +118,7 @@ const Detail = () => {
               </span>
               <span>
                 <label>Duracion:</label>
-                <h1>
-                  {toMinsAndSecs(disk.duracion)}
-                </h1>
+                <h1>{toMinsAndSecs(disk.duracion)}</h1>
               </span>
               <span>
                 <label>Canciones:</label>
@@ -129,7 +126,18 @@ const Detail = () => {
               </span>
               <span>
                 <label>Artistas:</label>
-                <a href="">Jisu</a>
+                {disk.artistas.map((artista,id) => {
+                  return (
+                    <>
+                      {id > 0 && <div className="dot"></div>}
+                      <Link to={"/Artista/" + artista.id} key={id}>
+                        {artista.nombre}
+                      </Link>
+                      
+                      
+                    </>
+                  );
+                })}
               </span>
               <h1 className="PrecioText">$500</h1>
               <div className="Buttons">
