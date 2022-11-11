@@ -14,8 +14,8 @@ const Catalogue = () => {
     axios
       .get('http://localhost:9000/api/v1/album')
       .then((res) => {
-        //setDisks(res.data.content)
-        console.log(res.data);
+        setDisks(res.data.content)
+        console.log(res.data.content)
         setLoading(false)
       })
       .catch((err) => {

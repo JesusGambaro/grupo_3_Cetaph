@@ -1,76 +1,66 @@
-import React, { Fragment, useEffect, useRef } from "react";
-import "./DetailStyle.scss";
-import Footer from "../Footer/Footer";
-import { useState } from "react";
-import { useParams } from "react-router";
-import axios from "axios";
-import ScrollContainer from "react-indiana-drag-scroll";
-import "react-h5-audio-player/lib/styles.css";
-import SongPlayer from "./SongPlayer/SongPlayer";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from 'react'
+import './DetailStyle.scss'
+import { useParams } from 'react-router'
+import axios from 'axios'
+import ScrollContainer from 'react-indiana-drag-scroll'
+import 'react-h5-audio-player/lib/styles.css'
+import SongPlayer from './SongPlayer/SongPlayer'
+import { Link } from 'react-router-dom'
 
 const Detail = () => {
-  const { id } = useParams();
-  const [disk, setDisk] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams()
+  const [disk, setDisk] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
+    ;(async () => {
+      setLoading(true)
       try {
         const { data } = await axios.get(
-          `http://localhost:9000/api/v1/album/${id}`
-        );
-        console.log(data);
-        setDisk(data);
+          `http://localhost:9000/api/v1/album/${id}`,
+        )
+        console.log(data)
+        setDisk(data)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-      setLoading(false);
-    })();
-  }, [id]);
-  const [currentImage, setCurrentImage] = useState(0);
+      setLoading(false)
+    })()
+  }, [id])
+  const [currentImage, setCurrentImage] = useState(0)
 
   const HandleCurrentState = (params) => {
-    setCurrentImage(params);
-  };
+    setCurrentImage(params)
+  }
   //console.log("Detail");
   const toMinsAndSecs = (ms) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
+    const minutes = Math.floor(ms / 60000)
+    const seconds = ((ms % 60000) / 1000).toFixed(0)
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+  }
 
-  //song player
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [volume, setVolume] = useState(0.5);
-  const [currentSong, setCurrentSong] = useState(null);
-  const audio = useRef(null);
+  const [currentSong, setCurrentSong] = useState(null)
 
-  const tracksContainer = useRef(null);
+  const tracksContainer = useRef(null)
   const handleSong = (song) => {
-    setCurrentSong(song);
+    setCurrentSong(song)
     //audio.current.src = song.preview_url;
-  };
+  }
 
   const handleSongChange = (dir) => {
-    const index = disk.singles.findIndex((song) => song.id === currentSong.id);
-    let newIndex = index + dir;
+    const index = disk.singles.findIndex((song) => song.id === currentSong.id)
+    let newIndex = index + dir
     if (newIndex < 0) {
-      newIndex = disk.singles.length - 1;
+      newIndex = disk.singles.length - 1
     } else if (newIndex > disk.singles.length - 1) {
-      newIndex = 0;
+      newIndex = 0
     }
     tracksContainer.current.scrollTo({
       top: newIndex * 60 + 60 * 2 - 300,
-      behavior: "smooth",
-    });
-    handleSong(disk.singles[newIndex]);
-  };
+      behavior: 'smooth',
+    })
+    handleSong(disk.singles[newIndex])
+  }
 
   return (
     <>
@@ -96,14 +86,14 @@ const Detail = () => {
                   return (
                     <div
                       className="ExtraImagenes"
-                      key={"ExtraImagenes" + id}
+                      key={'ExtraImagenes' + id}
                       onClick={() => {
-                        HandleCurrentState(id);
+                        HandleCurrentState(id)
                       }}
                     >
                       <img src={urlImg} alt="" />
                     </div>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -126,17 +116,15 @@ const Detail = () => {
               </span>
               <span>
                 <label>Artistas:</label>
-                {disk.artistas.map((artista,id) => {
+                {disk.artistas.map((artista, id) => {
                   return (
                     <>
                       {id > 0 && <div className="dot"></div>}
-                      <Link to={"/Artista/" + artista.id} key={id}>
+                      <Link to={'/Artista/' + artista.id} key={id}>
                         {artista.nombre}
                       </Link>
-                      
-                      
                     </>
-                  );
+                  )
                 })}
               </span>
               <h1 className="PrecioText">$500</h1>
@@ -173,10 +161,10 @@ const Detail = () => {
                   return (
                     <div
                       className={
-                        "track" +
-                        (currentSong?.id === track.id ? " playing" : "")
+                        'track' +
+                        (currentSong?.id === track.id ? ' playing' : '')
                       }
-                      key={"track" + id}
+                      key={'track' + id}
                     >
                       <p className="track-number">{id + 1}</p>
                       <h2 className="track-name">{track.nombre}</h2>
@@ -188,13 +176,18 @@ const Detail = () => {
                         onClick={() => handleSong(track)}
                       ></i>
                     </div>
-                  );
+                  )
                 })}
               </ScrollContainer>
               <div className="player-container">
                 {currentSong ? (
                   <SongPlayer
-                    track={currentSong}
+                    prevSong={disk?.singles?.length}
+                    nextSong={() => {
+                      console.log('nextSong' + disk?.singles?.length)
+                      console.log('nextSong' + id)
+                    }}
+                    track={{ ...currentSong, artista: disk.artistas[0].nombre }}
                     handleSongChange={handleSongChange}
                   />
                 ) : (
@@ -206,7 +199,7 @@ const Detail = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Detail;
+export default Detail

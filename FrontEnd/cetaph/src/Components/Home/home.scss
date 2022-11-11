@@ -30,6 +30,7 @@ $pastel-color-quaternary: #fefbf6;
       width: 50%;
       gap: 1rem;
       color: $pastel-color-quaternary;
+      margin: 2rem 0;
       h1 {
         font-size: 2rem;
         font-weight: 600;
@@ -60,7 +61,9 @@ $pastel-color-quaternary: #fefbf6;
         }
         button {
           font-size: 1rem;
-          padding: 0.5rem 1rem;
+          height: 2.5rem;
+          line-height: 2rem;
+          padding: 0 1rem;
           color: $pastel-color-primary;
           cursor: pointer;
           border: none;
@@ -87,7 +90,6 @@ $pastel-color-quaternary: #fefbf6;
         font-size: 1rem;
         font-weight: 400;
       }
-      margin-bottom: 2rem;
     }
     .categories-card-wrapper {
       display: flex;
@@ -102,8 +104,8 @@ $pastel-color-quaternary: #fefbf6;
     align-items: center;
     display: flex;
     justify-content: center;
-    gap: 2rem;
     flex-direction: column;
+    margin-top: 4rem;
     .disks-header {
       display: flex;
       justify-content: center;
@@ -151,7 +153,6 @@ $pastel-color-quaternary: #fefbf6;
         font-size: 1rem;
         font-weight: 400;
       }
-      margin-bottom: 2rem;
     }
     .discs-card-wrapper {
       display: flex;
