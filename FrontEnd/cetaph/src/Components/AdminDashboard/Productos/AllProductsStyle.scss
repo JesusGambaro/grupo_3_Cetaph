@@ -46,12 +46,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem .5rem;
+    padding: 0.5rem 0.5rem;
     flex-basis: 80rem;
     .create-button {
       cursor: pointer;
-      border: 1px solid black;
-      width: 10rem;
+      border: 2px solid black;
+      min-width: 10rem;
       height: 3rem;
       border-radius: 0.5rem;
       background-color: white;
@@ -70,8 +70,35 @@
         transform: scale(1.1);
       }
     }
+    .search-form{
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      input[type="text"]{
+        border: 2px solid black;
+        border-radius: 5px;
+        min-width: 20rem;
+        height: 3rem;
+        padding: 0rem 1rem;
+        padding-right: 2.5rem;
+      }
+      button{
+        position: absolute;
+        right: 10px;
+        width: 2rem;
+        height: 2rem;
+        border: none;
+        background-color: transparent;
+        transition: all 0.1s ease;
+        &:hover{
+            transform: scale(1.5);
+            transition: all 0.1s ease;
+        }
+      }
+    }
   }
-  .wrapper{
+  .wrapper {
     width: 100%;
     display: flex;
     align-items: center;
@@ -181,8 +208,10 @@
       justify-content: left;
       flex-direction: column;
       h1,
-      h3 {
+      a {
         margin: 0;
+        text-decoration: none;
+        color: black;
       }
       h1 {
         font-size: 1.1rem;
@@ -199,22 +228,26 @@
           align-items: center;
           text-align: center;
           justify-content: center;
-        }
-        .dot {
-          border-radius: 50%;
-          content: "";
-          width: 8px;
-          height: 8px;
-          background-color: black;
-        }
-        h3 {
-          font-size: 1rem;
-          font-weight: 400;
-          &:last-child {
-            cursor: pointer;
-            &:hover {
-              text-decoration: underline;
+
+          a {
+            font-size: 1rem;
+            font-weight: light;
+            &:last-child {
+              cursor: pointer;
+              &:hover {
+                text-decoration: underline;
+              }
             }
+          }
+          p{
+            margin: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 10px;
+            height: 10px;
+            font-size: 3rem;
           }
         }
       }

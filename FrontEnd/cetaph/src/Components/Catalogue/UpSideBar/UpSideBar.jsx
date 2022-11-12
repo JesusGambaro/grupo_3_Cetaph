@@ -25,7 +25,7 @@ const UpSideBar = ({ setData }) => {
     const delayDebounceFn = setTimeout(() => {
       console.log(searchTerm)
       // Send Axios request here
-      handleSearch()
+      //handleSearch()
     }, 3000)
 
     return () => clearTimeout(delayDebounceFn)

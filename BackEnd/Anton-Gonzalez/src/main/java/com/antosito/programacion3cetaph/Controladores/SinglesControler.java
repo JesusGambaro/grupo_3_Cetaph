@@ -86,9 +86,6 @@ public class SinglesControler extends BaseControladorImplementacion<Singles, Sin
         }
     }
 
-
-
-
 //Get datos hasta un limite de 10 para el landing bar
     @GetMapping("/data")
     public ResponseEntity<?> carruselLanding(){

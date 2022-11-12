@@ -43,19 +43,25 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     /* http://localhost:9000/api/v1/album/searchAlbums?V=true&Name=Plague&Max=120&Min=120&Exp=true */
     @GetMapping("/searchAlbums")
-    public ResponseEntity<?> searchAlbums(@RequestParam(required = false) Boolean V,@RequestParam(required = false) String Name,@RequestParam(required = false) Float Max,@RequestParam(required = false) Float Min,@RequestParam(required = false) Boolean Exp){
+    public ResponseEntity<?> searchAlbums(@RequestParam(required = false) Boolean V,
+                                          @RequestParam(required = false) String Name,
+                                          @RequestParam(required = false) Float Max,
+                                          @RequestParam(required = false) Float Min,
+                                          @RequestParam(required = false) Boolean Exp,
+                                          @RequestParam(required = false) Long IdArtista){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.SearchAlbums(V,Name,Min,Max,Exp));
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.SearchAlbums(V,Name,Min,Max,Exp,IdArtista));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     /* http://localhost:9000/api/v1/album/searchAlbumsbyArtist?Name=Plague */
 
-    @GetMapping("/searchAlbumsbyArtist")
-    public ResponseEntity<?> searchAlbumsBy(@RequestParam(required = false)Long id, Pageable pageable){
+    @GetMapping("/searchAlbumsbyArtist/{id}")
+    public ResponseEntity<?> searchAlbumsBy(@PathVariable Long id, Pageable pageable){
         try {
+
             return ResponseEntity.status(HttpStatus.OK).body(albumService.searchAlbumsbyArtist(id, pageable));
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, no se encontro el artista.\"}"+e);
@@ -82,8 +88,6 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 imagenesService.save(imagenes);
                 returnImgs.add(imagenes);
             }
-
-
             List<Singles> singlesToAdd = new ArrayList<>();
             if (multipartFileMusic!=null){
                 if (singlesList!=null){
@@ -99,7 +103,6 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                     }
                 }
             }
-
             albums.setArtistas(artistaCreado);
             albums.setSingles(singlesToAdd);
             albums.setImagenes(returnImgs);
@@ -254,6 +257,14 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return ResponseEntity.status(HttpStatus.OK).body(albumService.findAllPaged(pageable));
         }catch (Exception e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/data")
+    public ResponseEntity<?> carruselLanding(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.LandingCarrusel());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +e.getMessage()+"\"}");
         }
     }
 }

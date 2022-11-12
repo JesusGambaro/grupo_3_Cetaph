@@ -14,7 +14,6 @@ export const CreateAlbumForm = ({
 }) => {
   const [generos, setGeneros] = useState([]);
   const [artistas, setArtistas] = useState([]);
-  const [singles, setSingles] = useState([]);
 
   const [isLoading, setLoading] = useState(true);
   const [isCreatingSingle, setCreatingSingle] = useState(false);

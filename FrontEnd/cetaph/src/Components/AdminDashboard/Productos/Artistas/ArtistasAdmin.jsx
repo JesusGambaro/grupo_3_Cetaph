@@ -2,7 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { CreateArtista } from "../../Formulario/CreateArtista/CreateArtista";
-export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
+import Loading from "../../../Loading/Loading";
+export const ArtistasAdmin = ({
+  setLoading,
+  artistas,
+  getArtistas,
+  isLoading,
+}) => {
   const [formActive, setFormActive] = useState(false);
   const [isCreating, setCreating] = useState(false);
   const [artistaObject, setArtistaObject] = useState();
@@ -35,7 +41,7 @@ export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
         <>
           <div className="add-section">
             <form
-              className="searchOwn"
+              className="search-form"
               onClick={() => {
                 //dispatch(resetState());
                 //dispatch(resetFilters());
@@ -46,57 +52,61 @@ export const ArtistasAdmin = ({ setLoading, artistas, getArtistas }) => {
               </button>
               <input
                 type="text"
-                placeholder="SEARCH"
+                placeholder="Nombre de artista..."
                 //value={searchParam}
                 //onChange={(e) => setSearchParam(e.target.value)}
               />
             </form>
             <button
-              className="create-button"
+              className="create-button artist"
               onClick={() => {
                 setFormActive(!formActive);
                 setCreating(true);
               }}
-            >
-              {" "}
-              Crear un nuevo artista
+            > 
+            Crear un nuevo artista
+              
             </button>
           </div>
-          <div className="artistas-container">
-            {artistas.map((param, i) => {
-              return (
-                <div className="artista-card" key={i}>
-                  <div className="img">
-                    <img src={param.imagenes.urlImg} alt="" />
-                  </div>
-                  <span className="title">
-                    <span className="subtitle">
-                      <h3>{param.nombre}</h3>
+          {isLoading ? (
+            <Loading></Loading>
+          ) : (
+            <div className="artistas-container">
+              {artistas.map((param, i) => {
+                return (
+                  <div className="artista-card" key={i}>
+                    <div className="img">
+                      <img src={param.imagenes.urlImg} alt="" />
+                    </div>
+                    <span className="title">
+                      <span className="subtitle">
+                        <h3>{param.nombre}</h3>
+                      </span>
                     </span>
-                  </span>
-                  <div className="actions">
-                    <button
-                      onClick={() => {
-                        setFormActive(!formActive);
-                        setArtistaObject(param);
-                        setCreating(false);
-                      }}
-                    >
-                      <i className="bi bi-pen"></i>Edit
-                    </button>
-                    <button
-                      onClick={() => {
-                        deleteArtista(param.id);
-                      }}
-                    >
-                      <i className="bi bi-trash"></i> Delete
-                    </button>
+                    <div className="actions">
+                      <button
+                        onClick={() => {
+                          setFormActive(!formActive);
+                          setArtistaObject(param);
+                          setCreating(false);
+                        }}
+                      >
+                        <i className="bi bi-pen"></i>Edit
+                      </button>
+                      <button
+                        onClick={() => {
+                          deleteArtista(param.id);
+                        }}
+                      >
+                        <i className="bi bi-trash"></i> Delete
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-            <h1>{!artistas.length && "No Hay Artistas"}</h1>
-          </div>
+                );
+              })}
+              <h1>{!artistas.length && "No Hay Artistas"}</h1>
+            </div>
+          )}
         </>
       )}
     </div>

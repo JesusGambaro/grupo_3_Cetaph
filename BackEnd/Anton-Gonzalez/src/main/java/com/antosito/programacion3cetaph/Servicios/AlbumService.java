@@ -1,6 +1,7 @@
 package com.antosito.programacion3cetaph.Servicios;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
+import com.antosito.programacion3cetaph.Entidades.Singles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,7 +14,8 @@ public interface AlbumService extends BaseServices<Albums,Long>{
                              String filtroName,
                              Float filtroPriceMin,
                              Float filtroPriceMax,
-                             Boolean fitroExp) throws Exception;
+                             Boolean fitroExp,
+                             Long IdArtista) throws Exception;
 
 
     Page<Albums> searchAlbumsbyArtist(Long id, Pageable pageable) throws Exception;
@@ -21,4 +23,5 @@ public interface AlbumService extends BaseServices<Albums,Long>{
     //Page <Albums> findAllAlbums(Pageable pageable) throws Exception;
 
     boolean exists(long id);
+    List<Albums> LandingCarrusel() throws Exception;
 }

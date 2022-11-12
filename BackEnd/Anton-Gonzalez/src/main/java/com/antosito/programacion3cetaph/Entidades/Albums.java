@@ -55,7 +55,7 @@ public class Albums extends Base{
 
     /*Una relacion de muchos a muchos, singles(Cancion individual) puede tener muchos artistas y viceversa */
     @Column(name = "singles")
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Singles> singles;
 
 
