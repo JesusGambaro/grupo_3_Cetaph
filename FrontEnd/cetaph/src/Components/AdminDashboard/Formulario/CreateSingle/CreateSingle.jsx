@@ -127,7 +127,7 @@ export const CreateSingle = ({ closeFunc, addSingleFunc}) => {
                     });
                   }
                 }}
-                accept={"mp3/*"}
+                accept=".mp3,audio/*"
               />
               <i className="bi bi-upload"></i>
               <p>Select a song</p>

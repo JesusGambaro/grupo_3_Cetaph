@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { CreateAlbumForm } from "../../Formulario/CreateAlbum/CreateAlbumForm";
+import CreateAlbumForm from "../../Formulario/CreateAlbum/CreateAlbumFormNew";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import Loading from "../../../Loading/Loading";
@@ -75,7 +75,7 @@ export const AlbumsAdmin = ({
     setConfirmDialog(false);
     setCreating(false);
     setFormActive(false);
-    getAlbums(newFiltros);
+    getAlbums();
   };
   return (
     <div className="wrapper">
@@ -142,7 +142,14 @@ export const AlbumsAdmin = ({
                   value: filtros.artista.id,
                 }
               }
-              options={artistas_select}
+              options={artistas?.map((artista) => {
+                return {
+                  value: artista.id,
+                  label:
+                    artista.nombre.substring(0, 1).toUpperCase() +
+                    artista.nombre.substring(1),
+                };
+              })}
             ></Select>
             <button
               className="create-button"

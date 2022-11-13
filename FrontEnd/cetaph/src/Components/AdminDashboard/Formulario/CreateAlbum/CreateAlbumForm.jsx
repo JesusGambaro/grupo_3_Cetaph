@@ -213,7 +213,6 @@ export const CreateAlbumForm = ({
     album.singles = album.singles.filter((single) => {
       return single.cloudinaryId;
     });
-    console.log(album.singles);
     let albumAxios = JSON.stringify(album);
     let singlesListAxios = JSON.stringify(singlesList);
     let deletedImgs = JSON.stringify(data.deletedImages);
@@ -232,7 +231,6 @@ export const CreateAlbumForm = ({
       new Blob([newArtists], { type: "application/json" })
     );
     setLoading(true);
-    console.log("----------Form Data----------");
     //console.log(data.album);
     //console.log(formData.getAll("Album"));
 

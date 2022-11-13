@@ -4,7 +4,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  .header {
+  .form-header {
     padding: 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -21,12 +21,13 @@
         font-weight: 500;
         color: #fff;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
         gap: 1rem;
         padding: 0.5rem;
         font-size: large;
         cursor: pointer;
+        transition: all .2s ease;
         i {
           display: flex;
           align-items: center;
@@ -40,6 +41,8 @@
         }
         &:hover {
           background: #5daa55;
+          transform: scale(1.15);
+          transition: all .2s ease;
         }
       }
     }
@@ -58,7 +61,7 @@
       flex-direction: row;
       justify-content: center;
       gap: 2rem;
-      .input-wrapper {
+      .form-left {
         flex-basis: 20rem;
         display: flex;
         align-items: center;
@@ -66,11 +69,11 @@
         flex-direction: column;
         flex-wrap: wrap;
         gap: 1rem;
-        .input {
+        min-height:55rem;
+        .form-field {
           display: flex;
           flex-direction: column;
           width: 20rem;
-
           input {
             padding: 0.5rem;
             border: 2px solid black;
@@ -82,7 +85,7 @@
             border: 2px solid black;
             height: 5rem;
           }
-          &.checkbox {
+          &:has(input[type='checkbox']) {
             font-size: 1rem;
             font-weight: bold;
             line-height: 1.1;
@@ -131,13 +134,14 @@
           }
         }
       }
-      .rigth-inputs {
+      .form-rigth {
         display: flex;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
         flex-wrap: wrap;
         flex-basis: 52rem;
+        min-height:55rem;
       }
       .images {
         display: flex;
@@ -275,20 +279,18 @@
             align-items: center;
             justify-content: space-around;
             flex-direction: column;
-            width: 15rem;
+            min-width: 5rem;
             border: 2px solid black;
             position: relative;
             gap: 0.5rem;
             border-radius: 5px;
-            padding: 1rem 0.5rem;
+            padding: .5rem 0.5rem;
 
             button {
               border: none;
-              width: 2rem;
-              height: 2rem;
               background-color: transparent;
               i {
-                font-size: 1.4rem;
+                font-size: 1rem;
               }
             }
             .delete-image-btn {
@@ -314,7 +316,8 @@
               margin: 0;
             }
             span {
-              width: 13rem;
+              border: 1px solid;
+              min-width: 13rem;
               display: flex;
               flex-direction: row;
               justify-content: left;
@@ -323,21 +326,31 @@
               word-wrap: break-word;
               label {
                 font-weight: bold;
-                font-size: 0.9rem;
+                font-size: 0.6rem;
               }
             }
             h1,
             h3 {
+              border: 1px solid;
               max-width: 9rem;
+              min-width: 3rem;
               margin: 0;
-              font-size: 0.8rem;
+              font-size: 0.6rem;
             }
           }
         }
       }
     }
   }
-
+  .input-name {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .error{
+    color:  red;
+    font-size: .8rem;
+  }
   textarea {
     resize: none;
   }

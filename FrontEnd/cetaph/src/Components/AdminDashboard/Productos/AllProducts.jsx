@@ -15,7 +15,8 @@ export const AllProducts = () => {
   });
   const [showAlbums, setShowAlbums] = useState(true);
   useEffect(() => {
-    getConFiltros(filtros);
+    //getConFiltros(filtros);
+    getAlbums();
     getArtistas();
   }, []);
   const getAlbums = () => {
@@ -51,6 +52,7 @@ export const AllProducts = () => {
       .get("http://localhost:9000/api/v1/artista/")
       .then((res) => {
         setArtistas(res.data.content);
+        //console.log(res.data);
       })
       .catch((err) => {})
       .finally(() => {
@@ -86,7 +88,7 @@ export const AllProducts = () => {
             }}
             disks={disks}
             getAlbums={(filtros) => {
-              getConFiltros(filtros);
+              getAlbums();
             }}
             setFiltros={(newFiltros) => {
               setFiltros(newFiltros);
