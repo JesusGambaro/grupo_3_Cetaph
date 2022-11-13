@@ -5,15 +5,17 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import ScrollToTop from './hooks/ScrollToTop'
+import store from './Redux/store'
+import { Provider } from 'react-redux'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    {/* <Provider> */}
     <BrowserRouter>
-      <ScrollToTop />
-      <App />
+      <Provider store={store}>
+        <ScrollToTop />
+        <App />
+      </Provider>
     </BrowserRouter>
-    {/* </Provider> */}
   </React.StrictMode>,
 )
 

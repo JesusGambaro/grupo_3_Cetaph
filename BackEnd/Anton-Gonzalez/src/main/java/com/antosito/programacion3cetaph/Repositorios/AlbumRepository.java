@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 
@@ -17,30 +18,37 @@ import java.util.List;
 public interface AlbumRepository extends BaseRepository<Albums, Long> {
 
     //Una query que filtra por varios parametros para encontrar un producto especifico en la base de datos
-
-    @Query(value = "select * from albums a" +
-            " inner join albums_singles sa on a.id = sa.albums_id" +
-            " inner join singles s on sa.singles_id = s.id" +
-            " left join albums_artistas aa on a.id = aa.albums_id " +
-            " left join artista ar on aa.artistas_id = ar.id" +
-            " where (:filtroVil is null or a.es_vinilo = :filtroVil)" +
-            " and (:filtroIdArtista IS NULL OR ar.id = :filtroIdArtista)"+
-            " and (:filtroName is null or ((a.nombre LIKE %:filtroName%) or (s.nombre LIKE %:filtroName%) or (a.descripcion LIKE %:filtroName%)))" +
-            " and (:filtroPriceMax is null or  a.precio <= :filtroPriceMax and :filtroPriceMin is null or a.precio >= :filtroPriceMin)" +
-            " and ( :filtroExp is null or a.es_explicito = :filtroExp)",
+    @Query(value = "SELECT * from albums a " +
+            "inner join genero g on a.genero_id = g.id " +
+            "left join albums_singles `as` on `as`.albums_id = a.id " +
+            "left join singles s on `as`.singles_id = s.id " +
+            "left join albums_artistas aa on a.id = aa.albums_id " +
+            "left join artista ar on aa.artistas_id = ar.id " +
+            "where ((a.nombre like concat('%', :fTexto, '%') OR s.nombre like concat('%', :fTexto, '%') or " +
+            "a.descripcion like concat('%', :fTexto, '%')) OR :fTexto is null) " +
+            "and (a.precio between :fPrecioMin and :fPrecioMax or :fPrecioMin is null or :fPrecioMax is null)" +
+            "and (a.precio >= :fPrecioMin or :fPrecioMin is null) " +
+            "and (a.precio <= :fPrecioMax or :fPrecioMax is null) " +
+            "and (a.formato LIKE concat('%', :fFormato, '%') or :fFormato is null) " +
+            "and (g.genero LIKE concat('%', :fGenero, '%') or :fGenero is null) " +
+            "and (a.es_explicito = :fExplicito or :fExplicito is null) " +
+            /*  "and (ar.nombre like concat('%', :fArtista, '%') OR :fArtista is null) " +*/
+            "group by a.id",
             nativeQuery = true)
-    List<Albums> SearchAlbum(@Param("filtroVil") Boolean filtroVil,
-                             @Param("filtroName") String filtroName,
-                             @Param("filtroPriceMin") Float filtroPriceMin,
-                             @Param("filtroPriceMax") Float filtroPriceMax,
-                             @Param("filtroExp") Boolean fitroExp,
-                             @Param("filtroIdArtista") Long IdArtista);
+    Page<Albums> SearchAlbum(@Param("fTexto") String fTexto,
+                             @Param("fPrecioMin") Float fPrecioMin,
+                             @Param("fPrecioMax") Float fPrecioMax,
+                             @Param("fFormato") String fFormato,
+                             @Param("fExplicito") Boolean fExplicito,
+                             @Param("fGenero") String fGenero,
+                             Pageable pageable
+    );
 
     @Query(value = "SELECT * FROM albums a " +
             "INNER JOIN albums_artistas  aa on a.id = aa.albums_id " +
             "WHERE (:id IS NULL OR aa.artistas_id = :id)",
             nativeQuery = true)
-    Page<Albums> searchAlbumsByArtistas(@Param("id")Long id,Pageable pageable);
+    Page<Albums> searchAlbumsByArtistas(@Param("id") Long id, Pageable pageable);
 
     @Query(value = "SELECT * FROM albums a ORDER BY a.nombre LIMIT 10",
             nativeQuery = true)

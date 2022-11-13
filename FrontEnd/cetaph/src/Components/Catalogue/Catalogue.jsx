@@ -4,46 +4,40 @@ import Card from '../Card/Card'
 import LeftFilters from './LeftFilters/LeftFilters'
 import './catalogue.scss'
 import UpSideBar from './UpSideBar/UpSideBar'
-import axios from 'axios'
+import { setCatalogue } from '../../Redux/actions/catalogue'
+import { useDispatch, useSelector } from 'react-redux'
+
 const Catalogue = () => {
-  const [disks, setDisks] = useState([])
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [search, setSearch] = useState('')
+
+  const dispatch = useDispatch()
+  const { catalogue, loading } = useSelector(({ main }) => main)
   useEffect(() => {
-    axios
-      .get('http://localhost:9000/api/v1/album')
-      .then((res) => {
-        setDisks(res.data.content)
-        console.log(res.data.content)
-        setLoading(false)
-      })
-      .catch((err) => {
-        setError(true)
-        setLoading(false)
-      })
+    dispatch(setCatalogue())
   }, [])
-  const setData = (data) => {
-    setDisks(data)
-  }
+
   return (
     <div className="catalogue-container">
       <LeftFilters />
       <main>
-        <UpSideBar setData={(e) => setData(e)} />
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="disks-container">
-            {disks?.length > 0 ? (
-              disks.map((disk, index) => (
-                <Card key={index} color={'black'} data={disk} />
-              ))
-            ) : (
-              <h1>No results</h1>
-            )}
-          </div>
-        )}
+        <UpSideBar />
+
+        <div className="disks-container">
+          {loading ? (
+            <Loading text={'Loading albums...'} />
+          ) : (
+            <>
+              {catalogue?.length > 0 ? (
+                catalogue.map((disk, index) => (
+                  <Card key={index} color={'black'} data={disk} />
+                ))
+              ) : (
+                <h1>No results</h1>
+              )}
+            </>
+          )}
+        </div>
       </main>
     </div>
   )

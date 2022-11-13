@@ -5,7 +5,7 @@
   align-items: center;
   #wifi-loader {
     --background: #62abff;
-    --front-color: #7f5283;
+    --front-color: #000;
     --back-color: #c3c8de;
     --text-color: #c3c8de;
     width: 64px;
@@ -95,14 +95,14 @@
 
   #wifi-loader .text {
     position: absolute;
-    bottom: -40px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    text-transform: lowercase;
     font-weight: 500;
     font-size: 14px;
     letter-spacing: 0.2px;
+    bottom: -4rem;
   }
 
   #wifi-loader .text::before,

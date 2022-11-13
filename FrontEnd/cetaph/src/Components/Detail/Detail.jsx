@@ -19,7 +19,6 @@ const Detail = () => {
         const { data } = await axios.get(
           `http://localhost:9000/api/v1/album/${id}`,
         )
-        console.log(data)
         setDisk(data)
       } catch (e) {
         console.log(e)
@@ -182,12 +181,12 @@ const Detail = () => {
               <div className="player-container">
                 {currentSong ? (
                   <SongPlayer
-                    prevSong={disk?.singles?.length}
-                    nextSong={() => {
-                      console.log('nextSong' + disk?.singles?.length)
-                      console.log('nextSong' + id)
-                    }}
-                    track={{ ...currentSong, artista: disk.artistas[0].nombre }}
+                    prevSong={disk?.singles?.length == 1}
+                    nextSong={
+                      disk.singles.findIndex((c) => c.id === currentSong.id) ===
+                      disk.singles.length - 1
+                    }
+                    track={{ ...currentSong }}
                     handleSongChange={handleSongChange}
                   />
                 ) : (

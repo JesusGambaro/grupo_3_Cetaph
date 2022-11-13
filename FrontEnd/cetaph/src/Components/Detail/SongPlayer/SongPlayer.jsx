@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import './song-player.scss'
 
 const SongPlayer = ({ track, handleSongChange, nextSong, prevSong }) => {
-  console.log('track', track)
   // State
+  console.log(track)
   const [trackProgress, setTrackProgress] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   // Destructure for conciseness
@@ -139,7 +139,7 @@ const SongPlayer = ({ track, handleSongChange, nextSong, prevSong }) => {
           value={trackProgress}
           step="1"
           min="0"
-          max={duracion ? duracion : `${duration}`}
+          max={`${duration}`}
           className="progress"
           onChange={(e) => onScrub(e.target.value)}
           onMouseUp={onScrubEnd}

@@ -5,33 +5,16 @@ import './cards-scroller.scss'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import axios from 'axios'
 import Loading from '../../Loading/Loading'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLanding } from '../../../Redux/actions/landing'
 const CardsScroller = () => {
   const slider = useRef(null)
 
-  const handleWheel = (e) => {
-    let [x, y] = [e.deltaX, e.deltaY]
-    let magnitude
+  const dispatch = useDispatch()
+  const landingAlbums = useSelector(({ main }) => main.landing).slice(0, 1)
 
-    if (x === 0) {
-      magnitude = y > 0 ? -30 : 30
-    } else {
-      magnitude = x
-    }
-    slider.current.scrollBy({
-      left: magnitude,
-    })
-  }
-  const [disks, setDisks] = useState([])
   useEffect(() => {
-    axios
-      .get('http://localhost:9000/api/v1/album')
-      .then((res) => {
-        console.log(res.data)
-        setDisks(res.data.content)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    dispatch(setLanding())
     const el = slider.current
     if (el) {
       const onWheel = (e) => {
@@ -65,7 +48,7 @@ const CardsScroller = () => {
   }
   return (
     <>
-      {disks.length > 0 ? (
+      {landingAlbums?.length > 0 ? (
         <div id="main-slider-container">
           <i
             className="bi bi-arrow-left slider-icon left"
@@ -76,10 +59,9 @@ const CardsScroller = () => {
             hideScrollbars={false}
             vertical={false}
             innerRef={slider}
-            onWheel={handleWheel}
           >
             <div className="wrapper">
-              {disks.map((disk, index) => {
+              {landingAlbums.map((disk, index) => {
                 return (
                   <div className="slider-card" key={index}>
                     <Card key={'card' + index} color={'white'} data={disk} />

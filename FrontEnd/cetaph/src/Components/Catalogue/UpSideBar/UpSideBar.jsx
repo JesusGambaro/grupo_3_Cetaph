@@ -1,35 +1,27 @@
 import { useState, useEffect } from 'react'
 import './upsidebar.scss'
 import Select from 'react-select'
-import axios from 'axios'
 import chroma from 'chroma-js'
-
-const UpSideBar = ({ setData }) => {
+import { useDispatch, useSelector } from 'react-redux'
+import { filterCatalogue } from '../../../Redux/actions/catalogue'
+const UpSideBar = () => {
   const [searchTerm, setSearchTerm] = useState('')
-  const [order, setOrder] = useState('asc')
-  const [basicFilter, setBasicFilter] = useState('')
+  const [sort, setSort] = useState({
+    direction: 'asc',
+    order: '',
+  })
+  const dispatch = useDispatch()
+  let { filter } = useSelector(({ main }) => main)
   const handleSearch = (e) => {
-    console.log(order + searchTerm)
-    e?.preventDefault()
-    axios
-      .get(
-        `http://localhost:9000/api/v1/album/searchAlbums?V=true&Name=${searchTerm}`,
-      )
-      .then((res) => {
-        console.log(res.data)
-        setData(res.data)
-      })
+    e.preventDefault()
+    filter = { ...filter, searchParam: searchTerm }
+    dispatch(filterCatalogue(filter))
   }
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      console.log(searchTerm)
-      // Send Axios request here
-      //handleSearch()
-    }, 3000)
-
-    return () => clearTimeout(delayDebounceFn)
-  }, [searchTerm])
+    filter = { ...filter, order: sort.order, direction: sort.direction }
+    dispatch(filterCatalogue(filter))
+  }, [sort])
 
   const selectStyle = {
     control: () => ({
@@ -117,7 +109,7 @@ const UpSideBar = ({ setData }) => {
             onBlurResetsInput={false}
             styles={selectStyle}
             defaultValue={{ value: 'order', label: 'Order' }}
-            onChange={(e) => setOrder(e.value)}
+            onChange={(e) => setSort({ ...sort, direction: e.value })}
             isSearchable={false}
           />
           <Select
@@ -128,15 +120,15 @@ const UpSideBar = ({ setData }) => {
                 isDisabled: true,
                 isFixed: true,
               },
-              { value: 'price', label: 'Price' },
-              { value: 'name', label: 'Name' },
-              { value: 'date', label: 'Date' },
+              { value: 'precio', label: 'Precio' },
+              { value: 'nombre', label: 'Nombre' },
+              { value: 'lanzamiento', label: 'Fecha' },
             ]}
             onSelectResetsInput={false}
             onBlurResetsInput={false}
             styles={selectStyle}
             defaultValue={{ value: 'sortby', label: 'Sort by' }}
-            onChange={(e) => setOrder(e.value)}
+            onChange={(e) => setSort({ ...sort, order: e.value })}
             isSearchable={false}
           />
         </div>

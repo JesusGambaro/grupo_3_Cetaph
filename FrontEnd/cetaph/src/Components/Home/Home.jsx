@@ -31,7 +31,8 @@ const Home = () => {
           <div className="categories-card-wrapper">
             <CategoryCard
               img={
-                'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-2nrTeBEkbdoRZPs.png'
+                /* 'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-2nrTeBEkbdoRZPs.png' */
+                'https://res.cloudinary.com/dsqpyqpnq/image/upload/v1668292514/imgs/image_2022-11-12_193511300_geppmt.png'
               }
               data_category={'Jazz'}
             />
@@ -39,7 +40,7 @@ const Home = () => {
               img={
                 'https://mj-gallery.com/0e6da7ba-8d90-4ba2-8706-5db9b4177d7a/grid_0.png'
               }
-              data_category={'Summer Hits'}
+              data_category={'Rock'}
             />
             <CategoryCard
               img={
@@ -50,9 +51,7 @@ const Home = () => {
           </div>
         </div>
         <div className="home-container__disks">
-          <div className="disks-header">
-            <h1>Disks</h1>
-          </div>
+          <h1>Disks</h1>
           <CardsScroller />
         </div>
       </div>

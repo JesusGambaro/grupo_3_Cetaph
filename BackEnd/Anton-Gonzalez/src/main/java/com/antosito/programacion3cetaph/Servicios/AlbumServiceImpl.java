@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> implements AlbumService {
+public class AlbumServiceImpl extends BaseServiceImplentation<Albums, Long> implements AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
@@ -23,10 +23,13 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
 
     //Creamos las listas en el metodo con las queries que determinamos en la repository
     @Override
-    public List<Albums> SearchAlbums(Boolean filtroVil, String filtroName, Float filtroPriceMax, Float filtroPriceMin, Boolean fitroExp,Long filtroIdArtista) throws Exception {
+    public Page<Albums> SearchAlbums(String nombre, Float min, Float max, String formato, Boolean explicito,
+                                     String genero,
+                                     Pageable pageable) throws Exception {
         try {
-            List<Albums> albumsList = albumRepository.SearchAlbum(filtroVil, filtroName, filtroPriceMax, filtroPriceMin, fitroExp, filtroIdArtista);
-            return albumsList;
+            return albumRepository.SearchAlbum(nombre, min, max, formato, explicito,
+                    genero,
+                    pageable);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -36,13 +39,14 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
     @Override
     public Page<Albums> searchAlbumsbyArtist(Long id, Pageable pageable) throws Exception {
         try {
-            Page<Albums> albumsList = albumRepository.searchAlbumsByArtistas(id,pageable);
+            Page<Albums> albumsList = albumRepository.searchAlbumsByArtistas(id, pageable);
             return albumsList;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-    public boolean exists(long id){
+
+    public boolean exists(long id) {
         return albumRepository.existsById(id);
     }
 
@@ -51,7 +55,7 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums,Long> imple
         try {
             List<Albums> albumsList = albumRepository.landingCarrusel();
             return albumsList;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }

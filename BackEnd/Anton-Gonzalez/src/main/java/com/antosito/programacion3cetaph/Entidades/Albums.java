@@ -35,8 +35,9 @@ public class Albums extends Base{
     @Column(name ="descripcion")
     private String descripcion;
 
-    @Column(name = "esVinilo")
-    private boolean esVinilo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "formato")
+    private FormatType formato;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Imagenes> imagenes;

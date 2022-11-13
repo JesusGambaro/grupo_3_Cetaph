@@ -20,9 +20,9 @@ public class CloudinaryService {
 
     /*Configuracion del Cloudnary, setting del enviroment creado para guardar las imagenes y musica*/
     public CloudinaryService() {
-        valuesMap.put("cloud_name", "dknpio4ug");
-        valuesMap.put("api_key", "291232833726476");
-        valuesMap.put("api_secret", "0MMWANLBXvt7_FCQ4c7veixfr0o");
+        valuesMap.put("cloud_name", "dsqpyqpnq");
+        valuesMap.put("api_key", "686435662655925");
+        valuesMap.put("api_secret", "CVE841Ctys2raXm7IfdpW_MxxL4");
         cloudinary = new Cloudinary(valuesMap);
     }
 
