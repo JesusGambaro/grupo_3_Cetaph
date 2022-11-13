@@ -1,28 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './upsidebar.scss'
 import Select from 'react-select'
 import chroma from 'chroma-js'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterCatalogue } from '../../../Redux/actions/catalogue'
-const UpSideBar = () => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [sort, setSort] = useState({
-    direction: 'asc',
-    order: '',
-  })
-  const dispatch = useDispatch()
-  let { filter } = useSelector(({ main }) => main)
-  const handleSearch = (e) => {
-    e.preventDefault()
-    filter = { ...filter, searchParam: searchTerm }
-    dispatch(filterCatalogue(filter))
-  }
-
-  useEffect(() => {
-    filter = { ...filter, order: sort.order, direction: sort.direction }
-    dispatch(filterCatalogue(filter))
-  }, [sort])
-
+import { setFilter } from '../../../Redux/reducers/mainReducer'
+const UpSideBar = ({ setUpFilters, handleSearch }) => {
   const selectStyle = {
     control: () => ({
       display: 'flex',
@@ -92,7 +75,8 @@ const UpSideBar = () => {
           <input
             type="text"
             placeholder="Search"
-            onChange={(e) => setSearchTerm(e.target.value)}
+            //onChange={(e) => setUpFilters({ searcParam: e.target.value })}
+            name="search"
           />
           <button type="submit">
             <i className="fas fa-search"></i>
@@ -109,7 +93,7 @@ const UpSideBar = () => {
             onBlurResetsInput={false}
             styles={selectStyle}
             defaultValue={{ value: 'order', label: 'Order' }}
-            onChange={(e) => setSort({ ...sort, direction: e.value })}
+            onChange={(e) => setUpFilters({ direction: e.value })}
             isSearchable={false}
           />
           <Select
@@ -128,7 +112,7 @@ const UpSideBar = () => {
             onBlurResetsInput={false}
             styles={selectStyle}
             defaultValue={{ value: 'sortby', label: 'Sort by' }}
-            onChange={(e) => setSort({ ...sort, order: e.value })}
+            onChange={(e) => setUpFilters({ sort: e.value })}
             isSearchable={false}
           />
         </div>

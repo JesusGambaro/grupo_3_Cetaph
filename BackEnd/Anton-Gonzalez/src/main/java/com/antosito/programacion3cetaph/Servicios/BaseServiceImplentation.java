@@ -23,8 +23,7 @@ public abstract class BaseServiceImplentation<E extends Base, ID extends Seriali
     @Transactional
     public List<E> findAll() throws Exception {
         try {
-            List<E> entity = BaseRepository.findAll();
-            return entity;
+            return BaseRepository.findAll();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -33,8 +32,7 @@ public abstract class BaseServiceImplentation<E extends Base, ID extends Seriali
     @Transactional
     public Page<E> findAllPaged(Pageable pageable) throws Exception {
         try {
-            Page<E> entity = BaseRepository.findAll(pageable);
-            return entity;
+            return BaseRepository.findAll(pageable);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

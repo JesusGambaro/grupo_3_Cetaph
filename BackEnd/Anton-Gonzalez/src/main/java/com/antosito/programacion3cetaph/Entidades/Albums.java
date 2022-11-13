@@ -1,10 +1,11 @@
 package com.antosito.programacion3cetaph.Entidades;
 
-import lombok.*;
-import org.hibernate.envers.Audited;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,7 +43,7 @@ public class Albums extends Base{
     @OneToMany(cascade = CascadeType.ALL)
     private List<Imagenes> imagenes;
 
-    @Column(name = "esExplicito")
+    @Column(name = "es_explicito")
     private boolean explicit;
 
 
@@ -50,12 +51,12 @@ public class Albums extends Base{
     private Genero genero;
 
     /*Una relacion de muchos a muchos, albumnes pueden tener multiples artistas y viceversa*/
-    @Column(name = "artistas")
+
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Artista> artistas;
 
     /*Una relacion de muchos a muchos, singles(Cancion individual) puede tener muchos artistas y viceversa */
-    @Column(name = "singles")
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Singles> singles;
 

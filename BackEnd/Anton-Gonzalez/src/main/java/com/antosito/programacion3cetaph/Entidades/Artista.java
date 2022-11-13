@@ -1,10 +1,11 @@
 package com.antosito.programacion3cetaph.Entidades;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "artista")
@@ -25,7 +26,7 @@ public class Artista extends Base {
     @Column(name = "fechanacimiento")
     private String fechanacimiento;
 
-    @Column(nullable = true)
+    @Column(name = "descripcion")
     private String descripcion;
 
     @OneToOne(cascade = CascadeType.REFRESH)

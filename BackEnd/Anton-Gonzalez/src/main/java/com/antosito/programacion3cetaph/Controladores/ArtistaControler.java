@@ -3,7 +3,6 @@ package com.antosito.programacion3cetaph.Controladores;
 import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Artista;
 import com.antosito.programacion3cetaph.Entidades.Imagenes;
-import com.antosito.programacion3cetaph.Entidades.Singles;
 import com.antosito.programacion3cetaph.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +17,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -50,7 +48,7 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             if (!artistaService.exists(id))
-                return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("no existe", HttpStatus.NOT_FOUND);
             Artista delArtista = artistaService.findById(id);
             List<Albums> AlbumsList = albumService.findAll();
             List<Artista> artistaList;
@@ -64,7 +62,6 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
                         albumService.update(alb.getId(),alb);
                     }else{
                         albumService.delete(alb.getId());
-
                     }
 
                 }
@@ -81,9 +78,9 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
        try {
            BufferedImage bi = ImageIO.read(file.getInputStream());
            if (bi == null) {
-               return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
+               return new ResponseEntity<>("imagen no válida", HttpStatus.BAD_REQUEST);
            }
-           Map result = cloudinaryService.upload(file);
+           var result = cloudinaryService.upload(file);
            Imagenes imagenes = new Imagenes((String) result.get("url"), (String) result.get("public_id"));
            imagenesService.save(imagenes);
            artista.setImagenes(imagenes);
@@ -97,7 +94,7 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
         try{
             return ResponseEntity.status(HttpStatus.OK).body(artistaService.findAllPaged(pageable));
         }catch (Exception e){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @PutMapping("/updateArtista/{id}")
@@ -108,9 +105,9 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
             if (multipartFleImg != null){
                 BufferedImage bi = ImageIO.read(multipartFleImg.getInputStream());
                 if (bi == null) {
-                    return new ResponseEntity("Imagen no valida", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("Imagen no valida", HttpStatus.BAD_REQUEST);
                 }
-                Map result = cloudinaryService.upload(multipartFleImg);
+                var result = cloudinaryService.upload(multipartFleImg);
                 Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
                 imagenesService.save(imagenes);
                 artista.setImagenes(imagenes);

@@ -6,8 +6,6 @@ import com.antosito.programacion3cetaph.Repositorios.RolRepository;
 import com.antosito.programacion3cetaph.Repositorios.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpMessage;
-import org.apache.http.HttpResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -44,18 +41,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> autorizacion = new ArrayList<>();
         user.getRoles().forEach(rol ->
-        {
-            autorizacion.add(new SimpleGrantedAuthority(rol.getName()));
-        });
+                autorizacion.add(new SimpleGrantedAuthority(rol.getName())));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), autorizacion);
     }
 
     @Override
-    public User saveUser(User user){
-            Rol rol = rolRepository.findByName("Usuario");
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.getRoles().add(rol);
-            return userRepository.save(user);
+    public boolean existsByName(String rolname) {
+        return rolRepository.existsByName(rolname);
+    }
+
+    @Override
+    public User saveUser(User user) {
+        crearRoles();
+        Rol rol = rolRepository.findByName("User");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(rol);
+        return userRepository.save(user);
     }
 
     @Override
@@ -63,13 +64,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         log.info("Guardando nuevo rol {}", rol.getName());
         return rolRepository.save(rol);
     }
+
     @Override
-    public boolean comprobateROl(Rol rol){
-        if (rolRepository.findByName(rol.getName()).equals(rol.getName())){
-            return true;
-        }else {
-             return false;
-        }
+    public boolean comprobateROl(Rol rol) {
+        return rolRepository.findByName(rol.getName()).equals(rol.getName());
     }
 
     @Override
@@ -95,16 +93,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean validate(User user) {
 
-            if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
-                    ||
-                    user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
-                System.out.println("Pase");
-                return true;
-            } else {
-                System.out.println("No pase");
-                return false;
-            }
+        if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
+                ||
+                user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
+            System.out.println("Pase");
+            return true;
+        } else {
+            System.out.println("No pase");
+            return false;
+        }
+    }
 
+    public void crearRoles() {
+        String[] rolesName = new String[]{"Admin", "User", "Empleado"};
+        for (String s : rolesName) {
+            if (!rolRepository.existsByName(s)) {
+                saveRol(new Rol(s));
+            }
+        }
     }
 }
 

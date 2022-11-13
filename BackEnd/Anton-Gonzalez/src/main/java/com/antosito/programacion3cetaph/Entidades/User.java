@@ -15,7 +15,6 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends Base{
-
     private String name;
     private String email;
     private String username;

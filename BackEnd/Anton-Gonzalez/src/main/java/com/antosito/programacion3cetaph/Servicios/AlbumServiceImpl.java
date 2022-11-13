@@ -1,7 +1,6 @@
 package com.antosito.programacion3cetaph.Servicios;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
-import com.antosito.programacion3cetaph.Entidades.Singles;
 import com.antosito.programacion3cetaph.Repositorios.AlbumRepository;
 import com.antosito.programacion3cetaph.Repositorios.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -39,8 +37,7 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums, Long> impl
     @Override
     public Page<Albums> searchAlbumsbyArtist(Long id, Pageable pageable) throws Exception {
         try {
-            Page<Albums> albumsList = albumRepository.searchAlbumsByArtistas(id, pageable);
-            return albumsList;
+            return albumRepository.searchAlbumsByArtistas(id, pageable);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -53,8 +50,7 @@ public class AlbumServiceImpl extends BaseServiceImplentation<Albums, Long> impl
     @Override
     public List<Albums> LandingCarrusel() throws Exception {
         try {
-            List<Albums> albumsList = albumRepository.landingCarrusel();
-            return albumsList;
+            return albumRepository.landingCarrusel();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

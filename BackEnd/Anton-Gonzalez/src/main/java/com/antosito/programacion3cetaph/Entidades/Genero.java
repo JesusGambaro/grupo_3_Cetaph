@@ -17,10 +17,6 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Genero extends Base {
-
     @Column(name = "genero")
     private String generoName;
-
-
-
 }

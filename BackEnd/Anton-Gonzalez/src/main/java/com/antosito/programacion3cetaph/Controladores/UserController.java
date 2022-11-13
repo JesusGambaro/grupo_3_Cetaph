@@ -1,6 +1,9 @@
 package com.antosito.programacion3cetaph.Controladores;
 
 
+import com.antosito.programacion3cetaph.Entidades.Rol;
+import com.antosito.programacion3cetaph.Entidades.User;
+import com.antosito.programacion3cetaph.Servicios.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -8,15 +11,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.antosito.programacion3cetaph.Entidades.Rol;
-import com.antosito.programacion3cetaph.Entidades.User;
-import com.antosito.programacion3cetaph.Servicios.UserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -38,15 +37,27 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class UserController {
     private final UserService userService;
 
+
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUser(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUser(pageable));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> saveUser(@RequestBody User user) throws Exception {
+    public ResponseEntity<User> saveUser(@RequestBody User user,HttpServletRequest request,HttpServletResponse response) throws Exception {
         if(!userService.validate(user)) {
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/register").toUriString());
+            Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
+            String accessToken = JWT.create()
+                    .withSubject(user.getUsername())
+                    .withExpiresAt(new Date(System.currentTimeMillis()+86400000))
+                    .withIssuer(request.getRequestURL().toString())
+                    .withClaim("rol",user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
+                    .sign(algorithm);
+            List<String> tokens = new ArrayList<>();
+            tokens.add(accessToken);
+            response.setContentType(APPLICATION_JSON_VALUE);
+            new ObjectMapper().writeValue(response.getOutputStream(),tokens);
             return ResponseEntity.created(uri).body(userService.saveUser(user));
         }else{
             return new ResponseEntity("El usuario ya existe", HttpStatus.BAD_REQUEST);
@@ -104,8 +115,7 @@ public class UserController {
         Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT decodedJWT = verifier.verify(token);
-        String[] tokenRol = decodedJWT.getClaim("rol").asArray(String.class);
-        return tokenRol;
+        return decodedJWT.getClaim("rol").asArray(String.class);
     }
 
 }

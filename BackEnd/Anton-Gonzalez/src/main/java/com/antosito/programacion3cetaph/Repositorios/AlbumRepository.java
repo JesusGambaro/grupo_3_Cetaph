@@ -1,16 +1,12 @@
 package com.antosito.programacion3cetaph.Repositorios;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
-import com.antosito.programacion3cetaph.Entidades.Artista;
-import com.antosito.programacion3cetaph.Entidades.Singles;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 

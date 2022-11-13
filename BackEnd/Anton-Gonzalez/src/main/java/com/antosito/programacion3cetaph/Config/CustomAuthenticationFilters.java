@@ -18,7 +18,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -33,9 +36,9 @@ public class CustomAuthenticationFilters extends UsernamePasswordAuthenticationF
     }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String username,password;
+        Object username,password;
         try {
-            Map<String, String> requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+            var requestMap = new ObjectMapper().readValue(request.getInputStream(), Map.class);
             username = requestMap.get("username");
             password = requestMap.get("password");
         } catch (IOException e) {
@@ -56,10 +59,8 @@ public class CustomAuthenticationFilters extends UsernamePasswordAuthenticationF
                 .withClaim("rol",user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
         List<String> tokens = new ArrayList<>();
-        String rolSoy = user.getAuthorities().toString().replace("[", "").replace("]", "");
-        tokens.add(accessToken);
-        tokens.add(rolSoy);
-        response.setContentType(APPLICATION_JSON_VALUE);
+          tokens.add(accessToken);
+          response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(),tokens);
     }
 }

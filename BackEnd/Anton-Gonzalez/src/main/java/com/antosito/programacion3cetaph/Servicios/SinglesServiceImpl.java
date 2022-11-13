@@ -30,8 +30,7 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
     @Override
     public List<Singles> searchFilter(String filtroName) throws Exception {
         try {
-            List<Singles> singles = singlesRepository.searchFilter(filtroName);
-            return singles;
+            return singlesRepository.searchFilter(filtroName);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -40,8 +39,7 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
     @Override
     public List<Singles> searchSinglesByArtist(String Name) throws Exception {
         try{
-            List<Singles> singlesList = singlesRepository.searchSinglebyArtista(Name);
-            return singlesList;
+            return singlesRepository.searchSinglebyArtista(Name);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -50,8 +48,7 @@ public class SinglesServiceImpl extends BaseServiceImplentation<Singles, Long> i
     @Override
     public List<Singles> LandingCarrusel() throws Exception {
         try {
-            List<Singles> singlesList = singlesRepository.landingCarrusel();
-            return singlesList;
+            return singlesRepository.landingCarrusel();
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

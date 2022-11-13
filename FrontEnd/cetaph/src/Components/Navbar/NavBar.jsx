@@ -9,8 +9,6 @@ const NavBar = () => {
     <nav>
       <div className="nav-wrapper">
         <span className="logo" onClick={() => navigate('/')}>
-          {/*   <h1 className="logo-title">CETAPH</h1>
-          <h2 className="logo-subtitle">MUSIC RECORDS</h2> */}
           <img src="/Images/cetaphIcono.png" alt="logo" />
         </span>
         <ul className="nav-menu">

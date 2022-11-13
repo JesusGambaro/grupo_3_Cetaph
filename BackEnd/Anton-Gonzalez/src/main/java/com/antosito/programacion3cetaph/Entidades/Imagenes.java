@@ -9,16 +9,16 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "imgs")
+@Table(name = "Imagen")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Imagenes extends Base{
-    @Column(name = "imgUrl")
+public class Imagenes extends Base {
+    @Column(name = "img_url")
     private String urlImg;
 
-    @Column(name = "CloudinaryId")
+    @Column(name = "cloudinary_id")
     private String CloudinaryId;
 
 }

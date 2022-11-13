@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import NavBar from '../Navbar/NavBar'
 import Card from '../Card/Card'
@@ -6,8 +6,15 @@ import CategoryCard from '../CategoryCard/CategoryCard'
 import './home.scss'
 import CardsScroller from './CardsScroller/CardsScroller'
 import Footer from '../Footer/Footer'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getGenres } from '../../Redux/actions/catalogue'
 const Home = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getGenres())
+    /*  filter = { ...filter }
+    dispatch(filterCatalogue(filter)) */
+  }, [])
   return (
     <>
       <NavBar />

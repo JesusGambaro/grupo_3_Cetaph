@@ -6,15 +6,15 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import axios from 'axios'
 import Loading from '../../Loading/Loading'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLanding } from '../../../Redux/actions/landing'
+import { getLanding } from '../../../Redux/actions/landing'
 const CardsScroller = () => {
   const slider = useRef(null)
 
   const dispatch = useDispatch()
-  const landingAlbums = useSelector(({ main }) => main.landing).slice(0, 1)
-
+  const landingAlbums = useSelector(({ main }) => main.landing).slice(0)
+  console.log(landingAlbums)
   useEffect(() => {
-    dispatch(setLanding())
+    dispatch(getLanding())
     const el = slider.current
     if (el) {
       const onWheel = (e) => {

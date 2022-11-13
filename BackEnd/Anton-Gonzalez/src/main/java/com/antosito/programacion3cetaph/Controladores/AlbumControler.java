@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +69,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                     genero,
                     pageable));
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
@@ -100,9 +98,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
 
                 BufferedImage bi = ImageIO.read(file.getInputStream());
                 if (bi == null) {
-                    return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("imagen no válida", HttpStatus.BAD_REQUEST);
                 }
-                Map result = cloudinaryService.upload(file);
+                var result = cloudinaryService.upload(file);
                 Imagenes imagenes = new Imagenes((String) result.get("url"), (String) result.get("public_id"));
                 imagenesService.save(imagenes);
                 returnImgs.add(imagenes);
@@ -112,7 +110,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 if (singlesList != null) {
                     int iterator = 0;
                     for (MultipartFile music : multipartFileMusic) {
-                        Map result = cloudinaryService.uploadMusic(music);
+                        var result = cloudinaryService.uploadMusic(music);
                         Singles singles = singlesList.get(iterator);
                         singles.setUrlMusic((String) result.get("url"));
                         singles.setCloudinaryId((String) result.get("public_id"));
@@ -136,7 +134,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             if (!albumService.exists(id))
-                return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("no existe", HttpStatus.NOT_FOUND);
 
             Albums album = albumService.findById(id);
             List<Imagenes> imagenes = (album.getImagenes());
@@ -145,12 +143,12 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             List<Cart> CartContaining = (cartService.findCartbyAlbumList(album.getId()));
             for (Cart cart : CartContaining) {
                 System.out.println(cart.getId());
-                cartService.delete((long) cart.getId());
+                cartService.delete(cart.getId());
             }
 
             albumService.delete(id);
             for (Imagenes img : imagenes) {
-                Map result = cloudinaryService.delete(img.getCloudinaryId());
+                var result = cloudinaryService.delete(img.getCloudinaryId());
                 System.out.println("---------------------------------------------------------------------------");
                 System.out.println("Borrando Imagenes");
                 System.out.println("---------------------------------------------------------------------------");
@@ -161,15 +159,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 } else {
                     System.out.println("No se Borro Correctamente");
                 }
-                try {
-
-                } catch (Exception e) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error imgs\": \"" + e.getMessage() + "\"}");
-                }
-
             }
             for (Singles single : singles) {
-                Map result = cloudinaryService.delete(single.getCloudinaryId());
+                var result = cloudinaryService.delete(single.getCloudinaryId());
                 System.out.println("---------------------------------------------------------------------------");
                 System.out.println("Borrando Canciones");
                 System.out.println("---------------------------------------------------------------------------");
@@ -204,9 +196,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                 for (MultipartFile file : multipartFleImgs) {
                     BufferedImage bi = ImageIO.read(file.getInputStream());
                     if (bi == null) {
-                        return new ResponseEntity("imagen no vÃ¡lida", HttpStatus.BAD_REQUEST);
+                        return new ResponseEntity<>("imagen no vÃ¡lida", HttpStatus.BAD_REQUEST);
                     }
-                    Map result = cloudinaryService.upload(file);
+                    var result = cloudinaryService.upload(file);
                     Imagenes imagenes = new Imagenes((String) result.get("url"), (String) result.get("public_id"));
                     imagenesService.save(imagenes);
                     returnImgs.add(imagenes);
@@ -217,7 +209,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                     System.out.println("-------------------------------------------");
                     System.out.println("        Estoy creando una cancion          ");
                     System.out.println("-------------------------------------------");
-                    Map result = cloudinaryService.uploadMusic(multipartFileMusic[i]);
+                    var result = cloudinaryService.uploadMusic(multipartFileMusic[i]);
                     singlesList.get(i).setCloudinaryId((String) result.get("public_id"));
                     singlesList.get(i).setUrlMusic((String) result.get("url"));
                     singleService.save(singlesList.get(i));
@@ -276,7 +268,7 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
         try {
             return ResponseEntity.status(HttpStatus.OK).body(albumService.findAllPaged(pageable));
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

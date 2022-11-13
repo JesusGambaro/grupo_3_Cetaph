@@ -1,6 +1,5 @@
 package com.antosito.programacion3cetaph.Repositorios;
 
-import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Singles;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

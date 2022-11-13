@@ -16,4 +16,5 @@ public interface UserService {
     Page<User> getAllUser(Pageable pageable);
     boolean validate(User user);
     boolean comprobateROl(Rol rol);
+    boolean existsByName (String rolname);
 }

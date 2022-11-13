@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   landing: [],
   catalogue: [],
-  cart: [],
+  genres: [],
+  formatos: [],
   filter: {
     genre: '',
     priceMin: '',
@@ -12,11 +13,11 @@ const initialState = {
     explicit: '',
     searchParam: '',
     formato: '',
-    order: '',
+    sort: '',
     direction: '',
   },
+  cart: [],
 }
-
 export const mainReducer = createSlice({
   name: 'main',
   initialState,
@@ -24,14 +25,22 @@ export const mainReducer = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload
     },
-    getLanding: (state, action) => {
+    setLanding: (state, action) => {
       state.landing = action.payload
     },
-    getCatalogue: (state, action) => {
+    setCatalogue: (state, action) => {
       state.catalogue = action.payload
     },
-    setFilter: (state, action) => {
-      state.filter = action.payload
+    setFilter: (state, { payload }) => {
+      Object.keys(payload).forEach((key) => {
+        state.filter[key] = payload[key]
+      })
+    },
+    setGenres: (state, action) => {
+      state.genres = action.payload
+    },
+    setFormatos: (state, action) => {
+      state.formatos = action.payload
     },
   },
 })
@@ -40,7 +49,9 @@ export default mainReducer.reducer
 
 export const {
   setLoading,
-  getLanding,
-  getCatalogue,
+  setLanding,
+  setCatalogue,
   setFilter,
+  setGenres,
+  setFormatos,
 } = mainReducer.actions

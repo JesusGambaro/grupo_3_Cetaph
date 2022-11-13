@@ -1,11 +1,13 @@
 package com.antosito.programacion3cetaph.Entidades;
 
-import lombok.*;
-import org.hibernate.envers.Audited;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "singles")
@@ -22,13 +24,13 @@ extendiendo de una clase Base que le asigna a todos con una ID*/
     @Column(name = "duracion")
     private int duracion;
 
-    @Column(name = "esExplicito")
+    @Column(name = "es_explicito")
     private boolean explicit;
 
-    @Column(name = "MusicUrl")
+    @Column(name = "music_url")
     private String urlMusic;
 
-    @Column(name = "CloudinaryId")
+    @Column(name = "cloudinary_id")
     private String CloudinaryId;
 
 

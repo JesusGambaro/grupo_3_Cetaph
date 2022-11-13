@@ -13,14 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/v1/img")
@@ -33,11 +28,11 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
     @DeleteMapping("/deleteImg/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") long id) throws Exception {
         if(!imagenesService.exists(id))
-            return new ResponseEntity("no existe", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("no existe", HttpStatus.NOT_FOUND);
         Imagenes imagen = imagenesService.findById(id);
-        Map result = cloudinaryService.delete(imagen.getCloudinaryId());
+        var result = cloudinaryService.delete(imagen.getCloudinaryId());
         imagenesService.delete(id);
-        return new ResponseEntity("imagen eliminada", HttpStatus.OK);
+        return new ResponseEntity<>("imagen eliminada", HttpStatus.OK);
     }
 
 
@@ -48,9 +43,9 @@ public class ImagenesController extends BaseControladorImplementacion<Imagenes, 
             for (MultipartFile file : multipartFile){
                 BufferedImage bi = ImageIO.read(file.getInputStream());
                 if (bi == null) {
-                    return new ResponseEntity("imagen no válida", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("imagen no válida", HttpStatus.BAD_REQUEST);
                 }
-                Map result = cloudinaryService.upload(file);
+                var result = cloudinaryService.upload(file);
                 Imagenes imagenes = new Imagenes((String) result.get("url"),(String) result.get("public_id"));
                 returnImgs.add(imagenes);
             }

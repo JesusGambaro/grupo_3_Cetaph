@@ -27,7 +27,7 @@ public class GeneroController extends BaseControladorImplementacion<Genero, Gene
         try{
             return ResponseEntity.status(HttpStatus.OK).body(generoService.findAllPaged(pageable));
         }catch (Exception e){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

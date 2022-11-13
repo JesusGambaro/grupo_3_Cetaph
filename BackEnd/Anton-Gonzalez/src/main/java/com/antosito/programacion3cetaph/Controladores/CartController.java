@@ -12,7 +12,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/v1/cart")
 public class CartController extends BaseControladorImplementacion<Cart, CartServiceImpl> {
-
     @Autowired
     CartService cartService;
     @Autowired
@@ -36,8 +34,7 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT decodedJWT = verifier.verify(token);
-        String tokenUser = decodedJWT.getSubject();
-        return tokenUser;
+        return decodedJWT.getSubject();
     }
     @GetMapping("/get")
     public ResponseEntity<?> getUserCart(@RequestParam("token") String token) throws Exception {
@@ -49,7 +46,7 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
 
         User userCurrent = userService.getUser(getUsername(token));
         System.out.println(userCurrent);
-        List<Albums> albumCart = new ArrayList<Albums>();
+        List<Albums> albumCart = new ArrayList<>();
         if(userCurrent == null){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
         }
@@ -70,7 +67,7 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         List<Albums> albumCart = cart.getAlbum();
         if(albumService.exists(id)){
             albumCart.add(albumService.findById(id));
-            for(Albums albums : albumCart){
+            for(Albums ignored : albumCart){
                 cart.setAlbum(albumCart);
             }
         }else{
