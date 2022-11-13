@@ -327,7 +327,7 @@ const CreateAlbumFormNew = ({
               errores.precio = "El precio debe ser mayor a 0";
             }
 
-            // Validacion precio
+            // Validacion stock
             if (!valores.album.stock || valores.album.stock < 1) {
               errores.stock = "Por favor ingresa un stock";
             } else if (valores.album.stock < 1) {
@@ -343,7 +343,7 @@ const CreateAlbumFormNew = ({
                 "Por favor ingresa una fecha de lanzamiento";
             }
 
-            // Validacion fecha de lanzamiento
+            // Validacion genero
             if (!valores.album.genero.id) {
               errores.genero = "Por favor ingrese un genero";
             }
@@ -353,7 +353,7 @@ const CreateAlbumFormNew = ({
               errores.formato = "Por favor ingrese un formato";
             }
 
-            // Validacion fecha de lanzamiento
+            // Validacion artista
             if (!valores.newArtists.length) {
               errores.artista = "Por favor ingrese un artista";
             }
@@ -392,7 +392,7 @@ const CreateAlbumFormNew = ({
               <div className="CreateAlbumForm">
                 <Form className="form" onSubmit={handleSubmit}>
                   <header className="form-header">
-                    <h1>Create An Album</h1>
+                    <h1>Crea un artista</h1>
                     <span>
                       <button onClick={() => cancelFunc()}>
                         <i className="bi bi-x-circle-fill"></i>Cancel
@@ -681,6 +681,14 @@ const CreateAlbumFormNew = ({
                           id="descripcion"
                           cols="30"
                           rows="10"
+                          value={values.album.descripcion}
+                          onChange={(e) => {
+                            let inputName = e.target.name;
+                            setFieldValue("album", {
+                              ...values.album,
+                              [inputName]: e.target.value,
+                            });
+                          }}
                         ></Field>
                       </div>
                     </section>
@@ -718,7 +726,7 @@ const CreateAlbumFormNew = ({
                                       });
                                       setFieldValue("deletedImages", [
                                         ...values.deletedImages,
-                                        img.cloudinaryId && img.cloudinaryId,
+                                        img.id && img.id,
                                       ]);
                                       setFieldValue("album", {
                                         ...values.album,

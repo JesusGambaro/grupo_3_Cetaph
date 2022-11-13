@@ -148,16 +148,14 @@
         justify-content: space-around;
         flex-direction: column;
         position: relative;
-        gap: 0.5rem;
         width: 100%;
-        flex-basis: 15rem;
+        flex-basis: 10rem;
         .images-container {
           display: flex;
           flex-wrap: wrap;
           gap: 1rem;
           justify-content: left;
           align-items: center;
-          flex-grow: 1;
         }
         .imagent {
           width: 12rem;
@@ -316,7 +314,6 @@
               margin: 0;
             }
             span {
-              border: 1px solid;
               min-width: 13rem;
               display: flex;
               flex-direction: row;
@@ -331,7 +328,6 @@
             }
             h1,
             h3 {
-              border: 1px solid;
               max-width: 9rem;
               min-width: 3rem;
               margin: 0;

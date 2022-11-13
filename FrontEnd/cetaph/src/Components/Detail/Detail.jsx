@@ -111,7 +111,11 @@ const Detail = () => {
               </span>
               <span>
                 <label>Canciones:</label>
-                <h1>{disk?.signles}</h1>
+                <h1>{disk?.singles.length}</h1>
+              </span>
+              <span>
+                <label>Formato:</label>
+                <h1>{disk?.formato}</h1>
               </span>
               <span>
                 <label>Artistas:</label>
