@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 100%;
   min-height: 80vh;
+  padding: 1rem;
   .cart-header {
     padding: 0rem 3rem;
     width: 100%;
@@ -12,6 +13,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
+
     cursor: default;
     &.empty {
       display: flex;
@@ -24,7 +26,40 @@
         cursor: pointer;
       }
     }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      .options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease-in-out;
+        color: #fff;
+        border: 2px solid #000;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border-radius: 0.5rem;
+        i {
+          margin-right: 0.3rem;
+        }
+        &:hover {
+          transition: all 0.3s ease-in-out;
+          transform: scale(1.1);
+          background-color: rgb(0, 97, 0);
+        }
+        background: green;
+        &:last-child {
+          background: rgb(209, 3, 3);
+          &:hover {
+            background-color: rgb(185, 3, 3);
+          }
+        }
+      }
+    }
   }
+
   .albums-container {
     display: flex;
     align-items: center;
@@ -55,7 +90,7 @@
           color: black;
           transition: all var(--d) var(--e);
           border-radius: 12px;
-          box-shadow: 0 0 .9rem 0.1rem rgb(127 82 131 / 30%);
+          box-shadow: 0 0 0.9rem 0.1rem rgb(127 82 131 / 30%);
           background-color: var(--pastel-color-quaternary);
           padding-right: 2rem;
           .imagen-album {

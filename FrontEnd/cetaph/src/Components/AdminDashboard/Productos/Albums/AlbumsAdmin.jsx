@@ -175,7 +175,10 @@ export const AlbumsAdmin = ({
                     <span className="title">
                       <h1>{param.nombre}</h1>
                       <span className="subtitle">
-                        <div className="artista">{param.formato}<p>·</p></div>
+                        <div className="artista">
+                          {param.formato}
+                          <p>·</p>
+                        </div>
                         {param.artistas.map((artista, id) => {
                           return (
                             <div key={id} className="artista">

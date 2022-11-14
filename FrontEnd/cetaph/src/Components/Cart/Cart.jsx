@@ -4,9 +4,15 @@ import "./Cart.scss";
 import Loading from "../Loading/Loading";
 import ConfirmDialog from "../AdminDashboard/ConfirmDialog/ConfirmDialog";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 const Cart = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isActive: false,
+    cancelFunc: null,
+    aceptFunc: null,
+  });
   const [albumsCart, setAlbumsCart] = useState([
     {
       id: 1,
@@ -116,7 +122,8 @@ const Cart = () => {
         setLoading(false);
       });
   };
-  const vaciarCarrito = () => {
+  const vaciarCarrito = (text) => {
+    setLoading(true);
     axios
       .put(
         "http://localhost:9000/api/v1/cart/cleanCart?token=" +
@@ -124,6 +131,13 @@ const Cart = () => {
       )
       .then(() => {
         getCart();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: text ? text : "Se vacio el carrito",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       });
   };
   const toMinsAndSecs = (ms) => {
@@ -132,14 +146,21 @@ const Cart = () => {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
   const delCart = (idCart) => {
+    setLoading(true);
     axios
       .put(
-        `http://localhost:9000/api/v1/cart/deleteAlbum/?id=${idCart}&token=${localStorage.getItem(
+        `http://localhost:9000/api/v1/cart/deleteAlbum/?idAlbumBorrado=${idCart}&token=${localStorage.getItem(
           "token"
         )}`
       )
       .then((res) => {
-        console.log(res);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Se elimino el album del carrito",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         getCart();
       })
       .catch((res) => {
@@ -154,20 +175,51 @@ const Cart = () => {
             {" "}
             <header className={"cart-header"}>
               <h1>Carrito de compra</h1>
-              <span>
-                <button>Comprar</button>
+              <span className="buttons">
                 <button
+                  className="options"
                   onClick={() => {
-                    vaciarCarrito();
+                    vaciarCarrito("La compra se realizo con exito");
                   }}
                 >
+                  <i class="fa-regular fa-credit-card"></i>
+                  Comprar
+                </button>
+                <button
+                  className="options"
+                  onClick={() => {
+                    if (!confirmDialog.isActive) {
+                      setConfirmDialog({
+                        isActive: true,
+                        aceptFunc: () => {
+                          vaciarCarrito();
+                          setConfirmDialog({
+                            ...confirmDialog,
+                            isActive: false,
+                            aceptFunc: null,
+                            cancelFunc: null,
+                          });
+                        },
+                        cancelFunc: () => {
+                          setConfirmDialog({
+                            ...confirmDialog,
+                            isActive: false,
+                            aceptFunc: null,
+                            cancelFunc: null,
+                          });
+                        },
+                      });
+                    }
+                  }}
+                >
+                  <i class="fa-solid fa-trash"></i>
                   Vaciar carrito
                 </button>
               </span>
             </header>
             <div className={"albums-container"}>
               {loading ? (
-                <Loading />
+                <Loading text={"Cargando carrito"} />
               ) : (
                 <div className="wrapper">
                   {albumsCart.map((album, key) => {
@@ -219,7 +271,28 @@ const Cart = () => {
                         <div className="buttons-container">
                           <button
                             onClick={() => {
-                              delCart(album.id);
+                              if (!confirmDialog.isActive) {
+                                setConfirmDialog({
+                                  isActive: true,
+                                  aceptFunc: () => {
+                                    delCart(album.id);
+                                    setConfirmDialog({
+                                      ...confirmDialog,
+                                      isActive: false,
+                                      aceptFunc: null,
+                                      cancelFunc: null,
+                                    });
+                                  },
+                                  cancelFunc: () => {
+                                    setConfirmDialog({
+                                      ...confirmDialog,
+                                      isActive: false,
+                                      aceptFunc: null,
+                                      cancelFunc: null,
+                                    });
+                                  },
+                                });
+                              }
                             }}
                           >
                             <i className="fa-solid fa-xmark"></i>
@@ -245,7 +318,16 @@ const Cart = () => {
           </header>
         )}
       </section>
-      <ConfirmDialog></ConfirmDialog>
+      {confirmDialog.isActive && (
+        <ConfirmDialog
+          cancelFunc={() => {
+            confirmDialog.cancelFunc();
+          }}
+          aceptFunc={() => {
+            confirmDialog.aceptFunc();
+          }}
+        ></ConfirmDialog>
+      )}
     </>
   );
 };

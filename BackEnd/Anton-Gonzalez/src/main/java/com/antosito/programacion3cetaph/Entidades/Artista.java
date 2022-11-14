@@ -32,6 +32,4 @@ public class Artista extends Base {
     @OneToOne(cascade = CascadeType.REFRESH)
     private Imagenes imagenes;
 
-
-
 }

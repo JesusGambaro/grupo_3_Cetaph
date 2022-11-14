@@ -3,22 +3,32 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import "./card.scss";
 import axios from "axios";
+import Swal from "sweetalert2";
 const Card = ({ color, data }) => {
   const navigate = useNavigate();
   //console.log(data);
   const addCart = (idCart) => {
     axios
       .post(
-        `http://localhost:9000/api/v1/cart/add?id=${idCart}&token=${localStorage.getItem("token")}`
+        `http://localhost:9000/api/v1/cart/add?idAlbum=${idCart}&token=${localStorage.getItem(
+          "token"
+        )}`
       )
       .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Se añadio al carrito correctamente",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         console.log(res);
       })
       .catch((res) => {
         console.log(res);
       });
   };
-  
+
   return (
     <>
       <div
@@ -51,7 +61,7 @@ const Card = ({ color, data }) => {
             className="add-to-cart"
             onClick={() => {
               console.log("hello");
-              addCart(data?.id)
+              addCart(data?.id);
             }}
           >
             Añadir al Carrito

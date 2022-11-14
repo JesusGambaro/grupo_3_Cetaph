@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
@@ -7,14 +7,14 @@ const initialState = {
   genres: [],
   formatos: [],
   filter: {
-    genre: '',
-    priceMin: '',
-    priceMax: '',
-    explicit: '',
-    searchParam: '',
-    formato: '',
-    sort: '',
-    direction: '',
+    genre: "",
+    priceMin: "",
+    priceMax: "",
+    explicit: "",
+    searchParam: "",
+    formato: "",
+    sort: "",
+    direction: "",
     page: 0,
     size: {
       totalElements: 0,
@@ -25,36 +25,36 @@ const initialState = {
     size: 0,
   },
   cart: [],
-}
+};
 export const mainReducer = createSlice({
-  name: 'main',
+  name: "main",
   initialState,
   reducers: {
     setLoading: (state, action) => {
-      state.loading = action.payload
+      state.loading = action.payload;
     },
     setLanding: (state, action) => {
-      state.landing = action.payload
+      state.landing = action.payload;
     },
     setCatalogue: (state, action) => {
-      state.catalogue = action.payload
+      state.catalogue = action.payload;
     },
     setFilter: (state, { payload }) => {
-      console.log(payload)
+      //console.log(payload)
       Object.keys(payload).forEach((key) => {
-        state.filter[key] = payload[key]
-      })
+        state.filter[key] = payload[key];
+      });
     },
     setGenres: (state, action) => {
-      state.genres = action.payload
+      state.genres = action.payload;
     },
     setFormatos: (state, action) => {
-      state.formatos = action.payload
+      state.formatos = action.payload;
     },
   },
-})
+});
 
-export default mainReducer.reducer
+export default mainReducer.reducer;
 
 export const {
   setLoading,
@@ -63,4 +63,4 @@ export const {
   setFilter,
   setGenres,
   setFormatos,
-} = mainReducer.actions
+} = mainReducer.actions;

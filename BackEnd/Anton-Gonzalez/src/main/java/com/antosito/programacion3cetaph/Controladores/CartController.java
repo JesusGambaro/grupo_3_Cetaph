@@ -51,7 +51,7 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         return ResponseEntity.status(HttpStatus.OK).body(cart.getAlbum());
     }
     @PostMapping("/add")
-    public ResponseEntity<?> addToCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> addToCart(@RequestParam("idAlbum")Long id,@RequestParam("token") String token) throws Exception {
 
         User userCurrent = userService.getUser(getUsername(token));
         System.out.println(userCurrent);
@@ -81,8 +81,11 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         return ResponseEntity.status(HttpStatus.OK).body("Se Guardo");
     }
 
+
+
+
     @PutMapping("/deleteAlbum/")
-    public ResponseEntity<?> deleteAlbum(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> deleteAlbum(@RequestParam("idAlbumBorrado")Long id,@RequestParam("token") String token) throws Exception {
         User user = userService.getUser(getUsername(token));
 
         if (user == null){
@@ -91,21 +94,18 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         try {
             //TODO Update not working
             Cart oldCart = cartService.getCartbyUser(user);
-            List<Albums> albumsList = new ArrayList<>();
-            albumsList = oldCart.getAlbum();
+            List<Albums> albumsList = oldCart.getAlbum();
+
             if (!albumService.exists(id)){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
             }
             for (int i = 0; i < albumsList.size() ; i++) {
-                System.out.println(albumsList.get(i).getId()+ " -- "+id);
                 if (albumsList.get(i).getId().equals(id)){
-                    System.out.println("se encontro album");
                     albumsList.remove(i);
                 }
 
             }
             Cart newCart = new Cart(user,albumsList);
-            System.out.println(albumsList);
             cartService.delete(oldCart.getId());
             cartService.save(newCart);
             return ResponseEntity.status(HttpStatus.OK).body("Se actualizo");
