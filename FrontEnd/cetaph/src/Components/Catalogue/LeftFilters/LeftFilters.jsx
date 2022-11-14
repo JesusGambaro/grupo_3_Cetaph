@@ -9,24 +9,32 @@ import {
 import Select from "react-select";
 import chroma from "chroma-js";
 import { setFilter } from "../../../Redux/reducers/mainReducer";
-
+import MultiRangeSlider from "multi-range-slider-react";
+import { act } from "react-dom/test-utils";
+import FiltersItems from "./FiltersItems";
 const LeftFilters = ({ setUpFilters }) => {
   const dispatch = useDispatch();
   let { filter, genres, formatos } = useSelector(({ main }) => main);
+  const [checkeds, setCheckeds] = useState([]);
   const [leftFilter, setLeftFilter] = useState({
     genre: "",
     formato: "",
     explicit: "",
     price: {
       min: 0,
-      max: 0,
+      max: 1000,
     },
   });
+
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getFormatos());
     leftFilter.explicit = filter.explicit;
+    if (!leftFilter.length) setCheckeds([]);
   }, []);
+  const handleCheckSelect = (key) => {
+    setCheckeds(checkeds.filter((select) => select !== key));
+  };
 
   const selectStyle = {
     control: () => ({
@@ -37,6 +45,7 @@ const LeftFilters = ({ setUpFilters }) => {
       borderRadius: ".5rem",
       padding: "0 0.5rem",
       backgroundColor: "#fefbf6",
+      placeholder: "black",
     }),
     menu: (provided) => ({
       ...provided,
@@ -90,10 +99,20 @@ const LeftFilters = ({ setUpFilters }) => {
       color: "black",
     }),
   };
-
+  const handlePrice = (e) => {
+    setLeftFilter({
+      ...leftFilter,
+      price: { min: e.minValue, max: e.maxValue },
+    });
+  };
   return (
     <div className="filters-container">
+      <FiltersItems
+        filters={leftFilter}
+        handleCheckSelect={(key) => handleCheckSelect(key)}
+      />
       <button
+        className="resetFilters"
         onClick={() => {
           setUpFilters({
             genre: "",
@@ -112,13 +131,67 @@ const LeftFilters = ({ setUpFilters }) => {
             explicit: "",
             price: {
               min: 0,
-              max: 0,
+              max: 1000,
             },
           });
         }}
       >
-        Reset Filters
+        Reseteo de Filtros
       </button>
+      <div className="price-filter">
+        <h4>Precio</h4>
+        <MultiRangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          ruler={false}
+          label={true}
+          preventWheel={true}
+          minValue={leftFilter.price.min}
+          maxValue={leftFilter.price.max}
+          onInput={(e) => {
+            handlePrice(e);
+          }}
+        />
+        <div className="prices-container">
+          <span>
+            Min
+            <input
+              type="number"
+              value={leftFilter.price.min}
+              onChange={(e) =>
+                setLeftFilter({
+                  ...leftFilter,
+                  price: { ...leftFilter.price, min: e.target.value },
+                })
+              }
+            />
+          </span>
+          <span>
+            Max
+            <input
+              type="number"
+              value={leftFilter.price.max}
+              onChange={(e) =>
+                setLeftFilter({
+                  ...leftFilter,
+                  price: { ...leftFilter.price, max: e.target.value },
+                })
+              }
+            />
+          </span>
+          <button
+            onClick={() => {
+              setUpFilters({
+                priceMin: leftFilter.price.min,
+                priceMax: leftFilter.price.max,
+              });
+            }}
+          >
+            <i className="bi bi-caret-right-fill"></i>
+          </button>
+        </div>
+      </div>
       <Select
         options={[
           {
@@ -135,16 +208,31 @@ const LeftFilters = ({ setUpFilters }) => {
         onSelectResetsInput={false}
         onBlurResetsInput={false}
         styles={selectStyle}
-        defaultValue={{ value: "genre", label: "Genero" }}
-        onChange={(e) => {
-          setUpFilters({ genre: e.value });
-          setLeftFilter({ ...leftFilter, genre: e.value });
+        placeholder={"Genero"}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            neutral50: "#1A1A1A", // Placeholder color
+          },
+        })}
+        //defaultValue={{ value: "genre", label: "Genero" }}
+        onChange={(e, { action }) => {
+          console.log(action);
+          if (action == "clear") {
+            setUpFilters({ genre: "" });
+            setLeftFilter({ ...leftFilter, genre: "" });
+          } else {
+            setUpFilters({ genre: e.value });
+            setLeftFilter({ ...leftFilter, genre: e.value });
+          }
         }}
         isSearchable={false}
+        isClearable
         value={
-          leftFilter.genre === ""
-            ? { value: "genre", label: "Genero" }
-            : { value: leftFilter.genre, label: leftFilter.genre }
+          leftFilter.genre != ""
+            ? { value: leftFilter.genre, label: leftFilter.genre }
+            : null
         }
       />
       <Select
@@ -160,39 +248,95 @@ const LeftFilters = ({ setUpFilters }) => {
             label: formato,
           })),
         ]}
+        placeholder={"Formato"}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            neutral50: "#1A1A1A", // Placeholder color
+          },
+        })}
         onSelectResetsInput={false}
         onBlurResetsInput={false}
         styles={selectStyle}
-        defaultValue={{ value: "formatos", label: "Formatos" }}
-        onChange={(e) => {
-          setUpFilters({ formato: e.value });
-          setLeftFilter({ ...leftFilter, formato: e.value });
+        onChange={(e, { action }) => {
+          console.log(action);
+          if (action == "clear") {
+            setUpFilters({ formato: "" });
+            setLeftFilter({ ...leftFilter, formato: "" });
+          } else {
+            setUpFilters({ formato: e.value });
+            setLeftFilter({ ...leftFilter, formato: e.value });
+          }
         }}
         isSearchable={false}
+        isClearable
         value={
-          leftFilter.formato === ""
-            ? { value: "formatos", label: "Formatos" }
-            : { value: leftFilter.formato, label: leftFilter.formato }
+          leftFilter.formato != ""
+            ? { value: leftFilter.formato, label: leftFilter.formato }
+            : null
         }
       />
       <span>
-        <label>Explicit</label>
-        <input
-          type="checkbox"
-          name="esExplicito"
-          onChange={(e) => {
-            setUpFilters({
-              explicit:
-                leftFilter.explicit === "" ? true : !leftFilter.explicit,
-            });
-            setLeftFilter({
-              ...leftFilter,
-              explicit:
-                leftFilter.explicit === "" ? true : !leftFilter.explicit,
-            });
-          }}
-          checked={leftFilter.explicit === "" ? false : leftFilter.explicit}
-        />
+        <label>Explicito</label>
+        <ul>
+          <li>
+            <label>Si</label>
+            <input
+              type="checkbox"
+              name="esExplicito"
+              onChange={(e) => {
+                if (leftFilter.explicit === true) {
+                  setUpFilters({
+                    explicit: "",
+                  });
+                  setLeftFilter({
+                    ...leftFilter,
+                    explicit: "",
+                  });
+                } else {
+                  setUpFilters({
+                    explicit: true,
+                  });
+                  setLeftFilter({
+                    ...leftFilter,
+                    explicit: true,
+                  });
+                }
+              }}
+              checked={leftFilter.explicit === "" ? false : leftFilter.explicit}
+            />
+          </li>
+          <li>
+            <label>No</label>
+            <input
+              type="checkbox"
+              name="esExplicito"
+              onChange={(e) => {
+                if (leftFilter.explicit === false) {
+                  setUpFilters({
+                    explicit: "",
+                  });
+                  setLeftFilter({
+                    ...leftFilter,
+                    explicit: "",
+                  });
+                } else {
+                  setUpFilters({
+                    explicit: false,
+                  });
+                  setLeftFilter({
+                    ...leftFilter,
+                    explicit: false,
+                  });
+                }
+              }}
+              checked={
+                leftFilter.explicit === "" ? false : !leftFilter.explicit
+              }
+            />
+          </li>
+        </ul>
       </span>
     </div>
   );

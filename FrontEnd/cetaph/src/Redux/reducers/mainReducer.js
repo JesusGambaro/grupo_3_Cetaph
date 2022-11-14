@@ -5,6 +5,7 @@ const initialState = {
   landing: [],
   catalogue: [],
   genres: [],
+  artistas: [],
   formatos: [],
   filter: {
     genre: "",
@@ -39,6 +40,9 @@ export const mainReducer = createSlice({
     setCatalogue: (state, action) => {
       state.catalogue = action.payload;
     },
+    setArtistas: (state, action) => {
+      state.artistas = action.payload;
+    },
     setFilter: (state, { payload }) => {
       //console.log(payload)
       Object.keys(payload).forEach((key) => {
@@ -63,4 +67,5 @@ export const {
   setFilter,
   setGenres,
   setFormatos,
+  setArtistas
 } = mainReducer.actions;

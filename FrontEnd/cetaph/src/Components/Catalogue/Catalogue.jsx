@@ -4,17 +4,18 @@ import Card from "../Card/Card";
 import LeftFilters from "./LeftFilters/LeftFilters";
 import "./catalogue.scss";
 import UpSideBar from "./UpSideBar/UpSideBar";
-import { filterCatalogue } from "../../Redux/actions/catalogue";
+import { filterCatalogue,getArtistas } from "../../Redux/actions/catalogue";
 import { useDispatch, useSelector } from "react-redux";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
-  const { catalogue, loading, filter } = useSelector(({ main }) => main);
+  const { catalogue, loading, filter,artistas } = useSelector(({ main }) => main);
   //#region Filters
   const [filters, setFilters] = useState({});
   useEffect(() => {
     dispatch(filterCatalogue(filter));
     setFilters(filter);
+    dispatch(getArtistas());
     //console.log(filter);
   }, []);
 
@@ -28,19 +29,19 @@ const Catalogue = () => {
     dispatch(filterCatalogue({ ...filter, ...filters }));
     window.scrollTo(0, 0);
   }, [filters]);
+  const setUpFilters = (props) => {
+    setFilters((prev) => {
+      let copy = { ...prev };
+      copy = { ...copy, ...props };
+      return copy;
+    });
+  };
   const dividedGroups = () => {
     const start = Math.floor(filters.page / 4) * 4;
     //console.log(filter.size.totalPages);
     return new Array(4).fill().map((_, i) => {
       let limit = start + i + 1;
       return limit <= filter.size.totalPages && limit;
-    });
-  };
-  const setUpFilters = (props) => {
-    setFilters((prev) => {
-      let copy = { ...prev };
-      copy = { ...copy, ...props };
-      return copy;
     });
   };
   const goPage = (e) =>

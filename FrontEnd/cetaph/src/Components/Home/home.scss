@@ -106,18 +106,19 @@ $pastel-color-quaternary: #fefbf6;
     justify-content: center;
     flex-direction: column;
     margin-top: 4rem;
-    .disks-header {
+    h1 {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+    .disks-header{
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       width: 50%;
       gap: 1rem;
-      h1 {
-        color: #fff;
-        font-size: 2rem;
-        font-weight: 600;
-      }
+      
       form {
         display: flex;
         justify-content: center;

@@ -3,18 +3,32 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { CreateArtista } from "../../Formulario/CreateArtista/CreateArtista";
 import Loading from "../../../Loading/Loading";
-export const ArtistasAdmin = ({
-  setLoading,
-  artistas,
+import {
+  filterCatalogue,
   getArtistas,
-  isLoading,
-}) => {
+} from "../../../../Redux/actions/catalogue";
+import { useDispatch, useSelector } from "react-redux";
+
+import ConfirmDialog from "../../ConfirmDialog/ConfirmDialog";
+export const ArtistasAdmin = ({}) => {
   const [formActive, setFormActive] = useState(false);
   const [isCreating, setCreating] = useState(false);
   const [artistaObject, setArtistaObject] = useState();
-
+  const dispatch = useDispatch();
+  const [filters, setFilters] = useState({});
+  const [confirmDialog, setConfirmDialog] = useState({
+    isActive: false,
+    cancelFunc: null,
+    aceptFunc: null,
+  });
+  const { loading, filter, artistas } = useSelector(({ main }) => main);
+  useEffect(() => {
+    dispatch(filterCatalogue(filter));
+    dispatch(getArtistas());
+    setFilters(filter);
+    //console.log(filter);
+  }, []);
   const deleteArtista = (id) => {
-    setLoading(true);
     axios
       .delete("http://localhost:9000/api/v1/artista/deleteArtist/" + id)
       .then((res) => {
@@ -22,93 +36,125 @@ export const ArtistasAdmin = ({
       })
       .catch((err) => {})
       .finally(() => {
-        getArtistas();
+        dispatch(getArtistas());
       });
   };
   return (
-    <div className="wrapper">
-      {formActive ? (
-        <CreateArtista
-          cancelFunc={() => {
-            setFormActive(!formActive);
-            setArtistaObject(null);
-          }}
-          artistObject={artistaObject}
-          isCreating={isCreating}
-          getArtists={getArtistas}
-        ></CreateArtista>
-      ) : (
-        <>
-          <div className="add-section">
-            <form
-              className="search-form"
-              onClick={() => {
-                //dispatch(resetState());
-                //dispatch(resetFilters());
-              }}
-            >
-              <button type="submit">
-                <i className="fa-solid fa-magnifying-glass"></i>
+    <>
+      <div className="wrapper">
+        {formActive ? (
+          <CreateArtista
+            cancelFunc={() => {
+              setFormActive(!formActive);
+              setArtistaObject(null);
+              dispatch(getArtistas());
+            }}
+            artistObject={artistaObject}
+            isCreating={isCreating}
+            getArtists={() => {
+              dispatch(getArtistas())
+            } }
+          ></CreateArtista>
+        ) : (
+          <>
+            <div className="add-section">
+              <form
+                className="search-form"
+                onClick={() => {
+                  //dispatch(resetState());
+                  //dispatch(resetFilters());
+                }}
+              >
+                <button type="submit">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <input
+                  type="text"
+                  placeholder="Nombre de artista..."
+                  //value={searchParam}
+                  //onChange={(e) => setSearchParam(e.target.value)}
+                />
+              </form>
+              <button
+                className="create-button artist"
+                onClick={() => {
+                  setFormActive(!formActive);
+                  setCreating(true);
+                  setArtistaObject(null);
+                }}
+              >
+                Crear un nuevo artista
               </button>
-              <input
-                type="text"
-                placeholder="Nombre de artista..."
-                //value={searchParam}
-                //onChange={(e) => setSearchParam(e.target.value)}
-              />
-            </form>
-            <button
-              className="create-button artist"
-              onClick={() => {
-                setFormActive(!formActive);
-                setCreating(true);
-              }}
-            > 
-            Crear un nuevo artista
-              
-            </button>
-          </div>
-          {isLoading ? (
-            <Loading></Loading>
-          ) : (
-            <div className="artistas-container">
-              {artistas.map((param, i) => {
-                return (
-                  <div className="artista-card" key={i}>
-                    <div className="img">
-                      <img src={param.imagenes.urlImg} alt="" />
-                    </div>
-                    <span className="title">
-                      <span className="subtitle">
-                        <h3>{param.nombre}</h3>
-                      </span>
-                    </span>
-                    <div className="actions">
-                      <button
-                        onClick={() => {
-                          setFormActive(!formActive);
-                          setArtistaObject(param);
-                          setCreating(false);
-                        }}
-                      >
-                        <i className="bi bi-pen"></i>Edit
-                      </button>
-                      <button
-                        onClick={() => {
-                          deleteArtista(param.id);
-                        }}
-                      >
-                        <i className="bi bi-trash"></i> Delete
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-              <h1>{!artistas.length && "No Hay Artistas"}</h1>
             </div>
-          )}
-        </>
+            {loading ? (
+              <Loading></Loading>
+            ) : (
+              <div className="artistas-container">
+                {artistas.map((param, i) => {
+                  return (
+                    <div className="artista-card" key={i}>
+                      <div className="img">
+                        <img src={param.imagenes.urlImg} alt="" />
+                      </div>
+                      <span className="title">
+                        <span className="subtitle">
+                          <h3>{param.nombre}</h3>
+                        </span>
+                      </span>
+                      <div className="actions">
+                        <button
+                          onClick={() => {
+                            setFormActive(!formActive);
+                            setArtistaObject(param);
+                            setCreating(false);
+                          }}
+                        >
+                          <i className="bi bi-pen"></i>Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (!confirmDialog.isActive) {
+                              setConfirmDialog({
+                                isActive: true,
+                                aceptFunc: () => {
+                                  deleteArtista(param.id)
+                                  setConfirmDialog({
+                                    ...confirmDialog,
+                                    isActive: false,
+                                    aceptFunc: null,
+                                    cancelFunc: null,
+                                  });
+                                },
+                                cancelFunc: () => {
+                                  setConfirmDialog({
+                                    ...confirmDialog,
+                                    isActive: false,
+                                    aceptFunc: null,
+                                    cancelFunc: null,
+                                  });
+                                },
+                              });
+                            }
+                          }}
+                        >
+                          <i className="bi bi-trash"></i> Delete
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+                <h1>{!artistas.length && "No Hay Artistas"}</h1>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      {confirmDialog.isActive && (
+        <ConfirmDialog
+          cancelFunc={confirmDialog.cancelFunc}
+          aceptFunc={confirmDialog.aceptFunc}
+        ></ConfirmDialog>
       )}
-    </div>
+    </>
   );
 };

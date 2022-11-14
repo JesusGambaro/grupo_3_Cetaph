@@ -5,22 +5,32 @@ import CreateAlbumForm from "../../Formulario/CreateAlbum/CreateAlbumFormNew";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import Loading from "../../../Loading/Loading";
-export const AlbumsAdmin = ({
-  setLoading,
-  disks,
-  getAlbums,
-  artistas,
-  setFiltros,
-  filtros,
-  isLoading,
-}) => {
+import ConfirmDialog from "../../ConfirmDialog/ConfirmDialog";
+import { filterCatalogue,getArtistas } from "../../../../Redux/actions/catalogue";
+import { useDispatch, useSelector } from "react-redux";
+export const AlbumsAdmin = () => {
   const [formActive, setFormActive] = useState(false);
   const [isCreating, setCreating] = useState(false);
   const [albumObject, setAlbumObject] = useState();
-  const [confirmDialog, setConfirmDialog] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isActive: false,
+    cancelFunc: null,
+    aceptFunc: null,
+  });
   const [artistas_select, setArtistasSelect] = useState([]);
+  const dispatch = useDispatch();
+  const [filters, setFilters] = useState({});
+  const { catalogue, loading, filter,artistas } = useSelector(({ main }) => main);
+  useEffect(() => {
+    dispatch(filterCatalogue(filter));
+    dispatch(getArtistas());
+    setFilters(filter);
+    console.log(catalogue);
+    console.log(artistas);
+    //console.log(filter);
+  }, []);
   const deleteAlbum = (id) => {
-    setLoading(true);
+    
     axios
       .delete("http://localhost:9000/api/v1/album/deleteComplete/" + id)
       .then((res) => {
@@ -28,9 +38,31 @@ export const AlbumsAdmin = ({
       })
       .catch((err) => {})
       .finally(() => {
-        getAlbums();
+        setFilters({
+          genre: "",
+          priceMin: "",
+          priceMax: "",
+          explicit: "",
+          searchParam: "",
+          formato: "",
+          sort: "",
+          direction: "",
+          page: 0,
+        });
+        dispatch(filterCatalogue({
+          genre: "",
+          priceMin: "",
+          priceMax: "",
+          explicit: "",
+          searchParam: "",
+          formato: "",
+          sort: "",
+          direction: "",
+          page: 0,
+        }));
       });
   };
+  
   useEffect(() => {
     if (artistas) {
       let artistasData = artistas.map((artista) => {
@@ -43,7 +75,7 @@ export const AlbumsAdmin = ({
       });
       setArtistasSelect(artistasData);
     }
-  }, []);
+  }, [artistas]);
   const selectStyle = {
     control: (provided, state) => ({
       display: "flex",
@@ -75,19 +107,43 @@ export const AlbumsAdmin = ({
     setConfirmDialog(false);
     setCreating(false);
     setFormActive(false);
-    getAlbums();
+    //getAlbums();
   };
   return (
+    <>
     <div className="wrapper">
       {formActive ? (
         <CreateAlbumForm
           cancelFunc={() => {
             setFormActive(!formActive);
             setAlbumObject(null);
+            dispatch(filterCatalogue({
+              genre: "",
+              priceMin: "",
+              priceMax: "",
+              explicit: "",
+              searchParam: "",
+              formato: "",
+              sort: "",
+              direction: "",
+              page: 0,
+            }));
           }}
           albumObject={albumObject}
           isCreating={isCreating}
-          getAlbums={getAlbums}
+          getAlbums={() => {
+            dispatch(filterCatalogue({
+              genre: "",
+              priceMin: "",
+              priceMax: "",
+              explicit: "",
+              searchParam: "",
+              formato: "",
+              sort: "",
+              direction: "",
+              page: 0,
+            }));
+          }}
         />
       ) : (
         <>
@@ -96,20 +152,12 @@ export const AlbumsAdmin = ({
               className="search-form"
               onSubmit={(e) => {
                 e.preventDefault();
-                handleFilters(filtros);
               }}
             >
               <input
                 type="text"
                 placeholder="Nombre de album/cancion..."
-                onChange={(e) => {
-                  if (e.target.value === "" || !e.target.value.length) {
-                    setFiltros({ ...filtros, albumNombre: "" });
-                  } else {
-                    setFiltros({ ...filtros, albumNombre: e.target.value });
-                  }
-                }}
-                value={filtros.albumNombre}
+                
               />
               <button type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -121,27 +169,7 @@ export const AlbumsAdmin = ({
               onSelectResetsInput={false}
               onBlurResetsInput={false}
               styles={selectStyle}
-              onChange={async (param, { action }) => {
-                console.log(action);
-                let newFiltros = filtros;
-                if (action === "clear") {
-                  setFiltros({ ...filtros, artista: { id: "", nombre: "" } });
-                  newFiltros.artista = { id: "", nombre: "" };
-                } else {
-                  setFiltros({
-                    ...filtros,
-                    artista: { id: param.value, nombre: param.label },
-                  });
-                  newFiltros.artista = { id: param.value, nombre: param.label };
-                }
-                handleFilters(newFiltros);
-              }}
-              defaultValue={
-                filtros.artista.nombre && {
-                  label: filtros.artista.nombre,
-                  value: filtros.artista.id,
-                }
-              }
+              
               options={artistas?.map((artista) => {
                 return {
                   value: artista.id,
@@ -162,11 +190,11 @@ export const AlbumsAdmin = ({
               Crear Nuevo Album
             </button>
           </div>
-          {isLoading ? (
+          {loading ? (
             <Loading></Loading>
           ) : (
             <div className="album-container">
-              {disks.map((param, i) => {
+              {catalogue.map((param, i) => {
                 return (
                   <div className="album-card" key={i}>
                     <div className="img">
@@ -203,7 +231,28 @@ export const AlbumsAdmin = ({
                       </button>
                       <button
                         onClick={() => {
-                          deleteAlbum(param.id);
+                          if (!confirmDialog.isActive) {
+                            setConfirmDialog({
+                              isActive: true,
+                              aceptFunc: () => {
+                                deleteAlbum(param.id)
+                                setConfirmDialog({
+                                  ...confirmDialog,
+                                  isActive: false,
+                                  aceptFunc: null,
+                                  cancelFunc: null,
+                                });
+                              },
+                              cancelFunc: () => {
+                                setConfirmDialog({
+                                  ...confirmDialog,
+                                  isActive: false,
+                                  aceptFunc: null,
+                                  cancelFunc: null,
+                                });
+                              },
+                            });
+                          }
                         }}
                       >
                         <i className="bi bi-trash"></i> Delete
@@ -212,11 +261,13 @@ export const AlbumsAdmin = ({
                   </div>
                 );
               })}
-              <h1>{!disks.length && "No Hay Albums"}</h1>
+              <h1>{!catalogue.length && "No Hay Albums"}</h1>
             </div>
           )}
         </>
       )}
     </div>
+    {confirmDialog.isActive && <ConfirmDialog cancelFunc={confirmDialog.cancelFunc} aceptFunc={confirmDialog.aceptFunc}></ConfirmDialog>}
+    </>
   );
 };

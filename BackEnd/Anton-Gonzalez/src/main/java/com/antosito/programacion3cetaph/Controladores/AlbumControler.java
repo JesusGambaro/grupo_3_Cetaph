@@ -139,11 +139,17 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             Albums album = albumService.findById(id);
             List<Imagenes> imagenes = (album.getImagenes());
             List<Singles> singles = (album.getSingles());
-
             List<Cart> CartContaining = (cartService.findCartbyAlbumList(album.getId()));
             for (Cart cart : CartContaining) {
-                System.out.println(cart.getId());
+                List<Albums> cartAlbumList = cart.getAlbum();
+                for (int i = 0; i < cartAlbumList.size(); i++) {
+                    if (cartAlbumList.get(i).getId().equals(id)){
+                        cartAlbumList.remove(i);
+                    }
+                }
+                cart.setAlbum(cartAlbumList);
                 cartService.delete(cart.getId());
+                cartService.save(cart);
             }
 
             albumService.delete(id);

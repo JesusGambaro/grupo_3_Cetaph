@@ -13,6 +13,7 @@ const Cart = () => {
     cancelFunc: null,
     aceptFunc: null,
   });
+  const [total,setTotal] = useState(0) 
   const [albumsCart, setAlbumsCart] = useState([
     {
       id: 1,
@@ -104,6 +105,13 @@ const Cart = () => {
     },
   ]);
 
+  useEffect(() => {
+    let t = 0;
+    albumsCart.map((album) => {
+        t += album.precio;
+    })
+    setTotal(t);
+  }, [albumsCart]);
   useEffect(() => {
     getCart();
   }, []);
@@ -221,6 +229,7 @@ const Cart = () => {
               {loading ? (
                 <Loading text={"Cargando carrito"} />
               ) : (
+                <>
                 <div className="wrapper">
                   {albumsCart.map((album, key) => {
                     return (
@@ -301,9 +310,13 @@ const Cart = () => {
                       </div>
                     );
                   })}
+                  
                 </div>
+                <label className="totalprice">Total:${total}</label>
+                </>
               )}
             </div>
+            
           </>
         ) : (
           <header className="cart-header empty">
@@ -317,6 +330,10 @@ const Cart = () => {
             </h3>
           </header>
         )}
+        
+      
+
+
       </section>
       {confirmDialog.isActive && (
         <ConfirmDialog

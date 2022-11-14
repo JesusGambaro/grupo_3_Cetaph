@@ -11,6 +11,7 @@ import { AllProducts } from './Components/AdminDashboard/Productos/AllProducts'
 import Login from './Components/Login/Login'
 import ArtistDetail from './Components/Detail/ArtistDetail/ArtistDetail'
 import Cart from './Components/Cart/Cart'
+
 function App() {
   return (
     <div className="App">

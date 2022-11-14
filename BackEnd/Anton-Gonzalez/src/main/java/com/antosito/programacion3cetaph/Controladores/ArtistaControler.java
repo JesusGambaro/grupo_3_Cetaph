@@ -2,6 +2,7 @@ package com.antosito.programacion3cetaph.Controladores;
 
 import com.antosito.programacion3cetaph.Entidades.Albums;
 import com.antosito.programacion3cetaph.Entidades.Artista;
+import com.antosito.programacion3cetaph.Entidades.Cart;
 import com.antosito.programacion3cetaph.Entidades.Imagenes;
 import com.antosito.programacion3cetaph.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
     @Autowired
     AlbumService albumService;
 
+    @Autowired
+    CartService cartService;
+
     //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
     @GetMapping("/searchArtist")
     public ResponseEntity<?> searchArtista(@RequestParam(required = false) String name) {
@@ -51,16 +55,30 @@ public class ArtistaControler extends BaseControladorImplementacion<Artista, Art
                 return new ResponseEntity<>("no existe", HttpStatus.NOT_FOUND);
             Artista delArtista = artistaService.findById(id);
             List<Albums> AlbumsList = albumService.findAll();
+
             List<Artista> artistaList;
             for (Albums alb:AlbumsList){
                 //filtrado de albums q tengan el artista
+
                 if (alb.getArtistas().contains(delArtista)){
+                    List<Cart> CartContaining = (cartService.findCartbyAlbumList(alb.getId()));
                     if (alb.getArtistas().size() > 1){
                         artistaList = alb.getArtistas();
                         artistaList.remove(delArtista);
                         alb.setArtistas(artistaList);
                         albumService.update(alb.getId(),alb);
                     }else{
+                        for (Cart cart:CartContaining) {
+                            List<Albums> cartAlbumList = cart.getAlbum();
+                            for (int i = 0; i < cartAlbumList.size(); i++) {
+                                if (cartAlbumList.get(i).getId().equals(alb.getId())){
+                                    cartAlbumList.remove(i);
+                                }
+                            }
+                            cart.setAlbum(cartAlbumList);
+                            cartService.delete(cart.getId());
+                            cartService.save(cart);
+                        }
                         albumService.delete(alb.getId());
                     }
 

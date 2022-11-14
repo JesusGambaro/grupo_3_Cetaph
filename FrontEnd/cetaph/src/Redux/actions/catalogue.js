@@ -6,6 +6,7 @@ import {
   setFormatos,
   setGenres,
   setLoading,
+  setArtistas
 } from "../reducers/mainReducer";
 
 export const getCatalogue = () => async (dispatch) => {
@@ -13,6 +14,18 @@ export const getCatalogue = () => async (dispatch) => {
   try {
     const res = await axios.get(`${API_URL}album`);
     dispatch(getCatalogue(res.data.content));
+  } catch (err) {
+    console.log(err);
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const getArtistas = () => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const res = await axios.get(`${API_URL}artista`);
+    dispatch(setArtistas(res.data.content));
   } catch (err) {
     console.log(err);
   } finally {

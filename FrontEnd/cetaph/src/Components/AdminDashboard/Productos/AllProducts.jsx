@@ -5,60 +5,27 @@ import axios from "axios";
 import Loading from "../../Loading/Loading";
 import { AlbumsAdmin } from "./Albums/AlbumsAdmin";
 import { ArtistasAdmin } from "./Artistas/ArtistasAdmin";
-export const AllProducts = () => {
-  const [disks, setDisks] = useState([]);
-  const [artistas, setArtistas] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [filtros, setFiltros] = useState({
-    albumNombre: "",
-    artista: { id: "", nombre: "" },
-  });
-  const [showAlbums, setShowAlbums] = useState(true);
-  useEffect(() => {
-    //getConFiltros(filtros);
-    getAlbums();
-    getArtistas();
-  }, []);
-  const getAlbums = () => {
-    setLoading(true);
-    axios
-      .get("http://localhost:9000/api/v1/album")
-      .then((res) => {
-        setDisks(res.data.content);
-      })
-      .catch((err) => {})
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-  const getConFiltros = (newfiltros) => {
-    setLoading(true);
-    axios
-      .get(
-        `http://localhost:9000/api/v1/album/searchAlbums?V=&Name=${newfiltros.albumNombre}&Max=&Min=&Exp=&IdArtista=${newfiltros.artista.id}`
-      )
-      .then((res) => {
-        setDisks(res.data);
-      })
-      .catch((err) => {})
-      .finally(() => {
-        setLoading(false);
-      });
-  };
 
-  const getArtistas = () => {
-    setLoading(true);
-    axios
-      .get("http://localhost:9000/api/v1/artista/")
-      .then((res) => {
-        setArtistas(res.data.content);
-        //console.log(res.data);
-      })
-      .catch((err) => {})
-      .finally(() => {
-        setLoading(false);
-      });
+import { filterCatalogue,getArtistas } from "../../../Redux/actions/catalogue";
+import { useDispatch, useSelector } from "react-redux";
+export const AllProducts = () => {
+  const dispatch = useDispatch();
+  const { filter } = useSelector(({ main }) => main);
+  const [filters, setFilters] = useState({});
+  const dividedGroups = () => {
+    const start = Math.floor(filters.page / 4) * 4;
+    //console.log(filter.size.totalPages);
+    return new Array(4).fill().map((_, i) => {
+      let limit = start + i + 1;
+      return limit <= filter.size.totalPages && limit;
+    });
   };
+  const goPage = (e) =>
+    setFilters({ ...filters, page: Number(e.target.textContent) - 1 });
+  const [showAlbums, setShowAlbums] = useState(true);
+  
+
+  
   return (
     <div className="AllProducts">
       <span className="select-products">
@@ -83,28 +50,9 @@ export const AllProducts = () => {
       </span>
       {showAlbums ? (
           <AlbumsAdmin
-            setLoading={(value) => {
-              setLoading(value);
-            }}
-            disks={disks}
-            getAlbums={(filtros) => {
-              getAlbums();
-            }}
-            setFiltros={(newFiltros) => {
-              setFiltros(newFiltros);
-            }}
-            filtros={filtros}
-            artistas={artistas}
           ></AlbumsAdmin>
         ) : (
           <ArtistasAdmin
-            artistas={artistas}
-            setLoading={(value) => {
-              setLoading(value);
-            }}
-            getArtistas={() => {
-              getArtistas();
-            }}
           ></ArtistasAdmin>
         )}
       
