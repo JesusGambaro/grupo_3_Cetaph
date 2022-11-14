@@ -14,22 +14,36 @@ import java.util.List;
 public interface AlbumRepository extends BaseRepository<Albums, Long> {
 
     //Una query que filtra por varios parametros para encontrar un producto especifico en la base de datos
-    @Query(value = "SELECT * from albums a " +
-            "inner join genero g on a.genero_id = g.id " +
-            "left join albums_singles `as` on `as`.albums_id = a.id " +
+    @Query(value = "SELECT * from albums alb " +
+            "inner join genero g on alb.genero_id = g.id " +
+            "left join albums_singles `as` on `as`.albums_id = alb.id " +
             "left join singles s on `as`.singles_id = s.id " +
-            "left join albums_artistas aa on a.id = aa.albums_id " +
+            "left join albums_artistas aa on alb.id = aa.albums_id " +
             "left join artista ar on aa.artistas_id = ar.id " +
-            "where ((a.nombre like concat('%', :fTexto, '%') OR s.nombre like concat('%', :fTexto, '%') or " +
-            "a.descripcion like concat('%', :fTexto, '%')) OR :fTexto is null) " +
-            "and (a.precio between :fPrecioMin and :fPrecioMax or :fPrecioMin is null or :fPrecioMax is null)" +
-            "and (a.precio >= :fPrecioMin or :fPrecioMin is null) " +
-            "and (a.precio <= :fPrecioMax or :fPrecioMax is null) " +
-            "and (a.formato LIKE concat('%', :fFormato, '%') or :fFormato is null) " +
+            "where ((alb.nombre like concat('%', :fTexto, '%') OR s.nombre like concat('%', :fTexto, '%') or " +
+            "alb.descripcion like concat('%', :fTexto, '%') or ar.nombre like concat('%', :fTexto, '%')) OR :fTexto is null) " +
+            "and (alb.precio between :fPrecioMin and :fPrecioMax or :fPrecioMin is null or :fPrecioMax is null) " +
+            "and (alb.precio >= :fPrecioMin or :fPrecioMin is null) " +
+            "and (alb.precio <= :fPrecioMax or :fPrecioMax is null) " +
+            "and (alb.formato LIKE concat('%', :fFormato, '%') or :fFormato is null) " +
             "and (g.genero LIKE concat('%', :fGenero, '%') or :fGenero is null) " +
-            "and (a.es_explicito = :fExplicito or :fExplicito is null) " +
-            /*  "and (ar.nombre like concat('%', :fArtista, '%') OR :fArtista is null) " +*/
-            "group by a.id",
+            "and (alb.es_explicito = :fExplicito or :fExplicito is null) " +
+            "group by alb.id",
+            countQuery = "SELECT count(*) from albums alb " +
+                    "inner join genero g on alb.genero_id = g.id " +
+                    "left join albums_singles `as` on `as`.albums_id = alb.id " +
+                    "left join singles s on `as`.singles_id = s.id " +
+                    "left join albums_artistas aa on alb.id = aa.albums_id " +
+                    "left join artista ar on aa.artistas_id = ar.id " +
+                    "where ((alb.nombre like concat('%', :fTexto, '%') OR s.nombre like concat('%', :fTexto, '%') or " +
+                    "alb.descripcion like concat('%', :fTexto, '%') or ar.nombre like concat('%', :fTexto, '%')) OR :fTexto is null) " +
+                    "and (alb.precio between :fPrecioMin and :fPrecioMax or :fPrecioMin is null or :fPrecioMax is null) " +
+                    "and (alb.precio >= :fPrecioMin or :fPrecioMin is null) " +
+                    "and (alb.precio <= :fPrecioMax or :fPrecioMax is null) " +
+                    "and (alb.formato LIKE concat('%', :fFormato, '%') or :fFormato is null) " +
+                    "and (g.genero LIKE concat('%', :fGenero, '%') or :fGenero is null) " +
+                    "and (alb.es_explicito = :fExplicito or :fExplicito is null) " +
+                    "group by alb.id",
             nativeQuery = true)
     Page<Albums> SearchAlbum(@Param("fTexto") String fTexto,
                              @Param("fPrecioMin") Float fPrecioMin,

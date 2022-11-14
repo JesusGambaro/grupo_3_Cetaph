@@ -16,10 +16,58 @@
       padding: 2rem;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
       gap: 2rem;
-
       .react-select-container {
         height: 1rem;
+      }
+    }
+
+    .pagination-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 4rem;
+      margin-bottom: 1rem;
+      .selectionOwn {
+        height: 80%;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btnOwn.next,
+      .btnOwn.prev {
+        background: #000;
+        color: white;
+        opacity: 1;
+        font-size: small;
+      }
+      .btnOwn {
+        border-radius: 0.3rem;
+        flex: 1 0 2.5rem;
+        height: 2rem;
+        min-width: 2rem;
+        border: none;
+        opacity: 0.5;
+        font-weight: 500;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &::hover {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+        &.active {
+          background: #000;
+          color: white;
+          opacity: 1;
+        }
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
       }
     }
   }

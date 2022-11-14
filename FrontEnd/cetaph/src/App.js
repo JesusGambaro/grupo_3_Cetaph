@@ -10,6 +10,7 @@ import Footer from './Components/Footer/Footer'
 import { AllProducts } from './Components/AdminDashboard/Productos/AllProducts'
 import Login from './Components/Login/Login'
 import ArtistDetail from './Components/Detail/ArtistDetail/ArtistDetail'
+import Cart from './Components/Cart/Cart'
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Catalogue" element={<Catalogue />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/AdminDashboard/" element={<AllProducts />} />
+        <Route path="/Cart/" element={<Cart />} />
         <Route path="Detail/:id" element={<Detail />} />
         <Route path="/Artista/:id" element={<ArtistDetail />} />
         <Route path="Login" element={<Login />} />

@@ -15,11 +15,11 @@ const Catalogue = () => {
   }, [])
 
   //#region Filters
-  const firstRender = useRef(true)
   const [filters, setFilters] = useState({
     searchParam: '',
     direction: 'asc',
     sort: '',
+    page: 0,
   })
 
   const handleSearch = (e) => {
@@ -30,7 +30,18 @@ const Catalogue = () => {
   //#endregion
   useEffect(() => {
     dispatch(filterCatalogue({ ...filter, ...filters }))
+    window.scrollTo(0, 0)
   }, [filters])
+  const dividedGroups = () => {
+    const start = Math.floor(filters.page / 4) * 4
+    console.log(filter.size.totalPages)
+    return new Array(4).fill().map((_, i) => {
+      let limit = start + i + 1
+      return limit <= filter.size.totalPages && limit
+    })
+  }
+  const goPage = (e) =>
+    setFilters({ ...filters, page: Number(e.target.textContent) - 1 })
   return (
     <div className="catalogue-container">
       <LeftFilters />
@@ -60,6 +71,45 @@ const Catalogue = () => {
               )}
             </>
           )}
+        </div>
+        <div className="pagination-container">
+          <div className="selectionOwn">
+            <button
+              className="btnOwn prev"
+              onClick={() => {
+                setFilters({ ...filters, page: filters.page - 1 })
+              }}
+              disabled={filters.page === 0}
+            >
+              <i className="fa-solid fa-angle-left"></i>
+            </button>
+            {dividedGroups().map((e, i) => {
+              console.log(e, ' ')
+              return (
+                e && (
+                  <button
+                    className={
+                      filters.page === e - 1 ? 'btnOwn active' : 'btnOwn'
+                    }
+                    key={i}
+                    onClick={goPage}
+                  >
+                    {e}
+                  </button>
+                )
+              )
+            })}
+
+            <button
+              className="btnOwn next"
+              onClick={() => {
+                setFilters({ ...filters, page: filters.page + 1 })
+              }}
+              disabled={filters.page === filter.size.totalPages - 1}
+            >
+              <i className="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
         </div>
       </main>
     </div>

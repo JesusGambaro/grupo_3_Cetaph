@@ -22,7 +22,7 @@ const Login = () => {
           //save token in local storage
           localStorage.setItem('token', data[0])
           //redirect to home page\
-
+          navigate('/')
         })
         .catch((err) => {
           console.log(err)

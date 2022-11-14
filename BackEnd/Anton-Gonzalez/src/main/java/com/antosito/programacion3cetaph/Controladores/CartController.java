@@ -39,16 +39,34 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
     @GetMapping("/get")
     public ResponseEntity<?> getUserCart(@RequestParam("token") String token) throws Exception {
         User userCurrent = userService.getUser(getUsername(token));
-        return ResponseEntity.status(HttpStatus.OK).body(cartService.getCartbyUser(userCurrent));
+        if(userCurrent == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
+        }
+        List<Albums> albumCart = new ArrayList<>();
+        Cart cart  = cartService.getCartbyUser(userCurrent);
+        if (cart == null){
+            cart = new Cart(userCurrent,albumCart);
+        }
+        cartService.save(cart);
+        return ResponseEntity.status(HttpStatus.OK).body(cart.getAlbum());
     }
     @PostMapping("/add")
     public ResponseEntity<?> addToCart(@RequestParam("id")Long id,@RequestParam("token") String token) throws Exception {
 
         User userCurrent = userService.getUser(getUsername(token));
         System.out.println(userCurrent);
+        Cart cart = cartService.getCartbyUser(userCurrent);
         List<Albums> albumCart = new ArrayList<>();
+
         if(userCurrent == null){
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
+        }
+
+        if (cart == null){
+            cart = new Cart(userCurrent,albumCart);
+        }else{
+
+            albumCart = cart.getAlbum();
         }
 
         if(albumService.exists(id)){
@@ -56,8 +74,11 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el album");
         }
-        Cart newCart = new Cart(userCurrent,albumCart);
-        return ResponseEntity.status(HttpStatus.OK).body(cartService.save(newCart));
+
+        cart.setAlbum(albumCart);
+        cartService.delete(cart.getId());
+        cartService.save(cart);
+        return ResponseEntity.status(HttpStatus.OK).body("Se Guardo");
     }
 
     @PutMapping("/update")
@@ -75,6 +96,26 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         }
         return ResponseEntity.status(HttpStatus.OK).body(cartService.save(cart));
     }
+
+    @PutMapping("/cleanCart")
+    public ResponseEntity<?> cleanCart(@RequestParam("token") String token) throws Exception {
+        User user = userService.getUser(getUsername(token));
+
+        if (user == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el usuario");
+        }
+        try {
+            //TODO Update not working
+            Cart oldCart = cartService.getCartbyUser(user);
+            Cart newCart = new Cart(user,new ArrayList<>());
+            cartService.delete(oldCart.getId());
+            cartService.save(newCart);
+            return ResponseEntity.status(HttpStatus.OK).body("Se actualizo");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se actualizo");
+        }
+    }
+
 
     @DeleteMapping("/{id}") //Delete
     public ResponseEntity<?> delete(@PathVariable Long id) {

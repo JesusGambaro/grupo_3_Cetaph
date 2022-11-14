@@ -1,6 +1,7 @@
 package com.antosito.programacion3cetaph.Controladores;
 
 
+import com.antosito.programacion3cetaph.Entidades.Cart;
 import com.antosito.programacion3cetaph.Entidades.Rol;
 import com.antosito.programacion3cetaph.Entidades.User;
 import com.antosito.programacion3cetaph.Servicios.UserService;
@@ -57,6 +58,8 @@ public class UserController {
             List<String> tokens = new ArrayList<>();
             tokens.add(accessToken);
             response.setContentType(APPLICATION_JSON_VALUE);
+            Cart cart = new Cart();
+            cart.setUser(user);
             new ObjectMapper().writeValue(response.getOutputStream(),tokens);
             return ResponseEntity.created(uri).body(userService.saveUser(user));
         }else{

@@ -1,0 +1,147 @@
+.Cart {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 80vh;
+  .cart-header {
+    padding: 0rem 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    cursor: default;
+    &.empty {
+      display: flex;
+      align-items: left;
+      justify-content: center;
+      flex-direction: column;
+
+      h3 {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  .albums-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      width: 50rem;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      .cart-card {
+        position: relative;
+        width: 30rem;
+        min-height: 10rem;
+        display: flex;
+        align-items: center;
+        .body {
+          cursor: default;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background-color: transparent;
+          color: black;
+          transition: all var(--d) var(--e);
+          border-radius: 12px;
+
+          padding-right: 2rem;
+          .imagen-album {
+            display: flex;
+            width: 10rem;
+            height: 10rem;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            img {
+              transition: all 0.3s ease;
+              width: 100%;
+              z-index: -1;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .info {
+            display: flex;
+            align-items: left;
+            flex-direction: column;
+            .title {
+              font-size: 1rem;
+            }
+            .subtitle {
+              font-size: 0.5rem;
+            }
+            .canciones-container {
+              display: flex;
+              gap: 1rem;
+            }
+            .artistas-container {
+              display: flex;
+              gap: 0.5rem;
+              align-items: left;
+              flex-direction: row;
+              flex-wrap: wrap;
+              width: 17rem;
+              .artista {
+                text-decoration: underline;
+                cursor: pointer;
+                border: 1px solid red;
+                height: 1rem;
+              }
+              p {
+                border: 1px solid red;
+                margin: none;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 10px;
+                font-size: 3rem;
+                height: 1rem;
+              }
+            }
+          }
+          &:hover {
+            transition: all var(--d) var(--e);
+            transform: scale(1.03);
+            perspective: 5px;
+            background: #000;
+            color: #fff;
+          }
+        }
+
+        .buttons-container {
+          position: absolute;
+          right: -3rem;
+
+          button {
+            border: none;
+            background-color: transparent;
+            font-size: 2rem;
+            color: grey;
+            transition: all var(--d) var(--e);
+            &:hover {
+              transition: all var(--d) var(--e);
+              color: black;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -30,13 +30,22 @@ export const filterCatalogue = (filter) => async (dispatch) => {
     formato,
     sort,
     direction,
+    page,
+    size,
   } = filter
   dispatch(setLoading(true))
   try {
     const res = await axios.get(
-      `${API_URL}album/searchAlbums?nombre=${searchParam}&min=${priceMin}&max=${priceMax}&explicito=${explicit}&formato=${formato}&genero=${genre}&sort=${sort},${direction}`,
+      `${API_URL}album/searchAlbums?page=${page}&size=${8}&nombre=${searchParam}&min=${priceMin}&max=${priceMax}&explicito=${explicit}&formato=${formato}&genero=${genre}&sort=${sort},${direction}`,
     )
-
+    dispatch(
+      setFilter({
+        size: {
+          totalElements: res.data.totalElements,
+          totalPages: res.data.totalPages,
+        },
+      }),
+    )
     dispatch(setCatalogue(res.data.content))
   } catch (err) {
     console.log(err)

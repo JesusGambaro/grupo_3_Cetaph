@@ -15,6 +15,14 @@ const initialState = {
     formato: '',
     sort: '',
     direction: '',
+    page: 0,
+    size: {
+      totalElements: 0,
+      totalPages: 0,
+    },
+  },
+  pageble: {
+    size: 0,
   },
   cart: [],
 }
@@ -32,6 +40,7 @@ export const mainReducer = createSlice({
       state.catalogue = action.payload
     },
     setFilter: (state, { payload }) => {
+      console.log(payload)
       Object.keys(payload).forEach((key) => {
         state.filter[key] = payload[key]
       })

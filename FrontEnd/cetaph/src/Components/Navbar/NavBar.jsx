@@ -92,7 +92,12 @@ const NavBar = () => {
               )}
             </ul>
           </li>
-          <li className="nav-icon">
+          <li
+            className="nav-icon"
+            onClick={() => {
+              navigate('/Cart')
+            }}
+          >
             <p className="icon-link">
               <i className="bi bi-basket3"></i>
             </p>
