@@ -55,7 +55,8 @@
           color: black;
           transition: all var(--d) var(--e);
           border-radius: 12px;
-
+          box-shadow: 0 0 .9rem 0.1rem rgb(127 82 131 / 30%);
+          background-color: var(--pastel-color-quaternary);
           padding-right: 2rem;
           .imagen-album {
             display: flex;
@@ -67,6 +68,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            z-index: 10;
             img {
               transition: all 0.3s ease;
               width: 100%;
@@ -84,6 +86,8 @@
             }
             .subtitle {
               font-size: 0.5rem;
+              display: flex;
+              gap: 0.5rem;
             }
             .canciones-container {
               display: flex;
@@ -99,11 +103,9 @@
               .artista {
                 text-decoration: underline;
                 cursor: pointer;
-                border: 1px solid red;
                 height: 1rem;
               }
               p {
-                border: 1px solid red;
                 margin: none;
                 text-align: center;
                 display: flex;

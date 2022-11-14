@@ -67,7 +67,7 @@ const Catalogue = () => {
                   <Card key={index} color={'black'} data={disk} />
                 ))
               ) : (
-                <h1>No results</h1>
+                <h1>No se encontraron albums</h1>
               )}
             </>
           )}
