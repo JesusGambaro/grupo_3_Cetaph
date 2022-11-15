@@ -1,4 +1,60 @@
-.ArtistDetail{
-    margin-top: 5rem; 
-      
+.ArtistDetail {
+  margin-top: 5rem;
+  min-height: 10rem;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: var(--pastel-color-quaternary);
+
+    .imagen-container {
+      flex-basis: 20rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.5rem;
+      img {
+        box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.5);
+
+        height: 20rem;
+        width: 20rem;
+        object-fit: cover;
+        border-radius: 0.5rem;
+      }
+    }
+    .info {
+      display: flex;
+      align-items: left;
+      justify-content: center;
+      flex-direction: column;
+      flex-basis: 50rem;
+    }
+    .disks-container {
+      flex-basis: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .disks-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 1rem;
+        gap: 1rem;
+      }
+      label {
+        font-weight: 500;
+        font-size: 2rem;
+      }
+    }
+  }
 }

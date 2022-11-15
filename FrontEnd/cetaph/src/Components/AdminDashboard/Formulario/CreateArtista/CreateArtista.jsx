@@ -1,48 +1,48 @@
-import React, { useEffect, useState, useMemo } from "react";
-import axios from "axios";
-import Loading from "../../../Loading/Loading";
-import "./CreateArtista.scss";
-import Creatable, { useCreatable } from "react-select/creatable";
-import Select from "react-select";
-import countryList from "react-select-country-list";
-
-import { ErrorMessage, Field, Form, Formik, useField } from "formik";
+import React, { useEffect, useState, useMemo } from 'react'
+import axios from 'axios'
+import Loading from '../../../Loading/Loading'
+import './CreateArtista.scss'
+import Creatable, { useCreatable } from 'react-select/creatable'
+import Select from 'react-select'
+import countryList from 'react-select-country-list'
+import Swal from 'sweetalert2'
+import { ErrorMessage, Field, Form, Formik, useField } from 'formik'
 export const CreateArtista = ({
   artistObject,
   cancelFunc,
   isCreating,
   getArtists,
 }) => {
-  const [isLoading, setLoading] = useState(true);
-  const [submiting, setSubmiting] = useState(false);
-  
+  const [isLoading, setLoading] = useState(true)
+  const [submiting, setSubmiting] = useState(false)
+
   const setInitialValues = () => {
     let initialValues = {
       deletedImages: [],
       artist: {
-        nombre: "",
-        nacionalidad: "",
-        descripcion: "",
+        nombre: '',
+        nacionalidad: '',
+        descripcion: '',
         imagenes: {
-          urlImg: "",
-          file: "",
+          urlImg: '',
+          file: '',
         },
-        fechanacimiento: "",
+        fechanacimiento: '',
       },
-    };
+    }
     if (artistObject) {
       initialValues = {
         ...initialValues,
         artist: artistObject,
-      };
+      }
     }
-    return initialValues;
-  };
+    return initialValues
+  }
   const [touchedInputs, setTouchedInput] = useState({
     images: false,
-    nacionalidad: false
-  });
-  const paises = useMemo(() => countryList().getData(), []);
+    nacionalidad: false,
+  })
+  const paises = useMemo(() => countryList().getData(), [])
   /*document.onkeydown = function (e) {
     //console.log(e.key);
     if (e.key == "Enter") {
@@ -53,95 +53,109 @@ export const CreateArtista = ({
     }
   };*/
   useEffect(() => {
-    setLoading(false);
-  }, []);
+    setLoading(false)
+  }, [])
 
   const createArtistaBackend = (valores) => {
-    let formData = new FormData();
+    let formData = new FormData()
     if (valores.artist.imagenes) {
-      formData.append("Imagen", valores.artist.imagenes.file);
+      formData.append('Imagen', valores.artist.imagenes.file)
     }
-    let deletedImg = JSON.stringify(valores.deletedImages);
-    let newArtista = valores.artist;
+    let deletedImg = JSON.stringify(valores.deletedImages)
+    let newArtista = valores.artist
     newArtista.imagenes = newArtista.imagenes.cloudinaryId
       ? newArtista.imagenes
-      : {};
-    let artistAxios = JSON.stringify(newArtista);
+      : {}
+    let artistAxios = JSON.stringify(newArtista)
     formData.append(
-      "artista",
-      new Blob([artistAxios], { type: "application/json" })
-    );
-    setLoading(true);
-    console.log("----------Form Data----------");
+      'artista',
+      new Blob([artistAxios], { type: 'application/json' }),
+    )
+    setLoading(true)
+    console.log('----------Form Data----------')
     //console.log(data.album);
     //console.log(formData.getAll("Album"));
 
     if (isCreating) {
-      console.log("creating");
+      console.log('creating')
     } else {
-      console.log("updating");
+      console.log('updating')
       if (valores.deletedImages.length) {
         formData.append(
-          "ImgsBorrada",
-          new Blob([deletedImg], { type: "application/json" })
-        );
+          'ImgsBorrada',
+          new Blob([deletedImg], { type: 'application/json' }),
+        )
       }
-      console.log("AAaaa");
+      console.log('AAaaa')
     }
 
     let url = isCreating
-      ? "http://localhost:9000/api/v1/artista/createArtista"
-      : "http://localhost:9000/api/v1/artista/updateArtista/" +
-        valores.artist.id;
+      ? 'http://localhost:9000/api/v1/artista/createArtista'
+      : 'http://localhost:9000/api/v1/artista/updateArtista/' +
+        valores.artist.id
 
     //console.log(localStorage.getItem("token"));
     axios({
       url: url,
-      method: isCreating ? "POST" : "PUT",
+      method: isCreating ? 'POST' : 'PUT',
       headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       data: formData,
     })
       .then((res) => {
-        cancelFunc();
-        getArtists();
+        cancelFunc()
+        getArtists()
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Artista creado con exito',
+          showConfirmButton: false,
+          timer: 1000,
+        })
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err)
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error al crear el artista',
+          showConfirmButton: false,
+          timer: 1000,
+        })
       })
       .finally(() => {
-        setLoading(false);
-      });
-  };
+        setLoading(false)
+      })
+  }
   const selectStyle = {
     control: (provided, state) => ({
-      display: "flex",
-      width: "20rem",
-      height: "2.5rem",
-      border: "2px solid black",
-      borderRadius: "5px",
+      display: 'flex',
+      width: '20rem',
+      height: '2.5rem',
+      border: '2px solid black',
+      borderRadius: '5px',
     }),
     menu: (provided, state) => ({
       ...provided,
-      width: "20rem",
-      border: "2px solid black",
+      width: '20rem',
+      border: '2px solid black',
       borderRadius: 0,
       padding: 0,
-      position: "absolute",
-      top: "2rem",
+      position: 'absolute',
+      top: '2rem',
     }),
     dropdownIndicator: (provided, state) => ({
       ...provided,
-      color: "black",
-      transition: "none",
+      color: 'black',
+      transition: 'none',
     }),
     clearIndicator: (provided) => ({
       ...provided,
-      color: "black",
+      color: 'black',
     }),
-  };
+  }
   return (
     <>
       {isLoading ? (
@@ -153,44 +167,45 @@ export const CreateArtista = ({
             //console.log(valores);
             //setSubmiting(true);
             //resetForm()
-            createArtistaBackend(valores);
+            createArtistaBackend(valores)
           }}
           validate={(valores) => {
-            let errores = {};
+            let errores = {}
             // Validacion nombre
-            console.log(valores);
-            if (!valores.artist.nombre || valores.artist.nombre == "") {
-              errores.nombre = "Por favor ingresa un nombre";
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.artist.nombre)) {
+            console.log(valores)
+            if (!valores.artist.nombre || valores.artist.nombre == '') {
+              errores.nombre = 'Por favor ingresa un nombre'
+            } else if (!/^[A-Za-z0-9\s]+$/g.test(valores.artist.nombre)) {
               errores.nombre =
-                "El nombre solo puede contener letras y espacios";
+                'El nombre solo puede contener letras,numeros y espacios'
             }
 
             // Validacion fecha de nacimiento
             if (
               !valores.artist.fechanacimiento ||
-              valores.artist.fechanacimiento == ""
+              valores.artist.fechanacimiento == ''
             ) {
               errores.fechanacimiento =
-                "Por favor ingresa una fecha de lanzamiento";
+                'Por favor ingresa una fecha de lanzamiento'
             }
 
             // Validacion imagenes
             if (!valores.artist.imagenes.urlImg) {
-              errores.images = "Por favor ingrese una imagen";
+              errores.images = 'Por favor ingrese una imagen'
             }
 
             // Validacion formato
-            if (!valores.artist.nacionalidad ||
-              valores.artist.nacionalidad == "") {
-              errores.nacionalidad = "Por favor ingrese una nacionalidad";
+            if (
+              !valores.artist.nacionalidad ||
+              valores.artist.nacionalidad == ''
+            ) {
+              errores.nacionalidad = 'Por favor ingrese una nacionalidad'
             }
-            return errores;
+            return errores
           }}
         >
           {(props) => {
-            const { values, handleBlur, setFieldValue, errors, touched } =
-              props;
+            const { values, handleBlur, setFieldValue, errors, touched } = props
 
             return (
               <div className="CreateArtistForm">
@@ -205,7 +220,7 @@ export const CreateArtista = ({
                         className="save-btn"
                         type="submit"
                         onClick={() => {
-                          setSubmiting(true);
+                          setSubmiting(true)
                         }}
                       >
                         <i className="fa-solid fa-floppy-disk"></i>Save
@@ -227,11 +242,11 @@ export const CreateArtista = ({
                           placeholder="Red Roses..."
                           value={values.artist.nombre}
                           onChange={(e) => {
-                            let inputName = e.target.name;
-                            setFieldValue("artist", {
+                            let inputName = e.target.name
+                            setFieldValue('artist', {
                               ...values.artist,
                               [inputName]: e.target.value,
-                            });
+                            })
                           }}
                         />
                         {(touched.nombre || submiting) && errors.nombre && (
@@ -241,23 +256,23 @@ export const CreateArtista = ({
                       <div className="form-field">
                         <label htmlFor="">
                           <h4 className="input-name">
-                          Fecha de nacimiento <p>{/*errors.images*/}</p>
-                          </h4>{" "}
+                            Fecha de nacimiento <p>{/*errors.images*/}</p>
+                          </h4>{' '}
                         </label>
                         <Field
                           type="date"
                           id="fechanacimiento"
                           name="fechanacimiento"
                           value={values.artist.fechanacimiento.replaceAll(
-                            "/",
-                            "-"
+                            '/',
+                            '-',
                           )}
                           onChange={(e) => {
-                            let inputName = e.target.name;
-                            setFieldValue("artist", {
+                            let inputName = e.target.name
+                            setFieldValue('artist', {
                               ...values.artist,
-                              [inputName]: e.target.value.replaceAll("-", "/"),
-                            });
+                              [inputName]: e.target.value.replaceAll('-', '/'),
+                            })
                           }}
                         />
                         {(touched.fechanacimiento || submiting) &&
@@ -272,9 +287,9 @@ export const CreateArtista = ({
                           <h4 className="input-name">Nacionalidad</h4>
                         </label>
                         <Select
-                          name={"formato"}
+                          name={'formato'}
                           options={paises}
-                          placeholder={"Elige el pais de origen..."}
+                          placeholder={'Elige el pais de origen...'}
                           isClearable
                           onSelectResetsInput={false}
                           onBlurResetsInput={false}
@@ -290,24 +305,24 @@ export const CreateArtista = ({
                             setTouchedInput({
                               ...touchedInputs,
                               nacionalidad: true,
-                            });
-                            if (action == "clear") {
-                              setFieldValue("artist", {
+                            })
+                            if (action == 'clear') {
+                              setFieldValue('artist', {
                                 ...values.artist,
-                                nacionalidad: "",
-                              });
+                                nacionalidad: '',
+                              })
                             } else {
-                              setFieldValue("artist", {
+                              setFieldValue('artist', {
                                 ...values.artist,
                                 nacionalidad: option.label,
-                              });
+                              })
                             }
                           }}
                           onMenuOpen={() => {
                             setTouchedInput({
                               ...touchedInputs,
                               nacionalidad: true,
-                            });
+                            })
                           }}
                         />
                         {(touchedInputs.nacionalidad || submiting) &&
@@ -323,15 +338,13 @@ export const CreateArtista = ({
                           as="textarea"
                           name="descripcion"
                           id="descripcion"
-                          cols="30"
-                          rows="10"
                           value={values.artist.descripcion}
                           onChange={(e) => {
-                            let inputName = e.target.name;
-                            setFieldValue("artist", {
+                            let inputName = e.target.name
+                            setFieldValue('artist', {
                               ...values.artist,
                               [inputName]: e.target.value,
-                            });
+                            })
                           }}
                         ></Field>
                       </div>
@@ -351,8 +364,8 @@ export const CreateArtista = ({
                           <div
                             className={
                               values.artist.imagenes.urlImg
-                                ? "imagent show"
-                                : "imagent"
+                                ? 'imagent show'
+                                : 'imagent'
                             }
                             style={{
                               backgroundImage: `url(${values.artist.imagenes.urlImg})`,
@@ -366,15 +379,16 @@ export const CreateArtista = ({
                                   setTouchedInput({
                                     ...touchedInputs,
                                     images: true,
-                                  });
-                                  setFieldValue("deletedImages", [
+                                  })
+                                  setFieldValue('deletedImages', [
                                     ...values.deletedImages,
-                                    values.artist.imagenes.id && values.artist.imagenes.id,
-                                  ]);
-                                  setFieldValue("artist", {
+                                    values.artist.imagenes.id &&
+                                      values.artist.imagenes.id,
+                                  ])
+                                  setFieldValue('artist', {
                                     ...values.artist,
-                                    imagenes: { urlImg: "", file: "" },
-                                  });
+                                    imagenes: { urlImg: '', file: '' },
+                                  })
                                 }}
                               >
                                 <i className="bi bi-x-circle-fill"></i>
@@ -385,25 +399,26 @@ export const CreateArtista = ({
                               <input
                                 type="file"
                                 onChange={(e) => {
-                                  setFieldValue("deletedImages", [
+                                  setFieldValue('deletedImages', [
                                     ...values.deletedImages,
-                                    values.artist.imagenes.id && values.artist.imagenes.id,
-                                  ]);
-                                  setFieldValue("artist", {
+                                    values.artist.imagenes.id &&
+                                      values.artist.imagenes.id,
+                                  ])
+                                  setFieldValue('artist', {
                                     ...values.artist,
                                     imagenes: {
                                       urlImg: URL.createObjectURL(
-                                        e.target.files[0]
+                                        e.target.files[0],
                                       ),
                                       file: e.target.files[0],
                                     },
-                                  });
+                                  })
                                 }}
                                 onClick={() => {
                                   setTouchedInput({
                                     ...touchedInputs,
                                     images: true,
-                                  });
+                                  })
                                 }}
                                 accept="image/png, image/jpeg"
                               />
@@ -417,10 +432,10 @@ export const CreateArtista = ({
                   </div>
                 </Form>
               </div>
-            );
+            )
           }}
         </Formik>
       )}
     </>
-  );
-};
+  )
+}

@@ -5,7 +5,7 @@ import chroma from 'chroma-js'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterCatalogue } from '../../../Redux/actions/catalogue'
 import { setFilter } from '../../../Redux/reducers/mainReducer'
-const UpSideBar = ({ setUpFilters, handleSearch }) => {
+const UpSideBar = ({ changeFilters, handleSearch, searchParam }) => {
   const selectStyle = {
     control: () => ({
       display: 'flex',
@@ -68,15 +68,19 @@ const UpSideBar = ({ setUpFilters, handleSearch }) => {
       color: 'black',
     }),
   }
+  const dispatch = useDispatch()
   return (
     <div className="upside-bar-container">
       <form onSubmit={handleSearch}>
         <div className="search-disks">
           <input
             type="text"
-            placeholder="Search"
-            //onChange={(e) => setUpFilters({ searcParam: e.target.value })}
+            placeholder="Buscar"
             name="search"
+            value={searchParam}
+            onChange={(e) =>
+              dispatch(setFilter({ searchParam: e.target.value }))
+            }
           />
           <button type="submit">
             <i className="fas fa-search"></i>
@@ -85,22 +89,22 @@ const UpSideBar = ({ setUpFilters, handleSearch }) => {
         <div className="sort-disks">
           <Select
             options={[
-              { value: 'order', label: 'Order', isDisabled: true },
-              { value: 'asc', label: 'Ascending' },
-              { value: 'desc', label: 'Descending' },
+              { value: 'order', label: 'Orden', isDisabled: true },
+              { value: 'asc', label: 'Ascendente' },
+              { value: 'desc', label: 'Descendente' },
             ]}
             onSelectResetsInput={false}
             onBlurResetsInput={false}
             styles={selectStyle}
-            defaultValue={{ value: 'order', label: 'Order' }}
-            onChange={(e) => setUpFilters({ direction: e.value })}
+            defaultValue={{ value: 'order', label: 'Orden' }}
+            onChange={(e) => changeFilters({ direction: e.value })}
             isSearchable={false}
           />
           <Select
             options={[
               {
                 value: 'sortby',
-                label: 'Sort by',
+                label: 'Ordenar Por',
                 isDisabled: true,
                 isFixed: true,
               },
@@ -111,8 +115,8 @@ const UpSideBar = ({ setUpFilters, handleSearch }) => {
             onSelectResetsInput={false}
             onBlurResetsInput={false}
             styles={selectStyle}
-            defaultValue={{ value: 'sortby', label: 'Sort by' }}
-            onChange={(e) => setUpFilters({ sort: e.value })}
+            defaultValue={{ value: 'sortby', label: 'Ordenar Por' }}
+            onChange={(e) => changeFilters({ sort: e.value })}
             isSearchable={false}
           />
         </div>

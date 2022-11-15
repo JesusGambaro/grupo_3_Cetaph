@@ -2,7 +2,13 @@ import axios from 'axios'
 import { useState } from 'react'
 import './login.scss'
 import { useNavigate } from 'react-router'
+
+import { getRol } from '../../Redux/actions/user'
+import { useDispatch, useSelector } from 'react-redux'
+import Swal from 'sweetalert2'
 const Login = () => {
+  const dispatch = useDispatch()
+  const { user } = useSelector(({ main }) => main)
   const navigate = useNavigate()
   const [login, setLogin] = useState(true)
   const [showPass, setShowPass] = useState(false)
@@ -21,11 +27,29 @@ const Login = () => {
           console.log(data)
           //save token in local storage
           localStorage.setItem('token', data[0])
+
+          dispatch(getRol(localStorage.getItem('token')))
           //redirect to home page\
           navigate('/')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Se inicio sesion con exito',
+            showConfirmButton: false,
+            timer: 1000,
+          })
         })
         .catch((err) => {
           console.log(err)
+
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title:
+              'Error al iniciar sesion, verifique la contraseña o el usuario',
+            width: '30rem',
+            showConfirmButton: true,
+          })
         })
     } else {
       console.log('register', log)
@@ -35,11 +59,25 @@ const Login = () => {
           console.log(data)
           //save token in local storage
           localStorage.setItem('token', data[0])
+          dispatch(getRol(localStorage.getItem('token')))
           //redirect to home page
           navigate('/')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Se inicio sesion con exito',
+            showConfirmButton: false,
+            timer: 1000,
+          })
         })
         .catch((err) => {
           console.log(err)
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'El usuario ya existe',
+            showConfirmButton: true,
+          })
         })
     }
   }

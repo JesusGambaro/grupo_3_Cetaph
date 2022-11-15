@@ -64,3 +64,7 @@ body::-webkit-scrollbar {
   background-color: #7f5283;
   border-radius: 9999px;
 }
+.swal2-popup {
+  font-size: 0.7rem !important;
+  font-family: Georgia, serif;
+}

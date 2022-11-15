@@ -12,7 +12,6 @@ const CardsScroller = () => {
 
   const dispatch = useDispatch()
   const landingAlbums = useSelector(({ main }) => main.landing).slice(0)
-  console.log(landingAlbums)
   useEffect(() => {
     dispatch(getLanding())
     const el = slider.current

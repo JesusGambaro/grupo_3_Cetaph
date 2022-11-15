@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import NavBar from '../Navbar/NavBar'
 import Card from '../Card/Card'
@@ -7,14 +7,21 @@ import './home.scss'
 import CardsScroller from './CardsScroller/CardsScroller'
 import Footer from '../Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { getGenres } from '../../Redux/actions/catalogue'
+import {
+  filterCatalogue,
+  getFormatos,
+  getGenres,
+} from '../../Redux/actions/catalogue'
+import { setFilter } from '../../Redux/reducers/mainReducer'
 const Home = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getGenres())
-    /*  filter = { ...filter }
-    dispatch(filterCatalogue(filter)) */
+    dispatch(getFormatos())
   }, [])
+  const navigate = useNavigate()
+  const [searchParam, setSearchParam] = useState('')
+  const { filter } = useSelector(({ main }) => main)
   return (
     <>
       <NavBar />
@@ -22,18 +29,26 @@ const Home = () => {
         <div className="home-container__categories">
           <div className="categories-header">
             <h1>Categorias</h1>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="Search" />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                console.log(searchParam)
+                navigate('/catalogue')
+                dispatch(setFilter({ searchParam }))
+                dispatch(filterCatalogue({ ...filter, searchParam }))
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Buscar"
+                onChange={(e) => setSearchParam(e.target.value)}
+              />
               <button type="submit">
                 <i className="bi bi-search"></i>
               </button>
             </form>
-            <p>
-              Consigue tu propia colleccion con nosotros!!
-            </p>
-            <p>
-              Tenemos muchos albumes que te volaran la cabeza 
-            </p>
+            <p>Consigue tu propia colleccion con nosotros!!</p>
+            <p>Tenemos muchos albumes que te volaran la cabeza</p>
           </div>
           <div className="categories-card-wrapper">
             <CategoryCard

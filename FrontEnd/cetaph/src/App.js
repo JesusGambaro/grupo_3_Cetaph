@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './Components/Home/Home'
 import AboutUs from './Components/AboutUs/AboutUs'
 import Catalogue from './Components/Catalogue/Catalogue'
-import Contact from './Components/Contact/Contact'
 import NavBar from './Components/Navbar/NavBar'
 import Detail from './Components/Detail/Detail'
 import Footer from './Components/Footer/Footer'
@@ -20,7 +19,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Catalogue" element={<Catalogue />} />
-        <Route path="/Contact" element={<Contact />} />
         <Route path="/AdminDashboard/" element={<AllProducts />} />
         <Route path="/Cart/" element={<Cart />} />
         <Route path="Detail/:id" element={<Detail />} />

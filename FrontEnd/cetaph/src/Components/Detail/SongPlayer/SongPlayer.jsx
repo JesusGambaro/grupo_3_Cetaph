@@ -66,6 +66,7 @@ const SongPlayer = ({ track, handleSongChange, nextSong, prevSong }) => {
     audioRef.current.pause()
 
     audioRef.current = new Audio(urlMusic)
+    audioRef.current.volume = volume
     setTrackProgress(audioRef.current.currentTime)
 
     if (isReady.current) {
@@ -85,7 +86,7 @@ const SongPlayer = ({ track, handleSongChange, nextSong, prevSong }) => {
       clearInterval(intervalRef.current)
     }
   }, [])
-  const [volume, setVolume] = useState(0.5)
+  const [volume, setVolume] = useState(0.3)
   const handleVolume = (e) => {
     setVolume(e)
     audioRef.current.volume = e

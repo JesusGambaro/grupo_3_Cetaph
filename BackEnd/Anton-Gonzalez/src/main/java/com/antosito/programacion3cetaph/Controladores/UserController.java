@@ -4,6 +4,7 @@ package com.antosito.programacion3cetaph.Controladores;
 import com.antosito.programacion3cetaph.Entidades.Cart;
 import com.antosito.programacion3cetaph.Entidades.Rol;
 import com.antosito.programacion3cetaph.Entidades.User;
+import com.antosito.programacion3cetaph.Servicios.CartService;
 import com.antosito.programacion3cetaph.Servicios.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -12,6 +13,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -38,6 +40,8 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class UserController {
     private final UserService userService;
 
+    @Autowired
+    CartService cartService;
 
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUser(@PageableDefault(size = 10, page = 0) Pageable pageable) {
@@ -46,27 +50,27 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<User> saveUser(@RequestBody User user,HttpServletRequest request,HttpServletResponse response) throws Exception {
-        if(!userService.validate(user)) {
+        if (!userService.validate(user)) {
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/register").toUriString());
             Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
             String accessToken = JWT.create()
                     .withSubject(user.getUsername())
-                    .withExpiresAt(new Date(System.currentTimeMillis()+86400000))
+                    .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
                     .withIssuer(request.getRequestURL().toString())
-                    .withClaim("rol",user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
+                    .withClaim("rol", user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
                     .sign(algorithm);
             List<String> tokens = new ArrayList<>();
             tokens.add(accessToken);
             response.setContentType(APPLICATION_JSON_VALUE);
             Cart cart = new Cart();
             cart.setUser(user);
-            new ObjectMapper().writeValue(response.getOutputStream(),tokens);
+            cartService.save(cart);
+            new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             return ResponseEntity.created(uri).body(userService.saveUser(user));
-        }else{
-            return new ResponseEntity("El usuario ya existe", HttpStatus.BAD_REQUEST);
+        } else {
+            return Res
         }
     }
-
     @PostMapping("/roles/save")
     public ResponseEntity<Rol> saveRol(@RequestBody Rol rol) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/roles/save").toUriString());

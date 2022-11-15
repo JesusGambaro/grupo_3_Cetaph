@@ -7,6 +7,7 @@ import Loading from '../../../Loading/Loading'
 import { CreateSingle } from '../CreateSingle/CreateSingle'
 import { useRef } from 'react'
 import { ErrorMessage, Field, Form, Formik, useField } from 'formik'
+import Swal from 'sweetalert2'
 const CreateAlbumFormNew = ({
   albumObject,
   cancelFunc,
@@ -24,6 +25,7 @@ const CreateAlbumFormNew = ({
     formato: false,
   })
   const [isLoading, setLoading] = useState(true)
+  const [creandoGenero, setCrendoGenero] = useState(false)
   const [submiting, setSubmiting] = useState(false)
   const [isCreatingSingle, setCreatingSingle] = useState(false)
   const setInitialValues = () => {
@@ -167,6 +169,13 @@ const CreateAlbumFormNew = ({
       .then((res) => {
         console.log(res.data)
         cancelFunc()
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Album creado con exito',
+          showConfirmButton: false,
+          timer: 1000,
+        })
         getAlbums({
           albumNombre: '',
           artista: { id: '', nombre: '' },
@@ -174,6 +183,13 @@ const CreateAlbumFormNew = ({
       })
       .catch((err) => {
         console.log(err)
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error Al crear el album',
+          showConfirmButton: false,
+          timer: 1000,
+        })
       })
       .finally(() => {
         setLoading(false)
@@ -239,6 +255,7 @@ const CreateAlbumFormNew = ({
       })
   }, [])
   const crearGenero = (value) => {
+    setCrendoGenero(true)
     axios({
       url: 'http://localhost:9000/api/v1/genero',
       method: 'POST',
@@ -253,6 +270,7 @@ const CreateAlbumFormNew = ({
         })
           .then(({ data }) => {
             //console.log(data);
+            setCrendoGenero(false)
             let generosData = data.content.map((genero) => {
               return {
                 value: genero,
@@ -315,8 +333,9 @@ const CreateAlbumFormNew = ({
             // Validacion nombre
             if (!valores.album.nombre || valores.album.nombre == '') {
               errores.nombre = 'Por favor ingresa un nombre'
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.album.nombre)) {
-              errores.nombre = 'El nombre solo puede contener letras y espacios'
+            } else if (!/^[A-Za-z0-9\s]+$/g.test(valores.album.nombre)) {
+              errores.nombre =
+                'El nombre solo puede contener letras,numeros y espacios'
             }
 
             // Validacion precio
@@ -551,8 +570,12 @@ const CreateAlbumFormNew = ({
                               })
                             }
                           }}
-                          placeholder={'Elige o Escribe un genero...'}
-                          options={generos}
+                          placeholder={
+                            creandoGenero
+                              ? 'Creando genero...'
+                              : 'Elige o Escribe un genero...'
+                          }
+                          options={creandoGenero ? null : generos}
                           onBlur={handleBlur}
                           isClearable
                           onCreateOption={(param) => {

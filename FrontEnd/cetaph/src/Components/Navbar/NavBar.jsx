@@ -1,10 +1,25 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import './navbar.scss'
+
+import { getRol } from '../../Redux/actions/user'
+import { useDispatch, useSelector } from 'react-redux'
+import AlertNeedToLogIng from '../../hooks/AlertNeedToLogIng'
 const NavBar = () => {
+  const dispatch = useDispatch()
+  const { user } = useSelector(({ main }) => main)
   const navigate = useNavigate()
   const [usuarioIcon, setUsuarioIcon] = useState(false)
+  const [role, setRol] = useState('')
+  useEffect(() => {
+    if (localStorage.getItem('token') != null) {
+      dispatch(getRol(localStorage.getItem('token')))
+    }
+  }, [])
+  useEffect(() => {
+    setRol(user.role)
+  }, [user])
   return (
     <nav>
       <div className="nav-wrapper">
@@ -19,17 +34,12 @@ const NavBar = () => {
           </li>
           <li className="nav-item">
             <p className="nav-link" onClick={() => navigate('/Catalogue')}>
-              Catalogue
+              Catalogo
             </p>
           </li>
           <li className="nav-item">
             <p className="nav-link" onClick={() => navigate('/AboutUs')}>
-              About
-            </p>
-          </li>
-          <li className="nav-item">
-            <p className="nav-link" onClick={() => navigate('/Contact')}>
-              Contact
+              Sobre Nosotros
             </p>
           </li>
         </ul>
@@ -53,7 +63,7 @@ const NavBar = () => {
             <ul className={'icon-options ' + (usuarioIcon ? 'active' : '')}>
               {localStorage.getItem('token') ? (
                 <>
-                  <li>{localStorage.getItem('rol')}</li>
+                  <li>{role}</li>
                   <li
                     onClick={() => {
                       if (usuarioIcon) {
@@ -65,7 +75,7 @@ const NavBar = () => {
                   >
                     Log Out
                   </li>
-                  {localStorage.getItem('rol') === 'Admin' && (
+                  {role === 'Admin' && (
                     <li
                       onClick={() => {
                         if (usuarioIcon) {
@@ -95,7 +105,15 @@ const NavBar = () => {
           <li
             className="nav-icon"
             onClick={() => {
-              navigate('/Cart')
+              if (localStorage.getItem('token') == null) {
+                AlertNeedToLogIng({
+                  confirm: () => {
+                    navigate('/login')
+                  },
+                })
+              } else {
+                navigate('/Cart')
+              }
             }}
           >
             <p className="icon-link">

@@ -1,59 +1,75 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { CreateArtista } from "../../Formulario/CreateArtista/CreateArtista";
-import Loading from "../../../Loading/Loading";
+import React from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { CreateArtista } from '../../Formulario/CreateArtista/CreateArtista'
+import Loading from '../../../Loading/Loading'
 import {
   filterCatalogue,
   getArtistas,
-} from "../../../../Redux/actions/catalogue";
-import { useDispatch, useSelector } from "react-redux";
+} from '../../../../Redux/actions/catalogue'
+import { useDispatch, useSelector } from 'react-redux'
 
-import ConfirmDialog from "../../ConfirmDialog/ConfirmDialog";
+import ConfirmDialog from '../../ConfirmDialog/ConfirmDialog'
+import Swal from 'sweetalert2'
 export const ArtistasAdmin = ({}) => {
-  const [formActive, setFormActive] = useState(false);
-  const [isCreating, setCreating] = useState(false);
-  const [artistaObject, setArtistaObject] = useState();
-  const dispatch = useDispatch();
-  const [filters, setFilters] = useState({});
+  const [formActive, setFormActive] = useState(false)
+  const [isCreating, setCreating] = useState(false)
+  const [artistaObject, setArtistaObject] = useState()
+  const dispatch = useDispatch()
+  const [filters, setFilters] = useState({})
   const [confirmDialog, setConfirmDialog] = useState({
     isActive: false,
     cancelFunc: null,
     aceptFunc: null,
-  });
-  const { loading, filter, artistas } = useSelector(({ main }) => main);
+  })
+  const { loading, filter, artistas } = useSelector(({ main }) => main)
   useEffect(() => {
-    dispatch(filterCatalogue(filter));
-    dispatch(getArtistas());
-    setFilters(filter);
+    dispatch(filterCatalogue(filter))
+    dispatch(getArtistas())
+    setFilters(filter)
     //console.log(filter);
-  }, []);
+  }, [])
   const deleteArtista = (id) => {
     axios
-      .delete("http://localhost:9000/api/v1/artista/deleteArtist/" + id)
+      .delete('http://localhost:9000/api/v1/artista/deleteArtist/' + id)
       .then((res) => {
-        console.log(res);
+        console.log(res)
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Artista borrado con exito',
+          showConfirmButton: false,
+          timer: 1000,
+        })
       })
-      .catch((err) => {})
+      .catch((err) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error al borrar el artista',
+          showConfirmButton: false,
+          timer: 1000,
+        })
+      })
       .finally(() => {
-        dispatch(getArtistas());
-      });
-  };
+        dispatch(getArtistas())
+      })
+  }
   return (
     <>
       <div className="wrapper">
         {formActive ? (
           <CreateArtista
             cancelFunc={() => {
-              setFormActive(!formActive);
-              setArtistaObject(null);
-              dispatch(getArtistas());
+              setFormActive(!formActive)
+              setArtistaObject(null)
+              dispatch(getArtistas())
             }}
             artistObject={artistaObject}
             isCreating={isCreating}
             getArtists={() => {
               dispatch(getArtistas())
-            } }
+            }}
           ></CreateArtista>
         ) : (
           <>
@@ -78,9 +94,9 @@ export const ArtistasAdmin = ({}) => {
               <button
                 className="create-button artist"
                 onClick={() => {
-                  setFormActive(!formActive);
-                  setCreating(true);
-                  setArtistaObject(null);
+                  setFormActive(!formActive)
+                  setCreating(true)
+                  setArtistaObject(null)
                 }}
               >
                 Crear un nuevo artista
@@ -104,9 +120,9 @@ export const ArtistasAdmin = ({}) => {
                       <div className="actions">
                         <button
                           onClick={() => {
-                            setFormActive(!formActive);
-                            setArtistaObject(param);
-                            setCreating(false);
+                            setFormActive(!formActive)
+                            setArtistaObject(param)
+                            setCreating(false)
                           }}
                         >
                           <i className="bi bi-pen"></i>Edit
@@ -123,7 +139,7 @@ export const ArtistasAdmin = ({}) => {
                                     isActive: false,
                                     aceptFunc: null,
                                     cancelFunc: null,
-                                  });
+                                  })
                                 },
                                 cancelFunc: () => {
                                   setConfirmDialog({
@@ -131,9 +147,9 @@ export const ArtistasAdmin = ({}) => {
                                     isActive: false,
                                     aceptFunc: null,
                                     cancelFunc: null,
-                                  });
+                                  })
                                 },
-                              });
+                              })
                             }
                           }}
                         >
@@ -141,9 +157,9 @@ export const ArtistasAdmin = ({}) => {
                         </button>
                       </div>
                     </div>
-                  );
+                  )
                 })}
-                <h1>{!artistas.length && "No Hay Artistas"}</h1>
+                <h1>{!artistas.length && 'No Hay Artistas'}</h1>
               </div>
             )}
           </>
@@ -156,5 +172,5 @@ export const ArtistasAdmin = ({}) => {
         ></ConfirmDialog>
       )}
     </>
-  );
-};
+  )
+}

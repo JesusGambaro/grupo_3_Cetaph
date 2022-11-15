@@ -2,13 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20rem;
-  padding: 5rem 0rem;
-  gap: 2rem;
+  width: 25rem;
   min-height: 100vh;
+  gap: 2rem;
   flex-direction: column;
   background-color: var(--pastel-color-primary);
   color: white;
+  h1 {
+    height: 4.2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .price-filter {
     width: 15rem;
     .prices-container {
@@ -17,7 +23,6 @@
       align-items: center;
       justify-content: space-evenly;
       gap: 0.3rem;
-
       span {
         display: flex;
         width: 50%;
@@ -32,6 +37,7 @@
           }
 
           border: 0.1rem solid #000;
+
           border-radius: 0.2rem;
           width: 80%;
         }
@@ -41,13 +47,13 @@
         border-radius: 50%;
         display: flex;
         width: 1.5rem;
-        height: 1.5rem;
-        font-size: small;
+        height: 1.3rem;
+        font-size: medium;
         justify-content: center;
         align-items: center;
         border: none;
-        color: white;
-        background: #000;
+        color: #000;
+        background: #fff;
 
         &:active {
           transform: scale(0.96);
@@ -61,18 +67,18 @@
       box-shadow: none;
 
       & .bar-inner {
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(96, 157, 173);
       }
 
       & .bar-left,
       & .bar-right {
-        background: rgb(0, 0, 0);
+        background: rgb(255, 252, 252);
         box-shadow: none;
       }
 
       & .thumb {
         &::before {
-          background-color: black;
+          background-color: rgb(255, 255, 255);
           width: 1.2rem;
           height: 1.2rem;
           border: none;
@@ -84,7 +90,7 @@
           bottom: 1rem;
           width: 35px;
           height: 35px;
-          background-color: black;
+          background-color: rgb(203, 0, 0);
           border-radius: 0.5rem;
           color: white;
           box-shadow: none;
@@ -107,7 +113,7 @@
       & .label-max {
         position: relative;
         &::before {
-          content: "$";
+          content: '$';
           left: -0.5rem;
           position: absolute;
         }
@@ -126,41 +132,51 @@
     border: none;
   }
 }
-.filter-card {
+.filters-items-container {
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 1rem;
   align-items: center;
-  flex-direction: column;
-  flex: 1 0 40%;
-  min-height: 3rem;
-  max-width: 6.5rem;
   justify-content: center;
-  text-transform: uppercase;
-  color: #fff;
-  background: #000;
-  position: relative;
-  padding: 0.5rem;
-  p {
-    font-weight: 500;
-    margin-bottom: 0;
-  }
-  button {
-    position: absolute;
-    top: -0.1rem;
-    right: -0.2rem;
+
+  gap: 1rem;
+
+  .filter-card {
     display: flex;
-    justify-content: center;
     align-items: center;
-    border: none;
-    background-color: transparent;
+    flex-direction: column;
+    flex: 1 0 40%;
+    min-height: 3rem;
+    max-width: 6.5rem;
+    justify-content: center;
+    text-transform: uppercase;
+    border-radius: 0.5rem;
     color: #000;
-    width: 0.5rem;
-    border-radius: 50%;
-    height: 0.5rem;
-    background-color: #fff;
-    font-weight: 500;
-    font-size: small;
-  }
-  p {
-    font-size: small;
+    background: #fff;
+    position: relative;
+    padding: 0.5rem;
+    p {
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+    button {
+      position: absolute;
+      top: -0.1rem;
+      right: -0.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      color: #fff;
+      width: 0.5rem;
+      border-radius: 50%;
+      height: 0.5rem;
+      background-color: #000;
+      font-weight: 500;
+      font-size: small;
+      cursor: pointer;
+    }
   }
 }

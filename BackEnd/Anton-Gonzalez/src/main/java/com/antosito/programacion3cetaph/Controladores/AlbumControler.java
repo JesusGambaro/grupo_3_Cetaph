@@ -56,15 +56,6 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
                     , sort = "nombre", direction = Sort.Direction.ASC
             ) Pageable pageable) {
         try {
-            String RED = "\033[0;31m";
-            String RESET = "\033[0m";
-            System.out.println(RED + "nombre: " + nombre +
-                    "\nmin: " + min +
-                    "\nmax: " + max +
-                    "\nformato: " + formato +
-                    "\nexplicito: " + explicito +
-                    "\nartista: " + genero +
-                    RESET);
             return ResponseEntity.status(HttpStatus.OK).body(albumService.SearchAlbums(nombre, min, max, formato, explicito,
                     genero,
                     pageable));
@@ -72,9 +63,6 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    //Le damos un mapeo respetivo para llamar al metodo de repostory en este caso usamos
-    /* http://localhost:9000/api/v1/album/searchAlbumsbyArtist?Name=Plague */
-
     @GetMapping("/searchAlbumsbyArtist/{id}")
     public ResponseEntity<?> searchAlbumsBy(@PathVariable Long id, Pageable pageable) {
         try {

@@ -151,6 +151,7 @@
       top: 26%;
       align-items: center;
       justify-content: center;
+
       button {
         cursor: pointer;
         height: 2rem;
@@ -220,37 +221,28 @@
         font-size: 1.1rem;
       }
       .subtitle {
-        display: flex;
-        align-items: center;
+        display: inline-block;
+        border: 0.1rem solid red;
+        width: 200px;
         text-align: center;
-
         gap: 0.5rem;
-        .artista {
-          gap: 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        mark {
+          margin: none;
+          text-align: center;
           display: flex;
           align-items: center;
-          text-align: center;
           justify-content: center;
-
-          a {
+          width: 10px;
+          height: 1px;
+          font-size: 3rem;
+          &.artista {
             font-size: 1rem;
-            font-weight: light;
-            &:last-child {
-              cursor: pointer;
-              &:hover {
-                text-decoration: underline;
-              }
-            }
-          }
-          p {
-            margin: none;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 10px;
-            height: 10px;
-            font-size: 3rem;
+            width: auto;
+            height: auto;
           }
         }
       }
