@@ -22,7 +22,6 @@ const CategoryCard = ({ img, data_category }) => {
         <button
           onClick={() => {
             dispath(setFilter({ ...filter, genre: data_category }))
-            dispath(setFilter({ genre: data_category }))
             navigate('/catalogue')
           }}
         >

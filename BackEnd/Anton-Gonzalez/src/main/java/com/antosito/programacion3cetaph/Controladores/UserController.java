@@ -68,7 +68,7 @@ public class UserController {
             new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             return ResponseEntity.created(uri).body(userService.saveUser(user));
         } else {
-            return Res
+            return new ResponseEntity("Usuario o mail ya existentes", HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/roles/save")

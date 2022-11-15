@@ -1,65 +1,58 @@
-import { useState, useEffect } from 'react'
-import './leftFilters.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from "react";
+import "./leftFilters.scss";
+import { useDispatch, useSelector } from "react-redux";
 import {
   filterCatalogue,
   getFormatos,
   getGenres,
-} from '../../../Redux/actions/catalogue'
-import Select from 'react-select'
-import chroma from 'chroma-js'
-import { setFilter } from '../../../Redux/reducers/mainReducer'
-import MultiRangeSlider from 'multi-range-slider-react'
-import { act } from 'react-dom/test-utils'
-import FiltersItems from './FiltersItems'
-const LeftFilters = ({ setUpFilters }) => {
-  const dispatch = useDispatch()
-  let { filter, genres, formatos } = useSelector(({ main }) => main)
-  const [checkeds, setCheckeds] = useState([])
-  const [leftFilter, setLeftFilter] = useState({
-    genre: '',
-    formato: '',
-    explicit: '',
-    price: {
-      min: 0,
-      max: 0,
-    },
-  })
+} from "../../../Redux/actions/catalogue";
+import Select from "react-select";
+import chroma from "chroma-js";
+import { setFilter } from "../../../Redux/reducers/mainReducer";
+import MultiRangeSlider from "multi-range-slider-react";
+import { act } from "react-dom/test-utils";
+import FiltersItems from "./FiltersItems";
+const LeftFilters = ({ setUpFilters, filters }) => {
+  const dispatch = useDispatch();
+  let { filter, genres, formatos } = useSelector(({ main }) => main);
+  const [checkeds, setCheckeds] = useState([]);
+  const [price, setPrice] = useState({
+    min: 0,
+    max: 5000,
+  });
 
   useEffect(() => {
-    dispatch(getGenres())
-    dispatch(getFormatos())
-    leftFilter.explicit = filter.explicit
-    if (!leftFilter.length) setCheckeds([])
-  }, [])
+    dispatch(getGenres());
+    dispatch(getFormatos());
+  }, []);
   const handleCheckSelect = (key) => {
-    setCheckeds(checkeds.filter((select) => select !== key))
-  }
+    setCheckeds(checkeds.filter((select) => select !== key));
+  };
 
   const selectStyle = {
     control: () => ({
-      display: 'flex',
-      width: '12rem',
-      height: '2.rem',
-      border: '2px solid black',
-      borderRadius: '.5rem',
-      padding: '0 0.5rem',
-      backgroundColor: '#fefbf6',
-      placeholder: 'black',
+      display: "flex",
+      width: "12rem",
+      height: "2.rem",
+      border: "2px solid black",
+      borderRadius: ".5rem",
+      padding: "0 0.5rem",
+      backgroundColor: "#fefbf6",
+      placeholder: "black",
     }),
     menu: (provided) => ({
       ...provided,
-      width: '12rem',
-      border: '1px solid black',
-      borderRadius: '.5rem',
+      width: "12rem",
+      border: "1px solid black",
+      borderRadius: ".5rem",
       padding: 0,
-      position: 'absolute',
-      botton: '-1rem',
-      backgroundColor: '#fefbf6',
-      color: 'black',
+      position: "absolute",
+      botton: "-1rem",
+      backgroundColor: "#fefbf6",
+      color: "black",
     }),
     option: (styles, { isDisabled, isFocused, isSelected }) => {
-      const color = chroma('#319da0')
+      const color = chroma("#319da0");
       return {
         ...styles,
         backgroundColor: isDisabled
@@ -67,81 +60,96 @@ const LeftFilters = ({ setUpFilters }) => {
           : isSelected
           ? color
           : isFocused
-          ? '#319da0'
+          ? "#319da0"
           : undefined,
         color: isDisabled
-          ? '#ccc'
+          ? "#ccc"
           : isSelected
-          ? chroma.contrast(color, 'white') > 2
-            ? '#319da0'
-            : 'black'
+          ? chroma.contrast(color, "white") > 2
+            ? "#319da0"
+            : "black"
           : color,
-        cursor: isDisabled ? 'not-allowed' : 'default',
+        cursor: isDisabled ? "not-allowed" : "default",
 
-        ':active': {
-          ...styles[':active'],
+        ":active": {
+          ...styles[":active"],
           backgroundColor: !isDisabled
             ? isSelected
-              ? '#319da0'
+              ? "#319da0"
               : color.alpha(0.3).css()
             : undefined,
         },
-      }
+      };
     },
     dropdownIndicator: (provided, state) => ({
       ...provided,
-      color: 'black',
-      transition: 'all 0.3s ease',
-      transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
+      color: "black",
+      transition: "all 0.3s ease",
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
     }),
     clearIndicator: (provided) => ({
       ...provided,
-      color: 'black',
+      color: "black",
     }),
-  }
+  };
   const handlePrice = (e) => {
-    setLeftFilter({
-      ...leftFilter,
-      price: { min: e.minValue, max: e.maxValue },
-    })
-  }
+    setPrice({ min: e.minValue, max: e.maxValue });
+  };
   return (
     <div className="filters-container">
       <h1>Filtros</h1>
-      <FiltersItems
-        filters={leftFilter}
-        handleCheckSelect={(key) => handleCheckSelect(key)}
-      />
       <button
         className="resetFilters"
         onClick={() => {
-          setUpFilters({})
-          setLeftFilter({
-            genre: '',
-            formato: '',
-            explicit: '',
-            price: {
-              min: 0,
-              max: 0,
+          dispatch(setFilter({
+            genre: "",
+            priceMin: "",
+            priceMax: "",
+            explicit: "",
+            searchParam: "",
+            formato: "",
+            sort: "",
+            direction: "",
+            page: 0,
+            size: {
+              totalElements: 1,
+              totalPages: 1,
             },
-          })
+          }))
+          setUpFilters({
+            genre: "",
+            priceMin: "",
+            priceMax: "",
+            explicit: "",
+            searchParam: "",
+            formato: "",
+            sort: "",
+            direction: "",
+            page: 0,
+            size: {
+              totalElements: 1,
+              totalPages: 1,
+            },
+          });
+          setPrice({min: 0,
+            max: 5000,});
         }}
       >
-        Reseteo de Filtros
+        Limpiar Filtros
       </button>
       <div className="price-filter">
         <h4>Precio</h4>
         <MultiRangeSlider
           min={0}
-          max={10000}
-          step={10}
+          max={5000}
+          step={100}
           ruler={false}
           label={true}
           preventWheel={true}
-          minValue={leftFilter.price.min}
-          maxValue={leftFilter.price.max}
+          minValue={price.min}
+          maxValue={price.max}
           onInput={(e) => {
-            handlePrice(e)
+            handlePrice(e);
           }}
         />
         <div className="prices-container">
@@ -149,12 +157,9 @@ const LeftFilters = ({ setUpFilters }) => {
             Min
             <input
               type="number"
-              value={leftFilter.price.min}
+              value={price.min}
               onChange={(e) =>
-                setLeftFilter({
-                  ...leftFilter,
-                  price: { ...leftFilter.price, min: e.target.value },
-                })
+                setPrice({ ...price, min: e.target.value })
               }
             />
           </span>
@@ -162,21 +167,18 @@ const LeftFilters = ({ setUpFilters }) => {
             Max
             <input
               type="number"
-              value={leftFilter.price.max}
+              value={price.max}
               onChange={(e) =>
-                setLeftFilter({
-                  ...leftFilter,
-                  price: { ...leftFilter.price, max: e.target.value },
-                })
+                setPrice({ ...price, max: e.target.value })
               }
             />
           </span>
           <button
             onClick={() => {
               setUpFilters({
-                priceMin: leftFilter.price.min,
-                priceMax: leftFilter.price.max,
-              })
+                priceMin: price.min,
+                priceMax: price.max,
+              });
             }}
           >
             <i className="bi bi-caret-right-fill"></i>
@@ -186,51 +188,50 @@ const LeftFilters = ({ setUpFilters }) => {
       <Select
         options={[
           {
-            value: 'genre',
-            label: 'Genero',
+            value: "genre",
+            label: "Genero",
             isDisabled: true,
             isFixed: true,
           },
           ...genres.map(({ generoName: label }) => ({
             value: label,
-            label,
+            label:label.substring(0,1).toUpperCase() + label.substring(1),
           })),
         ]}
         onSelectResetsInput={false}
         onBlurResetsInput={false}
         styles={selectStyle}
-        placeholder={'Genero'}
+        placeholder={"Genero"}
         theme={(theme) => ({
           ...theme,
           colors: {
             ...theme.colors,
-            neutral50: '#1A1A1A', // Placeholder color
+            neutral50: "#1A1A1A", // Placeholder color
           },
         })}
         //defaultValue={{ value: "genre", label: "Genero" }}
         onChange={(e, { action }) => {
-          console.log(action)
-          if (action == 'clear') {
-            setUpFilters({ genre: '' })
-            setLeftFilter({ ...leftFilter, genre: '' })
+          console.log(action);
+          if (action == "clear") {
+            setUpFilters({ genre: "" });
+            
           } else {
-            setUpFilters({ genre: e.value })
-            setLeftFilter({ ...leftFilter, genre: e.value })
+            setUpFilters({ genre: e.value });
           }
         }}
         isSearchable={false}
         isClearable
         value={
-          leftFilter.genre != ''
-            ? { value: leftFilter.genre, label: leftFilter.genre }
+          filters.genre != ""
+            ? { value: filters.genre, label: filters.genre?.substring(0,1).toUpperCase() + filters.genre?.substring(1)}
             : null
         }
       />
       <Select
         options={[
           {
-            value: 'formatos',
-            label: 'Formatos',
+            value: "formatos",
+            label: "Formatos",
             isDisabled: true,
             isFixed: true,
           },
@@ -239,98 +240,81 @@ const LeftFilters = ({ setUpFilters }) => {
             label: formato,
           })),
         ]}
-        placeholder={'Formato'}
+        placeholder={"Formato"}
         theme={(theme) => ({
           ...theme,
           colors: {
             ...theme.colors,
-            neutral50: '#1A1A1A', // Placeholder color
+            neutral50: "#1A1A1A", // Placeholder color
           },
         })}
         onSelectResetsInput={false}
         onBlurResetsInput={false}
         styles={selectStyle}
+        isSearchable={false}
         onChange={(e, { action }) => {
-          console.log(action)
-          if (action == 'clear') {
-            setUpFilters({ formato: '' })
-            setLeftFilter({ ...leftFilter, formato: '' })
+          console.log(action);
+          if (action == "clear") {
+            setUpFilters({ formato: "" });
+            
           } else {
-            setUpFilters({ formato: e.value })
-            setLeftFilter({ ...leftFilter, formato: e.value })
+            setUpFilters({ formato: e.value });
           }
         }}
-        isSearchable={false}
         isClearable
         value={
-          leftFilter.formato != ''
-            ? { value: leftFilter.formato, label: leftFilter.formato }
+          filters.formato != ""
+            ? { value: filters.formato, label: filters.formato }
             : null
         }
       />
-      <span>
+      <span className="explicit-filter">
         <label>Explicito</label>
         <ul>
           <li>
-            <label>Si</label>
+            Si
             <input
               type="checkbox"
               name="esExplicito"
               onChange={(e) => {
-                if (leftFilter.explicit === true) {
+                if (filters.explicit === true) {
                   setUpFilters({
-                    explicit: '',
-                  })
-                  setLeftFilter({
-                    ...leftFilter,
-                    explicit: '',
-                  })
+                    explicit: "",
+                  });
                 } else {
                   setUpFilters({
                     explicit: true,
-                  })
-                  setLeftFilter({
-                    ...leftFilter,
-                    explicit: true,
-                  })
+                  });
                 }
               }}
-              checked={leftFilter.explicit === '' ? false : leftFilter.explicit}
+              checked={filters.explicit === "" ? false : filters.explicit}
             />
           </li>
           <li>
-            <label>No</label>
+            No
             <input
               type="checkbox"
               name="esExplicito"
               onChange={(e) => {
-                if (leftFilter.explicit === false) {
+                if (filters.explicit === false) {
                   setUpFilters({
-                    explicit: '',
-                  })
-                  setLeftFilter({
-                    ...leftFilter,
-                    explicit: '',
-                  })
+                    explicit: "",
+                  });
                 } else {
                   setUpFilters({
                     explicit: false,
-                  })
-                  setLeftFilter({
-                    ...leftFilter,
-                    explicit: false,
-                  })
+                  });
                 }
               }}
               checked={
-                leftFilter.explicit === '' ? false : !leftFilter.explicit
+                filters.explicit === "" ? false : !filters.explicit
               }
             />
           </li>
         </ul>
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default LeftFilters
+export default LeftFilters;

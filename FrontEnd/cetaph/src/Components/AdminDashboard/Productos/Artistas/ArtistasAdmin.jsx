@@ -24,9 +24,23 @@ export const ArtistasAdmin = ({}) => {
   })
   const { loading, filter, artistas } = useSelector(({ main }) => main)
   useEffect(() => {
-    dispatch(filterCatalogue(filter))
     dispatch(getArtistas())
     setFilters(filter)
+    dispatch(filterCatalogue({
+      genre: "",
+      priceMin: "",
+      priceMax: "",
+      explicit: "",
+      searchParam: "",
+      formato: "",
+      sort: "",
+      direction: "",
+      page: 0,
+      size: {
+        totalElements: 1,
+        totalPages: 1,
+      },
+    }))
     //console.log(filter);
   }, [])
   const deleteArtista = (id) => {

@@ -94,10 +94,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean validate(User user) {
 
         if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
-                ||
-                user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
-            System.out.println("Pase");
-            return true;
+                    ||
+                    user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
+                //System.out.println("Pase");
+                return true;
         } else {
             System.out.println("No pase");
             return false;

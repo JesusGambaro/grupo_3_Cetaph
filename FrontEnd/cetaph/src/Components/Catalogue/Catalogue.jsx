@@ -15,9 +15,10 @@ const Catalogue = () => {
   //#region Filters
   const [filters, setFilters] = useState({})
   useEffect(() => {
-    dispatch(filterCatalogue(filter))
-    setFilters(filter)
+    dispatch(filterCatalogue()).then(setFilters(filter))
+    
     dispatch(getArtistas())
+    console.log(filter);
     //console.log(filter);
   }, [])
 
@@ -31,6 +32,8 @@ const Catalogue = () => {
     dispatch(filterCatalogue({ ...filter, ...filters }))
     window.scrollTo(0, 0)
   }, [filters])
+
+
   const setUpFilters = (props) => {
     setFilters((prev) => {
       let copy = { ...prev, ...props }
@@ -49,12 +52,12 @@ const Catalogue = () => {
     setFilters({ ...filters, page: Number(e.target.textContent) - 1 })
   return (
     <div className="catalogue-container">
-      <LeftFilters setUpFilters={setUpFilters} />
+      <LeftFilters setUpFilters={setUpFilters} filters ={filters}/>
       <main>
         <UpSideBar
           handleSearch={handleSearch}
           setUpFilters={setUpFilters}
-          searchParam={filter.searchParam}
+          filters ={filters}
         />
 
         <div className="disks-container">

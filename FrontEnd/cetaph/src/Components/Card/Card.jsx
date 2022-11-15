@@ -50,7 +50,7 @@ const Card = ({ color, data }) => {
           </Link>
         </div>
         <div className="card-body">
-          <h1 className="c-name">{data?.nombre}</h1>
+          <h1 className="c-name">{data.explicit && <mark>E</mark>}{data?.nombre}</h1>
           <h2 className="c-title">{data?.artistas[0]?.nombre}</h2>
         </div>
         <div className="card-footer">

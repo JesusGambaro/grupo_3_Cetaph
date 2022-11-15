@@ -15,10 +15,7 @@ import {
 import { setFilter } from '../../Redux/reducers/mainReducer'
 const Home = () => {
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getGenres())
-    dispatch(getFormatos())
-  }, [])
+  
   const navigate = useNavigate()
   const [searchParam, setSearchParam] = useState('')
   const { filter } = useSelector(({ main }) => main)
@@ -28,7 +25,7 @@ const Home = () => {
       <div className="home-container-own">
         <div className="home-container__categories">
           <div className="categories-header">
-            <h1>Categorias</h1>
+          <h1>Busca el album ideal</h1>
             <form
               onSubmit={(e) => {
                 e.preventDefault()
@@ -36,8 +33,10 @@ const Home = () => {
                 navigate('/catalogue')
                 dispatch(setFilter({ searchParam }))
                 dispatch(filterCatalogue({ ...filter, searchParam }))
+                
               }}
-            >
+            > 
+            
               <input
                 type="text"
                 placeholder="Buscar"
@@ -47,13 +46,14 @@ const Home = () => {
                 <i className="bi bi-search"></i>
               </button>
             </form>
+            <h1>Categorias</h1>
             <p>Consigue tu propia colleccion con nosotros!!</p>
             <p>Tenemos muchos albumes que te volaran la cabeza</p>
           </div>
           <div className="categories-card-wrapper">
             <CategoryCard
               img={
-                'https://res.cloudinary.com/dknpio4ug/image/upload/v1668461539/profe_ohg2nw.png'
+                'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-2nrTeBEkbdoRZPs.png'
               }
               data_category={'Jazz'}
             />
@@ -72,7 +72,7 @@ const Home = () => {
           </div>
         </div>
         <div className="home-container__disks">
-          <h1>Discos</h1>
+          <h1>Albums</h1>
           <CardsScroller />
         </div>
       </div>

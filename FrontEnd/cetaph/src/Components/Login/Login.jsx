@@ -70,12 +70,12 @@ const Login = () => {
             timer: 1000,
           })
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(({response}) => {
+          console.error(response.data)
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'El usuario ya existe',
+            title: response.data,
             showConfirmButton: true,
           })
         })

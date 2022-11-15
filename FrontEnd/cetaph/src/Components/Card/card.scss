@@ -23,6 +23,13 @@
     background-color: transparent;
     .card-body {
       color: #fff;
+      .c-name{
+        mark {
+          background-color: rgb(255, 255, 255);
+          color: rgb(0, 0, 0);
+        }
+      
+      }
     }
     .card-footer {
       .c-price-date {
@@ -38,7 +45,14 @@
       transform: scale(1.03s) perspective(1rem) rotate3d(0, 0, 0, 0.1deg);
       background: #fff;
       .card-body {
-        color: #000;
+        .c-name{
+          color: #000;
+          mark {
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+          }
+        
+        }
         .c-title {
           color: #000;
         }
@@ -61,6 +75,14 @@
     background: #000;
     .card-body {
       color: #fff;
+      .c-name{
+        mark {
+          background-color: rgb(255, 255, 255);
+          color: rgb(0, 0, 0);
+        }
+      
+      }
+      
       .c-title {
         color: #fff;
       }
@@ -98,6 +120,20 @@
       font-size: 1.4rem;
       text-align: center;
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content:center;
+      gap: 1rem;
+      mark {
+        background-color: #000;
+        color: white;
+        padding: 1px 5px;
+        border-radius: 5px;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     .c-title {
       font-size: 1rem;

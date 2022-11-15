@@ -9,7 +9,8 @@
   background-color: var(--pastel-color-primary);
   color: white;
   h1 {
-    height: 4.2rem;
+    padding-top: 2rem;
+    height: 2rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -113,7 +114,7 @@
       & .label-max {
         position: relative;
         &::before {
-          content: '$';
+          content: "$";
           left: -0.5rem;
           position: absolute;
         }
@@ -130,6 +131,84 @@
     cursor: pointer;
     border-radius: 0.5rem;
     border: none;
+    transition: all var(--d) var(--e);
+    &:hover {
+      transition: all var(--d) var(--e);
+      transform: scale(1.05);
+      background: #000;
+      color: white;
+    }
+  }
+  .explicit-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    label {
+      font-weight: 500;
+      font-size: 1.3rem;
+    }
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      li {
+        font-size: 1rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: white;
+        padding: 0rem .5rem;
+        input[type='checkbox'] {
+          cursor: pointer;
+          appearance: none;
+          margin: 0;
+          font: inherit;
+          color: currentColor;
+          width: 1.15em;
+          height: 1.15em;
+          border: 0.15em solid currentColor;
+          border-radius: 0.15em;
+          transform: translateY(-0.075em);
+          display: flex;
+          transition: 0.12 transform ease-in-out;
+          position: relative;
+          align-items: center;
+          justify-content: center;
+          &:hover{
+            transition: 0.12  transform ease-in-out;
+            transform: scale(1.2);
+          }
+          &::before {
+            position: absolute;
+            top: -3px;
+            left: -1px;
+            content: '';
+            width: 1.2em;
+            height: 1.2em;
+            transform: scale(0);
+            transition: 0.2 transform ease-in-out;
+            background-color: rgb(255, 255, 255);
+            clip-path: polygon(
+              75% 22%,
+              89% 31%,
+              38% 91%,
+              7% 59%,
+              20% 47%,
+              38% 66%
+            );
+          }
+          &:checked {
+            &::before {
+              transform: scale(1);
+            }
+          }
+        }
+      }
+    }
   }
 }
 .filters-items-container {

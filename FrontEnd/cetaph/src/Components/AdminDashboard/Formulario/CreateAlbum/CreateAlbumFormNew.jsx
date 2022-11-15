@@ -172,23 +172,13 @@ const CreateAlbumFormNew = ({
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Album creado con exito',
+          title: isCreating ? 'Album creado con exito' : 'Album editado con exito',
           showConfirmButton: false,
           timer: 1000,
         })
         getAlbums({
           albumNombre: '',
           artista: { id: '', nombre: '' },
-        })
-      })
-      .catch((err) => {
-        console.log(err)
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Error Al crear el album',
-          showConfirmButton: false,
-          timer: 1000,
         })
       })
       .finally(() => {

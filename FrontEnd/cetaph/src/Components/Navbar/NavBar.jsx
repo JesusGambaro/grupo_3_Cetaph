@@ -6,17 +6,36 @@ import './navbar.scss'
 import { getRol } from '../../Redux/actions/user'
 import { useDispatch, useSelector } from 'react-redux'
 import AlertNeedToLogIng from '../../hooks/AlertNeedToLogIng'
+import {filterCatalogue,getGenres,getFormatos} from '../../Redux/actions/catalogue'
 const NavBar = () => {
   const dispatch = useDispatch()
   const { user } = useSelector(({ main }) => main)
   const navigate = useNavigate()
   const [usuarioIcon, setUsuarioIcon] = useState(false)
   const [role, setRol] = useState('')
+  const url = window.location.pathname.split('/').pop();
   useEffect(() => {
     if (localStorage.getItem('token') != null) {
       dispatch(getRol(localStorage.getItem('token')))
     }
-  }, [])
+    dispatch(getGenres())
+    dispatch(getFormatos())
+    dispatch(filterCatalogue({
+      genre: "",
+      priceMin: "",
+      priceMax: "",
+      explicit: "",
+      searchParam: "",
+      formato: "",
+      sort: "",
+      direction: "",
+      page: 0,
+      size: {
+        totalElements: 1,
+        totalPages: 1,
+      },
+    }))
+  }, [url])
   useEffect(() => {
     setRol(user.role)
   }, [user])
