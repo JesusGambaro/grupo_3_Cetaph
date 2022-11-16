@@ -14,7 +14,7 @@ import java.util.List;
 public interface AlbumRepository extends BaseRepository<Albums, Long> {
 
     //Una query que filtra por varios parametros para encontrar un producto especifico en la base de datos
-    @Query(value = "SELECT * from albums alb " +
+    @Query(value = "SELECT alb.id from albums alb " +
             "inner join genero g on alb.genero_id = g.id " +
             "left join albums_singles `as` on `as`.albums_id = alb.id " +
             "left join singles s on `as`.singles_id = s.id " +
@@ -53,6 +53,8 @@ public interface AlbumRepository extends BaseRepository<Albums, Long> {
                              @Param("fGenero") String fGenero,
                              Pageable pageable
     );
+
+
 
     @Query(value = "SELECT * FROM albums a " +
             "INNER JOIN albums_artistas  aa on a.id = aa.albums_id " +

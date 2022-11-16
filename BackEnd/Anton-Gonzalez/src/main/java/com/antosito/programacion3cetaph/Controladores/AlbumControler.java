@@ -52,13 +52,9 @@ public class AlbumControler extends BaseControladorImplementacion<Albums, AlbumS
             @RequestParam(required = false) String formato,
             @RequestParam(required = false) Boolean explicito,
             @RequestParam(required = false) String genero,
-            @PageableDefault(size = 10, page = 0
-                    , sort = "nombre", direction = Sort.Direction.ASC
-            ) Pageable pageable) {
+            @PageableDefault(size = 10, page = 0, sort = "nombre", direction = Sort.Direction.ASC)Pageable pageable) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(albumService.SearchAlbums(nombre, min, max, formato, explicito,
-                    genero,
-                    pageable));
+            return ResponseEntity.status(HttpStatus.OK).body(albumService.SearchAlbums(nombre, min, max, formato, explicito, genero, pageable));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

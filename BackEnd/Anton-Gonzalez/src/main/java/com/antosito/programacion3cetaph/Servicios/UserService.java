@@ -17,4 +17,6 @@ public interface UserService {
     boolean validate(User user);
     boolean comprobateROl(Rol rol);
     boolean existsByName (String rolname);
+
+    boolean existsByUsername(String username);
 }
