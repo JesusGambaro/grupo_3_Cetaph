@@ -33,10 +33,11 @@ public class Programacion3CetaphApplication {
     CommandLineRunner runner(UserService userService) {
         return args -> {
             if(!userService.existsByUsername("admin")) {
-                userService.saveUser(new User("admin", "admin@gmail.com", "admin","adminpass", new ArrayList<>()));
-                if (userService.getUser("admin") == null) {
-                    userService.addRolToUser("admin", "Admin");
-                }
+                userService.crearRoles();
+                userService.saveUserFirstRun(new User("admin", "admin@gmail.com", "admin","adminpass", new ArrayList<>()));
+               if(!userService.getUser("admin").getRoles().equals("Admin")){
+                   userService.addRolToUser("admin","Admin");
+               }
             }
         };
     }

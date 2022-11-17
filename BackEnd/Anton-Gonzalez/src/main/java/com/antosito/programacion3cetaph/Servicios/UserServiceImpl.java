@@ -52,11 +52,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User saveUser(User user) {
-        crearRoles();
         Rol rol = rolRepository.findByName("User");
         rol = rolRepository.findByName("User");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(rol);
+        return userRepository.save(user);
+    }
+    @Override
+    public User saveUserFirstRun(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -105,6 +109,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+    @Override
     public void crearRoles() {
         String[] rolesName = new String[]{"Admin", "User", "Empleado"};
         for (String s : rolesName) {
