@@ -4,6 +4,7 @@ package com.antosito.programacion3cetaph.Controladores;
 import com.antosito.programacion3cetaph.Entidades.Cart;
 import com.antosito.programacion3cetaph.Entidades.Rol;
 import com.antosito.programacion3cetaph.Entidades.User;
+import com.antosito.programacion3cetaph.Repositorios.RolRepository;
 import com.antosito.programacion3cetaph.Servicios.CartService;
 import com.antosito.programacion3cetaph.Servicios.UserService;
 import com.auth0.jwt.JWT;
@@ -39,7 +40,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
-
+    private final RolRepository rolRepository;
     @Autowired
     CartService cartService;
 
@@ -49,28 +50,29 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> saveUser(@RequestBody User user,HttpServletRequest request,HttpServletResponse response) throws Exception {
-        if (!userService.validate(user)) {
-            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/register").toUriString());
-            Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
-            String accessToken = JWT.create()
-                    .withSubject(user.getUsername())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
-                    .withIssuer(request.getRequestURL().toString())
-                    .withClaim("rol", user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
-                    .sign(algorithm);
-            List<String> tokens = new ArrayList<>();
-            tokens.add(accessToken);
-            response.setContentType(APPLICATION_JSON_VALUE);
-            Cart cart = new Cart();
-            cart.setUser(user);
-            cartService.save(cart);
-            new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-            return ResponseEntity.created(uri).body(userService.saveUser(user));
-        } else {
-            return new ResponseEntity("Usuario o mail ya existentes", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<User> saveUser(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (userService.validate(user))
+            return new ResponseEntity("Usuario o mail ya existentes.", HttpStatus.BAD_REQUEST);
+        user.setRoles(Collections.singleton(rolRepository.findByName("User")));
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/register").toUriString());
+        Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
+        String accessToken = JWT.create()
+                .withSubject(user.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
+                .withIssuer(request.getRequestURL().toString())
+                .withClaim("rol", user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
+                .sign(algorithm);
+        List<String> tokens = new ArrayList<>();
+        tokens.add(accessToken);
+        response.setContentType(APPLICATION_JSON_VALUE);
+        Cart cart = new Cart();
+        cart.setUser(user);
+        cartService.save(cart);
+
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
+
     @PostMapping("/roles/save")
     public ResponseEntity<Rol> saveRol(@RequestBody Rol rol) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/roles/save").toUriString());
@@ -82,10 +84,11 @@ public class UserController {
         userService.addRolToUser(Form.getUsername(), Form.getRolName());
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
                 String refreshToken = authorizationHeader.substring("Bearer ".length());
                 Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
@@ -95,30 +98,31 @@ public class UserController {
                 User user = userService.getUser(username);
                 String accessToken = JWT.create()
                         .withSubject(user.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis()+10*60*1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                         .withIssuer(request.getRequestURL().toString())
-                        .withClaim("rol",user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
+                        .withClaim("rol", user.getRoles().stream().map(Rol::getName).collect(Collectors.toList()))
                         .sign(algorithm);
-                Map<String,String> tokens = new HashMap<>();
-                tokens.put("access_token",accessToken);
-                tokens.put("refresh_token",refreshToken);
+                Map<String, String> tokens = new HashMap<>();
+                tokens.put("access_token", accessToken);
+                tokens.put("refresh_token", refreshToken);
                 response.setContentType(APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(),tokens);
-            }catch (Exception e){
-                response.setHeader("Error",e.getMessage());
+                new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+            } catch (Exception e) {
+                response.setHeader("Error", e.getMessage());
                 response.setStatus(FORBIDDEN.value());
                 // response.sendError(FORBIDDEN.value());
-                Map<String,String> error = new HashMap<>();
+                Map<String, String> error = new HashMap<>();
                 error.put("error_message", e.getMessage());
                 response.setContentType(APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(),error);
+                new ObjectMapper().writeValue(response.getOutputStream(), error);
             }
-        }else{
+        } else {
             throw new RuntimeException("No hay tokens frescos");
         }
     }
+
     @GetMapping("/verify")
-    public String[] verificar(@RequestParam("token")String token){
+    public String[] verificar(@RequestParam("token") String token) {
         Algorithm algorithm = Algorithm.HMAC256("cetaphweb".getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT decodedJWT = verifier.verify(token);
@@ -126,6 +130,7 @@ public class UserController {
     }
 
 }
+
 @Data
 @CrossOrigin(origins = "*")
 class roleToUserForm {

@@ -1,9 +1,8 @@
 import './loading.scss'
-
-const Loading = ({ text }) => {
+const Loading = ({ text, path }) => {
   return (
-    <div className="loading-container">
-      <div id="wifi-loader">
+    <div className={'loading-container'}>
+      <div className={'wifi-loader' + (path === '/' ? ' home' : '')}>
         <svg className="circle-outer" viewBox="0 0 86 86">
           <circle className="back" cx="43" cy="43" r="40"></circle>
           <circle className="front" cx="43" cy="43" r="40"></circle>

@@ -1,73 +1,110 @@
-import {useEffect, useState} from "react";
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { filterCatalogue } from '../Redux/actions/catalogue'
+import { filterAlbums } from '../Redux/actions/admin'
+import { setFilter } from '../Redux/reducers/mainReducer'
 
-const usePagination = (data, cardsPerPage, pageLimit) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const pages = Math.ceil(data.length / cardsPerPage);
-  const nextPage = () => setCurrentPage((currentPage) => currentPage + 1);
-  const prevPage = () => setCurrentPage((currentPage) => currentPage - 1);
-  const goPage = (e) => setCurrentPage(Number(e.target.textContent));
-  useEffect(() => {
-    if (data.length < 40) setCurrentPage(1);
-  }, [data]);
-  const dataPerPage = () => {
-    const start = currentPage * cardsPerPage - cardsPerPage,
-      end = start + cardsPerPage;
-    return data.slice(start, end);
-  };
+const usePagination = (filter, admin = false) => {
+  const dispatch = useDispatch()
+
+  let pageLimit = 4
+
+  const nextPage = () => {
+    dispatch(setFilter({ ...filter, page: filter.page + 1 }))
+    if (admin) {
+      dispatch(filterAlbums({ ...filter, page: filter.page + 1 }, true))
+    } else {
+      dispatch(filterCatalogue({ ...filter, page: filter.page + 1 }, true))
+    }
+  }
+
+  const prevPage = () => {
+    dispatch(setFilter({ ...filter, page: filter.page - 1 }))
+    if (admin) {
+      dispatch(filterAlbums({ ...filter, page: filter.page - 1 }, true))
+    } else {
+      dispatch(filterCatalogue({ ...filter, page: filter.page - 1 }, true))
+    }
+  }
+
+  const goPage = ({ target }) => {
+    dispatch(setFilter({ ...filter, page: Number(target.textContent) - 1 }))
+    dispatch(
+      filterCatalogue(
+        { ...filter, page: Number(target.textContent) - 1 },
+        true,
+      ),
+    )
+    if (admin) {
+      dispatch(
+        filterAlbums({ ...filter, page: Number(target.textContent) - 1 }, true),
+      )
+    } else {
+      dispatch(
+        filterCatalogue(
+          { ...filter, page: Number(target.textContent) - 1 },
+          true,
+        ),
+      )
+    }
+  }
+
   const dividedGroups = () => {
-    const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    const start = Math.floor(filter.page / pageLimit) * pageLimit
     return new Array(pageLimit).fill().map((_, i) => {
-      let limit = start + i + 1;
-      return limit <= pages && limit;
-    });
-  };
+      let limit = start + i + 1
+      return limit <= filter.size.totalPages && limit
+    })
+  }
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
-    });
-  }, [currentPage]);
+      behavior: 'smooth',
+    })
+  }, [filter.page])
 
   const Pagination = () => {
-    return !data.length ? (
-      <div className="pagination-container"></div>
-    ) : (
+    return (
       <div className="pagination-container">
-        <div className="selectionOwn">
-          <button
-            className="btnOwn prev"
-            onClick={prevPage}
-            disabled={currentPage === 1}
-          >
-            <i className="fa-solid fa-angle-left"></i>
-          </button>
-          {dividedGroups().map((e, i) => {
-            return (
-              e && (
-                <button
-                  className={currentPage === e ? "btnOwn active" : "btnOwn"}
-                  key={i}
-                  onClick={goPage}
-                >
-                  {e}
-                </button>
+        {filter.size.totalPages ? (
+          <div className="selectionOwn">
+            <button
+              className="btnOwn prev"
+              onClick={prevPage}
+              disabled={filter.page === 0}
+            >
+              <i className="fa-solid fa-angle-left"></i>
+            </button>
+            {dividedGroups().map((e, i) => {
+              return (
+                e && (
+                  <button
+                    className={
+                      filter.page + 1 === e ? 'btnOwn active' : 'btnOwn'
+                    }
+                    key={i}
+                    onClick={goPage}
+                  >
+                    {e}
+                  </button>
+                )
               )
-            );
-          })}
+            })}
 
-          <button
-            className="btnOwn next"
-            onClick={nextPage}
-            disabled={currentPage === pages}
-          >
-            <i className="fa-solid fa-angle-right"></i>
-          </button>
-        </div>
+            <button
+              className="btnOwn next"
+              onClick={nextPage}
+              disabled={filter.page === filter.size.totalPages - 1}
+            >
+              <i className="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        ) : null}
       </div>
-    );
-  };
+    )
+  }
+  return { Pagination }
+}
 
-  return {Pagination, dataPerPage};
-};
-
-export default usePagination;
+export default usePagination

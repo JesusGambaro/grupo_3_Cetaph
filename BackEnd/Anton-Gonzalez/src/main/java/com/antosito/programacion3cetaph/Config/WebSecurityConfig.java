@@ -35,9 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         CustomAuthenticationFilters customAuthenticationFilters = new CustomAuthenticationFilters(authenticationManagerBean());
-        customAuthenticationFilters.setFilterProcessesUrl("/api/login");
+        customAuthenticationFilters.setFilterProcessesUrl("/api/v1/login");
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/api/login/**", "/api/v1/token/refresh/**", "/api/v1/register/**","api/v1/cart/**","/api/v1/register/**").permitAll().and()
+                .antMatchers("/api/v1/login/**", "/api/v1/token/refresh/**", "/api/v1/register/**","api/v1/cart/**","/api/v1/register/**").permitAll().and()
                 .authorizeRequests().antMatchers(GET, "/api/v1/**").permitAll().and()
                 .authorizeRequests().antMatchers(POST, "/api/v1/**").hasAuthority("Admin").and()
                 .authorizeRequests().antMatchers(PUT, "/api/v1/**").hasAuthority("Admin").and()

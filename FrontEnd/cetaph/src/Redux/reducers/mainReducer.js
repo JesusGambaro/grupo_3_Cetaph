@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+export const initialState = {
   loading: false,
   landing: [],
   catalogue: [],
@@ -8,10 +8,12 @@ const initialState = {
   artistas: [],
   formatos: [],
   filter: {
-    genre: '',
-    priceMin: '',
-    priceMax: '',
-    explicit: '',
+    genero: '',
+    precio: {
+      min: 0,
+      max: 0,
+    },
+    explicito: '',
     searchParam: '',
     formato: '',
     sort: '',
@@ -22,11 +24,9 @@ const initialState = {
       totalPages: 0,
     },
   },
-  pageble: {
-    size: 0,
-  },
   user: {
-    role: '',
+    username: '',
+    rol: '',
   },
   cart: [],
 }
@@ -46,8 +46,12 @@ export const mainReducer = createSlice({
     setArtistas: (state, action) => {
       state.artistas = action.payload
     },
-    setRole: (state, action) => {
-      state.user.role = action.payload
+    setUser: (state, action) => {
+      console.log(
+        '🚀 ~ file: mainReducer.js ~ line 50 ~ action',
+        action.payload,
+      )
+      state.user = action.payload
     },
     setFilter: (state, { payload }) => {
       Object.keys(payload).forEach((key) => {
@@ -61,11 +65,9 @@ export const mainReducer = createSlice({
       state.formatos = action.payload
     },
     deleteFilter: (state, action) => {
-      console.log(action.payload)
       state.filter = {
         ...state.filter,
-        [action.payload]:
-          action.payload === 'price' ? { priceMin: '', priceMax: '' } : '',
+        [action.payload]: action.payload === 'precio' ? { min: 0, max: 0 } : '',
       }
     },
   },
@@ -81,6 +83,6 @@ export const {
   setGenres,
   setFormatos,
   setArtistas,
-  setRole,
+  setUser,
   deleteFilter,
 } = mainReducer.actions

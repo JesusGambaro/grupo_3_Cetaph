@@ -1,6 +1,6 @@
 .ArtistDetail {
-  margin-top: 5rem;
-  min-height: 10rem;
+  margin-top: 4rem;
+  min-height: calc(100vh - 4rem);
   .wrapper {
     display: flex;
     align-items: center;
@@ -18,9 +18,9 @@
       align-items: center;
       justify-content: center;
       padding-top: 0.5rem;
-      img {
-        box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.5);
 
+      img {
+        box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
         height: 20rem;
         width: 20rem;
         object-fit: cover;
@@ -33,6 +33,19 @@
       justify-content: center;
       flex-direction: column;
       flex-basis: 50rem;
+      gap: 1rem;
+      .info-artista {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        label {
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+        p {
+          padding-left: 0.5rem;
+        }
+      }
     }
     .disks-container {
       flex-basis: 100%;
@@ -52,7 +65,7 @@
         gap: 1rem;
       }
       label {
-        font-weight: 500;
+        font-weight: bold;
         font-size: 2rem;
       }
     }

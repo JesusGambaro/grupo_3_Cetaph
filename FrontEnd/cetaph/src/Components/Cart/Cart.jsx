@@ -6,105 +6,12 @@ import ConfirmDialog from '../AdminDashboard/ConfirmDialog/ConfirmDialog'
 import { useNavigate } from 'react-router'
 import Swal from 'sweetalert2'
 import ConfirmAlert from '../../hooks/ConfirmAlert'
+import { API_URL } from '../../utils/config'
 const Cart = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-  const [confirmDialog, setConfirmDialog] = useState({
-    isActive: false,
-    cancelFunc: null,
-    aceptFunc: null,
-  })
   const [total, setTotal] = useState(0)
-  const [albumsCart, setAlbumsCart] = useState([
-    {
-      id: 1,
-      nombre: 'Mercury',
-      precio: 123,
-      stock: 123,
-      fechaLanzamiento: '2022/11/13',
-      duracion: '0',
-      descripcion: '',
-      formato: 'DVD',
-      imagenes: [
-        {
-          id: 5,
-          urlImg:
-            'http://res.cloudinary.com/dsqpyqpnq/image/upload/v1668385581/imgs/ntyf2qvaasozrniqnjth.jpg',
-          cloudinaryId: 'imgs/ntyf2qvaasozrniqnjth',
-        },
-      ],
-      explicit: true,
-      genero: {
-        id: 1,
-        generoName: 'Rock Pop',
-      },
-      artistas: [
-        {
-          id: 3,
-          nombre: 'Imagine Dragons',
-          nacionalidad: 'United States',
-          fechanacimiento: '2022/11/13',
-          descripcion: '',
-          imagenes: {
-            id: 3,
-            urlImg:
-              'http://res.cloudinary.com/dsqpyqpnq/image/upload/v1668385312/imgs/pmle1ndykunlzaodsqxa.jpg',
-            cloudinaryId: 'imgs/pmle1ndykunlzaodsqxa',
-          },
-        },
-        {
-          id: 3,
-          nombre: 'Imagine Dragons',
-          nacionalidad: 'United States',
-          fechanacimiento: '2022/11/13',
-          descripcion: '',
-          imagenes: {
-            id: 3,
-            urlImg:
-              'http://res.cloudinary.com/dsqpyqpnq/image/upload/v1668385312/imgs/pmle1ndykunlzaodsqxa.jpg',
-            cloudinaryId: 'imgs/pmle1ndykunlzaodsqxa',
-          },
-        },
-        {
-          id: 3,
-          nombre: 'Imagine Dragons',
-          nacionalidad: 'United States',
-          fechanacimiento: '2022/11/13',
-          descripcion: '',
-          imagenes: {
-            id: 3,
-            urlImg:
-              'http://res.cloudinary.com/dsqpyqpnq/image/upload/v1668385312/imgs/pmle1ndykunlzaodsqxa.jpg',
-            cloudinaryId: 'imgs/pmle1ndykunlzaodsqxa',
-          },
-        },
-        {
-          id: 3,
-          nombre: 'Imagine Dragons',
-          nacionalidad: 'United States',
-          fechanacimiento: '2022/11/13',
-          descripcion: '',
-          imagenes: {
-            id: 3,
-            urlImg:
-              'http://res.cloudinary.com/dsqpyqpnq/image/upload/v1668385312/imgs/pmle1ndykunlzaodsqxa.jpg',
-            cloudinaryId: 'imgs/pmle1ndykunlzaodsqxa',
-          },
-        },
-      ],
-      singles: [
-        {
-          id: 1,
-          nombre: 'Sharks',
-          duracion: 0,
-          explicit: false,
-          urlMusic:
-            'http://res.cloudinary.com/dsqpyqpnq/video/upload/v1668385583/musica/kt1u28sjkqceftgyrcnj.mp3',
-          cloudinaryId: 'musica/kt1u28sjkqceftgyrcnj',
-        },
-      ],
-    },
-  ])
+  const [albumsCart, setAlbumsCart] = useState([])
 
   useEffect(() => {
     let t = 0
@@ -119,12 +26,12 @@ const Cart = () => {
   const getCart = () => {
     setLoading(true)
     axios
-      .get(
-        'http://localhost:9000/api/v1/cart/get?token=' +
-          localStorage.getItem('token'),
-      )
+      .get(API_URL + 'cart/get', {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
       .then(({ data }) => {
-        console.log(data)
         setAlbumsCart(data)
       })
       .finally(() => {
@@ -135,8 +42,13 @@ const Cart = () => {
     setLoading(true)
     axios
       .put(
-        'http://localhost:9000/api/v1/cart/cleanCart?token=' +
-          localStorage.getItem('token'),
+        API_URL + 'cart/cleanCart',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
       )
       .then(() => {
         getCart()
@@ -158,9 +70,13 @@ const Cart = () => {
     setLoading(true)
     axios
       .put(
-        `http://localhost:9000/api/v1/cart/deleteAlbum/?idAlbumBorrado=${idCart}&token=${localStorage.getItem(
-          'token',
-        )}`,
+        API_URL + `cart/deleteAlbum/?idAlbumBorrado=${idCart}`,
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        },
       )
       .then((res) => {
         Swal.fire({
@@ -172,8 +88,8 @@ const Cart = () => {
         })
         getCart()
       })
-      .catch((res) => {
-        console.log(res)
+      .catch((err) => {
+        console.log(err)
       })
   }
   return (
@@ -181,7 +97,6 @@ const Cart = () => {
       <section className={'Cart'}>
         {albumsCart.length ? (
           <>
-            {' '}
             <header className={'cart-header'}>
               <h1>Carrito de compra</h1>
               <span className="buttons">
@@ -191,37 +106,21 @@ const Cart = () => {
                     vaciarCarrito('La compra se realizo con exito')
                   }}
                 >
-                  <i class="fa-regular fa-credit-card"></i>
+                  <i className="fa-regular fa-credit-card"></i>
                   Comprar
                 </button>
                 <button
                   className="options"
                   onClick={() => {
-                    if (!confirmDialog.isActive) {
-                      setConfirmDialog({
-                        isActive: true,
-                        aceptFunc: () => {
-                          vaciarCarrito()
-                          setConfirmDialog({
-                            ...confirmDialog,
-                            isActive: false,
-                            aceptFunc: null,
-                            cancelFunc: null,
-                          })
-                        },
-                        cancelFunc: () => {
-                          setConfirmDialog({
-                            ...confirmDialog,
-                            isActive: false,
-                            aceptFunc: null,
-                            cancelFunc: null,
-                          })
-                        },
-                      })
-                    }
+                    ConfirmAlert({
+                      confirm: () => {
+                        vaciarCarrito()
+                      },
+                      cancel: () => {},
+                    })
                   }}
                 >
-                  <i class="fa-solid fa-trash"></i>
+                  <i className="fa-solid fa-trash"></i>
                   Vaciar carrito
                 </button>
               </span>
@@ -284,12 +183,6 @@ const Cart = () => {
                                 ConfirmAlert({
                                   confirm: () => {
                                     delCart(album.id)
-                                    setConfirmDialog({
-                                      ...confirmDialog,
-                                      isActive: false,
-                                      aceptFunc: null,
-                                      cancelFunc: null,
-                                    })
                                   },
                                   cancel: () => {},
                                 })
@@ -320,16 +213,6 @@ const Cart = () => {
           </header>
         )}
       </section>
-      {confirmDialog.isActive && (
-        <ConfirmDialog
-          cancelFunc={() => {
-            confirmDialog.cancelFunc()
-          }}
-          aceptFunc={() => {
-            confirmDialog.aceptFunc()
-          }}
-        ></ConfirmDialog>
-      )}
     </>
   )
 }

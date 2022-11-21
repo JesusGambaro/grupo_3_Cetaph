@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,8 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         return decodedJWT.getSubject();
     }
     @GetMapping("/get")
-    public ResponseEntity<?> getUserCart(@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> getUserCart(@RequestHeader String Authorization) throws Exception {
+        String token = Authorization.replace("Bearer ","");
         User userCurrent = userService.getUser(getUsername(token));
         if(userCurrent == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
@@ -49,10 +51,11 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
         }
         cartService.save(cart);
         return ResponseEntity.status(HttpStatus.OK).body(cart.getAlbum());
+
     }
     @PostMapping("/add")
-    public ResponseEntity<?> addToCart(@RequestParam("idAlbum")Long id,@RequestParam("token") String token) throws Exception {
-
+    public ResponseEntity<?> addToCart(@RequestParam("idAlbum")Long id,@RequestHeader String Authorization) throws Exception {
+        String token = Authorization.replace("Bearer ","");
         User userCurrent = userService.getUser(getUsername(token));
         System.out.println(userCurrent);
         Cart cart = cartService.getCartbyUser(userCurrent);
@@ -85,7 +88,8 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
 
 
     @PutMapping("/deleteAlbum/")
-    public ResponseEntity<?> deleteAlbum(@RequestParam("idAlbumBorrado")Long id,@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> deleteAlbum(@RequestParam("idAlbumBorrado")Long id,@RequestHeader String Authorization) throws Exception {
+        String token = Authorization.replace("Bearer ","");
         User user = userService.getUser(getUsername(token));
 
         if (user == null){
@@ -116,7 +120,8 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
 
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateCart(@RequestParam("idAlbum")Long id,@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> updateCart(@RequestParam("idAlbum")Long id,@RequestHeader String Authorization) throws Exception {
+        String token = Authorization.replace("Bearer ","");
         User userCurrent = userService.getUser(getUsername(token));
         Cart cart = cartService.getCartbyUser(userCurrent);
         List<Albums> albumCart = cart.getAlbum();
@@ -132,7 +137,8 @@ public class CartController extends BaseControladorImplementacion<Cart, CartServ
     }
 
     @PutMapping("/cleanCart")
-    public ResponseEntity<?> cleanCart(@RequestParam("token") String token) throws Exception {
+    public ResponseEntity<?> cleanCart(@RequestHeader String Authorization) throws Exception {
+        String token = Authorization.replace("Bearer ","");
         User user = userService.getUser(getUsername(token));
 
         if (user == null){

@@ -3,51 +3,31 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { CreateArtista } from '../../Formulario/CreateArtista/CreateArtista'
 import Loading from '../../../Loading/Loading'
-import {
-  filterCatalogue,
-  getArtistas,
-} from '../../../../Redux/actions/catalogue'
+import { searchArtist } from '../../../../Redux/actions/admin'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ConfirmDialog from '../../ConfirmDialog/ConfirmDialog'
 import Swal from 'sweetalert2'
+import { API_URL } from '../../../../utils/config'
 export const ArtistasAdmin = ({}) => {
   const [formActive, setFormActive] = useState(false)
   const [isCreating, setCreating] = useState(false)
+  const [searchParam, setSearchParam] = useState()
   const [artistaObject, setArtistaObject] = useState()
   const dispatch = useDispatch()
-  const [filters, setFilters] = useState({})
   const [confirmDialog, setConfirmDialog] = useState({
     isActive: false,
     cancelFunc: null,
     aceptFunc: null,
   })
-  const { loading, filter, artistas } = useSelector(({ main }) => main)
+  const { loading, artists } = useSelector(({ admin }) => admin)
   useEffect(() => {
-    dispatch(getArtistas())
-    setFilters(filter)
-    dispatch(filterCatalogue({
-      genre: "",
-      priceMin: "",
-      priceMax: "",
-      explicit: "",
-      searchParam: "",
-      formato: "",
-      sort: "",
-      direction: "",
-      page: 0,
-      size: {
-        totalElements: 1,
-        totalPages: 1,
-      },
-    }))
-    //console.log(filter);
+    dispatch(searchArtist('', true))
   }, [])
   const deleteArtista = (id) => {
     axios
-      .delete('http://localhost:9000/api/v1/artista/deleteArtist/' + id)
+      .delete(API_URL + 'artista/deleteArtist/' + id)
       .then((res) => {
-        console.log(res)
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -66,9 +46,13 @@ export const ArtistasAdmin = ({}) => {
         })
       })
       .finally(() => {
-        dispatch(getArtistas())
+        dispatch(searchArtist('', true))
       })
   }
+  useEffect(() => {
+    dispatch(searchArtist(searchParam, true))
+    window.scrollTo(0, 0)
+  }, [searchParam])
   return (
     <>
       <div className="wrapper">
@@ -77,12 +61,20 @@ export const ArtistasAdmin = ({}) => {
             cancelFunc={() => {
               setFormActive(!formActive)
               setArtistaObject(null)
-              dispatch(getArtistas())
+              dispatch(
+                searchArtist({
+                  searchParam: '',
+                }),
+              )
             }}
             artistObject={artistaObject}
             isCreating={isCreating}
             getArtists={() => {
-              dispatch(getArtistas())
+              dispatch(
+                searchArtist({
+                  searchParam: '',
+                }),
+              )
             }}
           ></CreateArtista>
         ) : (
@@ -90,9 +82,11 @@ export const ArtistasAdmin = ({}) => {
             <div className="add-section">
               <form
                 className="search-form"
-                onClick={() => {
+                onSubmit={() => {
                   //dispatch(resetState());
                   //dispatch(resetFilters());
+                  dispatch(searchArtist(searchParam, true))
+                  window.scrollTo(0, 0)
                 }}
               >
                 <button type="submit">
@@ -101,8 +95,8 @@ export const ArtistasAdmin = ({}) => {
                 <input
                   type="text"
                   placeholder="Nombre de artista..."
-                  //value={searchParam}
-                  //onChange={(e) => setSearchParam(e.target.value)}
+                  value={searchParam}
+                  onChange={(e) => setSearchParam(e.target.value)}
                 />
               </form>
               <button
@@ -120,7 +114,7 @@ export const ArtistasAdmin = ({}) => {
               <Loading></Loading>
             ) : (
               <div className="artistas-container">
-                {artistas.map((param, i) => {
+                {artists.map((param, i) => {
                   return (
                     <div className="artista-card" key={i}>
                       <div className="img">
@@ -173,7 +167,7 @@ export const ArtistasAdmin = ({}) => {
                     </div>
                   )
                 })}
-                <h1>{!artistas.length && 'No Hay Artistas'}</h1>
+                <h1>{!artists.length && 'No Hay Artistas'}</h1>
               </div>
             )}
           </>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../../config'
+import { API_URL } from '../../utils/config'
 import { setLanding, setLoading } from '../reducers/mainReducer'
 
 export const getLanding = () => async (dispatch) => {

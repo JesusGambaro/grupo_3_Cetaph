@@ -8,6 +8,7 @@ import { CreateSingle } from '../CreateSingle/CreateSingle'
 import { useRef } from 'react'
 import { ErrorMessage, Field, Form, Formik, useField } from 'formik'
 import Swal from 'sweetalert2'
+import { API_URL } from '../../../../utils/config'
 const CreateAlbumFormNew = ({
   albumObject,
   cancelFunc,
@@ -119,6 +120,7 @@ const CreateAlbumFormNew = ({
     let singlesListAxios = JSON.stringify(singlesList)
     let deletedImgs = JSON.stringify(valores.deletedImages)
     let newArtists = JSON.stringify(valores.newArtists)
+    console.log(newArtists)
     let deletedSingles = JSON.stringify(valores.deletedSingles)
     formData.append(
       'Album',
@@ -133,13 +135,8 @@ const CreateAlbumFormNew = ({
       new Blob([newArtists], { type: 'application/json' }),
     )
     setLoading(true)
-    //console.log(data.album);
-    //console.log(formData.getAll("Album"));
 
-    if (isCreating) {
-      console.log('creating')
-    } else {
-      console.log('updating')
+    if (!isCreating) {
       if (valores.deletedImages.length) {
         formData.append(
           'ImgsBorradas',
@@ -155,8 +152,8 @@ const CreateAlbumFormNew = ({
     }
 
     let url = isCreating
-      ? 'http://localhost:9000/api/v1/album/upload'
-      : 'http://localhost:9000/api/v1/album/update/' + valores.album.id
+      ? API_URL + 'album/upload'
+      : API_URL + 'album/update/' + valores.album.id
 
     axios({
       url: url,
@@ -167,12 +164,13 @@ const CreateAlbumFormNew = ({
       data: formData,
     })
       .then((res) => {
-        console.log(res.data)
         cancelFunc()
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: isCreating ? 'Album creado con exito' : 'Album editado con exito',
+          title: isCreating
+            ? 'Album creado con exito'
+            : 'Album editado con exito',
           showConfirmButton: false,
           timer: 1000,
         })
@@ -186,10 +184,8 @@ const CreateAlbumFormNew = ({
       })
   }
   useEffect(() => {
-    //console.log(albumObject);
-
     axios({
-      url: 'http://localhost:9000/api/v1/artista/',
+      url: API_URL + 'artista/',
       method: 'GET',
     })
       .then(({ data }) => {
@@ -207,7 +203,7 @@ const CreateAlbumFormNew = ({
         console.log(err)
       })
     axios({
-      url: 'http://localhost:9000/api/v1/album/formatos',
+      url: API_URL + 'album/formatos',
       method: 'GET',
     })
       .then(({ data }) => {
@@ -223,7 +219,7 @@ const CreateAlbumFormNew = ({
         console.log(err)
       })
     axios({
-      url: 'http://localhost:9000/api/v1/genero',
+      url: API_URL + 'genero',
       method: 'GET',
     })
       .then(({ data }) => {
@@ -246,20 +242,36 @@ const CreateAlbumFormNew = ({
   }, [])
   const crearGenero = (value) => {
     setCrendoGenero(true)
-    axios({
-      url: 'http://localhost:9000/api/v1/genero',
-      method: 'POST',
-      data: {
-        generoName: value,
-      },
-    })
+    console.log(
+      '🚀 ~ file: CreateAlbumFormNew.jsx ~ line 243 ~ crearGenero ~ TOKEN',
+      localStorage.getItem('token'),
+    )
+    console.log(
+      '🚀 ~ file: CreateAlbumFormNew.jsx ~ line 257 ~ crearGenero ~ API_URL',
+      API_URL + 'genero',
+    )
+
+    console.log(
+      '🚀 ~ file: CreateAlbumFormNew.jsx ~ line 261 ~ crearGenero ~ data',
+      { generoName: value },
+    )
+    axios
+      .post(
+        API_URL + 'genero',
+        { generoName: value },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      )
+
       .then(() => {
         axios({
-          url: 'http://localhost:9000/api/v1/genero',
+          url: API_URL + 'genero',
           method: 'GET',
         })
           .then(({ data }) => {
-            //console.log(data);
             setCrendoGenero(false)
             let generosData = data.content.map((genero) => {
               return {
@@ -312,15 +324,11 @@ const CreateAlbumFormNew = ({
         <Formik
           initialValues={setInitialValues()}
           onSubmit={(valores, { resetForm }) => {
-            //console.log(valores);
-            //setSubmiting(true);
-            //resetForm()
             createAlbumBackEnd(valores)
           }}
           validate={(valores) => {
+            console.log(valores)
             let errores = {}
-            console.log(valores.album.genero)
-            // Validacion nombre
             if (!valores.album.nombre || valores.album.nombre == '') {
               errores.nombre = 'Por favor ingresa un nombre'
             } else if (!/^[A-Za-z0-9\s]+$/g.test(valores.album.nombre)) {
@@ -381,8 +389,6 @@ const CreateAlbumFormNew = ({
             if (!valores.album.singles.length) {
               errores.singles = 'Por favor ingrese canciones'
             }
-
-            console.log(errores)
             return errores
           }}
         >
@@ -546,7 +552,6 @@ const CreateAlbumFormNew = ({
                         <Creatable
                           name={'genero'}
                           onChange={(option, { action }) => {
-                            //console.log(action);
                             setTouchedInput({ ...touchedInputs, genero: true })
                             if (action == 'clear') {
                               setFieldValue('album', {
@@ -607,7 +612,6 @@ const CreateAlbumFormNew = ({
                             }
                           }
                           onChange={(option, { action }) => {
-                            //console.log(action);
                             setTouchedInput({ ...touchedInputs, formato: true })
                             if (action == 'clear') {
                               setFieldValue('album', {
@@ -652,7 +656,6 @@ const CreateAlbumFormNew = ({
                             }
                           })}
                           onChange={(param, { action }) => {
-                            //console.log(action);
                             setTouchedInput({
                               ...touchedInputs,
                               artista: true,
@@ -736,10 +739,13 @@ const CreateAlbumFormNew = ({
                                         ...touchedInputs,
                                         images: true,
                                       })
-                                      setFieldValue('deletedImages', [
-                                        ...values.deletedImages,
-                                        img.id && img.id,
-                                      ])
+                                      if (img.id) {
+                                        setFieldValue('deletedImages', [
+                                          ...values.deletedImages,
+                                          img.id,
+                                        ])
+                                      }
+
                                       setFieldValue('album', {
                                         ...values.album,
                                         imagenes: values.album.imagenes.map(
@@ -761,10 +767,12 @@ const CreateAlbumFormNew = ({
                                   <input
                                     type="file"
                                     onChange={(e) => {
-                                      setFieldValue('deletedImages', [
-                                        ...values.deletedImages,
-                                        img.id && img.id,
-                                      ])
+                                      if (img.id) {
+                                        setFieldValue('deletedImages', [
+                                          ...values.deletedImages,
+                                          img.id,
+                                        ])
+                                      }
                                       setFieldValue('album', {
                                         ...values.album,
                                         imagenes: values.album.imagenes.map(
@@ -857,11 +865,13 @@ const CreateAlbumFormNew = ({
                                       ...touchedInputs,
                                       singles: true,
                                     })
-                                    setFieldValue('deletedSingles', [
-                                      ...values.deletedSingles,
-                                      single.cloudinaryId &&
-                                        single.cloudinaryId,
-                                    ])
+                                    if (single.id) {
+                                      setFieldValue('deletedSingles', [
+                                        ...values.deletedSingles,
+                                        single.id,
+                                      ])
+                                    }
+
                                     setFieldValue('album', {
                                       ...values.album,
                                       singles: values.album.singles.filter(

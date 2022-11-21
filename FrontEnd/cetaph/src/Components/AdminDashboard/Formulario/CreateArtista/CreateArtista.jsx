@@ -7,6 +7,7 @@ import Select from 'react-select'
 import countryList from 'react-select-country-list'
 import Swal from 'sweetalert2'
 import { ErrorMessage, Field, Form, Formik, useField } from 'formik'
+import { API_URL } from '../../../../utils/config'
 export const CreateArtista = ({
   artistObject,
   cancelFunc,
@@ -43,15 +44,6 @@ export const CreateArtista = ({
     nacionalidad: false,
   })
   const paises = useMemo(() => countryList().getData(), [])
-  /*document.onkeydown = function (e) {
-    //console.log(e.key);
-    if (e.key == "Enter") {
-      console.log("submit");
-      handleSubmit();
-    } else if (e.key == "Escape") {
-      cancelFunc();
-    }
-  };*/
   useEffect(() => {
     setLoading(false)
   }, [])
@@ -63,44 +55,36 @@ export const CreateArtista = ({
     }
     let deletedImg = JSON.stringify(valores.deletedImages)
     let newArtista = valores.artist
-    newArtista.imagenes = newArtista.imagenes.cloudinaryId
-      ? newArtista.imagenes
-      : {}
+    console.log(newArtista)
+    if (!newArtista.imagenes.cloudinaryId) {
+      delete newArtista.imagenes
+    }
     let artistAxios = JSON.stringify(newArtista)
     formData.append(
       'artista',
       new Blob([artistAxios], { type: 'application/json' }),
     )
     setLoading(true)
-    console.log('----------Form Data----------')
-    //console.log(data.album);
-    //console.log(formData.getAll("Album"));
 
-    if (isCreating) {
-      console.log('creating')
-    } else {
-      console.log('updating')
+    if (!isCreating) {
       if (valores.deletedImages.length) {
         formData.append(
           'ImgsBorrada',
           new Blob([deletedImg], { type: 'application/json' }),
         )
       }
-      console.log('AAaaa')
     }
 
     let url = isCreating
-      ? 'http://localhost:9000/api/v1/artista/createArtista'
-      : 'http://localhost:9000/api/v1/artista/updateArtista/' +
-        valores.artist.id
+      ? API_URL + 'artista/createArtista'
+      : API_URL + 'artista/updateArtista/' + valores.artist.id
 
-    //console.log(localStorage.getItem("token"));
     axios({
       url: url,
       method: isCreating ? 'POST' : 'PUT',
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
       data: formData,
     })
@@ -164,15 +148,11 @@ export const CreateArtista = ({
         <Formik
           initialValues={setInitialValues()}
           onSubmit={(valores, { resetForm }) => {
-            //console.log(valores);
-            //setSubmiting(true);
-            //resetForm()
             createArtistaBackend(valores)
           }}
           validate={(valores) => {
             let errores = {}
             // Validacion nombre
-            console.log(valores)
             if (!valores.artist.nombre || valores.artist.nombre == '') {
               errores.nombre = 'Por favor ingresa un nombre'
             } else if (!/^[A-Za-z0-9\s]+$/g.test(valores.artist.nombre)) {
@@ -301,7 +281,6 @@ export const CreateArtista = ({
                             }
                           }
                           onChange={(option, { action }) => {
-                            //console.log(action);
                             setTouchedInput({
                               ...touchedInputs,
                               nacionalidad: true,

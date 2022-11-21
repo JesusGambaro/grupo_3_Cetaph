@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 import './ArtistDetail.scss'
 import Card from '../../Card/Card'
 import Loading from '../../Loading/Loading'
+import { API_URL } from '../../../utils/config'
 const ArtistDetail = () => {
   const { id } = useParams()
   const [artista, setArtista] = useState({})
@@ -16,16 +17,14 @@ const ArtistDetail = () => {
     ;(async () => {
       setLoading(true)
       try {
-        const { data } = await axios.get(
-          `http://localhost:9000/api/v1/artista/${id}`,
-        )
+        const { data } = await axios.get(`${API_URL}artista/${id}`)
         artist = data
         console.log(data)
         setArtista(data)
         ;(async () => {
           try {
             const { data } = await axios.get(
-              `http://localhost:9000/api/v1/album/searchAlbumsbyArtist/${artist.id}`,
+              `${API_URL}album/searchAlbumsbyArtist/${artist.id}`,
             )
             console.log(data.content)
             setAlbums(data.content)
@@ -47,32 +46,31 @@ const ArtistDetail = () => {
             <Loading text={'Loading artist...'} />
           ) : (
             <>
-              {' '}
               <section className="imagen-container">
                 <img src={artista?.imagenes?.urlImg} />
               </section>
               <section className="info">
-                <span>
+                <span className="info-artista">
                   <label>Nombre:</label>
-                  <h1>{artista.nombre}</h1>
+                  <p>{artista.nombre}</p>
                 </span>
-                <span>
+                <span className="info-artista">
                   <label>Descripcion:</label>
-                  <h1>{artista.descripcion}</h1>
+                  <p>{artista.descripcion}</p>
                 </span>
-                <span>
+                <span className="info-artista">
                   <label>Nacionalidad:</label>
-                  <h1>{artista.nacionalidad}</h1>
+                  <p>{artista.nacionalidad}</p>
                 </span>
-                <span>
+                <span className="info-artista">
                   <label>Fecha de nacimiento:</label>
-                  <h1>{artista.fechanacimiento}</h1>
+                  <p>{artista.fechanacimiento}</p>
                 </span>
               </section>
               <div className="disks-container">
                 {albums?.length > 0 ? (
                   <>
-                    <label>Albums:</label>
+                    <label>Albums</label>
                     <div className="disks-wrapper">
                       {albums.map((disk, index) => (
                         <Card key={index} color={'black'} data={disk} />

@@ -15,28 +15,42 @@ import {
 import { setFilter } from '../../Redux/reducers/mainReducer'
 const Home = () => {
   const dispatch = useDispatch()
-  
+
   const navigate = useNavigate()
   const [searchParam, setSearchParam] = useState('')
   const { filter } = useSelector(({ main }) => main)
+  const handleSearch = (e) => {
+    e.preventDefault()
+    navigate('/catalogue')
+    dispatch(setFilter({ searchParam }))
+    dispatch(filterCatalogue({ ...filter, searchParam }))
+  }
+  const categoriesToFilt = [
+    {
+      img:
+        'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-2nrTeBEkbdoRZPs.png',
+      data_category: 'Jazz',
+    },
+    {
+      img:
+        'https://mj-gallery.com/0e6da7ba-8d90-4ba2-8706-5db9b4177d7a/grid_0.png',
+      data_category: 'Rock',
+    },
+    {
+      img:
+        'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-sj4CVUBWisqrnZJ.png',
+      data_category: 'Clasica',
+    },
+  ]
+
   return (
     <>
       <NavBar />
       <div className="home-container-own">
         <div className="home-container__categories">
           <div className="categories-header">
-          <h1>Busca el album ideal</h1>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                console.log(searchParam)
-                navigate('/catalogue')
-                dispatch(setFilter({ searchParam }))
-                dispatch(filterCatalogue({ ...filter, searchParam }))
-                
-              }}
-            > 
-            
+            <h1>Busca el album ideal</h1>
+            <form onSubmit={handleSearch}>
               <input
                 type="text"
                 placeholder="Buscar"
@@ -51,24 +65,13 @@ const Home = () => {
             <p>Tenemos muchos albumes que te volaran la cabeza</p>
           </div>
           <div className="categories-card-wrapper">
-            <CategoryCard
-              img={
-                'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-2nrTeBEkbdoRZPs.png'
-              }
-              data_category={'Jazz'}
-            />
-            <CategoryCard
-              img={
-                'https://mj-gallery.com/0e6da7ba-8d90-4ba2-8706-5db9b4177d7a/grid_0.png'
-              }
-              data_category={'Rock'}
-            />
-            <CategoryCard
-              img={
-                'https://hotpotmedia.s3.us-east-2.amazonaws.com/8-sj4CVUBWisqrnZJ.png'
-              }
-              data_category={'Clasica'}
-            />
+            {categoriesToFilt.map((category) => (
+              <CategoryCard
+                key={category.data_category}
+                img={category.img}
+                data_category={category.data_category}
+              />
+            ))}
           </div>
         </div>
         <div className="home-container__disks">

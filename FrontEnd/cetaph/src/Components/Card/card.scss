@@ -6,7 +6,7 @@
 .card {
   width: 16rem;
   display: flex;
-  min-height: 26.5rem;
+  min-height: 29rem;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -23,12 +23,11 @@
     background-color: transparent;
     .card-body {
       color: #fff;
-      .c-name{
+      .c-name {
         mark {
           background-color: rgb(255, 255, 255);
           color: rgb(0, 0, 0);
         }
-      
       }
     }
     .card-footer {
@@ -45,13 +44,12 @@
       transform: scale(1.03s) perspective(1rem) rotate3d(0, 0, 0, 0.1deg);
       background: #fff;
       .card-body {
-        .c-name{
+        .c-name {
           color: #000;
           mark {
             background-color: rgb(0, 0, 0);
             color: rgb(255, 255, 255);
           }
-        
         }
         .c-title {
           color: #000;
@@ -75,14 +73,13 @@
     background: #000;
     .card-body {
       color: #fff;
-      .c-name{
+      .c-name {
         mark {
           background-color: rgb(255, 255, 255);
           color: rgb(0, 0, 0);
         }
-      
       }
-      
+
       .c-title {
         color: #fff;
       }
@@ -122,7 +119,7 @@
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content:center;
+      justify-content: center;
       gap: 1rem;
       mark {
         background-color: #000;
@@ -137,7 +134,7 @@
     }
     .c-title {
       font-size: 1rem;
-
+      text-align: center;
       color: rgb(197, 197, 197);
     }
   }

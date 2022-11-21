@@ -25,19 +25,16 @@ public class Programacion3CetaphApplication {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     CommandLineRunner runner(UserService userService) {
         return args -> {
-            if(!userService.existsByUsername("admin")) {
-                userService.crearRoles();
-                userService.saveUserFirstRun(new User("admin", "admin@gmail.com", "admin","adminpass", new ArrayList<>()));
-               if(!userService.getUser("admin").getRoles().equals("Admin")){
-                   userService.addRolToUser("admin","Admin");
-               }
+            userService.crearRoles();
+            if (!userService.existsByUsername("admin")) {
+                userService.saveAdminUser(new User("admin", "admin@gmail.com", "admin", "adminpass", new ArrayList<>()));
             }
         };
     }

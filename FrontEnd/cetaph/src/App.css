@@ -2,14 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 :root {
-  --primary-color: #80558c;
+  --primary-color: #c060a1;
   --secondary-color: #3c4048;
   --tertiary-color: #319da0;
 
   --pastel-color-primary: #141e27;
-  --pastel-color-secondary: #7f5283;
+  --pastel-color-secondary: #c060a1;
   --pastel-color-tertiary: #a6d1e6;
-  --pastel-color-quaternary: #fefbf6;
+  --pastel-color-quaternary: #fff;
 }
 
 * {
@@ -55,14 +55,13 @@ html {
   scroll-behavior: smooth;
 }
 body::-webkit-scrollbar {
-  width: 0.75rem;
+  width: 1rem;
 }
 *::-webkit-scrollbar-track {
-  background-color: #fefbf6;
+  background-color: var(--pastel-color-quaternary);
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #7f5283;
-  border-radius: 9999px;
+  background-color: var(--pastel-color-secondary);
 }
 .swal2-popup {
   font-size: 0.7rem !important;

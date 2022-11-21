@@ -9,7 +9,6 @@
     &::-webkit-scrollbar {
       height: 0.5rem;
     }
-
     &::-webkit-scrollbar-track {
       background-color: rgba(180, 179, 179, 0.215);
     }
@@ -22,12 +21,9 @@
   }
   .wrapper {
     gap: 2rem;
-    //border: 0.1rem solid salmon;
     height: 100%;
     padding: 2rem;
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: repeat(10, 1fr);
+    display: flex;
   }
   &:active {
     cursor: grabbing;

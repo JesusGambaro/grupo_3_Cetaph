@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -58,10 +59,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getRoles().add(rol);
         return userRepository.save(user);
     }
+
     @Override
-    public User saveUserFirstRun(User user) {
+    public void saveAdminUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        List<Rol> roles = new ArrayList<>();
+        roles.add(rolRepository.findByName("Admin"));
+        user.setRoles(roles);
+        userRepository.save(user);
     }
 
     @Override
@@ -99,10 +104,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean validate(User user) {
 
         if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))
-                    ||
-                    user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
-                //System.out.println("Pase");
-                return true;
+                ||
+                user.getEmail().equals(userRepository.findEmailbyIncomingEmail(user.getEmail()))) {
+            //System.out.println("Pase");
+            return true;
         } else {
             System.out.println("No pase");
             return false;
@@ -118,8 +123,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }
     }
+
     @Override
-    public boolean existsByUsername(String username){
+    public boolean existsByUsername(String username) {
         return userRepository.existsUserByName(username);
     }
 }

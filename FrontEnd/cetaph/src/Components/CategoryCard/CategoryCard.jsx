@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { setFilter } from '../../Redux/reducers/mainReducer'
 import './CategoryCardStyle.scss'
-
+import { filterCatalogue } from '../../Redux/actions/catalogue'
 const CategoryCard = ({ img, data_category }) => {
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
   const { filter } = useSelector(({ main }) => main)
   const navigate = useNavigate()
   return (
@@ -21,7 +21,8 @@ const CategoryCard = ({ img, data_category }) => {
         </div>
         <button
           onClick={() => {
-            dispath(setFilter({ ...filter, genre: data_category }))
+            dispatch(setFilter({ ...filter, genero: data_category }))
+            dispatch(filterCatalogue({ ...filter, genero: data_category }))
             navigate('/catalogue')
           }}
         >

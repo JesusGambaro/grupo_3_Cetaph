@@ -53,7 +53,7 @@ nav {
           font-weight: bold;
           transition: all 0.2s ease-in-out;
           &:hover {
-            color: red;
+            color: var(--pastel-color-secondary);
           }
         }
       }
@@ -85,19 +85,18 @@ nav {
           cursor: pointer;
           transition: all 0.2s ease-in-out;
           &:hover {
-            color: red;
+            color: var(--pastel-color-secondary);
           }
         }
         .icon-options {
-          opacity: 1;
           position: absolute;
           display: flex;
           align-items: center;
           justify-content: center;
           flex-direction: column;
           gap: 1rem;
-          top: -3rem;
-          width: 13rem;
+          top: 0;
+          width: 12rem;
           padding: 1rem 1rem;
           list-style-type: none;
           color: white;
@@ -106,8 +105,8 @@ nav {
           transition: all 0.2s ease;
           font-weight: 600;
           transform: scale(0);
-          cursor: pointer;
           li {
+            cursor: pointer;
             font-size: 1rem;
             position: relative;
             transition: all 0.2s ease;
@@ -118,7 +117,7 @@ nav {
               height: 2px;
               bottom: 0;
               left: 50%;
-              background-color: rgb(255, 255, 255);
+              background-color: #fff;
               transition: all 0.2s ease;
             }
             &:hover {
@@ -129,6 +128,11 @@ nav {
                 left: 0;
                 transition: all 0.2s ease;
               }
+            }
+            &.user-rol {
+              color: var(--pastel-color-secondary);
+              pointer-events: none;
+              cursor: default;
             }
           }
           &.active {

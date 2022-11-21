@@ -1,5 +1,5 @@
 @mixin grab {
-  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: move;
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
@@ -9,21 +9,20 @@
     cursor: -webkit-grabbing;
   }
 }
-.Detail {
+.detail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 4rem);
+  margin-top: 4rem;
   .album-info {
-    //border: 1px solid red;
+    height: calc(100vh - 4rem);
     width: 100%;
-    height: 100vh;
     background-color: rgba(34, 34, 34, 1);
     display: flex;
-    gap: 3rem;
-    
+    justify-content: space-between;
     .dot {
       content: '';
       width: 10px;
@@ -31,31 +30,39 @@
       background-color: white;
       border-radius: 50%;
     }
-    .ImagenDisco {
-      //border: 1px solid white;
-      padding: 7rem;
-      padding-left: 5rem;
-      //margin: 10rem;
+
+    .imagen-disco {
       display: flex;
       flex-direction: column;
       position: relative;
-      gap: 10px;
-      .DiskImg {
-        border: 20px solid white;
+      justify-content: center;
+      padding: 0 5rem;
+      width: 50%;
+      gap: 1rem;
+      .vinyl-disk {
+        img {
+          width: 20rem;
+        }
+        position: absolute;
+        transform: translate3d(5rem, -3.5rem, 0rem);
+      }
+      .disk-image {
+        border: 1rem solid white;
+        border-radius: 0.5rem;
         box-shadow: 5px 0px 5px black;
         z-index: 1;
-        width: 25rem;
-        height: 25rem;
-        min-height: 25rem;
+        width: 20rem;
+        height: 20rem;
         object-fit: cover;
+        object-position: center;
       }
-      .ExtraImagenesContainer {
+      .gallery-container {
         display: flex;
         flex-direction: row;
-        //border: 1px solid red;
         gap: 1rem;
-        .ExtraImagenes {
+        .gallery-item {
           img {
+            border-radius: 0.5rem;
             cursor: pointer;
             width: 6rem;
             box-shadow: 5px 0px 5px black;
@@ -64,82 +71,101 @@
             min-height: 6rem;
             transition: 0.2s ease;
             &:hover {
-              transform: scale(110%);
+              transform: scale(1.05);
+            }
+          }
+        }
+      }
+    }
+    .disco-info {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: left;
+      font-size: 0.7rem;
+      font-weight: 300;
+      width: 50%;
+      .info-wrapper {
+        padding: 2rem;
+        display: flex;
+        height: 90%;
+        width: 100%;
+        .info-column {
+          height: 100%;
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          gap: 1rem;
+          .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+
+            .info-label {
+              font-weight: bold;
+              font-size: medium;
+            }
+            p {
+              font-size: medium;
+            }
+          }
+        }
+        .info-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          a {
+            color: white;
+          }
+          label {
+            font-size: 1.2rem;
+            font-weight: bold;
+          }
+        }
+        .artistas-container {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .wrapper {
+            width: 70%;
+            gap: 1rem;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            .artista-name {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-basis: 15rem;
+              gap: 0.5rem;
+              a {
+                text-decoration: underline;
+                color: white;
+                font-size: 1rem;
+                clear: both;
+                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                &:hover {
+                  color: red;
+                }
+              }
+              flex-basis: 1rem;
             }
           }
         }
       }
 
-      .Vynil_disk {
-        img {
-          width: 25rem;
-        }
-        position: absolute;
-        transform: translateX(8rem);
-      }
-    }
-    .DiscoInfo {
-      color: white;
-      //border: 1px solid white;
-      //padding: 10rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: left;
-      font-size: 0.7rem;
-      font-weight: 300;
-      width: 35vw;
-      gap: 0.5rem;
-      span {
-        //border: 1px solid red;
+      .buttons-container {
+        height: 20%;
         display: flex;
-        justify-content: left;
         align-items: center;
-        gap: 1rem;
-        label {
-          font-size: 1rem;
-        }
-      }
-      .artistas-container {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        .wrapper{
-          width: 70%;
-          gap: 1rem;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: flex-start;
-          .artista-name{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-basis: 15rem;
-            gap: 0.5rem;
-            a {
-              text-decoration: underline;
-              color: white;
-              font-size: 1rem;
-              clear: both;
-              display: inline-block;
-              overflow: hidden;
-              white-space: nowrap;
-                &:hover{
-                  color: red;
-                }
-            }
-            flex-basis: 1rem;
-          }
-          
-        }
-      }
-      .Buttons {
-        margin-top: 2rem;
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
+        padding: 2rem;
         button {
           height: 3rem;
           color: white;
@@ -149,13 +175,17 @@
           font-size: 1.5rem;
           padding: 0.5rem;
           transition: 0.5s ease;
+          display: flex;
+          border-radius: 0.5rem;
+          align-items: center;
+          cursor: pointer;
           :nth-child(1) {
             width: 3rem;
           }
           &:hover {
             background-color: white;
             color: black;
-            transform: scale(110%);
+            transform: scale(1.05);
           }
         }
       }

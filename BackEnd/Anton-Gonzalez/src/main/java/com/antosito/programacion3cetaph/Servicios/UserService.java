@@ -18,7 +18,7 @@ public interface UserService {
     boolean comprobateROl(Rol rol);
     boolean existsByName (String rolname);
 
-    User saveUserFirstRun(User user);
+    void saveAdminUser(User user);
     void crearRoles();
 
     boolean existsByUsername(String username);

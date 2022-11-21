@@ -1,186 +1,234 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import './login.scss'
 import { useNavigate } from 'react-router'
-
-import { getRol } from '../../Redux/actions/user'
-import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from '../../Redux/actions/user'
+import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
+import { API_URL } from '../../utils/config'
+import { formValidation, validateBy } from '../../utils/validations'
+
 const Login = () => {
   const dispatch = useDispatch()
-  const { user } = useSelector(({ main }) => main)
+  const firstSend = useRef(true)
   const navigate = useNavigate()
-  const [login, setLogin] = useState(true)
-  const [showPass, setShowPass] = useState(false)
-  const [log, setLog] = useState({
+  const [loginState, setLoginState] = useState({
+    showPassword: false,
+    isLogin: true,
+    loading: false,
+    errors: {},
+  })
+  const [logForm, setLogForm] = useState({
     username: '',
+    name: '',
+    email: '',
     password: '',
   })
 
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
+    firstSend.current = false
+    const errores = formValidation(logForm, loginState.isLogin)
 
-    if (login) {
-      axios
-        .post('http://localhost:9000/api/login', log)
-        .then(({ data }) => {
-          console.log(data)
-          //save token in local storage
-          localStorage.setItem('token', data[0])
+    setLoginState({ ...loginState, errors: errores })
 
-          dispatch(getRol(localStorage.getItem('token')))
-          //redirect to home page\
-          navigate('/')
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se inicio sesion con exito',
-            showConfirmButton: false,
-            timer: 1000,
-          })
+    if (Object.keys(errores).some((key) => errores[key] !== '')) return
+
+    setLoginState({
+      ...loginState,
+      loading: true,
+    })
+    axios
+      .post(API_URL + (loginState.isLogin ? 'login' : 'register'), logForm)
+      .then(({ data }) => {
+        localStorage.setItem('token', data[0])
+        dispatch(getUser(localStorage.getItem('token')))
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Bienvenido',
+          showConfirmButton: false,
+          timer: 1000,
         })
-        .catch((err) => {
-          console.log(err)
-
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title:
-              'Error al iniciar sesion, verifique la contraseña o el usuario',
-            width: '30rem',
-            showConfirmButton: true,
-          })
+        navigate('/')
+      })
+      .catch((err) => {
+        console.log(err)
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title:
+            (loginState.isLogin
+              ? 'Usuario o contraseña incorrectos'
+              : 'Usuario ya existe') + '!',
+          width: '30rem',
+          showConfirmButton: true,
         })
+      })
+      .finally(() => {
+        setLoginState({ ...loginState, loading: false })
+      })
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setLogForm({ ...logForm, [name]: value })
+    if (firstSend.current) return
+    const validation = validateBy(value, name)
+    if (!validation.isValid) {
+      setLoginState({
+        ...loginState,
+        errors: {
+          ...loginState.errors,
+          [name]: validation.message,
+        },
+      })
     } else {
-      console.log('register', log)
-      axios
-        .post('http://localhost:9000/api/v1/register', log)
-        .then(({ data }) => {
-          console.log(data)
-          //save token in local storage
-          localStorage.setItem('token', data[0])
-          dispatch(getRol(localStorage.getItem('token')))
-          //redirect to home page
-          navigate('/')
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Se inicio sesion con exito',
-            showConfirmButton: false,
-            timer: 1000,
-          })
-        })
-        .catch(({response}) => {
-          console.error(response.data)
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: response.data,
-            showConfirmButton: true,
-          })
-        })
+      setLoginState({
+        ...loginState,
+        errors: {
+          ...loginState.errors,
+          [name]: '',
+        },
+      })
     }
   }
   return (
     <main className="login">
       <div className="wrapper">
         <section className="login-container">
-          <h1>{login ? 'Login' : 'Sign Up'}</h1>
-          <form className="login-form" onSubmit={handelSubmit}>
+          <h1>{loginState.isLogin ? 'Iniciar sesión' : 'Registrarse'}</h1>
+          <form className="login-form" onSubmit={handleSubmit}>
             <div className="input-group">
-              <label className="label" htmlFor="Username">
-                Username:
+              <label className="label" htmlFor="username">
+                Nombre de usuario:
               </label>
               <input
-                name="Username"
-                id="Username"
+                name="username"
+                id="username"
                 className="input"
-                autoComplete="off"
                 type="text"
-                value={log.username}
-                onChange={(e) => setLog({ ...log, username: e.target.value })}
+                value={logForm.username}
+                onChange={handleChange}
               />
+              {loginState.errors.username && (
+                <p className="error">{loginState.errors.username}</p>
+              )}
             </div>
-            {!login && (
+            {!loginState.isLogin ? (
               <>
                 <div className="input-group">
-                  <label className="label" htmlFor="Name">
-                    Name:
+                  <label className="label" htmlFor="name">
+                    Nombre:
                   </label>
                   <input
                     autoComplete="off"
-                    name="Name"
-                    id="Name"
+                    name="name"
+                    id="name"
                     className="input"
                     type="text"
-                    value={log.name}
-                    onChange={(e) => setLog({ ...log, name: e.target.value })}
+                    value={logForm.name}
+                    onChange={handleChange}
                   />
+                  {loginState.errors.name && (
+                    <p className="error">{loginState.errors.name}</p>
+                  )}
                 </div>
                 <div className="input-group">
-                  <label className="label" htmlFor="Email">
+                  <label className="label" htmlFor="email">
                     Email:
                   </label>
                   <input
                     autoComplete="off"
-                    name="Email"
-                    id="Email"
+                    name="email"
+                    id="email"
                     className="input"
                     type="email"
-                    value={log.email}
-                    onChange={(e) => setLog({ ...log, email: e.target.value })}
+                    value={logForm.email}
+                    onChange={handleChange}
                   />
+                  {loginState.errors.email && (
+                    <p className="error">{loginState.errors.email}</p>
+                  )}
                 </div>
               </>
-            )}
+            ) : null}
             <div className="input-group">
-              <label className="label" htmlFor="Password">
-                Password:
+              <label className="label" htmlFor="password">
+                Contraseña:
               </label>
               <span className="show-pass">
                 <input
                   autoComplete="off"
-                  name="Password"
-                  id="Password"
+                  name="password"
+                  id="password"
                   className="input"
-                  type={showPass ? 'text' : 'password'}
-                  value={log.password}
-                  onChange={(e) => setLog({ ...log, password: e.target.value })}
+                  type={loginState.showPassword ? 'text' : 'password'}
+                  value={logForm.password}
+                  onChange={handleChange}
                 />
                 <i
-                  className={'fa-regular fa-eye' + (showPass ? '-slash' : '')}
-                  onClick={() => setShowPass(!showPass)}
+                  className={
+                    'fa-regular fa-eye' +
+                    (loginState.showPassword ? '-slash' : '')
+                  }
+                  onClick={() =>
+                    setLoginState({
+                      ...loginState,
+                      showPassword: !loginState.showPassword,
+                    })
+                  }
                 ></i>
               </span>
+              {loginState.errors.password && (
+                <p className="error">{loginState.errors.password}</p>
+              )}
             </div>
             <button type="submit" className="submit-btn">
-              {login ? 'Login' : 'Sign Up'}
+              {loginState.loading ? (
+                <svg viewBox="25 25 50 50">
+                  <circle r="20" cy="50" cx="50"></circle>
+                </svg>
+              ) : loginState.isLogin ? (
+                'Iniciar sesión'
+              ) : (
+                'Registrarse'
+              )}
             </button>
           </form>
           <div className="form-footer">
-            {login ? (
+            {loginState.isLogin ? (
               <p>
-                Don't have an account?{' '}
-                <span onClick={() => setLogin(!login)}>Sign Up</span>
+                ¿No tienes cuenta?&nbsp;
+                <span
+                  onClick={() =>
+                    setLoginState({
+                      ...loginState,
+                      isLogin: !loginState.isLogin,
+                    })
+                  }
+                >
+                  Registrarse
+                </span>
               </p>
             ) : (
               <p>
-                Already have an account?{' '}
-                <span onClick={() => setLogin(!login)}>Login</span>
+                ¿Ya tienes cuenta?&nbsp;
+                <span
+                  onClick={() =>
+                    setLoginState({
+                      ...loginState,
+                      isLogin: !loginState.isLogin,
+                    })
+                  }
+                >
+                  Iniciar sesión
+                </span>
               </p>
             )}
-
-            <p>
-              Forgot your password? <span>Reset it here</span>
-            </p>
           </div>
         </section>
-        <section className="background-image">
-          {/*  <img
-            src="https://mj-gallery.com/0e6da7ba-8d90-4ba2-8706-5db9b4177d7a/grid_0.png"
-            alt="background"
-          /> */}
-        </section>
+        <section className="background-image"></section>
       </div>
     </main>
   )

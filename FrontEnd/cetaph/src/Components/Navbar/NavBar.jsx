@@ -1,44 +1,38 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 import './navbar.scss'
 
-import { getRol } from '../../Redux/actions/user'
+import { getUser } from '../../Redux/actions/user'
 import { useDispatch, useSelector } from 'react-redux'
 import AlertNeedToLogIng from '../../hooks/AlertNeedToLogIng'
-import {filterCatalogue,getGenres,getFormatos} from '../../Redux/actions/catalogue'
+import { getGenres, getFormatos } from '../../Redux/actions/catalogue'
+import Swal from 'sweetalert2'
+
 const NavBar = () => {
   const dispatch = useDispatch()
   const { user } = useSelector(({ main }) => main)
+  const { pathname } = useLocation()
   const navigate = useNavigate()
-  const [usuarioIcon, setUsuarioIcon] = useState(false)
-  const [role, setRol] = useState('')
-  const url = window.location.pathname.split('/').pop();
+  const [userIconActive, setUserIconActive] = useState(false)
+  const [rol, setRol] = useState('')
+
   useEffect(() => {
     if (localStorage.getItem('token') != null) {
-      dispatch(getRol(localStorage.getItem('token')))
+      dispatch(getUser(localStorage.getItem('token')))
     }
+    setUserIconActive(false)
+  }, [pathname])
+
+  useEffect(() => {
     dispatch(getGenres())
     dispatch(getFormatos())
-    dispatch(filterCatalogue({
-      genre: "",
-      priceMin: "",
-      priceMax: "",
-      explicit: "",
-      searchParam: "",
-      formato: "",
-      sort: "",
-      direction: "",
-      page: 0,
-      size: {
-        totalElements: 1,
-        totalPages: 1,
-      },
-    }))
-  }, [url])
+  }, [])
+
   useEffect(() => {
-    setRol(user.role)
+    setRol(user.rol)
   }, [user])
+
   return (
     <nav>
       <div className="nav-wrapper">
@@ -63,60 +57,52 @@ const NavBar = () => {
           </li>
         </ul>
         <ul className="nav-icons">
-          {/* <li className="nav-icon">
-            <p className="icon-link">
-              <i className="bi bi-heart"></i>
-            </p>
-          </li> */}
-
           <li
             className="nav-icon"
-            onClick={() => {
-              setUsuarioIcon(!usuarioIcon)
-            }}
+            onClick={() => setUserIconActive(!userIconActive)}
           >
             <p className="icon-link">
-              <i className="bi bi-person-circle"></i>
+              <i className="bi bi-person-circle" id="login-icon"></i>
             </p>
 
-            <ul className={'icon-options ' + (usuarioIcon ? 'active' : '')}>
-              {localStorage.getItem('token') ? (
+            <ul className={'icon-options' + (userIconActive ? ' active' : '')}>
+              {localStorage.getItem('token') !== null ? (
                 <>
-                  <li>{role}</li>
+                  <li className="user-rol">{user.username}</li>
+                  {rol === 'Admin' && (
+                    <li
+                      onClick={() => {
+                        if (userIconActive) navigate('/AdminDashboard')
+                      }}
+                    >
+                      Dashboard
+                    </li>
+                  )}
                   <li
                     onClick={() => {
-                      if (usuarioIcon) {
-                        localStorage.clear()
+                      if (userIconActive) {
+                        localStorage.removeItem('token')
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'info',
+                          title: 'Se cerró la sesión',
+                          showConfirmButton: false,
+                          timer: 1000,
+                        })
                         navigate('/')
-                        setUsuarioIcon(false)
                       }
                     }}
                   >
-                    Log Out
+                    Cerrar Sesión
                   </li>
-                  {role === 'Admin' && (
-                    <li
-                      onClick={() => {
-                        if (usuarioIcon) {
-                          navigate('/AdminDashboard')
-                          setUsuarioIcon(false)
-                        }
-                      }}
-                    >
-                      Admin Dashboard
-                    </li>
-                  )}
                 </>
               ) : (
                 <li
                   onClick={() => {
-                    if (usuarioIcon) {
-                      navigate('/login')
-                      setUsuarioIcon(false)
-                    }
+                    if (userIconActive) navigate('/login')
                   }}
                 >
-                  Log In
+                  Iniciar Sesión
                 </li>
               )}
             </ul>

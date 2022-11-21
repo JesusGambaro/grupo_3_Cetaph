@@ -5,15 +5,20 @@ import './card.scss'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import AlertNeedToLogIng from '../../hooks/AlertNeedToLogIng'
-const Card = ({ color, data }) => {
+import { API_URL } from '../../utils/config'
+const Card = ({ color, data, path }) => {
   const navigate = useNavigate()
-  //console.log(data);
   const addCart = (idCart) => {
+    console.log(localStorage.getItem('token'))
     axios
       .post(
-        `http://localhost:9000/api/v1/cart/add?idAlbum=${idCart}&token=${localStorage.getItem(
-          'token',
-        )}`,
+        API_URL + 'cart/add?idAlbum=' + idCart,
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        },
       )
       .then((res) => {
         Swal.fire({
@@ -23,17 +28,16 @@ const Card = ({ color, data }) => {
           showConfirmButton: false,
           timer: 1000,
         })
-        console.log(res)
       })
-      .catch((res) => {
-        console.log(res)
+      .catch((err) => {
+        console.log(err)
       })
   }
 
   return (
     <>
       <div
-        className={'card' + (color === 'white' ? ' home' : '')}
+        className={'card' + (path === '/' ? ' home' : '')}
         style={{ '--main-color': color }}
       >
         <div className="card-header">
@@ -50,8 +54,12 @@ const Card = ({ color, data }) => {
           </Link>
         </div>
         <div className="card-body">
-          <h1 className="c-name">{data.explicit && <mark>E</mark>}{data?.nombre}</h1>
-          <h2 className="c-title">{data?.artistas[0]?.nombre}</h2>
+          <h1 className="c-name">{data?.nombre}</h1>
+          <h2 className="c-title">
+            {data?.artistas.map((a, id) => {
+              return (id > 0 ? ', ' : '') + a.nombre
+            })}
+          </h2>
         </div>
         <div className="card-footer">
           <div className="c-price-date">
