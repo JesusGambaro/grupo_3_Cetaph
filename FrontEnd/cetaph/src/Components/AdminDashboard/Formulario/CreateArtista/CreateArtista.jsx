@@ -55,7 +55,6 @@ export const CreateArtista = ({
     }
     let deletedImg = JSON.stringify(valores.deletedImages)
     let newArtista = valores.artist
-    console.log(newArtista)
     if (!newArtista.imagenes.cloudinaryId) {
       delete newArtista.imagenes
     }
@@ -100,7 +99,7 @@ export const CreateArtista = ({
         })
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
         Swal.fire({
           position: 'center',
           icon: 'error',

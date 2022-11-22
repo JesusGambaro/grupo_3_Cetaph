@@ -19,22 +19,20 @@ const ArtistDetail = () => {
       try {
         const { data } = await axios.get(`${API_URL}artista/${id}`)
         artist = data
-        console.log(data)
         setArtista(data)
         ;(async () => {
           try {
             const { data } = await axios.get(
               `${API_URL}album/searchAlbumsbyArtist/${artist.id}`,
             )
-            console.log(data.content)
             setAlbums(data.content)
-          } catch (e) {
-            console.log(e)
+          } catch (err) {
+            console.error(err)
           }
           setLoading(false)
         })()
-      } catch (e) {
-        console.log(e)
+      } catch (err) {
+        console.error(err)
       }
     })()
   }, [id])

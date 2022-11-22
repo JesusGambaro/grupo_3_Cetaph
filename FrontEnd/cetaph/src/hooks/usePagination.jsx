@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { filterCatalogue } from '../Redux/actions/catalogue'
-import { filterAlbums } from '../Redux/actions/admin'
+import { searchAlbums } from '../Redux/actions/admin'
 import { setFilter } from '../Redux/reducers/mainReducer'
+import { setFilterAlbums } from '../Redux/reducers/adminReducer'
 
 const usePagination = (filter, admin = false) => {
   const dispatch = useDispatch()
@@ -10,36 +11,36 @@ const usePagination = (filter, admin = false) => {
   let pageLimit = 4
 
   const nextPage = () => {
-    dispatch(setFilter({ ...filter, page: filter.page + 1 }))
     if (admin) {
-      dispatch(filterAlbums({ ...filter, page: filter.page + 1 }, true))
+      dispatch(setFilterAlbums({ ...filter, page: filter.page + 1 }))
+      dispatch(searchAlbums({ ...filter, page: filter.page + 1 }, true))
     } else {
+      dispatch(setFilter({ ...filter, page: filter.page + 1 }))
+
       dispatch(filterCatalogue({ ...filter, page: filter.page + 1 }, true))
     }
   }
 
   const prevPage = () => {
-    dispatch(setFilter({ ...filter, page: filter.page - 1 }))
     if (admin) {
-      dispatch(filterAlbums({ ...filter, page: filter.page - 1 }, true))
+      dispatch(setFilterAlbums({ ...filter, page: filter.page - 1 }))
+      dispatch(searchAlbums({ ...filter, page: filter.page - 1 }, true))
     } else {
+      dispatch(setFilter({ ...filter, page: filter.page - 1 }))
       dispatch(filterCatalogue({ ...filter, page: filter.page - 1 }, true))
     }
   }
 
   const goPage = ({ target }) => {
-    dispatch(setFilter({ ...filter, page: Number(target.textContent) - 1 }))
-    dispatch(
-      filterCatalogue(
-        { ...filter, page: Number(target.textContent) - 1 },
-        true,
-      ),
-    )
     if (admin) {
       dispatch(
-        filterAlbums({ ...filter, page: Number(target.textContent) - 1 }, true),
+        setFilterAlbums({ ...filter, page: Number(target.textContent) - 1 }),
+      )
+      dispatch(
+        searchAlbums({ ...filter, page: Number(target.textContent) - 1 }, true),
       )
     } else {
+      dispatch(setFilter({ ...filter, page: Number(target.textContent) - 1 }))
       dispatch(
         filterCatalogue(
           { ...filter, page: Number(target.textContent) - 1 },

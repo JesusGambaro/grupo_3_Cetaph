@@ -31,7 +31,7 @@ export const adminReducer = createSlice({
       state.loading = action.payload
     },
     setArtistas: (state, action) => {
-      state.artistas = action.payload
+      state.artists = action.payload
     },
     setAlbums: (state, action) => {
       state.albums = action.payload

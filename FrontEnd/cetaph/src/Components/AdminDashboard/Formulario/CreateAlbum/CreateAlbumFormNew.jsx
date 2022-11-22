@@ -26,7 +26,7 @@ const CreateAlbumFormNew = ({
     formato: false,
   })
   const [isLoading, setLoading] = useState(true)
-  const [creandoGenero, setCrendoGenero] = useState(false)
+  const [creandoGenero, setCreandoGenero] = useState(false)
   const [submiting, setSubmiting] = useState(false)
   const [isCreatingSingle, setCreatingSingle] = useState(false)
   const setInitialValues = () => {
@@ -120,7 +120,6 @@ const CreateAlbumFormNew = ({
     let singlesListAxios = JSON.stringify(singlesList)
     let deletedImgs = JSON.stringify(valores.deletedImages)
     let newArtists = JSON.stringify(valores.newArtists)
-    console.log(newArtists)
     let deletedSingles = JSON.stringify(valores.deletedSingles)
     formData.append(
       'Album',
@@ -200,7 +199,7 @@ const CreateAlbumFormNew = ({
         setArtistas(artistasData)
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
     axios({
       url: API_URL + 'album/formatos',
@@ -216,7 +215,7 @@ const CreateAlbumFormNew = ({
         setFormatos(newFormatos)
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
     axios({
       url: API_URL + 'genero',
@@ -234,27 +233,14 @@ const CreateAlbumFormNew = ({
         setGeneros(generosData)
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
       .finally(() => {
         setLoading(false)
       })
   }, [])
   const crearGenero = (value) => {
-    setCrendoGenero(true)
-    console.log(
-      '🚀 ~ file: CreateAlbumFormNew.jsx ~ line 243 ~ crearGenero ~ TOKEN',
-      localStorage.getItem('token'),
-    )
-    console.log(
-      '🚀 ~ file: CreateAlbumFormNew.jsx ~ line 257 ~ crearGenero ~ API_URL',
-      API_URL + 'genero',
-    )
-
-    console.log(
-      '🚀 ~ file: CreateAlbumFormNew.jsx ~ line 261 ~ crearGenero ~ data',
-      { generoName: value },
-    )
+    setCreandoGenero(true)
     axios
       .post(
         API_URL + 'genero',
@@ -272,7 +258,7 @@ const CreateAlbumFormNew = ({
           method: 'GET',
         })
           .then(({ data }) => {
-            setCrendoGenero(false)
+            setCreandoGenero(false)
             let generosData = data.content.map((genero) => {
               return {
                 value: genero,
@@ -284,7 +270,7 @@ const CreateAlbumFormNew = ({
             setGeneros(generosData)
           })
           .catch((err) => {
-            console.log(err)
+            console.error(err)
           })
       })
       .catch(() => {})
@@ -327,7 +313,6 @@ const CreateAlbumFormNew = ({
             createAlbumBackEnd(valores)
           }}
           validate={(valores) => {
-            console.log(valores)
             let errores = {}
             if (!valores.album.nombre || valores.album.nombre == '') {
               errores.nombre = 'Por favor ingresa un nombre'

@@ -49,10 +49,6 @@ export const validateBy = (value, type) => {
   }
 }
 export const formValidation = (form, isLogin) => {
-  console.log(
-    '🚀 ~ file: validations.js ~ line 70 ~ formValidation ~ form',
-    form,
-  )
   const errors = {}
   if (!validateUsername(form.username).isValid) {
     errors.username = 'El nombre de usuario es inválido'

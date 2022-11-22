@@ -19,9 +19,13 @@ const Detail = () => {
   const addCart = (idCart) => {
     axios
       .post(
-        `${API_URL}cart/add?idAlbum=${idCart}&token=${localStorage.getItem(
-          'token',
-        )}`,
+        API_URL + 'cart/add?idAlbum=' + idCart,
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        },
       )
       .then((res) => {
         Swal.fire({
@@ -33,7 +37,7 @@ const Detail = () => {
         })
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
   }
   useEffect(() => {
@@ -43,7 +47,7 @@ const Detail = () => {
         const { data } = await axios.get(`${API_URL}album/${id}`)
         setDisk(data)
       } catch (err) {
-        console.log(err)
+        console.error(err)
       }
       setLoading(false)
     })()
@@ -148,7 +152,6 @@ const Detail = () => {
                         {disk.artistas.map((artista, id) => {
                           return (
                             <p key={id} className={'artista-name'}>
-                              {id > 0 && <div className="dot"></div>}
                               <Link to={'/Artista/' + artista.id}>
                                 {artista.nombre}
                               </Link>

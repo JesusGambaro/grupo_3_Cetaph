@@ -8,7 +8,7 @@ export const getLanding = () => async (dispatch) => {
     const res = await axios.get(`${API_URL}album/getLanding`)
     dispatch(setLanding(res.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }

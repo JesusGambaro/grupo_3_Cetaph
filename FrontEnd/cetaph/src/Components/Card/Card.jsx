@@ -9,7 +9,6 @@ import { API_URL } from '../../utils/config'
 const Card = ({ color, data, path }) => {
   const navigate = useNavigate()
   const addCart = (idCart) => {
-    console.log(localStorage.getItem('token'))
     axios
       .post(
         API_URL + 'cart/add?idAlbum=' + idCart,
@@ -30,7 +29,7 @@ const Card = ({ color, data, path }) => {
         })
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
   }
 
