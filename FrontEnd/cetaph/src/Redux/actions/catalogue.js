@@ -15,7 +15,7 @@ export const getCatalogue = () => async (dispatch) => {
     const res = await axios.get(`${API_URL}album`)
     dispatch(getCatalogue(res.data.content))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -27,7 +27,7 @@ export const getArtistas = () => async (dispatch) => {
     const res = await axios.get(`${API_URL}artista`)
     dispatch(setArtistas(res.data.content))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -73,7 +73,7 @@ export const filterCatalogue = (filter, isPagination) => async (dispatch) => {
     )
     dispatch(setCatalogue(res.data.content))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -86,7 +86,7 @@ export const getGenres = () => async (dispatch) => {
 
     dispatch(setGenres(res.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -98,7 +98,7 @@ export const getFormatos = () => async (dispatch) => {
     const res = await axios.get(`${API_URL}album/formatos`)
     dispatch(setFormatos(res.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }

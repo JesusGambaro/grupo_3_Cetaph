@@ -9,7 +9,6 @@ import {
   setGenres,
   setFormats,
 } from '../reducers/adminReducer'
-import { setFormatos } from '../reducers/mainReducer'
 
 export const getArtistas = () => async (dispatch) => {
   dispatch(setLoading(true))
@@ -17,7 +16,7 @@ export const getArtistas = () => async (dispatch) => {
     const res = await axios.get(`${API_URL}artista`)
     dispatch(setArtistas(res.data.content))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -28,13 +27,13 @@ export const getAlbums = (filter) => async (dispatch) => {
     const res = await axios.get(`${API_URL}album`)
     dispatch(setArtistas(res.data.content))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
 }
 
-export const filterAlbums = (filter, isPagination) => async (dispatch) => {
+export const searchAlbums = (filter, isPagination) => async (dispatch) => {
   let {
     genero = '',
     precio = { min: 0, max: 0 },
@@ -58,7 +57,7 @@ export const filterAlbums = (filter, isPagination) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${API_URL}album/searchAlbums?page=${page}&size=${30}&nombre=${searchParam}&min=${
+      `${API_URL}album/searchAlbums?page=${page}&size=${6}&nombre=${searchParam}&min=${
         precio.min || ''
       }&max=${
         precio.max || ''
@@ -72,22 +71,20 @@ export const filterAlbums = (filter, isPagination) => async (dispatch) => {
         },
       }),
     )
+
     dispatch(setAlbums(res.data.content))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
 }
-export const searchArtist = (artistName) => async (dispatch) => {
-  let name = artistName ? artistName : ''
-
-  const page = 0
-
+export const searchArtist = (artistName = '') => async (dispatch) => {
   dispatch(setLoading(true))
-
   try {
-    const res = await axios.get(`${API_URL}artista/searchArtist?name=${name}`)
+    const res = await axios.get(
+      API_URL + 'artista/searchArtist?name=' + artistName,
+    )
     dispatch(
       setFilterArtist({
         size: {
@@ -96,10 +93,9 @@ export const searchArtist = (artistName) => async (dispatch) => {
         },
       }),
     )
-    console.log(res)
     dispatch(setArtistas(res.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -112,7 +108,7 @@ export const getGenres = () => async (dispatch) => {
 
     dispatch(setGenres(res.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }
@@ -124,7 +120,7 @@ export const getFormatos = () => async (dispatch) => {
     const res = await axios.get(`${API_URL}album/formatos`)
     dispatch(setFormats(res.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   } finally {
     dispatch(setLoading(false))
   }

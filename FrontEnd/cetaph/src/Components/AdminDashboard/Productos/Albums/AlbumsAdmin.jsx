@@ -4,7 +4,7 @@ import axios from 'axios'
 import CreateAlbumForm from '../../Formulario/CreateAlbum/CreateAlbumFormNew'
 import Loading from '../../../Loading/Loading'
 import ConfirmDialog from '../../ConfirmDialog/ConfirmDialog'
-import { filterAlbums } from '../../../../Redux/actions/admin'
+import { searchAlbums } from '../../../../Redux/actions/admin'
 import { getUser } from '../../../../Redux/actions/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
@@ -27,12 +27,13 @@ export const AlbumsAdmin = () => {
   const [artistas_select, setArtistasSelect] = useState([])
   const dispatch = useDispatch()
   const [filters, setFilters] = useState({})
-  const { album, loading, filter, artistas, user } = useSelector(
-    ({ main }) => main,
+  const { album, loading, filterAlbums, artistas } = useSelector(
+    ({ admin }) => admin,
   )
+  const { user } = useSelector(({ main }) => main)
   useEffect(() => {
     dispatch(
-      filterAlbums({
+      searchAlbums({
         genre: '',
         priceMin: '',
         priceMax: '',
@@ -44,7 +45,7 @@ export const AlbumsAdmin = () => {
         page: 0,
       }),
     )
-    setFilters(filter)
+    setFilters(filterAlbums)
   }, [])
   useEffect(() => {
     dispatch(getUser(localStorage.getItem('token')))
@@ -79,7 +80,7 @@ export const AlbumsAdmin = () => {
           page: 0,
         })
         dispatch(
-          filterAlbums({
+          searchAlbums({
             genre: '',
             priceMin: '',
             priceMax: '',
@@ -122,7 +123,7 @@ export const AlbumsAdmin = () => {
     }),
   }
   useEffect(() => {
-    dispatch(filterAlbums({ ...filter, ...filters }))
+    dispatch(searchAlbums({ ...filterAlbums, ...filters }))
     window.scrollTo(0, 0)
   }, [filters])
 
@@ -132,20 +133,8 @@ export const AlbumsAdmin = () => {
       return copy
     })
   }
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      console.log(searchTerm)
-      // Send Axios request here
-      setUpFilters({ searchParam: searchTerm })
-    }, 3000)
-    setSearhTimeOut(delayDebounceFn)
-    return () => {
-      clearTimeout(delayDebounceFn)
-      setSearhTimeOut(null)
-    }
-  }, [searchTerm])
 
-  const { Pagination } = usePagination(filter, true)
+  const { Pagination } = usePagination(filterAlbums, true)
   return (
     <>
       <div className="wrapper">
@@ -192,9 +181,6 @@ export const AlbumsAdmin = () => {
                 onSubmit={(e) => {
                   e.preventDefault()
                   setUpFilters({ searchParam: searchTerm })
-                  if (searhTimeOut) {
-                    clearTimeout(searhTimeOut)
-                  }
                 }}
               >
                 <input
@@ -234,16 +220,16 @@ export const AlbumsAdmin = () => {
                       <span className="title">
                         <h1>{param.nombre}</h1>
                         <p className="subtitle">{param.formato}</p>
-                        <p className="subtitle">
+                        <span className="subtitle">
                           {param.artistas.map((artista, id) => {
                             return (
-                              <>
+                              <p key={artista.nombre}>
                                 {id > 0 && <mark>·</mark>}
                                 {artista.nombre}
-                              </>
+                              </p>
                             )
                           })}
-                        </p>
+                        </span>
                       </span>
                       <div className="actions">
                         <button
@@ -299,7 +285,7 @@ export const AlbumsAdmin = () => {
           aceptFunc={confirmDialog.aceptFunc}
         ></ConfirmDialog>
       )}
-      <Pagination></Pagination>
+      {loading ? null : <Pagination></Pagination>}
     </>
   )
 }

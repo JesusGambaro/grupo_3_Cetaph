@@ -1,5 +1,5 @@
 import './loading.scss'
-const Loading = ({ text, path }) => {
+const Loading = ({ text = 'Loading...', path }) => {
   return (
     <div className={'loading-container'}>
       <div className={'wifi-loader' + (path === '/' ? ' home' : '')}>

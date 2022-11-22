@@ -9,9 +9,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import ConfirmDialog from '../../ConfirmDialog/ConfirmDialog'
 import Swal from 'sweetalert2'
 import { API_URL } from '../../../../utils/config'
+import { useRef } from 'react'
 export const ArtistasAdmin = ({}) => {
   const [formActive, setFormActive] = useState(false)
   const [isCreating, setCreating] = useState(false)
+  const [searhTimeOut, setSearhTimeOut] = useState()
   const [searchParam, setSearchParam] = useState()
   const [artistaObject, setArtistaObject] = useState()
   const dispatch = useDispatch()
@@ -20,9 +22,10 @@ export const ArtistasAdmin = ({}) => {
     cancelFunc: null,
     aceptFunc: null,
   })
-  const { loading, artists } = useSelector(({ admin }) => admin)
+  let { loading, artists } = useSelector(({ admin }) => admin)
+
   useEffect(() => {
-    dispatch(searchArtist('', true))
+    dispatch(searchArtist())
   }, [])
   const deleteArtista = (id) => {
     axios
@@ -46,13 +49,14 @@ export const ArtistasAdmin = ({}) => {
         })
       })
       .finally(() => {
-        dispatch(searchArtist('', true))
+        dispatch(searchArtist())
       })
   }
-  useEffect(() => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     dispatch(searchArtist(searchParam, true))
     window.scrollTo(0, 0)
-  }, [searchParam])
+  }
   return (
     <>
       <div className="wrapper">
@@ -61,34 +65,18 @@ export const ArtistasAdmin = ({}) => {
             cancelFunc={() => {
               setFormActive(!formActive)
               setArtistaObject(null)
-              dispatch(
-                searchArtist({
-                  searchParam: '',
-                }),
-              )
+              dispatch(searchArtist())
             }}
             artistObject={artistaObject}
             isCreating={isCreating}
             getArtists={() => {
-              dispatch(
-                searchArtist({
-                  searchParam: '',
-                }),
-              )
+              dispatch(searchArtist())
             }}
           ></CreateArtista>
         ) : (
           <>
             <div className="add-section">
-              <form
-                className="search-form"
-                onSubmit={() => {
-                  //dispatch(resetState());
-                  //dispatch(resetFilters());
-                  dispatch(searchArtist(searchParam, true))
-                  window.scrollTo(0, 0)
-                }}
-              >
+              <form className="search-form" onSubmit={handleSubmit}>
                 <button type="submit">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>

@@ -47,10 +47,6 @@ export const mainReducer = createSlice({
       state.artistas = action.payload
     },
     setUser: (state, action) => {
-      console.log(
-        '🚀 ~ file: mainReducer.js ~ line 50 ~ action',
-        action.payload,
-      )
       state.user = action.payload
     },
     setFilter: (state, { payload }) => {

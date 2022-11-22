@@ -3,7 +3,6 @@ import './song-player.scss'
 
 const SongPlayer = ({ track, handleSongChange, nextSong, prevSong }) => {
   // State
-  console.log(track)
   const [trackProgress, setTrackProgress] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   // Destructure for conciseness
