@@ -35,38 +35,60 @@ Python = Nivel Basico
 HTML = Nivel Basico
 CSS = Nivel Basico
 
-**Pablo Jesús Gambaro:**
+- *Python*: Nivel Básico 
+
+- *HTML*: Nivel Básico
+
+-  *CSS*: Nivel Básico
+
+
+**Pablo Jesús Gambaro:** ( SCRUM Master - Frontend )
 
 Hola, soy Pablo Jesús Gambaro, no sabía qué estudiar, pero de alguna forma terminé en ingeniería, poco allí duré, pues no me vi en un futuro viviendo de ello, luego por azares de la vida me enteré de la carrera en programación, algo que me llamaba la atención y terminé decantandome por esta por sobre ingeniería.
 
-Habilidades:
-Java = Nivel Intermedio
-Javascript = Nivel Basico
-HTML = Nivel Basico
-CSS = Nivel Basico
-Python = Nivel Basico
+**Habilidades:**
+
+- *Java*: Nivel Intermedio 
+
+- *Javascript*: Nivel Básico 
+
+- *HTML*: Nivel Básico 
 
 **Franco Gonzalez:**
 
 Hola, soy Franco Gonzalez, tengo 19 años. Empecé a estudiar programación hace dos años, ya que me empezó a llamar mucho la atención toda la parte tecnológica, empezando por un curso virtual de java. En este me di cuenta que me encantaba programar y resolver problemas, luego entré a la facultad y aquí estamos hoy en día.
 
-Habilidades:
-Java = Nivel Intermedio
-Javascript = Nivel Basico
-HTML = Nivel Basico
-CSS = Nivel Basico
-Python = Nivel Basico
+**Habilidades:**
 
-**Agustín Recabarren:**
+- *Java*: Nivel Intermedio
+
+- *Javascript*: Nivel Básico
+
+- *HTML*: Nivel Básico
+
+- *CSS*: Nivel Básico
+
+- *Python*: Nivel Básico
+
+**Agustín Recabarren:** ( Frontend )
 
 Hola soy Agustin Recabarren, estoy cursando la tecnicatura en programación, tengo un bootcamp en "soy henry" de desarrollo de páginas web y aprendí desarrollo de videojuegos en unity por hobbie. Me gusta aprender cosas nuevas y aprender nuevas tecnologías para poder crear mejores proyectos.
 
-Habilidades:
-Java = Nivel Intermedio
-Javascript = Nivel Basico
-HTML = Nivel Basico
-CSS = Nivel Basico
-Python = Nivel Basico
+**Habilidades:**
+
+- *Java*: Nivel Intermedio
+
+- *Javascript*: Nivel Básico
+
+- *HTML*: Nivel Básico
+
+- *CSS*: Nivel Básico
+
+- SASS: Nivel Básico
+
+- *Python*: Nivel Básico
+
+- React: Nivel Intermedio
 
 ## Sitios de referencia
 
@@ -80,6 +102,10 @@ Python = Nivel Basico
 
 - [`Eleven Store`](https://elevenstore.cl/)
 
+## Trello 
+
+- [`Trello`](https://trello.com/b/UqVmN0gz/backlog)
+
 ## Maquetado
 
-- [`Figma`](https://www.figma.com/file/sCZBadmGiq8doHwlJwLsqB/Untitled?node-id=0%3A3)
+- [Figma](https://www.figma.com/file/sCZBadmGiq8doHwlJwLsqB/Untitled?node-id=0%3A3)
