@@ -1,0 +1,394 @@
+{
+  "albums": [
+    {
+      "album_type": "album",
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+          },
+          "id": "2q3GG88dVwuQPF4FmySr9I",
+          "name": "The Score",
+          "type": "artist",
+          "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+        }
+      ],
+      "copyrights": [
+        {
+          "text": "© 2017 Republic Records, a division of UMG Recordings, Inc.",
+          "type": "C"
+        },
+        {
+          "text": "℗ 2017 Republic Records, a division of UMG Recordings, Inc.",
+          "type": "P"
+        }
+      ],
+      "external_ids": {
+        "upc": "00602557993400"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/6pUg9RDDoVyQQVJ48FkmXz"
+      },
+      "genres": [],
+      "id": "6pUg9RDDoVyQQVJ48FkmXz",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b273c469e75608b59994c1c422be",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e02c469e75608b59994c1c422be",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d00004851c469e75608b59994c1c422be",
+          "width": 64
+        }
+      ],
+      "label": "Universal Records",
+      "name": "ATLAS",
+      "popularity": 67,
+      "release_date": "2017-10-13",
+      "release_date_precision": "day",
+      "total_tracks": 12,
+      "tracks": {
+        "items": [
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 197680,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/5k02Wjsu2MdpF3c9VFQD0k"
+            },
+            "id": "5k02Wjsu2MdpF3c9VFQD0k",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Never Going Back",
+            "preview_url": "https://p.scdn.co/mp3-preview/6053ed48b177c8d43a62c81a1ac695008ed2fdbb?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:5k02Wjsu2MdpF3c9VFQD0k"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 189120,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/3SWqGa1J0M7hSBUDM0KePD"
+            },
+            "id": "3SWqGa1J0M7hSBUDM0KePD",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Legend",
+            "preview_url": "https://p.scdn.co/mp3-preview/267c4b139298939ff328c7a5a1871cbeffc232d4?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:3SWqGa1J0M7hSBUDM0KePD"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 227853,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/7La6wwwBcYGqml4BOoZlta"
+            },
+            "id": "7La6wwwBcYGqml4BOoZlta",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Only One",
+            "preview_url": "https://p.scdn.co/mp3-preview/a913cf39fa4624ac2740e5505bd56ff57fa6f75a?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 3,
+            "type": "track",
+            "uri": "spotify:track:7La6wwwBcYGqml4BOoZlta"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 233666,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/0BRK99SmPJZIvJoYqCSMNc"
+            },
+            "id": "0BRK99SmPJZIvJoYqCSMNc",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Tightrope",
+            "preview_url": "https://p.scdn.co/mp3-preview/0c25b84e83e0999adfe2cde64b6ed4372a4b20be?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 4,
+            "type": "track",
+            "uri": "spotify:track:0BRK99SmPJZIvJoYqCSMNc"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 228280,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/24q6bzBY4GzhSzy60l7wdr"
+            },
+            "id": "24q6bzBY4GzhSzy60l7wdr",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Believe",
+            "preview_url": "https://p.scdn.co/mp3-preview/45f8b70ed7908574abb06be182b2d26a8e635ca0?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 5,
+            "type": "track",
+            "uri": "spotify:track:24q6bzBY4GzhSzy60l7wdr"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 192106,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/6rrKbzJGGDlSZgLphopS49"
+            },
+            "id": "6rrKbzJGGDlSZgLphopS49",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Unstoppable",
+            "preview_url": "https://p.scdn.co/mp3-preview/421c1b4f59ad1e40f62649e37b85428ca2e8fae2?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 6,
+            "type": "track",
+            "uri": "spotify:track:6rrKbzJGGDlSZgLphopS49"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 215746,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/4zIJHigfguvdm3O8c9KPeo"
+            },
+            "id": "4zIJHigfguvdm3O8c9KPeo",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Who I Am",
+            "preview_url": "https://p.scdn.co/mp3-preview/8d6dc7e0807c4d51f30d307de2c37af1c884eabe?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 7,
+            "type": "track",
+            "uri": "spotify:track:4zIJHigfguvdm3O8c9KPeo"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 231986,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/7Fv8Qp3tTSbSS2VjryUF7L"
+            },
+            "id": "7Fv8Qp3tTSbSS2VjryUF7L",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Revolution",
+            "preview_url": "https://p.scdn.co/mp3-preview/a73c5b6423a9c280e88b6b8e0aeba69a799c159a?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 8,
+            "type": "track",
+            "uri": "spotify:track:7Fv8Qp3tTSbSS2VjryUF7L"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 205040,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/4Y3NhXIiXodNbyXdLpRF0n"
+            },
+            "id": "4Y3NhXIiXodNbyXdLpRF0n",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Shakedown",
+            "preview_url": "https://p.scdn.co/mp3-preview/e29d5f122f272812a35d40fa3e473c5d43f8ad23?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 9,
+            "type": "track",
+            "uri": "spotify:track:4Y3NhXIiXodNbyXdLpRF0n"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 214613,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/0sJ4NbFdEhgLOtInlbRmFl"
+            },
+            "id": "0sJ4NbFdEhgLOtInlbRmFl",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Higher",
+            "preview_url": "https://p.scdn.co/mp3-preview/319559047180be52be506fa483e2433cb790306f?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 10,
+            "type": "track",
+            "uri": "spotify:track:0sJ4NbFdEhgLOtInlbRmFl"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 206400,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/6A6PDawvZIfnJHW40sBHzz"
+            },
+            "id": "6A6PDawvZIfnJHW40sBHzz",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Miracle",
+            "preview_url": "https://p.scdn.co/mp3-preview/6ccbf35c20b1e448b1ceca6549cbf188471abefe?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 11,
+            "type": "track",
+            "uri": "spotify:track:6A6PDawvZIfnJHW40sBHzz"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/2q3GG88dVwuQPF4FmySr9I"
+                },
+                "id": "2q3GG88dVwuQPF4FmySr9I",
+                "name": "The Score",
+                "type": "artist",
+                "uri": "spotify:artist:2q3GG88dVwuQPF4FmySr9I"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 197480,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/623eFb9Ygzwq3eezP4K57I"
+            },
+            "id": "623eFb9Ygzwq3eezP4K57I",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Strange",
+            "preview_url": "https://p.scdn.co/mp3-preview/f638759eb7dbbf86f2214facbe3c6ecdd6daeb34?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 12,
+            "type": "track",
+            "uri": "spotify:track:623eFb9Ygzwq3eezP4K57I"
+          }
+        ],
+        "limit": 50,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 12
+      },
+      "type": "album",
+      "uri": "spotify:album:6pUg9RDDoVyQQVJ48FkmXz"
+    }
+  ]
+}

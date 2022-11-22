@@ -1,0 +1,231 @@
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25rem;
+  min-height: 100vh;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: var(--pastel-color-primary);
+  padding-bottom: 2rem;
+  h1 {
+    height: 4.6rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  div > h3 {
+    color: #fff;
+  }
+  .filters-items-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+    gap: 0.5rem;
+    .filter-card {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      text-transform: uppercase;
+      color: #000;
+      background: #fff;
+      position: relative;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      span {
+        width: 100%;
+        p {
+          font-weight: 500;
+          margin-bottom: 0;
+          white-space: nowrap;
+        }
+      }
+
+      button {
+        position: absolute;
+        top: -0.1rem;
+        right: -0.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: #000;
+        width: 0.5rem;
+        height: 0.5rem;
+        i {
+          color: #fff;
+          font-size: 1rem;
+        }
+        transition: all 0.3s ease;
+        cursor: pointer;
+        &:hover {
+          background-color: #fff;
+          color: #000;
+          i {
+            color: #000;
+            font-size: 1rem;
+          }
+        }
+      }
+      p {
+        font-size: small;
+      }
+    }
+  }
+  .price-filter,
+  .genre-filter,
+  .format-filter,
+  .explicit-filter {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .explicit-filter {
+    gap: 0.5rem;
+    color: #fff;
+    .radio-buttons {
+      display: grid;
+      grid-template-columns: 0.5fr 1fr;
+      span {
+        display: flex;
+        align-items: center;
+        label {
+          font-weight: bold;
+        }
+        input[type='radio'] {
+          -webkit-appearance: none;
+          appearance: none;
+          margin-right: 0.5rem;
+          color: currentColor;
+          width: 1.5rem;
+          height: 1.5rem;
+          font-size: 1rem;
+
+          border: 0.15rem solid currentColor;
+          border-radius: 0.5rem;
+          display: grid;
+          place-content: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          &::before {
+            content: '';
+            width: 1rem;
+            height: 1rem;
+            border-radius: 0.3rem;
+            transform: scale(0);
+            background: var(--pastel-color-secondary);
+            transition: 120ms transform ease-in-out;
+          }
+          &:checked::before {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+  .price-filter {
+    color: #fff;
+    .prices-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 0.2fr;
+      gap: 0.5rem;
+      width: 100%;
+      input {
+        padding: 0;
+        padding-left: 0.2rem;
+      }
+      span {
+        align-items: flex-end;
+        border-left: 0;
+        button {
+          width: 1rem;
+        }
+      }
+      .price-btn {
+        border: none;
+        display: grid;
+        place-content: center;
+        border-radius: 1rem;
+        background: #000;
+        place-self: end;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        i {
+          font-size: 2.5rem;
+          color: #fff;
+        }
+        &:active {
+          transform: scale(0.96);
+        }
+      }
+    }
+
+    .multi-range-slider {
+      border: none;
+      padding: 0.5rem;
+      box-shadow: none;
+
+      & .bar-inner {
+        background-color: var(--pastel-color-secondary);
+        filter: brightness(1.2);
+      }
+
+      & .bar-left,
+      & .bar-right {
+        background: rgb(255, 252, 252);
+        box-shadow: none;
+      }
+
+      & .thumb {
+        &::before {
+          background-color: rgb(255, 255, 255);
+          width: 1.2rem;
+          height: 1.2rem;
+          border: none;
+          box-shadow: none;
+          margin: -6px;
+        }
+
+        & * {
+          bottom: 1rem;
+          width: 35px;
+          height: 35px;
+          background-color: rgb(203, 0, 0);
+          border-radius: 0.5rem;
+          color: white;
+          box-shadow: none;
+          display: none;
+          clip-path: polygon(0 0, 100% 0%, 100% 75%, 50% 100%, 0 75%);
+        }
+
+        &:active * {
+          display: none; //ADD Pop up value
+        }
+      }
+
+      & .label {
+        font-weight: 500;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+      }
+
+      & .label-min,
+      & .label-max {
+        position: relative;
+        &::before {
+          content: '$';
+          left: -0.5rem;
+          position: absolute;
+        }
+
+        font-size: 90%;
+      }
+    }
+  }
+}

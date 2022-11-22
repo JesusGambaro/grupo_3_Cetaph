@@ -1,0 +1,168 @@
+:root {
+  --d: 700ms;
+  --e: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card {
+  width: 16rem;
+  display: flex;
+  min-height: 29rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all var(--d) var(--e);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem 0.3rem rgb(127 82 131 / 10%);
+  background-color: var(--pastel-color-quaternary);
+  padding: 1rem;
+  &.home {
+    height: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    .card-body {
+      color: #fff;
+      .c-name {
+        mark {
+          background-color: rgb(255, 255, 255);
+          color: rgb(0, 0, 0);
+        }
+      }
+    }
+    .card-footer {
+      .c-price-date {
+        color: #fff;
+      }
+      .add-to-cart {
+        color: #fff;
+        border-color: #fff;
+        background: transparent;
+      }
+    }
+    &:hover {
+      transform: scale(1.03s) perspective(1rem) rotate3d(0, 0, 0, 0.1deg);
+      background: #fff;
+      .card-body {
+        .c-name {
+          color: #000;
+          mark {
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+          }
+        }
+        .c-title {
+          color: #000;
+        }
+      }
+      .card-footer {
+        .c-price-date {
+          color: #000;
+        }
+        .add-to-cart {
+          color: #fff;
+          background: #000;
+          border-color: #000;
+        }
+      }
+    }
+  }
+  &:hover {
+    transition: all var(--d) var(--e);
+    transform: scale(1.03);
+    background: #000;
+    .card-body {
+      color: #fff;
+      .c-name {
+        mark {
+          background-color: rgb(255, 255, 255);
+          color: rgb(0, 0, 0);
+        }
+      }
+
+      .c-title {
+        color: #fff;
+      }
+    }
+    .card-footer {
+      .c-price-date {
+        color: #fff;
+      }
+      .add-to-cart {
+        background: #fff;
+        color: #000;
+        border: #fff 1px solid;
+      }
+    }
+  }
+  .card-header {
+    img {
+      height: 14rem;
+      width: 14rem;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+  }
+  .card-body {
+    white-space: normal;
+    width: 100%;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .c-name {
+      height: 100%;
+      width: 100%;
+      font-size: 1.4rem;
+      text-align: center;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      mark {
+        background-color: #000;
+        color: white;
+        padding: 1px 5px;
+        border-radius: 5px;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .c-title {
+      font-size: 1rem;
+      text-align: center;
+      color: rgb(197, 197, 197);
+    }
+  }
+  .card-footer {
+    width: 100%;
+    z-index: 10;
+    .c-price-date {
+      display: flex;
+      color: #000;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      p {
+        font-size: 1rem;
+      }
+      margin-bottom: 0.5rem;
+    }
+    .add-to-cart {
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+  cursor: pointer;
+}

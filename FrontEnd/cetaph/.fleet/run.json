@@ -1,0 +1,9 @@
+{
+    "configurations": [
+        {
+            "type": "command",
+            "name": "npm start",
+            "program": "$PROJECT_DIR$\\package.json",
+        },
+    ]
+}

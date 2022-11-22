@@ -23,17 +23,17 @@ Pondremos filtros para aquellas canciones que en sus letras contengan palabras i
 
 ## Equipo
 
-**Antón Marcos:**  ( Backend )
+**Antón Marcos:**
 
 Tengo 22 años, siempre interesado en el mundo de la música y la tecnología, elegí estudiar programación y busco aprender mas de este ámbito, formarme en todos los lenguajes posibles y aprender nuevas posibilidades
 
-**Habilidades:** 
-
-- *GeneXus* : Nivel Intermedio
-
-- Java: Nivel Intermedio
-
-- *Javascript*: Nivel Básico 
+Habilidades:
+GeneXus = Nivel Intermedio
+Java = Nivel Intermedio
+Javascript = Nivel Basico
+Python = Nivel Basico
+HTML = Nivel Basico
+CSS = Nivel Basico
 
 - *Python*: Nivel Básico 
 
@@ -54,15 +54,9 @@ Hola, soy Pablo Jesús Gambaro, no sabía qué estudiar, pero de alguna forma te
 
 - *HTML*: Nivel Básico 
 
-- *CSS*: Nivel Básico 
+**Franco Gonzalez:**
 
-- *Python*: Nivel Básico
-
-- React: Nivel Básico
-
-**Franco Gonzalez:** ( Backend )
-
-Hola, soy Franco Gonzalez, tengo 19 años. Empecé a estudiar programación hace dos años, ya que me empezó a llamar mucho la atención toda la parte tecnológica, empezando por un curso virtual de java. En este me di cuenta que me encantaba programar y resolver problemas, luego entré a la facultad y aquí estamos hoy en día. 
+Hola, soy Franco Gonzalez, tengo 19 años. Empecé a estudiar programación hace dos años, ya que me empezó a llamar mucho la atención toda la parte tecnológica, empezando por un curso virtual de java. En este me di cuenta que me encantaba programar y resolver problemas, luego entré a la facultad y aquí estamos hoy en día.
 
 **Habilidades:**
 

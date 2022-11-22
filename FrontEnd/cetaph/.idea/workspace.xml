@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6cb6f5eb-e74e-40a9-bddd-f094622ea5f7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../BackEnd/Anton-Gonzalez/src/main/java/com/antosito/programacion3cetaph/Controladores/SinglesControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/Anton-Gonzalez/src/main/java/com/antosito/programacion3cetaph/Controladores/SinglesControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AboutUs/AboutUs.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AboutUs/AboutUs.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Card/Card.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Card/card.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Catalogue/Catalogue.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Catalogue/LeftFilters/LeftFilters.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Catalogue/LeftFilters/leftFilters.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Catalogue/UpSideBar/UpSideBar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Catalogue/UpSideBar/upsidebar.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Catalogue/catalogue.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CategoryCard/CategoryCard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CategoryCard/CategoryCardStyle.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contact/Contact.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Detail/Detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Detail/DetailStyle.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Detail/SongPlayer/SongPlayer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Detail/SongPlayer/song-player.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Footer/Footer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Footer/FooterStyle.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Home/CardsScroller/CardsScroller.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Home/CardsScroller/cards-scroller.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Home/Home.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Home/home.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Loading/Loading.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Loading/loading.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Navbar/NavBar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Navbar/navbar.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2GJGdkJc5w6UquaQJJ3ktzDtyat" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Desktop/grupo_3_Cetaph/FrontEnd/cetaph&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6cb6f5eb-e74e-40a9-bddd-f094622ea5f7" name="Changes" comment="" />
+      <created>1666099364350</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666099364350</updated>
+      <workItem from="1666099367252" duration="38000" />
+      <workItem from="1666099729355" duration="23000" />
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,50 @@
+#main-slider-container {
+  width: 90%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 3rem;
+  .scroll-container {
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: rgba(180, 179, 179, 0.215);
+    }
+    &::-webkit-scrollbar-button {
+      width: 200px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #fff;
+    }
+  }
+  .wrapper {
+    gap: 2rem;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+  }
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.slider-icon.left,
+.slider-icon.right {
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  color: #fff;
+  font-size: 2rem;
+  bottom: 0;
+  bottom: -1.3rem;
+  &.slider-icon.left {
+    left: 10%;
+  }
+  &.slider-icon.right {
+    right: 10%;
+  }
+}
+.slider-card {
+}

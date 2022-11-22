@@ -1,0 +1,95 @@
+.footer-container {
+  border-top: 1px solid white;
+  background-color: rgba(34, 34, 34, 1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  font-size: 10px;
+  align-items: center;
+  color: white;
+  font-size: 0.4rem;
+  padding: 1rem;
+  width: 100%;
+  .footer-content__left {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    img {
+      width: 200px;
+      filter: invert(1);
+    }
+    .footer-content__left__text {
+      text-align: center;
+    }
+  }
+  .footer-content__right {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-left: 1px solid white;
+    img {
+      //border: 1px solid red;
+      width: 250px;
+    }
+    .payment-methods {
+      display: grid;
+      margin-top: 1rem;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 2fr;
+      gap: 1rem;
+      width: 70%;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        font-size: 2rem;
+        transition: 0.2s ease;
+      }
+      &.redes {
+        cursor: pointer;
+      }
+
+      .own-card {
+        width: 2.3rem;
+        height: 1.8rem;
+        border-radius: 0.3rem;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 100%;
+        }
+        i {
+          font-size: 1.2rem;
+          color: #000;
+        }
+      }
+    }
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      p {
+        font-size: 0.9rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    border-bottom: 0.1rem solid white;
+  }
+}

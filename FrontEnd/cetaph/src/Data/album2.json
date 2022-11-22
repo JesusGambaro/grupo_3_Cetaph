@@ -1,0 +1,394 @@
+{
+  "albums": [
+    {
+      "album_type": "album",
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+          },
+          "id": "4AcHt3JxKy59IX7JNNlZn4",
+          "name": "Fitz and The Tantrums",
+          "type": "artist",
+          "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+        }
+      ],
+      "copyrights": [
+        {
+          "text": "© 2013 Elektra Records for the United States and WEA International Inc. for the world outside of the United States.",
+          "type": "C"
+        },
+        {
+          "text": "℗ 2013 Elektra Records for the United States and WEA International Inc. for the world outside of the United States.",
+          "type": "P"
+        }
+      ],
+      "external_ids": {
+        "upc": "075679954725"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/6yhvsasMsZ1ZMuTk8qIHx0"
+      },
+      "genres": [],
+      "id": "6yhvsasMsZ1ZMuTk8qIHx0",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b2734068e6db0ec52b1f677119c3",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e024068e6db0ec52b1f677119c3",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d000048514068e6db0ec52b1f677119c3",
+          "width": 64
+        }
+      ],
+      "label": "Elektra (NEK)",
+      "name": "More Than Just a Dream",
+      "popularity": 59,
+      "release_date": "2013-05-07",
+      "release_date_precision": "day",
+      "total_tracks": 12,
+      "tracks": {
+        "items": [
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 209386,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/2Z5wXgysowvzl0nKGNGU0t"
+            },
+            "id": "2Z5wXgysowvzl0nKGNGU0t",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Out of My League",
+            "preview_url": "https://p.scdn.co/mp3-preview/f3d305654ab34c77513cfbf380cc526df6583f28?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:2Z5wXgysowvzl0nKGNGU0t"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 216093,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/3j8IWN5YSJ0sDSE4FBdTb6"
+            },
+            "id": "3j8IWN5YSJ0sDSE4FBdTb6",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Break the Walls",
+            "preview_url": "https://p.scdn.co/mp3-preview/92fff302a71083c7f8734f7a0165b8bfe9317947?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:3j8IWN5YSJ0sDSE4FBdTb6"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 233133,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/46EOWTszdIfllYY4o6rjkY"
+            },
+            "id": "46EOWTszdIfllYY4o6rjkY",
+            "is_local": false,
+            "is_playable": true,
+            "name": "The Walker",
+            "preview_url": "https://p.scdn.co/mp3-preview/276eb4fd6b09bd4766e51c26b3cfc45421283068?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 3,
+            "type": "track",
+            "uri": "spotify:track:46EOWTszdIfllYY4o6rjkY"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 198986,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/56gyThTeNsbEGb8fPbHWKh"
+            },
+            "id": "56gyThTeNsbEGb8fPbHWKh",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Spark",
+            "preview_url": "https://p.scdn.co/mp3-preview/ae9be631c819b950606d5a03b3879deebdf7038c?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 4,
+            "type": "track",
+            "uri": "spotify:track:56gyThTeNsbEGb8fPbHWKh"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 269653,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/22tETkZdFgbDQ7ZTE4gpMJ"
+            },
+            "id": "22tETkZdFgbDQ7ZTE4gpMJ",
+            "is_local": false,
+            "is_playable": true,
+            "name": "6am",
+            "preview_url": "https://p.scdn.co/mp3-preview/3b058c8bf06fefe83ca70d28c91f6072788e8b0e?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 5,
+            "type": "track",
+            "uri": "spotify:track:22tETkZdFgbDQ7ZTE4gpMJ"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 214573,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/3nSLu4fkMDyah7xrmKr4c4"
+            },
+            "id": "3nSLu4fkMDyah7xrmKr4c4",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Fools Gold",
+            "preview_url": "https://p.scdn.co/mp3-preview/2af150d334f8c5de4c7dffa1b8149cf0ccde029c?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 6,
+            "type": "track",
+            "uri": "spotify:track:3nSLu4fkMDyah7xrmKr4c4"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 188493,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/1GehsHeMg1KXeN4ymhmNZ1"
+            },
+            "id": "1GehsHeMg1KXeN4ymhmNZ1",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Keepin' Our Eyes Out",
+            "preview_url": "https://p.scdn.co/mp3-preview/07ef661d52203092190cae8318223f1f98811e5b?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 7,
+            "type": "track",
+            "uri": "spotify:track:1GehsHeMg1KXeN4ymhmNZ1"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 242546,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/5Vy0r9qndjUBs6i4qPShLC"
+            },
+            "id": "5Vy0r9qndjUBs6i4qPShLC",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Last Raindrop",
+            "preview_url": "https://p.scdn.co/mp3-preview/f5d4d5dc0e344ea8d4fbfcd763c7a6b38b53cac6?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 8,
+            "type": "track",
+            "uri": "spotify:track:5Vy0r9qndjUBs6i4qPShLC"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 208053,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/13AqPc8EhoMexneffvCwFM"
+            },
+            "id": "13AqPc8EhoMexneffvCwFM",
+            "is_local": false,
+            "is_playable": true,
+            "name": "House on Fire",
+            "preview_url": "https://p.scdn.co/mp3-preview/0ffaa177726e00c641fbe157e5059b01e840dfc7?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 9,
+            "type": "track",
+            "uri": "spotify:track:13AqPc8EhoMexneffvCwFM"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 226386,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/08BdtnrdMdPdzOFDDxWQ4G"
+            },
+            "id": "08BdtnrdMdPdzOFDDxWQ4G",
+            "is_local": false,
+            "is_playable": true,
+            "name": "The End",
+            "preview_url": "https://p.scdn.co/mp3-preview/7ea52fdcf3fb63af18c948109a02b333955a1d55?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 10,
+            "type": "track",
+            "uri": "spotify:track:08BdtnrdMdPdzOFDDxWQ4G"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 175840,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/53MWhtsfkl7KUCLTF3G78H"
+            },
+            "id": "53MWhtsfkl7KUCLTF3G78H",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Get Away",
+            "preview_url": "https://p.scdn.co/mp3-preview/25ef9c7b2ca28bc83349cfd686430274121d871a?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 11,
+            "type": "track",
+            "uri": "spotify:track:53MWhtsfkl7KUCLTF3G78H"
+          },
+          {
+            "artists": [
+              {
+                "external_urls": {
+                  "spotify": "https://open.spotify.com/artist/4AcHt3JxKy59IX7JNNlZn4"
+                },
+                "id": "4AcHt3JxKy59IX7JNNlZn4",
+                "name": "Fitz and The Tantrums",
+                "type": "artist",
+                "uri": "spotify:artist:4AcHt3JxKy59IX7JNNlZn4"
+              }
+            ],
+            "disc_number": 1,
+            "duration_ms": 207546,
+            "explicit": false,
+            "external_urls": {
+              "spotify": "https://open.spotify.com/track/1NnyIOAwt6k92b6x7EDaXW"
+            },
+            "id": "1NnyIOAwt6k92b6x7EDaXW",
+            "is_local": false,
+            "is_playable": true,
+            "name": "MerryGoRound",
+            "preview_url": "https://p.scdn.co/mp3-preview/a06c68c2e5fdef76f98c716e21f9f867db3ab6d6?cid=f6a40776580943a7bc5173125a1e8832",
+            "track_number": 12,
+            "type": "track",
+            "uri": "spotify:track:1NnyIOAwt6k92b6x7EDaXW"
+          }
+        ],
+        "limit": 50,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 12
+      },
+      "type": "album",
+      "uri": "spotify:album:6yhvsasMsZ1ZMuTk8qIHx0"
+    }
+  ]
+}
