@@ -9,12 +9,15 @@ import { useRef } from 'react'
 import { ErrorMessage, Field, Form, Formik, useField } from 'formik'
 import Swal from 'sweetalert2'
 import { API_URL } from '../../../../utils/config'
+import { useDispatch, useSelector } from 'react-redux'
+import { searchArtist } from '../../../../Redux/actions/admin'
 const CreateAlbumFormNew = ({
   albumObject,
   cancelFunc,
   isCreating,
   getAlbums,
 }) => {
+  const dispatch = useDispatch()
   const [generos, setGeneros] = useState([])
   const [formatos, setFormatos] = useState([])
   const [artistas, setArtistas] = useState([])
@@ -29,6 +32,9 @@ const CreateAlbumFormNew = ({
   const [creandoGenero, setCreandoGenero] = useState(false)
   const [submiting, setSubmiting] = useState(false)
   const [isCreatingSingle, setCreatingSingle] = useState(false)
+  const { album, loading, filterAlbums, artists } = useSelector(
+    ({ admin }) => admin,
+  )
   const setInitialValues = () => {
     let initialValues = {
       deletedImages: [],
@@ -183,24 +189,18 @@ const CreateAlbumFormNew = ({
       })
   }
   useEffect(() => {
-    axios({
-      url: API_URL + 'artista/',
-      method: 'GET',
+    let artistasData = artists?.map((artista) => {
+      return {
+        value: artista.id,
+        label:
+          artista.nombre.substring(0, 1).toUpperCase() +
+          artista.nombre.substring(1),
+      }
     })
-      .then(({ data }) => {
-        let artistasData = data.content.map((artista) => {
-          return {
-            value: artista.id,
-            label:
-              artista.nombre.substring(0, 1).toUpperCase() +
-              artista.nombre.substring(1),
-          }
-        })
-        setArtistas(artistasData)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    setArtistas(artistasData)
+  }, [artists])
+  useEffect(() => {
+    dispatch(searchArtist())
     axios({
       url: API_URL + 'album/formatos',
       method: 'GET',
@@ -218,11 +218,11 @@ const CreateAlbumFormNew = ({
         console.error(err)
       })
     axios({
-      url: API_URL + 'genero',
+      url: API_URL + 'genero/normal',
       method: 'GET',
     })
       .then(({ data }) => {
-        let generosData = data.content.map((genero) => {
+        let generosData = data.map((genero) => {
           return {
             value: genero,
             label:
@@ -254,12 +254,12 @@ const CreateAlbumFormNew = ({
 
       .then(() => {
         axios({
-          url: API_URL + 'genero',
+          url: API_URL + 'genero/normal',
           method: 'GET',
         })
           .then(({ data }) => {
             setCreandoGenero(false)
-            let generosData = data.content.map((genero) => {
+            let generosData = data.map((genero) => {
               return {
                 value: genero,
                 label:
